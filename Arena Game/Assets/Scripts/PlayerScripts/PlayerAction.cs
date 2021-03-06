@@ -18,7 +18,7 @@ public class PlayerAction : MonoBehaviour
      };
 
     public float rotateSpeedMovement = 0.1f;
-    float rotateVelocity;
+    public float rotateVelocity;
     
     //Referances
     public NavMeshAgent agent;
@@ -35,10 +35,10 @@ public class PlayerAction : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Attack(KeyCode.Mouse0);
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    Attack(KeyCode.Mouse0);
+        //}
 
 
         if (Input.GetKeyDown(KeyCode.Mouse1))

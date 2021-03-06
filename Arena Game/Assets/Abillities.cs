@@ -5,19 +5,27 @@ using UnityEngine.UI;
 
 public class Abillities : MonoBehaviour
 {
+    RaycastHit hit;
+    Animator anim;
+    PlayerAction playerActionScript;
 
+    [Header("Skillshot Ability")]
     public Image abilityImageOne;
     public float cooldownOne = 5;
     bool isCoolDown = false;
+    bool canSkillshot = true;
     public KeyCode abilityOne;
+    public GameObject projPrefab;
+    public Transform projSpawnPoint;
 
-
+    [Header("Ability Inputs")]
     // AbilityOne Input Variables
     Vector3 position;
     public Canvas abilityOneCanvas;
     public Image targetCircle;
     public Image skillShot;
     public Transform player;
+   
 
 
     // Start is called before the first frame update
@@ -28,6 +36,10 @@ public class Abillities : MonoBehaviour
         targetCircle.GetComponent<Image>().enabled = false;
         skillShot.GetComponent<Image>().enabled = false;
 
+
+        playerActionScript = GetComponent<PlayerAction>();
+        anim = GetComponentInChildren<Animator>();
+
     }
 
     // Update is called once per frame
@@ -35,7 +47,6 @@ public class Abillities : MonoBehaviour
     {
         AbilityOne();
 
-        RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 
@@ -60,14 +71,27 @@ public class Abillities : MonoBehaviour
         {
             skillShot.GetComponent<Image>().enabled = true;
             targetCircle.GetComponent<Image>().enabled = true;
-
-
         }
 
         if (skillShot.GetComponent<Image>().enabled == true && Input.GetMouseButtonDown(0))
         {
-            isCoolDown = true;
-            abilityImageOne.fillAmount = 1;
+            Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
+
+            float rotationY = Mathf.SmoothDamp(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y, ref playerActionScript.rotateVelocity, 0);
+
+            transform.eulerAngles = new Vector3(0, rotationY, 0);
+
+            playerActionScript.agent.SetDestination(transform.position);
+            playerActionScript.agent.stoppingDistance = 0;
+
+
+            if (canSkillshot)
+            {
+                isCoolDown = true;
+                abilityImageOne.fillAmount = 1;
+
+                StartCoroutine(corSkillShot());
+            }
         }
 
         if (isCoolDown)
@@ -82,5 +106,23 @@ public class Abillities : MonoBehaviour
                 isCoolDown = false;
             }
         }
+    }
+
+    IEnumerator corSkillShot()
+    {
+        canSkillshot = false;
+        anim.SetBool("SkillOne", true);
+
+        yield return new WaitForSeconds(1.5f);
+
+        anim.SetBool("SkillOne", false);
+    }
+
+
+    //Called in Animation Event
+    public void SpawnSkill()
+    {
+        canSkillshot = true;
+        Instantiate(projPrefab, projSpawnPoint.transform.position, projSpawnPoint.transform.rotation);
     }
 }
