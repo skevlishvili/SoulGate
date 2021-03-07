@@ -17,6 +17,8 @@ public class Abillities : MonoBehaviour
     public KeyCode abilityOne;
     public GameObject projPrefab;
     public Transform projSpawnPoint;
+    private bool _isFiring;
+    private KeyCode _currentAbility;
 
     [Header("Ability Inputs")]
     // AbilityOne Input Variables
@@ -35,6 +37,7 @@ public class Abillities : MonoBehaviour
 
         targetCircle.GetComponent<Image>().enabled = false;
         skillShot.GetComponent<Image>().enabled = false;
+        _isFiring = false;
 
 
         playerActionScript = GetComponent<PlayerAction>();
@@ -45,6 +48,7 @@ public class Abillities : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(player);
         AbilityOne();
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -59,21 +63,26 @@ public class Abillities : MonoBehaviour
         transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z);
 
         abilityOneCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityOneCanvas.transform.rotation, 0f);
-
-
     }
 
 
 
     void AbilityOne()
-    {
-        if (Input.GetKey(abilityOne) && isCoolDown == false)
+    {       
+
+        if (Input.GetKey(abilityOne) && !isCoolDown)
         {
             skillShot.GetComponent<Image>().enabled = true;
             targetCircle.GetComponent<Image>().enabled = true;
+            _isFiring = true;
+            _currentAbility = abilityOne;
+        } else {
+            _currentAbility = KeyCode.None;
         }
 
-        if (skillShot.GetComponent<Image>().enabled == true && Input.GetMouseButtonDown(0))
+        Debug.Log(skillShot.GetComponent<Image>().enabled);
+
+        if (skillShot.GetComponent<Image>().enabled && _isFiring && !Input.GetKey(_currentAbility))
         {
             Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
 
@@ -91,7 +100,7 @@ public class Abillities : MonoBehaviour
                 isCoolDown = true;
                 abilityImageOne.fillAmount = 1;
 
-                StartCoroutine(corSkillShot());
+                StartCoroutine(corSkillShot());                
             }
         }
 
@@ -111,16 +120,14 @@ public class Abillities : MonoBehaviour
 
     IEnumerator corSkillShot()
     {
+        Debug.Log(canSkillshot);
 
         canSkillshot = false;
         anim.SetBool("SkillOne", true);
-
+        
         yield return new WaitForSeconds(1.5f);
-
+        _isFiring = true;
         anim.SetBool("SkillOne", false);
-
-        Debug.Log(canSkillshot);
-
     }
 
 

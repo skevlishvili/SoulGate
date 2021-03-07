@@ -19,9 +19,15 @@ public class AbilityHelper : MonoBehaviour
     public void SpawnSkill()
     {
 
-        Debug.Log(abilities.projSpawnPoint.transform.rotation);
+        // Debug.Log(abilities.projSpawnPoint.transform.rotation);
 
         abilities.canSkillshot = true;
         Instantiate(abilities.projPrefab, abilities.projSpawnPoint.transform.position, abilities.projSpawnPoint.transform.rotation);
+    }
+
+
+    public void PlayFireSound()
+    {        
+        SoundManagerScript.PlaySound("fire");
     }
 }
