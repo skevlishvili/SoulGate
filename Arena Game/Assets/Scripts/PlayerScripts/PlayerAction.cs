@@ -46,13 +46,13 @@ public class PlayerAction : MonoBehaviour
             Move();
         }
 
-        for (int i = 0; i < keyCodes.Length; i++)
-        {
-            if (Input.GetKeyDown(keyCodes[i]))
-            {
-                Attack(keyCodes[i]);
-            }
-        }
+        // for (int i = 0; i < keyCodes.Length; i++)
+        // {
+        //     if (Input.GetKeyDown(keyCodes[i]))
+        //     {
+        //         Attack(keyCodes[i]);
+        //     }
+        // }
     }
 
 
