@@ -13,7 +13,7 @@ public class Abillities : MonoBehaviour
     public Image abilityImageOne;
     public float cooldownOne = 5;
     bool isCoolDown = false;
-    bool canSkillshot = true;
+    public bool canSkillshot = true;
     public KeyCode abilityOne;
     public GameObject projPrefab;
     public Transform projSpawnPoint;
@@ -87,6 +87,7 @@ public class Abillities : MonoBehaviour
 
             if (canSkillshot)
             {
+
                 isCoolDown = true;
                 abilityImageOne.fillAmount = 1;
 
@@ -110,19 +111,17 @@ public class Abillities : MonoBehaviour
 
     IEnumerator corSkillShot()
     {
+
         canSkillshot = false;
         anim.SetBool("SkillOne", true);
 
         yield return new WaitForSeconds(1.5f);
 
         anim.SetBool("SkillOne", false);
+
+        Debug.Log(canSkillshot);
+
     }
 
 
-    //Called in Animation Event
-    public void SpawnSkill()
-    {
-        canSkillshot = true;
-        Instantiate(projPrefab, projSpawnPoint.transform.position, projSpawnPoint.transform.rotation);
-    }
 }

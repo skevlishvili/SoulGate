@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeedMovement: 0.1
+  rotateVelocity: 0
   agent: {fileID: 122351184}
   cam: {fileID: 963194227}
   animator: {fileID: 122351186}
@@ -265,12 +266,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122351182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.44, y: 0.12, z: -36.57}
+  m_LocalPosition: {x: 0.44, y: 0.12, z: -36.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 265036168}
   - {fileID: 1947465015}
   - {fileID: 1534661397}
+  - {fileID: 978666564}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -287,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 122351184}
-  anim: {fileID: 265036169}
+  anim: {fileID: 1570526458}
 --- !u!114 &122351187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +297,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122351182}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19246db0186840942a56ce14a75bbe15, type: 3}
   m_Name: 
@@ -351,7 +353,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityImageOne: {fileID: 791454974}
   cooldownOne: 5
+  canSkillshot: 1
   abilityOne: 113
+  projPrefab: {fileID: 4613132618684519649, guid: d46b619e286173449964ed6bdc879d2c,
+    type: 3}
+  projSpawnPoint: {fileID: 978666564}
   abilityOneCanvas: {fileID: 1534661400}
   targetCircle: {fileID: 908028206}
   skillShot: {fileID: 1975422505}
@@ -359,12 +365,6 @@ MonoBehaviour:
 --- !u!4 &265036168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5930651934574693639, guid: 7bf201eb93a64ab47857ce81b796a258,
-    type: 3}
-  m_PrefabInstance: {fileID: 1297222118}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &265036169 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5930651934207234998, guid: 7bf201eb93a64ab47857ce81b796a258,
     type: 3}
   m_PrefabInstance: {fileID: 1297222118}
   m_PrefabAsset: {fileID: 0}
@@ -1385,6 +1385,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followPlayer: {fileID: 963194229}
   cameraRoam: {fileID: 963194231}
+--- !u!1 &978666563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 978666564}
+  m_Layer: 0
+  m_Name: skillSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &978666564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978666563}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.12, z: 1.22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 122351185}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1068747381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5930651934574693689, guid: 7bf201eb93a64ab47857ce81b796a258,
@@ -1485,6 +1515,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114173380}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1124917424 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5930651934574334247, guid: 7bf201eb93a64ab47857ce81b796a258,
+    type: 3}
+  m_PrefabInstance: {fileID: 1297222118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1124917425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124917424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e32cf6a6f8fca94a9254062084d7071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1297222118
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1492,6 +1540,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 122351185}
     m_Modifications:
+    - target: {fileID: 5930651934207234998, guid: 7bf201eb93a64ab47857ce81b796a258,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5930651934574334247, guid: 7bf201eb93a64ab47857ce81b796a258,
         type: 3}
       propertyPath: m_Name
@@ -2058,6 +2111,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567724484}
   m_CullTransparentMesh: 0
+--- !u!95 &1570526458 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5930651934207234998, guid: 7bf201eb93a64ab47857ce81b796a258,
+    type: 3}
+  m_PrefabInstance: {fileID: 1297222118}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1657042464
 GameObject:
   m_ObjectHideFlags: 0
