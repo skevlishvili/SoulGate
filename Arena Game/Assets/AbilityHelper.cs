@@ -5,6 +5,7 @@ using UnityEngine;
 public class AbilityHelper : MonoBehaviour
 {
     Abillities abilities;
+    public Animator anim;
 
 
     // Start is called before the first frame update
@@ -18,10 +19,8 @@ public class AbilityHelper : MonoBehaviour
     //Called in Animation Event
     public void SpawnSkill()
     {
-
-        // Debug.Log(abilities.projSpawnPoint.transform.rotation);
-
-        abilities.canSkillshot = true;
+        //abilities.projSpawnPoint.transform.rotation
+        //abilities.canSkillshot = true;
         Instantiate(abilities.projPrefab, abilities.projSpawnPoint.transform.position, abilities.projSpawnPoint.transform.rotation);
     }
 
@@ -29,5 +28,11 @@ public class AbilityHelper : MonoBehaviour
     public void PlayFireSound()
     {        
         SoundManagerScript.PlaySound("fire");
+    }
+
+     public void EndAnimation()
+    {   
+        anim.SetBool("SkillOne", false);
+        abilities.StopFiring();
     }
 }

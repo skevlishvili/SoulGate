@@ -17,7 +17,7 @@ public class Abillities : MonoBehaviour
     public KeyCode abilityOne;
     public GameObject projPrefab;
     public Transform projSpawnPoint;
-    private bool _isFiring;
+    public bool isFiring {get; private set;}
     private KeyCode _currentAbility;
 
     [Header("Ability Inputs")]
@@ -37,7 +37,7 @@ public class Abillities : MonoBehaviour
 
         targetCircle.GetComponent<Image>().enabled = false;
         skillShot.GetComponent<Image>().enabled = false;
-        _isFiring = false;
+        isFiring = false;
 
 
         playerActionScript = GetComponent<PlayerAction>();
@@ -48,9 +48,8 @@ public class Abillities : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(player);
         AbilityOne();
-
+        
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 
@@ -74,18 +73,18 @@ public class Abillities : MonoBehaviour
         {
             skillShot.GetComponent<Image>().enabled = true;
             targetCircle.GetComponent<Image>().enabled = true;
-            _isFiring = true;
+            isFiring = true;
             _currentAbility = abilityOne;
         } else {
             _currentAbility = KeyCode.None;
         }
 
-        Debug.Log(skillShot.GetComponent<Image>().enabled);
+        
 
-        if (skillShot.GetComponent<Image>().enabled && _isFiring && !Input.GetKey(_currentAbility))
+        if (skillShot.GetComponent<Image>().enabled && isFiring && !Input.GetKey(_currentAbility))
         {
             Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
-
+            
             float rotationY = Mathf.SmoothDamp(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y, ref playerActionScript.rotateVelocity, 0);
 
             transform.eulerAngles = new Vector3(0, rotationY, 0);
@@ -96,7 +95,6 @@ public class Abillities : MonoBehaviour
 
             if (canSkillshot)
             {
-
                 isCoolDown = true;
                 abilityImageOne.fillAmount = 1;
 
@@ -116,18 +114,25 @@ public class Abillities : MonoBehaviour
                 isCoolDown = false;
             }
         }
+
+
+        if (this.anim.GetCurrentAnimatorStateInfo(0).IsName("arthur_active_01"))
+        {
+            Debug.Log("testinio");
+        }
+    }
+
+    public void StopFiring(){
+        isFiring = false;
     }
 
     IEnumerator corSkillShot()
     {
-        Debug.Log(canSkillshot);
-
         canSkillshot = false;
         anim.SetBool("SkillOne", true);
-        
-        yield return new WaitForSeconds(1.5f);
-        _isFiring = true;
-        anim.SetBool("SkillOne", false);
+        canSkillshot = true;
+
+        yield return new WaitForSeconds(2.5f);
     }
 
 

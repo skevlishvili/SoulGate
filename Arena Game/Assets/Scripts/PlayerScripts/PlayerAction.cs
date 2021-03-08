@@ -26,9 +26,13 @@ public class PlayerAction : MonoBehaviour
     public PlayerAnimator animator;
     public Unit unitStat;
 
+    Abillities abilities;
+
     private void Start()
     {
         InvokeRepeating("Regeneration", 0.0f, 1.0f);
+        GameObject Player = GameObject.Find("Player");
+        abilities = Player.GetComponent<Abillities>();
     }
 
     // Update is called once per frame
@@ -41,7 +45,7 @@ public class PlayerAction : MonoBehaviour
         //}
 
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !abilities.isFiring)
         {
             Move();
         }
