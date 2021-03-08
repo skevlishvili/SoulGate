@@ -26,8 +26,9 @@ public class AbilityHelper : MonoBehaviour
 
 
     public void PlayFireSound()
-    {        
-        SoundManagerScript.PlaySound("fire");
+    {   
+        SoundManagerScript sound = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
+        sound.PlaySound("fire");
     }
 
      public void EndAnimation()

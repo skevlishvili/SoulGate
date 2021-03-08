@@ -114,12 +114,6 @@ public class Abillities : MonoBehaviour
                 isCoolDown = false;
             }
         }
-
-
-        if (this.anim.GetCurrentAnimatorStateInfo(0).IsName("arthur_active_01"))
-        {
-            Debug.Log("testinio");
-        }
     }
 
     public void StopFiring(){
