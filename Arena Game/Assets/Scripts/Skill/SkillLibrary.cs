@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class SkillLibrary : MonoBehaviour
 {
-    public MageSkill FireSpell;
-    public MageSkill FireWall;
-
-
+    public Skill FireSpell;
 
     // Start is called before the first frame update
     void Start()
@@ -20,24 +17,31 @@ public class SkillLibrary : MonoBehaviour
     {
         CapsuleCollider capsuleColliderObj = new CapsuleCollider();
         BoxCollider BoxColliderObj = new BoxCollider();
+        SphereCollider SphereColliderObj = new SphereCollider();
 
-        FireSpell = new MageSkill
+        FireSpell = new Skill
         {
             PhysicalDamage = 0,
             MagicDamage = 20,
             SoulDamage = 0,
 
+            HealthBuff = 0,
+            ManaBuff = 0,
+            SpeedBuff = 0,
+            CooldownBuff = 0,
+
             HealthConsumption = 0,
-            StaminaConsumption = 0,
             ManaConsumption = 5,
 
             Duration = 5,
-            RechargeTime = 5,
+            Cooldown = 5,
+            ActivationTime = 0,
+            ProjectileSpeed = 10,
+            MaxRechargingTime = 0,
 
             Height = 0.5f,
-            Weight = 0.5f,
-            Distance = 5,
-            Speed = 5,
+            Distance = 100,
+            Thickness = 0,
 
             AttackModelType = capsuleColliderObj,
 
@@ -46,32 +50,5 @@ public class SkillLibrary : MonoBehaviour
             IsPasive = false,
             UsingWeapon = false
         };
-
-        FireWall = new MageSkill
-        {
-            PhysicalDamage = 0,
-            MagicDamage = 20,
-            SoulDamage = 0,
-
-            HealthConsumption = 0,
-            StaminaConsumption = 0,
-            ManaConsumption = 10,
-
-            Duration = 5,
-            RechargeTime = 10,
-
-            Height = 2,
-            Weight = 5,
-            Distance = 2,
-            Speed = 5,
-
-            AttackModelType = BoxColliderObj,
-
-            IsRestraining = false,
-            IsInvisible = false,
-            IsPasive = false,
-            UsingWeapon = false
-        };
-
     }
 }

@@ -15,9 +15,13 @@ public class Abillities : MonoBehaviour
     bool isCoolDown = false;
     public bool canSkillshot = true;
     public KeyCode abilityOne;
+
     public GameObject projPrefab;
+
     public Transform projSpawnPoint;
+
     public bool isFiring {get; private set;}
+
     private KeyCode _currentAbility;
 
     [Header("Ability Inputs")]
@@ -33,6 +37,7 @@ public class Abillities : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         abilityImageOne.fillAmount = 0;
 
         targetCircle.GetComponent<Image>().enabled = false;
@@ -126,7 +131,7 @@ public class Abillities : MonoBehaviour
         anim.SetBool("SkillOne", true);
         canSkillshot = true;
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.5f);
     }
 
 
