@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerAction : MonoBehaviour
+public class PlayerAction : MonoBehaviour,IUnitAction
 {
     //Variables
     private KeyCode[] keyCodes = {
@@ -16,6 +16,7 @@ public class PlayerAction : MonoBehaviour
          KeyCode.Alpha8,
          KeyCode.Alpha9,
      };
+    private string[] Pasiive_Buff_Skills;
 
     public float rotateSpeedMovement = 0.1f;
     float rotateVelocity;
@@ -24,16 +25,40 @@ public class PlayerAction : MonoBehaviour
     public NavMeshAgent agent;
     public Camera cam;
     public PlayerAnimator animator;
-    public Unit unitStat;
+    public Unit UnitStat;
+    public Health PlayerHealth;
 
     private void Start()
     {
-        InvokeRepeating("Regeneration", 0.0f, 1.0f);
+
+        UnitStat = new Unit()
+        {
+            Health = 100,
+            Mana = 100,
+            Money = 1000,
+
+            Height = 2,
+            weight = 70,
+
+            strength = 20,
+            Agility = 20,
+            Intelligence = 20,
+            Charisma = 20,
+
+            IsWounded = false,
+            IsDead = false,
+        };
+
+        PlayerHealth.MaxHealth = UnitStat.Health;
+
+        InvokeRepeating("ChangeStats", 0.0f, 1.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //PlayerHealth.MaxHealth = 100;
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -55,11 +80,17 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
+    public void Idle()
+    {
+        animator.Idle();//Calls Animation
+    }
 
     public void Move()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit destination;
+
+        animator.Move();//Calls Animation
 
         // Checks if raycast hit the navmesh (navmesh is a predefined system where the agent can go)
         if (Physics.Raycast(ray, out destination, Mathf.Infinity))
@@ -81,46 +112,28 @@ public class PlayerAction : MonoBehaviour
 
     public void Attack(KeyCode key)
     {
-        if (key == KeyCode.Mouse0)
-        {
-            animator.anim.SetFloat("Blend", 0);
-            animator.anim.SetTrigger("BaseAttack");
-            unitStat.TStamina -= 0.05f;
-        }
-
-        else if (key == KeyCode.Alpha1)
-        {
-            animator.anim.SetFloat("Blend", 0);
-            animator.anim.SetTrigger("Skill1");
-            unitStat.TStamina -= 1f;
-            unitStat.TMana -= 1f;
-        }
-
-        else if (key == KeyCode.Alpha2)
-        {
-            animator.anim.SetFloat("Blend", 0);
-            animator.anim.SetTrigger("Skill2");
-            unitStat.TMana -= 5f;
-        }
+        animator.Attack(key);//Calls Animation
     }
 
-
-    void Regeneration()
+    void ChangeStats()
     {
-        if (unitStat.THealth <= 100)
-        {
-            unitStat.THealth += 0.01f;
-        }
+        UnitStat.Health = 90;
+        //UnitStat.Mana = 100;
+        //UnitStat.Money = 1000;
 
-        if (unitStat.TStamina <= 100)
-        {
-            unitStat.TStamina += 0.01f;
-        }
+        //UnitStat.Height = 2;
+        //UnitStat.weight = 70;
 
-        if (unitStat.TMana <= 100)
-        {
-            unitStat.TMana += 0.01f;
-        }
+        //UnitStat.strength = 20;
+        UnitStat.Agility = 30;
+        //UnitStat.Intelligence = 20;
+        //UnitStat.Charisma = 20;
+
+        //UnitStat.IsWounded = false;
+        //UnitStat.IsDead = false;
+
+        agent.speed = UnitStat.Agility / 2f;
+        Debug.Log(agent.speed);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -135,18 +148,8 @@ public class PlayerAction : MonoBehaviour
         //Check for a match with the specific tag on any GameObject that collides with your GameObject
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Destructable")
         {
-            float Damage = unitStat.Tstrength / 10 * 2;
-            Unit Colobj = collision.gameObject.GetComponent<Unit>();
-            Colobj.THealth -= Damage;
+            
 
-            if (Colobj.THealth <= 0)
-            {
-                Destroy(collision.gameObject);
-                unitStat.TXp = Colobj.TXp;
-            }
-
-
-            Debug.Log(Colobj.THealth);
         }
     }
 }

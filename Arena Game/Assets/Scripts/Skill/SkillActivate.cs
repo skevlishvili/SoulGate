@@ -9,7 +9,7 @@ public class SkillActivate : MonoBehaviour
     void Start()
     {
         SkillLibrary SkLObj = new SkillLibrary();
-        MageSkill Spell = SkLObj.FireSpell;
+        MageSkill Spell = SkLObj.FireBall;
     }
 
     // Update is called once per frame

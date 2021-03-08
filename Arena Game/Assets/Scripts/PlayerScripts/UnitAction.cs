@@ -6,8 +6,5 @@ public interface IUnitAction
 {
     void Idle();
     void Move();
-    void Walk();
-    void Run();
-    void Jump();
     void Attack(KeyCode key);
 }

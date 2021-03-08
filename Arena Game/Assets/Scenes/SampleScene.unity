@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44902223, g: 0.4990868, b: 0.575711, a: 1}
+  m_IndirectSpecularColor: {r: 0.44902194, g: 0.49908614, b: 0.5757101, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -306,7 +306,6 @@ MonoBehaviour:
   TXp: 0
   Tstrength: 20
   TAgility: 20
-  StatDisplay: {fileID: 0}
 --- !u!136 &122351188
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -353,8 +352,8 @@ MonoBehaviour:
   cooldownOne: 5
   abilityOne: 113
   abilityOneCanvas: {fileID: 1534661400}
-  targetCircle: {fileID: 908028206}
-  skillShot: {fileID: 1975422505}
+  targetCircle: {fileID: 1975422505}
+  skillShot: {fileID: 908028206}
   player: {fileID: 122351185}
 --- !u!4 &265036168 stripped
 Transform:
@@ -1899,7 +1898,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
