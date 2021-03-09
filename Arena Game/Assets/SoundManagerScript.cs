@@ -13,7 +13,7 @@ public class SoundManagerScript : MonoBehaviour
         FireSound = Resources.Load<AudioClip>("fire");
         
         audioSrc = GetComponent<AudioSource>();
-        Debug.Log(audioSrc);
+        //Debug.Log(audioSrc);
     }
 
     // Update is called once per frame
@@ -23,7 +23,7 @@ public class SoundManagerScript : MonoBehaviour
     }
 
     public void PlaySound(string clip) {
-        Debug.Log(audioSrc);
+        //Debug.Log(audioSrc);
 
         switch(clip) {
             case "fire":

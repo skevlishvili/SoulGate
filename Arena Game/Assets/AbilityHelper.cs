@@ -11,9 +11,8 @@ public class AbilityHelper : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject Player = GameObject.Find("Player");
+        GameObject Player = GameObject.Find("Player(Clone)");
         abilities = Player.GetComponent<Abillities>();
-
     }
 
     //Called in Animation Event

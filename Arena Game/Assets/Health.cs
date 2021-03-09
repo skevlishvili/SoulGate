@@ -15,7 +15,7 @@ public class Health : MonoBehaviour
     void Start()
     {
         healthSlider2D = GetComponent<Slider>();
-
+        
         healthSlider2D.maxValue = health;
 
         healthSlider3D.maxValue = health;

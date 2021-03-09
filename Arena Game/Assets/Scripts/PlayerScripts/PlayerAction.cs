@@ -31,7 +31,7 @@ public class PlayerAction : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("Regeneration", 0.0f, 1.0f);
-        GameObject Player = GameObject.Find("Player");
+        GameObject Player = GameObject.Find("Player(Clone)");
         abilities = Player.GetComponent<Abillities>();
     }
 
