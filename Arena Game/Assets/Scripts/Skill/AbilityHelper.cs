@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class AbilityHelper : MonoBehaviour
 {
-    Abillities abilities;
-    public Animator anim;
-
+    private Abillities abilities;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         GameObject Player = GameObject.Find("Player");
-        abilities = Player.GetComponent<Abillities>();
-
+        anim = gameObject.GetComponent<Animator>();
+        abilities = gameObject.GetComponent<Abillities>();
     }
 
     //Called in Animation Event

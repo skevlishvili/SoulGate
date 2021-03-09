@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerAction : MonoBehaviour
+public class PlayerAction : MonoBehaviourPun
 {
     //Variables
     private KeyCode[] keyCodes = {
@@ -19,24 +20,54 @@ public class PlayerAction : MonoBehaviour
 
     public float rotateSpeedMovement = 0.1f;
     public float rotateVelocity;
-    
+
+    [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
+    public static GameObject LocalPlayerInstance;
+
     //Referances
     public NavMeshAgent agent;
-    public Camera cam;
+
+    [SerializeField]
+    private Camera cam;
+
     public PlayerAnimator animator;
+
     public Unit unitStat;
 
-    Abillities abilities;
+    [SerializeField]
+    private Abillities abilities;
+
+    [SerializeField]
+    private MainMenu menu;
+
+
+    void Awake()
+    {
+        // #Important
+        // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
+        if (photonView.IsMine)
+        {
+            LocalPlayerInstance = this.gameObject;
+        }
+        // #Critical
+        // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     private void Start()
     {
         GameObject Player = GameObject.Find("Player");
-        abilities = Player.GetComponent<Abillities>();
+        animator = gameObject.GetComponent<PlayerAnimator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            menu.Counter = menu.Counter + 1;
+            menu.OpenMenu(menu.Counter);
+        }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -67,7 +98,6 @@ public class PlayerAction : MonoBehaviour
         // Checks if raycast hit the navmesh (navmesh is a predefined system where the agent can go)
         if (Physics.Raycast(ray, out destination, Mathf.Infinity))
         {
-
             // MOVE
             // Gets the coordinates of where the mouse clicked and moves the character there
             agent.SetDestination(destination.point);
