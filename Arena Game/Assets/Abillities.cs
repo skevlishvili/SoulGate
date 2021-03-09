@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
-public class Abillities : MonoBehaviour
+public class Abillities : NetworkBehaviour
 {
     RaycastHit hit;
     Animator anim;
@@ -48,20 +49,22 @@ public class Abillities : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AbilityOne();
-        
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if(isLocalPlayer) {
+            AbilityOne();
+            
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        {
-            position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            }
+
+            Quaternion transRot = Quaternion.LookRotation(position - player.transform.position);
+            transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z);
+
+            abilityOneCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityOneCanvas.transform.rotation, 0f);
         }
-
-        Quaternion transRot = Quaternion.LookRotation(position - player.transform.position);
-        transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z);
-
-        abilityOneCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityOneCanvas.transform.rotation, 0f);
     }
 
 

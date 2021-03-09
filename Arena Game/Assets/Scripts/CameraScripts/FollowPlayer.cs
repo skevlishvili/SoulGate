@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class FollowPlayer : MonoBehaviour
 {
@@ -23,19 +24,20 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameObject playerObj = GameObject.Find("Player(Clone)");
+        if(ClientScene.localPlayer != null) {
+            GameObject playerObj = ClientScene.localPlayer.gameObject;
 
-        if(playerObj != null) {
-            Transform player = playerObj.transform;
-            
-            if(cameraOffset == new Vector3(0,0,0)) {
-                cameraOffset = transform.position - player.transform.position;
-            } else
-            {
-                Vector3 newPos = player.position + cameraOffset;
-                transform.position = Vector3.Slerp(transform.position, newPos, smoothness);   
+            if(playerObj != null) {
+                Transform player = playerObj.transform;
+                
+                if(cameraOffset == new Vector3(0,0,0)) {
+                    cameraOffset = transform.position - player.transform.position;
+                } else
+                {
+                    Vector3 newPos = player.position + cameraOffset;
+                    transform.position = Vector3.Slerp(transform.position, newPos, smoothness);   
+                }
             }
         }
-       
     }
 }

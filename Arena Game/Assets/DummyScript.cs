@@ -18,6 +18,6 @@ public class DummyScript : MonoBehaviour
 
 
     private void OnTriggerEnter3D(Collider collider){
-        Debug.Log("test");
+        //Debug.Log("test");
     }
 }

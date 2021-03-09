@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class AbilityHelper : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class AbilityHelper : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject Player = GameObject.Find("Player(Clone)");
+        GameObject Player = ClientScene.localPlayer.gameObject;
         abilities = Player.GetComponent<Abillities>();
     }
 

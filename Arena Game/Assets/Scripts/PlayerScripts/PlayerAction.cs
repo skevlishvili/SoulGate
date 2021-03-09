@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using Mirror;
 
-public class PlayerAction : MonoBehaviour
+public class PlayerAction : NetworkBehaviour
 {
     //Variables
     private KeyCode[] keyCodes = {
@@ -31,7 +32,7 @@ public class PlayerAction : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("Regeneration", 0.0f, 1.0f);
-        GameObject Player = GameObject.Find("Player(Clone)");
+        GameObject Player = ClientScene.localPlayer.gameObject;
         abilities = Player.GetComponent<Abillities>();
     }
 
@@ -44,11 +45,13 @@ public class PlayerAction : MonoBehaviour
         //    Attack(KeyCode.Mouse0);
         //}
 
-
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !abilities.isFiring)
-        {
-            Move();
+        if(isLocalPlayer) {
+            if (Input.GetKeyDown(KeyCode.Mouse1) && !abilities.isFiring)
+            {
+                Move();
+            }
         }
+        
 
         // for (int i = 0; i < keyCodes.Length; i++)
         // {
