@@ -16,10 +16,23 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject controlPanel;
 
+    [Tooltip("The Ui Panel to let the user enter name, connect and play")]
+    [SerializeField]
+    private GameObject RoomcontrolPanel;
+
 
     [Tooltip("The UI Label to inform the user that the connection is in progress")]
     [SerializeField]
     private GameObject progressLabel;
+
+
+    [Tooltip("The UI Label to inform the user that the connection is in progress")]
+    [SerializeField]
+    private MainMenu Menu;
+
+
+    private bool IsInMainMenu = true;
+    private bool IsInRoomMenu = false;
     #endregion
 
 
@@ -44,15 +57,36 @@ public class Launcher : MonoBehaviourPunCallbacks
         // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
         PhotonNetwork.AutomaticallySyncScene = true;
 
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
+        Debug.Log("hello");
+        Menu.OpenMenu("Control Panel");
+        //MenuButtons(0);
     }
 
     #endregion
 
 
     #region Public Methods
-
+    //public void MenuButtons(int value)
+    //{
+    //    if (value == 0)
+    //    {
+    //        progressLabel.SetActive(false);
+    //        controlPanel.SetActive(true);
+    //        RoomcontrolPanel.SetActive(false);
+    //    }
+    //    else if (value == 1)
+    //    {
+    //        progressLabel.SetActive(false);
+    //        controlPanel.SetActive(false);
+    //        RoomcontrolPanel.SetActive(true);
+    //    }
+    //    else if (value == 2)
+    //    {
+    //        progressLabel.SetActive(true);
+    //        controlPanel.SetActive(false);
+    //        RoomcontrolPanel.SetActive(false);
+    //    }
+    //}
 
     /// <summary>
     /// Start the connection process.
@@ -61,9 +95,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     /// </summary>
     public void Connect()
     {
-        progressLabel.SetActive(true);
-        controlPanel.SetActive(false);
-
+        //MenuButtons(2);
 
         // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
         if (PhotonNetwork.IsConnected)
@@ -78,6 +110,11 @@ public class Launcher : MonoBehaviourPunCallbacks
             IsConnecting = PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.GameVersion = gameVersion;
         }
+    }
+
+    public void CloseGame()
+    {
+        
     }
 
 
@@ -103,7 +140,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
+        controlPanel.SetActive(false);
+        RoomcontrolPanel.SetActive(true);
+
         IsConnecting = false;
         Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
     }

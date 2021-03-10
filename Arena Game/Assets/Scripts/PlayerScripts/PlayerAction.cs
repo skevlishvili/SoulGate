@@ -66,7 +66,7 @@ public class PlayerAction : MonoBehaviourPun
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menu.Counter = menu.Counter + 1;
-            menu.OpenMenu(menu.Counter);
+            menu.OpenMenuInGame(menu.Counter);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
