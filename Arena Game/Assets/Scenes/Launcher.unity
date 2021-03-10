@@ -4665,6 +4665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPlayersPerRoom: 4
+  RoomNameField: {fileID: 250134901}
   controlPanel: {fileID: 803415685}
   RoomcontrolPanel: {fileID: 1419898141}
   progressLabel: {fileID: 933917593}
