@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Projectile : MonoBehaviour
 {
     public float damage;
 
     public float speed;
-
 
     // Update is called once per frame
     void Update()
@@ -21,6 +21,6 @@ public class Projectile : MonoBehaviour
     IEnumerator DestroyObject()
     {
         yield return new WaitForSeconds(3);
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
     }
 }
