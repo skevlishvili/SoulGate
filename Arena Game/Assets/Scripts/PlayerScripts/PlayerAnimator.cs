@@ -31,7 +31,6 @@ public class PlayerAnimator : MonoBehaviourPun
 
     public void Move()
     {
-        Debug.Log("bhjbhc");
         float speed = agent.velocity.magnitude / agent.speed;
         anim.SetFloat("Blend", speed, motionSmoothTime, Time.deltaTime);
     }

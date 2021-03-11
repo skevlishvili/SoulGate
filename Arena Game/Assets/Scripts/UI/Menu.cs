@@ -16,7 +16,6 @@ public class Menu : MonoBehaviour
 
     public void Close()
     {
-        Debug.Log("helloo");
         open = false;
         gameObject.SetActive(false);
     }
