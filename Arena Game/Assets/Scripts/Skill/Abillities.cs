@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class Abillities : MonoBehaviour
 {
@@ -31,8 +32,13 @@ public class Abillities : MonoBehaviour
     public Image targetCircle;
     public Image skillShot;
     public Transform player;
-   
 
+    PhotonView PV;
+
+    void Awake()
+    {
+        PV = gameObject.GetComponent<PhotonView>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +59,13 @@ public class Abillities : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (!PV.IsMine)
+        {
+            Debug.Log("It's Mine");
+            return;
+        }
+
         AbilityOne();
         
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

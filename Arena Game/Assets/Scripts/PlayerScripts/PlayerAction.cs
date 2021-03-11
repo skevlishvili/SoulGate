@@ -40,6 +40,7 @@ public class PlayerAction : MonoBehaviourPun
     [SerializeField]
     private MainMenu menu;
 
+    PhotonView PV;
 
     void Awake()
     {
@@ -52,6 +53,8 @@ public class PlayerAction : MonoBehaviourPun
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(this.gameObject);
+
+        PV = gameObject.GetComponent<PhotonView>();
     }
 
     private void Start()
@@ -63,6 +66,12 @@ public class PlayerAction : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+        if (!PV.IsMine)
+        {
+            return;
+        }
+
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menu.Counter = menu.Counter + 1;

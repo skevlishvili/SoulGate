@@ -45,7 +45,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if(scene.buildIndex == 1)
         {
             Debug.Log("I'm Making a Scene BABYYY");
-            PhotonNetwork.Instantiate("Prefabs/PlayerManager", Vector3.zero, Quaternion.identity);
+            PhotonNetwork.Instantiate("Prefabs/PlayerController", Vector3.zero, Quaternion.identity);
         }
     }
 

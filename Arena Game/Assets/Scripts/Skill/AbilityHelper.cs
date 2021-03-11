@@ -1,11 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class AbilityHelper : MonoBehaviour
 {
     private Abillities abilities;
     private Animator anim;
+
+    PhotonView PV;
+
+
+    void Awake()
+    {
+        PV = gameObject.GetComponent<PhotonView>();    
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -18,9 +27,11 @@ public class AbilityHelper : MonoBehaviour
     //Called in Animation Event
     public void SpawnSkill()
     {
-        //abilities.projSpawnPoint.transform.rotation
-        //abilities.canSkillshot = true;
-        Instantiate(abilities.projPrefab, abilities.projSpawnPoint.transform.position, abilities.projSpawnPoint.transform.rotation);
+
+        if (PV.IsMine)
+        {
+            PhotonNetwork.Instantiate("Prefabs/Carrot", abilities.projSpawnPoint.transform.position, abilities.projSpawnPoint.transform.rotation);
+        }
     }
 
 
