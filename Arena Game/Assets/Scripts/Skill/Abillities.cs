@@ -60,11 +60,15 @@ public class Abillities : MonoBehaviour
     void Update()
     {
 
+
+
         if (!PV.IsMine)
         {
-            Debug.Log("It's Mine");
+
             return;
         }
+
+
 
         AbilityOne();
         
@@ -146,6 +150,4 @@ public class Abillities : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
     }
-
-
 }

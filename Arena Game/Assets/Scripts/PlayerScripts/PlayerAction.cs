@@ -101,6 +101,7 @@ public class PlayerAction : MonoBehaviourPun
 
     public void Move()
     {
+
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit destination;
 
@@ -124,5 +125,11 @@ public class PlayerAction : MonoBehaviourPun
     public void Attack(KeyCode key)
     {
         animator.Attack(key);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("new kind of hit");
     }
 }

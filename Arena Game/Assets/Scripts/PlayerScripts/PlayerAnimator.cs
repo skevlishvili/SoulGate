@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
+
 public class PlayerAnimator : MonoBehaviourPun
 {
 
@@ -10,7 +12,6 @@ public class PlayerAnimator : MonoBehaviourPun
     private Animator anim;
 
     float motionSmoothTime = .1f;
-
 
     private void Start()
     {
@@ -21,11 +22,6 @@ public class PlayerAnimator : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        //if(this.photonView.IsMine == true)
-        //{
-        //    return;
-        //}
-
         Move();
     }
 
