@@ -2,14 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Photon.Pun;
 public class Health : MonoBehaviour
 {
+
+    PhotonView PV;
 
     public Slider healthSlider3D;
     Slider healthSlider2D;
 
-    public int health; 
+    public int health;
+
+
+    void Awake()
+    {
+        PV = GetComponentInParent<PhotonView>();    
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +34,6 @@ public class Health : MonoBehaviour
     void Update()
     {
         healthSlider2D.value = health;
-        healthSlider3D.value = healthSlider2D.value;
+        healthSlider3D.value = health;
     }
 }

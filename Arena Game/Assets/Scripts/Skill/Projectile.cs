@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class Projectile : MonoBehaviour
 {
-    public float damage;
+    public int damage;
 
     public float speed;
 

@@ -42,6 +42,8 @@ public class PlayerAction : MonoBehaviourPun
 
     PhotonView PV;
 
+
+
     void Awake()
     {
         // #Important
@@ -130,6 +132,13 @@ public class PlayerAction : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("new kind of hit");
+        Projectile projectile = other.GetComponent<Projectile>();
+        Health healthScript = GetComponentInChildren<Health>();
+
+        Debug.Log($"{projectile} THIS IS PROJECTILE");
+        Debug.Log($"{healthScript} THIS IS HEALTHSCRIPT!!!");
+
+
+        healthScript.health -= projectile.damage;
     }
 }
