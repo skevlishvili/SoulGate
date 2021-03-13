@@ -92,7 +92,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void CloseGame()
     {
-        
+        Application.Quit();
     }
 
     public void CreateRoom()

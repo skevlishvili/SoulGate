@@ -46,7 +46,7 @@ public class PlayerAnimator : MonoBehaviourPun
         else if (key == KeyCode.Alpha1)
         {
             anim.SetFloat("Blend", 0);
-            anim.SetTrigger("SkillOne");
+            anim.SetBool("SkillOne", true);
         }
     }
 }

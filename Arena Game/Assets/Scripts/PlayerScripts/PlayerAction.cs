@@ -24,7 +24,7 @@ public class PlayerAction : MonoBehaviourPun
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
 
-    //Referances
+    #region Referances
     public NavMeshAgent agent;
 
     [SerializeField]
@@ -41,6 +41,7 @@ public class PlayerAction : MonoBehaviourPun
     private MainMenu menu;
 
     PhotonView PV;
+    #endregion
 
     void Awake()
     {
@@ -61,6 +62,24 @@ public class PlayerAction : MonoBehaviourPun
     {
         GameObject Player = GameObject.Find("Player");
         animator = gameObject.GetComponent<PlayerAnimator>();
+
+        unitStat = new Unit
+        {
+            Health = 1000,
+            Mana = 200,
+            Xp = 0,
+            Money = 0,
+            PhysicalDefence = 20,
+            MagicDefence = 20,
+            Height = 2,
+            weight = 80,
+            strength = 20,
+            Agility = 20,
+            Intelligence = 20,
+            Charisma = 20,
+            IsHalfHealth = false,
+            IsDead = false,
+        };
     }
 
     // Update is called once per frame

@@ -5,9 +5,13 @@ using Photon.Pun;
 
 public class Projectile : MonoBehaviour
 {
-    public float damage;
-
+    #region Variables
     public float speed;
+    #endregion
+
+    #region Referances
+    public
+    #endregion
 
     // Update is called once per frame
     void Update()

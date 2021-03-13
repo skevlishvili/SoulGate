@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillLibrary : MonoBehaviour
+public class SkillLibrary:MonoBehaviour
 {
-    public Skill FireSpell;
+    public Skill FireBall;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        Spells(); 
+        Spells();
     }
 
     // Update is called once per frame
     void Spells()
     {
-        CapsuleCollider capsuleColliderObj = new CapsuleCollider();
-        BoxCollider BoxColliderObj = new BoxCollider();
-        SphereCollider SphereColliderObj = new SphereCollider();
-
-        FireSpell = new Skill
+        FireBall = new Skill
         {
             PhysicalDamage = 0,
             MagicDamage = 20,
@@ -31,24 +27,35 @@ public class SkillLibrary : MonoBehaviour
             CooldownBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 5,
+            ManaConsumption = 40,
 
             Duration = 5,
             Cooldown = 5,
             ActivationTime = 0,
-            ProjectileSpeed = 10,
+            ProjectileSpeed = 50,
             MaxRechargingTime = 0,
 
-            Height = 0.5f,
-            Distance = 100,
+            Height = 0,
+            Distance = 250,
             Thickness = 0,
 
-            AttackModelType = capsuleColliderObj,
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Fireball"),
+            PlayergroundVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/FireCircle"),
+            MaxRangeVFX = null,
+            IndicatorVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Indicator"),
+            Skill3DModel = GameObject.Find("Assets/Resources/Prefabs/Carrot.prefab"),
 
             IsRestraining = false,
             IsInvisible = false,
             IsPasive = false,
-            UsingWeapon = false
+            IsBuff = false,
+            IsProjectile = true,
+            IsRecharged = false,
+            UsingWeapon = false,
+            HasPlayergroundVFX = true,
+            HasIndicator = true,
+            HasMaxRange = false,
+            HasRecharging = false
         };
     }
 }

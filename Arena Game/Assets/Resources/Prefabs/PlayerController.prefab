@@ -436,9 +436,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2001586356334271735}
   - {fileID: 2001586357015933504}
   - {fileID: 2001586356483120438}
+  - {fileID: 2001586356334271735}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1897,8 +1897,9 @@ Transform:
   - {fileID: 2001586357135941995}
   - {fileID: 2001586357669139809}
   - {fileID: 2001586356476654454}
+  - {fileID: 7990643752416012852}
   m_Father: {fileID: 2001586355745943460}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2001586356334271717
 Animator:
@@ -2074,17 +2075,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9229bb9a531e4304b8a5ca8eb8c54ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityImageOne: {fileID: 2001586355848075374}
-  cooldownOne: 5
-  canSkillshot: 1
-  abilityOne: 113
-  projPrefab: {fileID: 4613132618684519649, guid: d46b619e286173449964ed6bdc879d2c,
-    type: 3}
-  projSpawnPoint: {fileID: 2001586357669139809}
-  abilityOneCanvas: {fileID: 2001586356476654457}
-  targetCircle: {fileID: 2001586356710265205}
-  skillShot: {fileID: 2001586357649475072}
+  Skills: {fileID: 1070466978041466596}
+  AbilitySpawnPoint: {fileID: 2001586357669139809}
   player: {fileID: 2001586356334271735}
+  canSkillshot: 1
+  abilityKeycode: 49
 --- !u!114 &2001586356334271739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2682,7 +2677,7 @@ RectTransform:
   - {fileID: 2001586355757213126}
   - {fileID: 2001586356583461758}
   m_Father: {fileID: 2001586355745943460}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4565,7 +4560,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2001586355745943460}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 49.7, y: -55.81, z: 0}
 --- !u!20 &2001586357015933510
 Camera:
@@ -6826,6 +6821,50 @@ Transform:
   m_Father: {fileID: 2001586357107152392}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3700025393951893979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7990643752416012852}
+  - component: {fileID: 1070466978041466596}
+  m_Layer: 0
+  m_Name: Spells
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7990643752416012852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700025393951893979}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.2358849, y: 2.5216548, z: 3.841161}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2001586356334271735}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1070466978041466596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700025393951893979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acaba580ae03d0e48a177a3077095f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireBall: {fileID: 0}
 --- !u!1001 &1785454726441396545
 PrefabInstance:
   m_ObjectHideFlags: 0

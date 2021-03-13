@@ -30,7 +30,7 @@ public class AbilityHelper : MonoBehaviour
 
         if (PV.IsMine)
         {
-            PhotonNetwork.Instantiate("Prefabs/Carrot", abilities.projSpawnPoint.transform.position, abilities.projSpawnPoint.transform.rotation);
+            PhotonNetwork.Instantiate("Prefabs/Carrot", abilities.AbilitySpawnPoint.transform.position, abilities.AbilitySpawnPoint.transform.rotation);
         }
     }
 
