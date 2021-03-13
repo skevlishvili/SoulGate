@@ -53,7 +53,6 @@ public class Abillities : MonoBehaviour
 
         playerActionScript = GetComponent<PlayerAction>();
         anim = GetComponentInChildren<Animator>();
-
     }
 
     // Update is called once per frame
@@ -64,10 +63,9 @@ public class Abillities : MonoBehaviour
 
         if (!PV.IsMine)
         {
-
             return;
         }
-
+        
 
 
         AbilityOne();

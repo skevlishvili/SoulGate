@@ -42,6 +42,9 @@ public class PlayerAction : MonoBehaviourPun
 
     PhotonView PV;
 
+    public Canvas HUD;
+
+
 
 
     void Awake()
@@ -70,8 +73,14 @@ public class PlayerAction : MonoBehaviourPun
     {
         if (!PV.IsMine)
         {
+            CanvasGroup canvasGroup = HUD.GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
             return;
         }
+
+
 
 
         if (Input.GetKeyDown(KeyCode.Escape))

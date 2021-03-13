@@ -2101,6 +2101,7 @@ MonoBehaviour:
   unitStat: {fileID: 2001586356334271739}
   abilities: {fileID: 2001586356334271740}
   menu: {fileID: 2001586356334271737}
+  HUD: {fileID: 2001586356483120437}
 --- !u!114 &2001586356334271737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2660,6 +2661,7 @@ GameObject:
   - component: {fileID: 2001586356483120437}
   - component: {fileID: 2001586356483120436}
   - component: {fileID: 2001586356483120435}
+  - component: {fileID: 5573599685998635892}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2749,6 +2751,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &5573599685998635892
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001586356483120433}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2001586356500148505
 GameObject:
   m_ObjectHideFlags: 0
