@@ -81,13 +81,34 @@ public class PlayerAction : MonoBehaviourPun
             return;
         }
 
+        CanvasGroup canvasTest = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
+
+        if(canvasTest.alpha == 1f) {
+            CanvasGroup canvasGroup = HUD.GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+            return;
+        } else {
+            CanvasGroup canvasGroup = HUD.GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
 
 
+            
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            menu.Counter = menu.Counter + 1;
-            menu.OpenMenuInGame(menu.Counter);
+            CanvasGroup canvasGroup = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+            
+            //Application.Quit();
+            // menu.Counter = menu.Counter + 1;
+            // menu.OpenMenuInGame(menu.Counter);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
