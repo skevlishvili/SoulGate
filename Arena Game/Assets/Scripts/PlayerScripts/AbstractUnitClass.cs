@@ -9,6 +9,9 @@ public abstract class AbstractUnitClass : MonoBehaviour
     public abstract int Xp { get; set; }
     public abstract int Money { get; set; }
 
+    public abstract float PhysicalDefence { get; set; }
+    public abstract float MagicDefence { get; set; }
+
     public abstract float Height { get; set; }//ar moqmedebs tamashze
     public abstract float weight { get; set; }//ar moqmedebs tamashze
 

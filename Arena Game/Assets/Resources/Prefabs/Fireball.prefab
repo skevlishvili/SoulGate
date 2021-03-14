@@ -87,7 +87,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
-  speed: 30
+  speed: 0
+  skillLibraryObj: {fileID: 595072407294198478, guid: 334242558257e644c8f8ee360e139b17,
+    type: 3}
 --- !u!135 &-8139592057992192096
 SphereCollider:
   m_ObjectHideFlags: 0

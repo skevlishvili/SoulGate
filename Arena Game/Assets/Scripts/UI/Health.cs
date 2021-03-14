@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
     public Slider healthSlider3D;
     Slider healthSlider2D;
 
-    public int health;
+    public float health;
 
     public GameObject player;
 

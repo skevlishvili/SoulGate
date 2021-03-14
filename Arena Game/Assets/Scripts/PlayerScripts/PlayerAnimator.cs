@@ -51,16 +51,27 @@ public class PlayerAnimator : MonoBehaviourPun
 
     public void Attack(KeyCode key)
     {
-        if (key == KeyCode.Mouse0)
+        if (key == KeyCode.Alpha1)
         {
             anim.SetFloat("Blend", 0);
-            anim.SetTrigger("BaseAttack");
+            anim.SetBool("SkillOne",true);
         }
 
-        else if (key == KeyCode.Alpha1)
+        else if (key == KeyCode.Alpha2)
         {
             anim.SetFloat("Blend", 0);
-            anim.SetTrigger("SkillOne");
         }
+
+        else if (key == KeyCode.Alpha3)
+        {
+            anim.SetFloat("Blend", 0);
+            anim.SetBool("SkillTwo",true);
+        }
+    }
+
+    public void IsDead()
+    {
+        anim.SetFloat("Blend", 0);
+        anim.SetBool("IsDead",true);
     }
 }

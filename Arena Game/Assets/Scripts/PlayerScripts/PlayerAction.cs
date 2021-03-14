@@ -25,7 +25,7 @@ public class PlayerAction : MonoBehaviourPun
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
 
-    //Referances
+    #region Referances
     public NavMeshAgent agent;
 
     [SerializeField]
@@ -44,6 +44,7 @@ public class PlayerAction : MonoBehaviourPun
     PhotonView PV;
 
     public Canvas HUD;
+    #endregion
 
 
 
@@ -80,8 +81,6 @@ public class PlayerAction : MonoBehaviourPun
             canvasGroup.blocksRaycasts = false;
             return;
         }
-
-
 
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -144,7 +143,7 @@ public class PlayerAction : MonoBehaviourPun
     {
         Projectile projectile = other.GetComponent<Projectile>();
 
-        int damage = projectile.damage;
+        float damage = projectile.damage;
 
 
         PhotonView ProjPV = other.GetComponent<PhotonView>();
@@ -156,7 +155,7 @@ public class PlayerAction : MonoBehaviourPun
     }
 
     [PunRPC]
-    void takeDamage(int damage)
+    void takeDamage(float damage)
     {
         Health healthScript = GetComponentInChildren<Health>();
         healthScript.health -= damage;

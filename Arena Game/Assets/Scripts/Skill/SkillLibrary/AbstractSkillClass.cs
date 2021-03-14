@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class AbstractSkillClass : MonoBehaviour
 {
+    public abstract string SkillName { get; set; }// name
+
+
     //Damage Types
     public abstract float PhysicalDamage { get; set; }// affects only health
     public abstract float MagicDamage { get; set; }// affects Health and Mana
@@ -32,11 +35,11 @@ public abstract class AbstractSkillClass : MonoBehaviour
     public abstract float Thickness { get; set; }// barrier thickness
 
     //Unity Object
-    public abstract Collider AttackModelType { get; set; }// which type collider use to detect collision
     public abstract Sprite SkillImageUIVFX { get; set; }// image on user interface
+    public abstract Sprite PlayergroundVFX { get; set; }// spell max range visible image
     public abstract Sprite MaxRangeVFX { get; set; }// spell max range visible image
     public abstract Sprite IndicatorVFX { get; set; }// direction of attack
-    public abstract GameObject Skill3DModel{ get; set; }// 3d model of spell
+    public abstract GameObject Skill3DModel { get; set; }// 3d model of spell
 
 
     //Condition
@@ -47,8 +50,10 @@ public abstract class AbstractSkillClass : MonoBehaviour
     public abstract bool IsProjectile { get; set; }// if skill/spell throws something
     public abstract bool IsRecharged { get; set; }// if skill/spell is Recharged
     public abstract bool UsingWeapon { get; set; }// if skill/spell needs weapon
+
+    public abstract bool HasPlayergroundVFX { get; set; }// if skill has visual ground where player stands
     public abstract bool HasIndicator { get; set; }// if skill has visual indicator
     public abstract bool HasMaxRange { get; set; }// if skill has visual max range
-    public abstract bool HasRecharging { get; set; }// if skill has recharging time
 
+    public abstract bool HasRecharging { get; set; }// if skill has recharging time
 }

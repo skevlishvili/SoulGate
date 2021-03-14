@@ -6,34 +6,30 @@ using Photon.Pun;
 
 public class Abillities : MonoBehaviour
 {
-    RaycastHit hit;
-    Animator anim;
-    PlayerAction playerActionScript;
-
-    [Header("Skillshot Ability")]
-    public Image abilityImageOne;
     public float cooldownOne = 5;
     bool isCoolDown = false;
-    public bool canSkillshot = true;
-    public KeyCode abilityOne;
-
-    public GameObject projPrefab;
-
-    public Transform projSpawnPoint;
-
+    public bool canSkillshot = true;    
     public bool isFiring {get; private set;}
 
+    public KeyCode abilityOne;
     private KeyCode _currentAbility;
 
-    [Header("Ability Inputs")]
-    // AbilityOne Input Variables
+    #region Referances
+    RaycastHit hit;
     Vector3 position;
+    Animator anim;
+    PlayerAction playerActionScript;
+    public GameObject projPrefab;
+    public Transform projSpawnPoint;
     public Canvas abilityOneCanvas;
     public Image targetCircle;
     public Image skillShot;
-    public Transform player;
 
+    public Image abilityImageOne;
+
+    public Transform player;
     PhotonView PV;
+    #endregion
 
     void Awake()
     {

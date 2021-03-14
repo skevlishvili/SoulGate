@@ -2058,7 +2058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9229bb9a531e4304b8a5ca8eb8c54ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityImageOne: {fileID: 2001586355848075374}
   cooldownOne: 3
   canSkillshot: 1
   abilityOne: 113
@@ -2068,6 +2067,7 @@ MonoBehaviour:
   abilityOneCanvas: {fileID: 2001586356476654457}
   targetCircle: {fileID: 2001586356710265205}
   skillShot: {fileID: 2001586357649475072}
+  abilityImageOne: {fileID: 2001586355848075374}
   player: {fileID: 2001586356334271735}
 --- !u!114 &2001586356334271739
 MonoBehaviour:
