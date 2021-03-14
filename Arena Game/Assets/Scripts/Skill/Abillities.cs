@@ -142,9 +142,14 @@ public class Abillities : MonoBehaviour
 
     IEnumerator corSkillShot()
     {
+
         canSkillshot = false;
+        AbilityHelper shoot = GetComponent<AbilityHelper>();
+
         anim.SetBool("SkillOne", true);
+        shoot.SpawnSkill();
         canSkillshot = true;
+        StopFiring();
 
         yield return new WaitForSeconds(1.5f);
     }

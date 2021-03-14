@@ -13,6 +13,8 @@ public class Health : MonoBehaviour
 
     public int health;
 
+    public GameObject player;
+
 
     void Awake()
     {
@@ -35,5 +37,12 @@ public class Health : MonoBehaviour
     {
         healthSlider2D.value = health;
         healthSlider3D.value = health;
+
+
+
+        if(health <= 0)
+        {
+            Destroy(player);
+        }
     }
 }

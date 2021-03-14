@@ -106,6 +106,11 @@ namespace Photon.Pun
             protected internal set { this.instantiationDataField = value; }
         }
 
+        public void RPC(string v1, object all, string v2, string v3)
+        {
+            throw new NotImplementedException();
+        }
+
         internal object[] instantiationDataField;
 
         /// <summary>

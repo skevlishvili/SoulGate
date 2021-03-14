@@ -4034,6 +4034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSlider3D: {fileID: 2001586357301691923}
   health: 100
+  player: {fileID: 2001586356334271734}
 --- !u!1 &2001586356791414571
 GameObject:
   m_ObjectHideFlags: 0

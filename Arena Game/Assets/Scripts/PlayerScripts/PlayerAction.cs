@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class PlayerAction : MonoBehaviourPun
 {
     //Variables
@@ -142,12 +143,23 @@ public class PlayerAction : MonoBehaviourPun
     private void OnTriggerEnter(Collider other)
     {
         Projectile projectile = other.GetComponent<Projectile>();
+
+        int damage = projectile.damage;
+
+        if (PV.IsMine)
+        {
+            PV.RPC("takeDamage", RpcTarget.All, damage);
+        }
+
+    }
+
+    [PunRPC]
+    void takeDamage(int damage)
+    {
+
         Health healthScript = GetComponentInChildren<Health>();
 
-        Debug.Log($"{projectile} THIS IS PROJECTILE");
-        Debug.Log($"{healthScript} THIS IS HEALTHSCRIPT!!!");
 
-
-        healthScript.health -= projectile.damage;
+        healthScript.health -= damage;
     }
 }
