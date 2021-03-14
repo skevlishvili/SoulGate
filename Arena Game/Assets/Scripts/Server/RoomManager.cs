@@ -11,10 +11,23 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
 
+    PhotonView PV;
 
+    private void Update() {
+        if(PV.IsMine) {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                CanvasGroup canvasGroup = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
+                canvasGroup.alpha = 1f;
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
+            }
+        }        
+    }
 
     void Awake()
     {
+        PV = gameObject.GetComponent<PhotonView>();
         if (Instance)
         {
             Destroy(gameObject);

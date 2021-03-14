@@ -50,28 +50,30 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         for(int i = 0; i < menus.Length; i++)
         {
-            if (menus[i].open)
-            {
-                Debug.Log(i);
-                CloseMenu(menus[i]);
-            }
+            CloseMenu(menus[i]);
 
-            else if (menus[i].MenuName == MenuName)
+            if (menus[i].MenuName == MenuName)
             {
                 OpenMenu(menus[i]);
             }
+
         }
+    }
+
+    public void Play() {
+        OpenMenu("Create Room Panel");
+    }
+
+    public void ReturnToMain() {
+        OpenMenu("Control Panel");
+    }
+
+    public void Quit() {
+        Application.Quit();
     }
 
     public void OpenMenu(Menu menu)
     {
-        //for (int i = 0; i < menus.Length; i++)
-        //{
-        //    if (menus[i].open)
-        //    {
-        //        CloseMenu(menus[i]);
-        //    }
-        //}
         menu.Open();
     }
 

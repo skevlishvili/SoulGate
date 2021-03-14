@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class EscapeMenuScript : MonoBehaviour
 {
@@ -18,15 +19,19 @@ public class EscapeMenuScript : MonoBehaviour
 
 
     public void Resume() {
-        Debug.Log("testinio");
         CanvasGroup canvasGroup = this.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
     }
 
+
+    public void Disconnect() {
+        // PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.player);
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel(0);
+    }
     public void Exit() {
-        Debug.Log("testinio2");
         Application.Quit();
     }
 }
