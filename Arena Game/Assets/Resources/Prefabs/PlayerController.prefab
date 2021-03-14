@@ -1955,10 +1955,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1
+  m_Radius: 0.7
   m_Height: 3.2
   m_Direction: 1
-  m_Center: {x: 0, y: 1.6, z: 0}
+  m_Center: {x: 0, y: 1.6, z: -0.1}
 --- !u!114 &2001586356334271712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2059,10 +2059,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityImageOne: {fileID: 2001586355848075374}
-  cooldownOne: 5
+  cooldownOne: 3
   canSkillshot: 1
   abilityOne: 113
-  projPrefab: {fileID: 4613132618684519649, guid: d46b619e286173449964ed6bdc879d2c,
+  projPrefab: {fileID: 8539639960160523390, guid: 802257729c63a554aabb8b128f306935,
     type: 3}
   projSpawnPoint: {fileID: 2001586357669139809}
   abilityOneCanvas: {fileID: 2001586356476654457}
@@ -6699,8 +6699,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001586357669139808}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.12, z: 1.2200012}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.12, y: 2.12, z: 1.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2001586356334271735}

@@ -146,20 +146,19 @@ public class PlayerAction : MonoBehaviourPun
 
         int damage = projectile.damage;
 
-        if (PV.IsMine)
+
+        PhotonView ProjPV = other.GetComponent<PhotonView>();
+
+        if (PV.IsMine && !ProjPV.IsMine)
         {
             PV.RPC("takeDamage", RpcTarget.All, damage);
         }
-
     }
 
     [PunRPC]
     void takeDamage(int damage)
     {
-
         Health healthScript = GetComponentInChildren<Health>();
-
-
         healthScript.health -= damage;
     }
 }
