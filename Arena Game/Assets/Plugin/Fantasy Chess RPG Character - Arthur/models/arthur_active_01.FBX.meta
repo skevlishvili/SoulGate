@@ -893,7 +893,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.6949685
+      - time: 0.0012185231
         functionName: PlayFireSound
         data: 
         objectReferenceParameter: {instanceID: 0}

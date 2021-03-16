@@ -13,7 +13,7 @@ public class AbilityHelper : MonoBehaviour
 
     void Awake()
     {
-        PV = gameObject.GetComponent<PhotonView>();    
+        PV = gameObject.GetComponent<PhotonView>();
     }
 
     // Start is called before the first frame update
@@ -27,13 +27,11 @@ public class AbilityHelper : MonoBehaviour
     //Called in Animation Event
     public void SpawnSkill()
     {
-
         if (PV.IsMine)
         {
             PhotonNetwork.Instantiate("Prefabs/Fireball", abilities.projSpawnPoint.transform.position, abilities.projSpawnPoint.transform.rotation);
         }
     }
-
 
     public void PlayFireSound()
     {   

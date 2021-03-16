@@ -149,6 +149,7 @@ public class PlayerAction : MonoBehaviourPun
 
         PhotonView ProjPV = other.GetComponent<PhotonView>();
 
+
         if (PV.IsMine && !ProjPV.IsMine)
         {
             PV.RPC("takeDamage", RpcTarget.All, damage);
