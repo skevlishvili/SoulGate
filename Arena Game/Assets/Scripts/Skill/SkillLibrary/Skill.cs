@@ -34,6 +34,8 @@ public class Skill : AbstractSkillClass
     private Sprite _MaxRangeVFX;
     private Sprite _IndicatorVFX;
     private GameObject _Skill3DModel;
+    private string _Sound;
+    private string _AnimatorProperty;
 
     private bool _IsRestraining;
     private bool _IsInvisible;
@@ -175,6 +177,15 @@ public class Skill : AbstractSkillClass
     {
         get { return _Skill3DModel; }
         set { _Skill3DModel = value; }
+    }
+
+    public override string Sound {
+        get { return _Sound; }
+        set { _Sound = value; }
+    }
+    public override string AnimatorProperty {
+        get { return _AnimatorProperty; }
+        set { _AnimatorProperty = value; }
     }
 
     //Condition

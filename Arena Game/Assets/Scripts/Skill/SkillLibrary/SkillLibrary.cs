@@ -39,7 +39,9 @@ public class SkillLibrary : MonoBehaviour
             PlayergroundVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/FireCircle"),
             MaxRangeVFX = null,
             IndicatorVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Indicator"),
-            Skill3DModel = GameObject.Find("Assets/Resources/Prefabs/Fireball.prefab"),
+            Skill3DModel = Resources.Load<GameObject>("Prefabs/Fireball"),
+            Sound = "fire",
+            AnimatorProperty = "SkillOne",
 
             IsRestraining = false,
             IsInvisible = false,

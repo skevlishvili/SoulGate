@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 50
+  damage: []
   speed: 0
   skillLibraryObj: {fileID: 595072407294198478, guid: 334242558257e644c8f8ee360e139b17,
     type: 3}

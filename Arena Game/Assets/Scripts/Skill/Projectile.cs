@@ -6,7 +6,8 @@ using System.Linq;
 
 public class Projectile : MonoBehaviour
 {
-    public float damage;
+    Skill Spell;
+    public List<float> damage = new List<float>();
     public float speed;
 
     public GameObject skillLibraryObj;
@@ -14,9 +15,12 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
-        var Spell = SkillLibrary.Skills[0];
+        Spell = SkillLibrary.Skills[0];
 
-        damage = Spell.PhysicalDamage + Spell.MagicDamage + Spell.SoulDamage;
+        damage.Add(Spell.PhysicalDamage);
+        damage.Add(Spell.MagicDamage);
+        damage.Add(Spell.SoulDamage);
+
         speed = Spell.ProjectileSpeed;
     }
 
@@ -33,7 +37,7 @@ public class Projectile : MonoBehaviour
 
     IEnumerator DestroyObject()
     {
-        yield return new WaitForSeconds(15);
+        yield return new WaitForSeconds(Spell.Duration);
         PhotonNetwork.Destroy(gameObject);
     }
 }

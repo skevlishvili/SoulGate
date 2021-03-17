@@ -40,10 +40,12 @@ public abstract class AbstractSkillClass : MonoBehaviour
     public abstract Sprite MaxRangeVFX { get; set; }// spell max range visible image
     public abstract Sprite IndicatorVFX { get; set; }// direction of attack
     public abstract GameObject Skill3DModel { get; set; }// 3d model of spell
+    public abstract string Sound { get; set; }// spell sound
+    public abstract string AnimatorProperty { get; set; }// spell animator property
 
 
-    //Condition
-    public abstract bool IsRestraining { get; set; }// if skill affects movement
+//Condition
+public abstract bool IsRestraining { get; set; }// if skill affects movement
     public abstract bool IsInvisible { get; set; }// if spell is invisible for enemy
     public abstract bool IsPasive { get; set; }// if skill is passive
     public abstract bool IsBuff { get; set; }// if skill is buff or debuff

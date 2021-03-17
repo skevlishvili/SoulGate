@@ -5,20 +5,23 @@ using UnityEngine.UI;
 using Photon.Pun;
 public class Health : MonoBehaviour
 {
-
     PhotonView PV;
 
-    public Slider healthSlider3D;
+    Slider healthSlider3D;
     Slider healthSlider2D;
 
-    public float health;
+    public float Maxhealth;
 
     public GameObject player;
-
+    PlayerAnimator anim;
+    public Unit unitstat;
 
     void Awake()
     {
-        PV = GetComponentInParent<PhotonView>();    
+        PV = GetComponent<PhotonView>();
+
+        anim = GetComponentInParent<PlayerAnimator>();
+        unitstat = GetComponentInParent<Unit>();
     }
 
 
@@ -26,23 +29,35 @@ public class Health : MonoBehaviour
     void Start()
     {
         healthSlider2D = GetComponent<Slider>();
+        healthSlider3D = GetComponent<Slider>();
 
-        healthSlider2D.maxValue = health;
 
-        healthSlider3D.maxValue = health;
+        Maxhealth = unitstat.Health;
+        healthSlider2D.maxValue = Maxhealth;
+        healthSlider3D.maxValue = Maxhealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthSlider2D.value = health;
-        healthSlider3D.value = health;
+        CurrentPlayerHealth(unitstat.Health);
+    }
 
+    void CurrentPlayerHealth(float Health)
+    {
+        healthSlider2D.value = Health;
+        healthSlider3D.value = Health;
 
-
-        if(health <= 0)
+        if (Health <= 0)
         {
-            Destroy(player);
+            StartCoroutine(DestroyPlayer());
         }
+    }
+
+    IEnumerator DestroyPlayer()
+    {
+        anim.IsDead();
+        yield return new WaitForSeconds(30);
+        Destroy(player);
     }
 }
