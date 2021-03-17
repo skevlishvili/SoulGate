@@ -69,25 +69,29 @@ public class PlayerAction : MonoBehaviourPun
         animator = gameObject.GetComponent<PlayerAnimator>();
     }
 
+    private void ToggleCanvas(CanvasGroup canvasGroup, bool on) {
+        canvasGroup.alpha = on ? 1f : 0f;
+        canvasGroup.interactable = on;
+        canvasGroup.blocksRaycasts = on;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        var hudCanvas = HUD.GetComponent<CanvasGroup>();
         if (!PV.IsMine)
         {
-            CanvasGroup canvasGroup = HUD.GetComponent<CanvasGroup>();
-            canvasGroup.alpha = 0f;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
+            ToggleCanvas(hudCanvas, false);
             return;
         }
 
+        CanvasGroup canvasTest = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
 
-
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            menu.Counter = menu.Counter + 1;
-            menu.OpenMenuInGame(menu.Counter);
+        if(canvasTest.alpha == 1f) {
+            ToggleCanvas(hudCanvas, false);
+            return;
+        } else {
+            ToggleCanvas(hudCanvas, true);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -143,7 +147,7 @@ public class PlayerAction : MonoBehaviourPun
     private void OnTriggerEnter(Collider other)
     {
         Projectile projectile = other.GetComponent<Projectile>();
-
+    
         int damage = projectile.damage;
 
 

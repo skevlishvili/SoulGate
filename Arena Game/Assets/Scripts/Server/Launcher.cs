@@ -67,7 +67,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         // This is an issue needs rework!!!!!!!!
         RoomName = HelpMethods.RandomString(4);
         RoomNameField.text = RoomName;
-
     }
 
 
@@ -80,7 +79,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         IsConnecting = PhotonNetwork.ConnectUsingSettings();
     }
     #endregion
-
 
     #region Public Methods
 
@@ -132,7 +130,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        Menu.OpenMenu("Create Room Panel");
+        //Menu.OpenMenu("Create Room Panel");
 
         base.OnJoinedLobby();
         Debug.Log("Joined Lobby");
