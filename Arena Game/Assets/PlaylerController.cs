@@ -8,14 +8,14 @@ public class PlaylerController : MonoBehaviour
 
     void Awake()
     {
-        if (Instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        //if (Instance)
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
 
-        DontDestroyOnLoad(gameObject);
-        Instance = this;
+        //DontDestroyOnLoad(gameObject);
+        //Instance = this;
     }
 
     // Start is called before the first frame update

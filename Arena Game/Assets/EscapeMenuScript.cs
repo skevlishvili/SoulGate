@@ -17,9 +17,9 @@ public class EscapeMenuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PV = GetComponent<PhotonView>();
-        if (PV.IsMine)
-        {
+        //PV = GetComponent<PhotonView>();
+        //if (PV.IsMine)
+        //{
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 CanvasGroup canvasGroup = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
@@ -27,7 +27,7 @@ public class EscapeMenuScript : MonoBehaviour
                 canvasGroup.interactable = true;
                 canvasGroup.blocksRaycasts = true;
             }
-        }
+        //}
     }
 
 

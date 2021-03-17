@@ -10,24 +10,11 @@ using System.IO;
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
-
-    PhotonView PV;
-
-    private void Update() {
-        //if(PV.IsMine) {
-        //    if (Input.GetKeyDown(KeyCode.Escape))
-        //    {
-        //        CanvasGroup canvasGroup = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
-        //        canvasGroup.alpha = 1f;
-        //        canvasGroup.interactable = true;
-        //        canvasGroup.blocksRaycasts = true;
-        //    }
-        //}        
-    }
+    public static bool PlayerLoaded;
 
     void Awake()
     {
-        PV = gameObject.GetComponent<PhotonView>();
+        PlayerLoaded = false;
         if (Instance)
         {
             Destroy(gameObject);
@@ -55,8 +42,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if(scene.buildIndex == 1)
+        if(scene.buildIndex == 1 && !PlayerLoaded)
         {
+            PlayerLoaded = true;
             Debug.Log("I'm Making a Scene BABYYY");
             PhotonNetwork.Instantiate("Prefabs/PlayerController", Vector3.zero, Quaternion.identity);
         }
