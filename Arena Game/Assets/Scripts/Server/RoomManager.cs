@@ -14,15 +14,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
     PhotonView PV;
 
     private void Update() {
-        if(PV.IsMine) {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                CanvasGroup canvasGroup = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
-                canvasGroup.alpha = 1f;
-                canvasGroup.interactable = true;
-                canvasGroup.blocksRaycasts = true;
-            }
-        }        
+        //if(PV.IsMine) {
+        //    if (Input.GetKeyDown(KeyCode.Escape))
+        //    {
+        //        CanvasGroup canvasGroup = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
+        //        canvasGroup.alpha = 1f;
+        //        canvasGroup.interactable = true;
+        //        canvasGroup.blocksRaycasts = true;
+        //    }
+        //}        
     }
 
     void Awake()

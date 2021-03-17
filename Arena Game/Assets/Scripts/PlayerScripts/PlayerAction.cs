@@ -85,14 +85,23 @@ public class PlayerAction : MonoBehaviourPun
             return;
         }
 
-        CanvasGroup canvasTest = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
 
-        if(canvasTest.alpha == 1f) {
-            ToggleCanvas(hudCanvas, false);
-            return;
-        } else {
-            ToggleCanvas(hudCanvas, true);
+        GameObject canvas = GameObject.Find("EscapeMenu");
+        if(canvas != null)
+        {
+            CanvasGroup canvasTest = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
+
+            if (canvasTest.alpha == 1f)
+            {
+                ToggleCanvas(hudCanvas, false);
+                return;
+            }
+            else
+            {
+                ToggleCanvas(hudCanvas, true);
+            }
         }
+       
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -146,17 +155,21 @@ public class PlayerAction : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
+
         Projectile projectile = other.GetComponent<Projectile>();
-    
-        int damage = projectile.damage;
-
-
-        PhotonView ProjPV = other.GetComponent<PhotonView>();
-
-
-        if (PV.IsMine && !ProjPV.IsMine)
+        if (projectile != null)
         {
-            PV.RPC("takeDamage", RpcTarget.All, damage);
+            int damage = projectile.damage;
+
+
+            PhotonView ProjPV = other.GetComponent<PhotonView>();
+
+
+            if (PV.IsMine && !ProjPV.IsMine)
+            {
+                PV.RPC("takeDamage", RpcTarget.All, damage);
+            }
+
         }
     }
 
