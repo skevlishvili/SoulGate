@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -39,38 +40,26 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     //-----------------------------------------
 
-
     [Tooltip("The UI Label to inform the user that the connection is in progress")]
     [SerializeField]
     private MainMenu Menu;
-
-
-    private bool IsInMainMenu = true;
-    private bool IsInRoomMenu = false;
     #endregion
 
 
     #region Private Fields
-    string gameVersion = "1";
+
     bool IsConnecting;
     #endregion
 
 
     #region MonoBehaviour CallBacks
-
-
     void Awake()
     {
-        Menu.OpenMenu("Control Panel");
-
-
+        Menu.OpenMenu("Control_Panel");
         // This is an issue needs rework!!!!!!!!
         RoomName = HelpMethods.RandomString(4);
         RoomNameField.text = RoomName;
     }
-
-
-
 
     void Start()
     {
@@ -90,7 +79,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void CloseGame()
     {
-        
+        Application.Quit();
     }
 
     public void CreateRoom()
@@ -101,7 +90,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
 
         PhotonNetwork.CreateRoom(RoomName, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
-        Menu.OpenMenu("Connecting...");
     }
 
 
@@ -120,9 +108,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(false);
-        RoomcontrolPanel.SetActive(true);
+        Menu.OpenMenu("Create_Room_Panel");
 
         IsConnecting = false;
         Debug.LogWarningFormat("OnDisconnected() was called with reason {0}", cause);
@@ -140,7 +126,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinRandomFailed() was called. No random room available, so we create one.\nReturning: Main Menu");
 
-        Menu.OpenMenu("Control Panel");
+        Menu.OpenMenu("Control_Panel");
     }
 
     public override void OnJoinedRoom()

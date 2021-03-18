@@ -6,72 +6,136 @@ using Photon.Pun;
 
 public class Abillities : MonoBehaviour
 {
-    RaycastHit hit;
-    Animator anim;
-    PlayerAction playerActionScript;
-
-    [Header("Skillshot Ability")]
-    public Image abilityImageOne;
-    public float cooldownOne = 5;
     bool isCoolDown = false;
     public bool canSkillshot = true;
-    public KeyCode abilityOne;
-
-    public GameObject projPrefab;
-
-    public Transform projSpawnPoint;
-
-    public bool isFiring {get; private set;}
+    public bool isFiring { get; private set; }
 
     private KeyCode _currentAbility;
 
-    [Header("Ability Inputs")]
-    // AbilityOne Input Variables
+    #region Referances
+    RaycastHit hit;
     Vector3 position;
-    public Canvas abilityOneCanvas;
-    public Image targetCircle;
-    public Image skillShot;
-    public Transform player;
 
+    PlayerAnimator anim;
+    PlayerAction playerActionScript;
+    public Transform AbiilitySpawnPoint;
+
+    public Canvas abilityOneCanvas;
+    public Image SkillImageUIVFX;
+
+    public Image PlayergroundVFX;
+    public Image IndicatorVFX;
+    public Image MaxRangeVFX;
+
+    public Transform player;
+    public Unit unitStat;
     PhotonView PV;
+    public Skill Spell;
+    #endregion
 
     void Awake()
     {
         PV = gameObject.GetComponent<PhotonView>();
+        Spell = SkillLibrary.Skills[0];
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        SkillImageUIVFX.fillAmount = 0;
+        PlayergroundVFX.GetComponent<Image>().enabled = false;
+        IndicatorVFX.GetComponent<Image>().enabled = false;
 
-        abilityImageOne.fillAmount = 0;
-
-        targetCircle.GetComponent<Image>().enabled = false;
-        skillShot.GetComponent<Image>().enabled = false;
         isFiring = false;
 
-
         playerActionScript = GetComponent<PlayerAction>();
-        anim = GetComponentInChildren<Animator>();
+        unitStat = gameObject.GetComponent<Unit>();
+        anim = GetComponentInChildren<PlayerAnimator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
-
         if (!PV.IsMine)
         {
             return;
         }
-        
-
 
         AbilityOne();
-        
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        targetLocation();
+    }
 
+    public void SpellKeyCode(KeyCode key)
+    {
+        if (key == KeyCodeController.Ability1)
+        {
+            Spell = SkillLibrary.Skills[0];
+            CheckIfSkillCanCast();
+            SkillConsumption();
+
+            //SkillImageUIVFX.sprite = Resources.Load<Sprite>("Fireball");
+
+            //PlayergroundVFX.sprite = null;
+            //IndicatorVFX.sprite = null;
+            //MaxRangeVFX.sprite = null;
+
+            //if (Spell.HasPlayergroundVFX)
+            //{
+            //    PlayergroundVFX.sprite = Resources.Load<Sprite>("FireCircle");
+            //}
+            //if (Spell.HasIndicator)
+            //{
+            //    IndicatorVFX.sprite = Spell.IndicatorVFX;
+            //}
+
+            //if (Spell.HasMaxRange)
+            //{
+            //    MaxRangeVFX.sprite = Spell.MaxRangeVFX;
+            //}
+
+
+            //if (Spell.IsBuff)
+            //{
+
+            //}
+
+            //if (Spell.IsInvisible)
+            //{
+
+            //}
+
+            //if (Spell.IsProjectile)
+            //{
+
+            //}
+
+            //if (Spell.IsRecharged)
+            //{
+
+            //}
+
+            //if (Spell.IsRestraining)
+            //{
+
+            //}
+        }
+        else if (key == KeyCodeController.Ability2)
+        {
+            Spell = SkillLibrary.Skills[1];
+        }
+        else if (key == KeyCodeController.Ability3)
+        {
+            Spell = SkillLibrary.Skills[2];
+        }
+        else if (key == KeyCodeController.Ability4)
+        {
+            Spell = SkillLibrary.Skills[3];
+        }
+    }
+
+    void targetLocation()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
@@ -84,27 +148,24 @@ public class Abillities : MonoBehaviour
         abilityOneCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityOneCanvas.transform.rotation, 0f);
     }
 
-
-
     void AbilityOne()
-    {       
-
-        if (Input.GetKey(abilityOne) && !isCoolDown)
+    {
+        if (Input.GetKey(KeyCodeController.Ability1) && !isCoolDown && canSkillshot)
         {
-            skillShot.GetComponent<Image>().enabled = true;
-            targetCircle.GetComponent<Image>().enabled = true;
+            IndicatorVFX.GetComponent<Image>().enabled = true;
+            PlayergroundVFX.GetComponent<Image>().enabled = true;
             isFiring = true;
-            _currentAbility = abilityOne;
-        } else {
+            _currentAbility = KeyCodeController.Ability1;
+        }
+        else
+        {
             _currentAbility = KeyCode.None;
         }
 
-        
-
-        if (skillShot.GetComponent<Image>().enabled && isFiring && !Input.GetKey(_currentAbility))
+        if (IndicatorVFX.GetComponent<Image>().enabled && isFiring && !Input.GetKey(_currentAbility))
         {
             Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
-            
+
             float rotationY = Mathf.SmoothDamp(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y, ref playerActionScript.rotateVelocity, 0);
 
             transform.eulerAngles = new Vector3(0, rotationY, 0);
@@ -116,41 +177,86 @@ public class Abillities : MonoBehaviour
             if (canSkillshot)
             {
                 isCoolDown = true;
-                abilityImageOne.fillAmount = 1;
+                SkillImageUIVFX.fillAmount = 1;
 
-                StartCoroutine(corSkillShot());                
+                StartCoroutine(corSkillShot());
             }
         }
 
         if (isCoolDown)
         {
-            abilityImageOne.fillAmount -= 1 / cooldownOne * Time.deltaTime;
-            skillShot.GetComponent<Image>().enabled = false;
-            targetCircle.GetComponent<Image>().enabled = false;
+            SkillImageUIVFX.fillAmount -= 1 / Spell.Cooldown * Time.deltaTime;
+            IndicatorVFX.GetComponent<Image>().enabled = false;
+            PlayergroundVFX.GetComponent<Image>().enabled = false;
 
-            if (abilityImageOne.fillAmount <= 0)
+            if (SkillImageUIVFX.fillAmount <= 0)
             {
-                abilityImageOne.fillAmount = 0;
+                SkillImageUIVFX.fillAmount = 0;
                 isCoolDown = false;
             }
         }
     }
 
-    public void StopFiring(){
-        isFiring = false;
-    }
-
     IEnumerator corSkillShot()
     {
-
         canSkillshot = false;
-        AbilityHelper shoot = GetComponent<AbilityHelper>();
-
-        anim.SetBool("SkillOne", true);
-        shoot.SpawnSkill();
+        anim.Attack(Spell.AnimatorProperty);
+        SpawnSkill();
         canSkillshot = true;
         StopFiring();
 
         yield return new WaitForSeconds(1.5f);
+    }
+
+    public void StopFiring()
+    {
+        isFiring = false;
+    }
+
+    public void SpawnSkill()
+    {
+        if (PV.IsMine)
+        {
+            PhotonNetwork.Instantiate("Prefabs/" + Spell.Skill3DModel.name, AbiilitySpawnPoint.transform.position, AbiilitySpawnPoint.transform.rotation);
+        }
+    }
+
+    public void PlayFireSound()
+    {
+        SoundManagerScript sound = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
+        Debug.Log(Spell.Sound);
+        sound.PlaySound(Spell.Sound);
+    }
+
+    public void CheckIfSkillCanCast()
+    {
+        if (unitStat.Mana < Spell.ManaConsumption)
+        {
+            canSkillshot = false;
+        }
+    }
+
+    public bool SkillConsumption()
+    {
+        bool value = false;
+
+        if (canSkillshot)
+        {
+            if (!isCoolDown)
+            {
+                unitStat.Mana -= Spell.ManaConsumption;
+                unitStat.Health -= Spell.HealthConsumption;
+                value = true;
+            }
+        }
+        
+        return value;
+    }
+
+    public void EndOfSkill()
+    {
+        Debug.Log(Spell.AnimatorProperty);
+        anim.EndAnimation(Spell.AnimatorProperty);
+        StopFiring();
     }
 }

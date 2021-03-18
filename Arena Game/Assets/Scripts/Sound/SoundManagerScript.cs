@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SoundManagerScript : MonoBehaviour
 {
-    public AudioClip FireSound;
+    public AudioClip Fireball_Sound;
     public AudioSource audioSrc;
 
     // Start is called before the first frame update
     void Start()
     {
-        FireSound = Resources.Load<AudioClip>("Fireball");
+        Fireball_Sound = Resources.Load<AudioClip>("Design/Music/Resources/Fireball_Sound");
         
         audioSrc = GetComponent<AudioSource>();
     }
@@ -23,8 +23,8 @@ public class SoundManagerScript : MonoBehaviour
 
     public void PlaySound(string clip) {
         switch(clip) {
-            case "fire":
-                audioSrc.PlayOneShot(FireSound);
+            case "Fireball_Sound":
+                audioSrc.PlayOneShot(Fireball_Sound);
                 break;
         }
     }

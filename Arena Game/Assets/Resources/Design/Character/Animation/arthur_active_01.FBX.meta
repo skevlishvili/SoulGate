@@ -896,14 +896,16 @@ ModelImporter:
       - time: 0.0012185231
         functionName: PlayFireSound
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: 9229bb9a531e4304b8a5ca8eb8c54ed0,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.87453574
-        functionName: EndAnimation
+        functionName: EndOfSkill
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: 9229bb9a531e4304b8a5ca8eb8c54ed0,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

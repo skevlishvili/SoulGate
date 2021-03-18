@@ -49,18 +49,34 @@ public class PlayerAnimator : MonoBehaviourPun
         // }
     }
 
-    public void Attack(KeyCode key)
+    public void Attack(string animationName)
     {
-        if (key == KeyCode.Mouse0)
+        if (animationName == "SkillOne")
         {
             anim.SetFloat("Blend", 0);
-            anim.SetTrigger("BaseAttack");
+            anim.SetBool("SkillOne", true);
         }
 
-        else if (key == KeyCode.Alpha1)
+        else if (animationName == "SkillTwo")
         {
             anim.SetFloat("Blend", 0);
-            anim.SetTrigger("SkillOne");
+            anim.SetBool("SkillTwo", true);
         }
+
+        else if (animationName == "SkillThree")
+        {
+            anim.SetFloat("Blend", 0);
+        }
+    }
+
+    public void IsDead()
+    {
+        anim.SetFloat("Blend", 0);
+        anim.SetBool("IsDead", true);
+    }
+
+    public void EndAnimation(string animationName)
+    {
+        anim.SetBool(animationName, false);
     }
 }

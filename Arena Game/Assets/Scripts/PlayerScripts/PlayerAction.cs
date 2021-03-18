@@ -1,31 +1,18 @@
 ﻿using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 public class PlayerAction : MonoBehaviourPun
 {
-    //Variables
-    private KeyCode[] keyCodes = {
-         KeyCode.Alpha0,
-         KeyCode.Alpha1,
-         KeyCode.Alpha2,
-         KeyCode.Alpha3,
-         KeyCode.Alpha4,
-         KeyCode.Alpha5,
-         KeyCode.Alpha6,
-         KeyCode.Alpha7,
-         KeyCode.Alpha8,
-         KeyCode.Alpha9,
-     };
-
     public float rotateSpeedMovement = 0.1f;
     public float rotateVelocity;
 
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
 
-    //Referances
+    #region Referances
     public NavMeshAgent agent;
 
     [SerializeField]
@@ -38,18 +25,35 @@ public class PlayerAction : MonoBehaviourPun
     [SerializeField]
     private Abillities abilities;
 
-    [SerializeField]
-    private MainMenu menu;
-
     PhotonView PV;
 
     public Canvas HUD;
+    #endregion
 
 
 
 
     void Awake()
     {
+        unitStat.Health = 200;
+        unitStat.Mana = 200;
+        unitStat.Xp = 0;
+        unitStat.Money = 0;
+        unitStat.PhysicalDefence = 20;
+        unitStat.MagicDefence = 20;
+        unitStat.Height = 2;
+        unitStat.weight = 80;
+        unitStat.strength = 20;
+        unitStat.Agility = 20;
+        unitStat.Intelligence = 20;
+        unitStat.Charisma = 20;
+        unitStat.IsHalfHealth = false;
+        unitStat.IsDead = false;
+
+
+        agent.speed = unitStat.Agility / 2;
+
+
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
         if (photonView.IsMine)
@@ -67,6 +71,8 @@ public class PlayerAction : MonoBehaviourPun
     {
         GameObject Player = GameObject.Find("Player");
         animator = gameObject.GetComponent<PlayerAnimator>();
+
+        InvokeRepeating("Regeneration", 1.0f, 1.0f);
     }
 
     private void ToggleCanvas(CanvasGroup canvasGroup, bool on) {
@@ -101,25 +107,33 @@ public class PlayerAction : MonoBehaviourPun
                 ToggleCanvas(hudCanvas, true);
             }
         }
-       
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCodeController.BasicAttack))
         {
-            Attack(KeyCode.Mouse0);
+            abilities.SpellKeyCode(KeyCodeController.BasicAttack);
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !abilities.isFiring)
+        if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring && !unitStat.IsDead)
         {
             Move();
         }
 
-        for (int i = 0; i < keyCodes.Length; i++)
+        if (Input.GetKeyDown(KeyCodeController.Ability1) && !unitStat.IsDead)
         {
-            if (Input.GetKeyDown(keyCodes[i]))
-            {
-                Attack(keyCodes[i]);
-            }
+            abilities.SpellKeyCode(KeyCodeController.Ability1);
+        }
+        else if (Input.GetKeyDown(KeyCodeController.Ability2) && !unitStat.IsDead)
+        {
+            abilities.SpellKeyCode(KeyCodeController.Ability2);
+        }
+        else if (Input.GetKeyDown(KeyCodeController.Ability3) && !unitStat.IsDead)
+        {
+            abilities.SpellKeyCode(KeyCodeController.Ability3);
+        }
+        else if (Input.GetKeyDown(KeyCodeController.Ability4) && !unitStat.IsDead)
+        {
+            abilities.SpellKeyCode(KeyCodeController.Ability4);
         }
     }
 
@@ -147,36 +161,39 @@ public class PlayerAction : MonoBehaviourPun
         }
     }
 
-    public void Attack(KeyCode key)
-    {
-        animator.Attack(key);
-    }
-
-
     private void OnTriggerEnter(Collider other)
     {
 
         Projectile projectile = other.GetComponent<Projectile>();
-        if (projectile != null)
+        float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
+
+        PhotonView ProjPV = other.GetComponent<PhotonView>();
+
+        if (PV.IsMine && !ProjPV.IsMine)
         {
-            int damage = projectile.damage;
-
-
-            PhotonView ProjPV = other.GetComponent<PhotonView>();
-
-
-            if (PV.IsMine && !ProjPV.IsMine)
-            {
-                PV.RPC("takeDamage", RpcTarget.All, damage);
-            }
-
+            PV.RPC("takeDamage", RpcTarget.All, damage);
         }
+    }
+
+    void Regeneration()
+    {
+        float HealthRegen = 1;
+        float ManaRegen = 1;
+
+        if((unitStat.Health + HealthRegen) <= 200){
+            unitStat.Health += HealthRegen;
+        }
+
+        if ((unitStat.Mana + ManaRegen) <= 200)
+        {
+            unitStat.Mana += ManaRegen;
+        }
+
     }
 
     [PunRPC]
     void takeDamage(int damage)
     {
-        Health healthScript = GetComponentInChildren<Health>();
-        healthScript.health -= damage;
+        unitStat.Health -= damage;
     }
 }

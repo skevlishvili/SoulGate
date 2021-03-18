@@ -15,9 +15,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject Menu;
 
-    [HideInInspector]
-    public int Counter = 1;
-
     [SerializeField] Menu[] menus;
     #endregion
 
@@ -28,27 +25,9 @@ public class MainMenu : MonoBehaviourPunCallbacks
         Instance = this;
     }
 
-    void start()
-    {
-        OpenMenuInGame(Counter);
-    }
-
-
-    public void OpenMenuInGame(int Counter)
-    {
-        if (Counter % 2 == 1)
-        {
-            Menu.SetActive(false);
-        }
-        else{
-            Menu.SetActive(true);
-        }
-    }
-
-
     public void OpenMenu(string MenuName)
     {
-        for(int i = 0; i < menus.Length; i++)
+        for (int i = 0; i < menus.Length; i++)
         {
             CloseMenu(menus[i]);
 
@@ -60,16 +39,14 @@ public class MainMenu : MonoBehaviourPunCallbacks
         }
     }
 
-    public void Play() {
-        OpenMenu("Create Room Panel");
+    public void Play()
+    {
+        OpenMenu("Create_Room_Panel");
     }
 
-    public void ReturnToMain() {
-        OpenMenu("Control Panel");
-    }
-
-    public void Quit() {
-        Application.Quit();
+    public void ReturnToMain()
+    {
+        OpenMenu("Control_Panel");
     }
 
     public void OpenMenu(Menu menu)

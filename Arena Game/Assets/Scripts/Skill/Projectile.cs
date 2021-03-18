@@ -2,12 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Linq;
 
 public class Projectile : MonoBehaviour
 {
-    public int damage;
-
+    Skill Spell;
+    public List<float> damage = new List<float>();
     public float speed;
+
+    public GameObject skillLibraryObj;
+
+
+    void Start()
+    {
+        Spell = SkillLibrary.Skills[0];
+
+        damage.Add(Spell.PhysicalDamage);
+        damage.Add(Spell.MagicDamage);
+        damage.Add(Spell.SoulDamage);
+
+        speed = Spell.ProjectileSpeed;
+    }
+
+
 
     // Update is called once per frame
     void Update()
@@ -20,7 +37,7 @@ public class Projectile : MonoBehaviour
 
     IEnumerator DestroyObject()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(Spell.Duration);
         PhotonNetwork.Destroy(gameObject);
     }
 }
