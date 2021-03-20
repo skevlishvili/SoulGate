@@ -33,11 +33,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject RoomcontrolPanel;
 
-
-    [Tooltip("The UI Label to inform the user that the connection is in progress")]
-    [SerializeField]
-    private GameObject progressLabel;
-
     //-----------------------------------------
 
     [Tooltip("The UI Label to inform the user that the connection is in progress")]

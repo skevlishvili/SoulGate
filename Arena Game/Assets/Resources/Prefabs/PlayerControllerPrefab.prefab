@@ -3912,8 +3912,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2001586356769238350}
-  - component: {fileID: 2001586356769238384}
   - component: {fileID: 2001586356769238351}
+  - component: {fileID: 617805135954610388}
   m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
@@ -3942,7 +3942,24 @@ RectTransform:
   m_AnchoredPosition: {x: 40, y: -230}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2001586356769238384
+--- !u!114 &2001586356769238351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001586356769238349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2626fb182634f64fa0ad0860885b805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider3D: {fileID: 0}
+  healthSlider2D: {fileID: 0}
+  Maxhealth: 0
+  player: {fileID: 2001586356334271734}
+  unitstat: {fileID: 2001586356334271739}
+--- !u!114 &617805135954610388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3980,33 +3997,18 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 2001586356762061064}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 200
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 200
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2001586356769238351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001586356769238349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2626fb182634f64fa0ad0860885b805, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Maxhealth: 0
-  player: {fileID: 2001586356334271734}
-  unitstat: {fileID: 2001586356334271739}
 --- !u!1 &2001586356791414571
 GameObject:
   m_ObjectHideFlags: 0
@@ -5108,6 +5110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2626fb182634f64fa0ad0860885b805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthSlider3D: {fileID: 0}
+  healthSlider2D: {fileID: 0}
   Maxhealth: 0
   player: {fileID: 2001586356334271734}
   unitstat: {fileID: 2001586356334271739}
@@ -6906,7 +6910,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 7843314349697661832}
   m_HandleRect: {fileID: 0}

@@ -5,8 +5,8 @@
 
     public class Health : MonoBehaviour
     {
-        Slider healthSlider3D;
-        Slider healthSlider2D;
+        public Slider healthSlider3D;
+        public Slider healthSlider2D;
 
         public float Maxhealth;
 
@@ -24,10 +24,10 @@
         // Start is called before the first frame update
         void Start()
         {
-            healthSlider2D = GetComponent<Slider>();
-            healthSlider3D = GetComponent<Slider>();
+        healthSlider2D = gameObject.GetComponent<Slider>();
+        healthSlider3D = gameObject.GetComponent<Slider>();
 
-            Maxhealth = unitstat.Health;
+        Maxhealth = unitstat.Health;
             healthSlider2D.maxValue = Maxhealth;
             healthSlider3D.maxValue = Maxhealth;
         }
@@ -35,7 +35,15 @@
         // Update is called once per frame
         void Update()
         {
-            CurrentPlayerHealth(unitstat.Health);
+            healthSlider2D.value = unitstat.Health;
+            healthSlider3D.value = unitstat.Health;
+
+            if (unitstat.Health <= 0)
+            {
+                StartCoroutine(DestroyPlayer());
+            }
+
+            //CurrentPlayerHealth(unitstat.Health);
         }
 
         void CurrentPlayerHealth(float health)

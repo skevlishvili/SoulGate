@@ -432,7 +432,6 @@ MonoBehaviour:
   RoomNameField: {fileID: 250134901}
   controlPanel: {fileID: 803415685}
   RoomcontrolPanel: {fileID: 851568912}
-  progressLabel: {fileID: 0}
   Menu: {fileID: 2078750928}
 --- !u!4 &1875110424
 Transform:
