@@ -22,6 +22,10 @@ public abstract class AbstractSkillClass : MonoBehaviour
     public abstract float HealthConsumption { get; set; }// uses health to cast spell/skill
     public abstract float ManaConsumption { get; set; }// uses mana to cast spell/skill
 
+    //Price
+    public abstract float SkillPriceMoney { get; set; }// uses Money to buy spell/skill
+    public abstract float SkillPriceXp { get; set; }// uses Xp to buy spell/skill
+
     //Time
     public abstract float Duration { get; set; }// duration of skill/spell
     public abstract float Cooldown { get; set; }// Cooldown time
@@ -39,7 +43,7 @@ public abstract class AbstractSkillClass : MonoBehaviour
     public abstract Sprite PlayergroundVFX { get; set; }// spell max range visible image
     public abstract Sprite MaxRangeVFX { get; set; }// spell max range visible image
     public abstract Sprite IndicatorVFX { get; set; }// direction of attack
-    public abstract GameObject Skill3DModel { get; set; }// 3d model of spell
+    public abstract string Skill3DModel { get; set; }// 3d model of spell
     public abstract string Sound { get; set; }// spell sound
     public abstract string AnimatorProperty { get; set; }// spell animator property
 

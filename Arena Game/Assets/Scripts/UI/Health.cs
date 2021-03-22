@@ -24,8 +24,8 @@
         // Start is called before the first frame update
         void Start()
         {
-        healthSlider2D = gameObject.GetComponent<Slider>();
-        healthSlider3D = gameObject.GetComponent<Slider>();
+        healthSlider2D = GetComponentInChildren<Slider>();
+        healthSlider3D = GetComponentInChildren<Slider>();
 
         Maxhealth = unitstat.Health;
             healthSlider2D.maxValue = Maxhealth;

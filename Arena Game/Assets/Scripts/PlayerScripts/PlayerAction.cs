@@ -12,6 +12,8 @@ public class PlayerAction : MonoBehaviourPun
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
 
+    public int[] PlayerSkills;
+
     #region Referances
     public NavMeshAgent agent;
 
@@ -53,6 +55,7 @@ public class PlayerAction : MonoBehaviourPun
 
         agent.speed = unitStat.Agility / 2;
 
+        PlayerSkills = new int[4] { 1, 0, 0, 0 };
 
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
@@ -108,10 +111,10 @@ public class PlayerAction : MonoBehaviourPun
             }
         }
 
-        if (Input.GetKeyDown(KeyCodeController.BasicAttack))
-        {
-            abilities.SpellKeyCode(KeyCodeController.BasicAttack);
-        }
+        //if (Input.GetKeyDown(KeyCodeController.BasicAttack))
+        //{
+        //    abilities.SpellKeyCode(KeyCodeController.BasicAttack);
+        //}
 
 
         if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring && !unitStat.IsDead)

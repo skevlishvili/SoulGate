@@ -10,12 +10,14 @@ public class Projectile : MonoBehaviour
     public List<float> damage = new List<float>();
     public float speed;
 
+    public int SkillIndex;
+
     public GameObject skillLibraryObj;
 
 
     void Start()
     {
-        Spell = SkillLibrary.Skills[0];
+        Spell = SkillLibrary.Skills[SkillIndex];
 
         damage.Add(Spell.PhysicalDamage);
         damage.Add(Spell.MagicDamage);

@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class HudController : MonoBehaviour
 {
     PhotonView PV;
+
+    #region Referances
     public GameObject Hud;
+    public PlayerAction Player;
+    #endregion
     // Start is called before the first frame update
     void Start()
     {

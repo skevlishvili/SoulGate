@@ -11,8 +11,8 @@ public class SoundManagerScript : MonoBehaviour
     void Start()
     {
         Fireball_Sound = Resources.Load<AudioClip>("Design/Music/Resources/Fireball_Sound");
-        
-        audioSrc = GetComponent<AudioSource>();
+
+        audioSrc = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

@@ -25,8 +25,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Instance = this;
     }
 
-
-
     public override void OnEnable()
     {
         base.OnEnable();
@@ -46,7 +44,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             PlayerLoaded = true;
             Debug.Log("Loading Scene ... ");
-            PhotonNetwork.Instantiate("Prefabs/PlayerControllerPrefab", Vector3.zero, Quaternion.identity);
+            PhotonNetwork.Instantiate("Prefabs/Player/PlayerControllerPrefab", Vector3.zero, Quaternion.identity);
         }
     }
 

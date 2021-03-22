@@ -17,7 +17,7 @@ public class Abillities : MonoBehaviour
     Vector3 position;
 
     PlayerAnimator anim;
-    PlayerAction playerActionScript;
+    public PlayerAction playerActionScript;
     public Transform AbiilitySpawnPoint;
 
     public Canvas abilityOneCanvas;
@@ -30,13 +30,13 @@ public class Abillities : MonoBehaviour
     public Transform player;
     public Unit unitStat;
     PhotonView PV;
+
     public Skill Spell;
     #endregion
 
     void Awake()
     {
         PV = gameObject.GetComponent<PhotonView>();
-        Spell = SkillLibrary.Skills[0];
     }
 
     // Start is called before the first frame update
@@ -69,68 +69,71 @@ public class Abillities : MonoBehaviour
     {
         if (key == KeyCodeController.Ability1)
         {
-            Spell = SkillLibrary.Skills[0];
-            CheckIfSkillCanCast();
-            SkillConsumption();
-
-            //SkillImageUIVFX.sprite = Resources.Load<Sprite>("Fireball");
-
-            //PlayergroundVFX.sprite = null;
-            //IndicatorVFX.sprite = null;
-            //MaxRangeVFX.sprite = null;
-
-            //if (Spell.HasPlayergroundVFX)
-            //{
-            //    PlayergroundVFX.sprite = Resources.Load<Sprite>("FireCircle");
-            //}
-            //if (Spell.HasIndicator)
-            //{
-            //    IndicatorVFX.sprite = Spell.IndicatorVFX;
-            //}
-
-            //if (Spell.HasMaxRange)
-            //{
-            //    MaxRangeVFX.sprite = Spell.MaxRangeVFX;
-            //}
-
-
-            //if (Spell.IsBuff)
-            //{
-
-            //}
-
-            //if (Spell.IsInvisible)
-            //{
-
-            //}
-
-            //if (Spell.IsProjectile)
-            //{
-
-            //}
-
-            //if (Spell.IsRecharged)
-            //{
-
-            //}
-
-            //if (Spell.IsRestraining)
-            //{
-
-            //}
+            Spell = GetSkillByKeyCode(1);
         }
         else if (key == KeyCodeController.Ability2)
         {
-            Spell = SkillLibrary.Skills[1];
+            Spell = GetSkillByKeyCode(2);
         }
         else if (key == KeyCodeController.Ability3)
         {
-            Spell = SkillLibrary.Skills[2];
+            Spell = GetSkillByKeyCode(3);
         }
         else if (key == KeyCodeController.Ability4)
         {
-            Spell = SkillLibrary.Skills[3];
+            Spell = GetSkillByKeyCode(4);
         }
+
+        CheckIfSkillCanCast();
+        SkillConsumption();
+
+        PlayergroundVFX.sprite = null;
+        IndicatorVFX.sprite = null;
+        //MaxRangeVFX.sprite = null;
+
+        if (Spell.HasPlayergroundVFX)
+        {
+            PlayergroundVFX.sprite = Spell.PlayergroundVFX;
+        }
+        if (Spell.HasIndicator)
+        {
+            IndicatorVFX.sprite = Spell.IndicatorVFX;
+        }
+        if (Spell.HasMaxRange)
+        {
+            MaxRangeVFX.sprite = Spell.MaxRangeVFX;
+        }
+
+
+        //if (Spell.IsBuff)
+        //{
+
+        //}
+
+        //if (Spell.IsInvisible)
+        //{
+
+        //}
+
+        //if (Spell.IsProjectile)
+        //{
+
+        //}
+
+        //if (Spell.IsRecharged)
+        //{
+
+        //}
+
+        //if (Spell.IsRestraining)
+        //{
+
+        //}
+    }
+
+    public Skill GetSkillByKeyCode(int key)
+    {
+        return SkillLibrary.Skills[key];
     }
 
     void targetLocation()
@@ -217,7 +220,7 @@ public class Abillities : MonoBehaviour
     {
         if (PV.IsMine)
         {
-            PhotonNetwork.Instantiate("Prefabs/" + Spell.Skill3DModel.name, AbiilitySpawnPoint.transform.position, AbiilitySpawnPoint.transform.rotation);
+            PhotonNetwork.Instantiate("Prefabs/Skill/" + Spell.Skill3DModel, AbiilitySpawnPoint.transform.position, AbiilitySpawnPoint.transform.rotation);
         }
     }
 
