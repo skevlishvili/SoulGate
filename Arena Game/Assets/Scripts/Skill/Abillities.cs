@@ -85,7 +85,6 @@ public class Abillities : MonoBehaviour
         }
 
         CheckIfSkillCanCast();
-        SkillConsumption();
 
         PlayergroundVFX.sprite = null;
         IndicatorVFX.sprite = null;
@@ -202,6 +201,8 @@ public class Abillities : MonoBehaviour
 
     IEnumerator corSkillShot()
     {
+        SkillConsumption();
+
         canSkillshot = false;
         anim.Attack(Spell.AnimatorProperty);
         SpawnSkill();
@@ -245,12 +246,11 @@ public class Abillities : MonoBehaviour
 
         if (canSkillshot)
         {
-            if (!isCoolDown)
-            {
+    
                 unitStat.Mana -= Spell.ManaConsumption;
                 unitStat.Health -= Spell.HealthConsumption;
                 value = true;
-            }
+            
         }
         
         return value;
