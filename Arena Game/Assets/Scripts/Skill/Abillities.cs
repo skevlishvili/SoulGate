@@ -102,32 +102,6 @@ public class Abillities : MonoBehaviour
         {
             MaxRangeVFX.sprite = Spell.MaxRangeVFX;
         }
-
-
-        //if (Spell.IsBuff)
-        //{
-
-        //}
-
-        //if (Spell.IsInvisible)
-        //{
-
-        //}
-
-        //if (Spell.IsProjectile)
-        //{
-
-        //}
-
-        //if (Spell.IsRecharged)
-        //{
-
-        //}
-
-        //if (Spell.IsRestraining)
-        //{
-
-        //}
     }
 
     public Skill GetSkillByKeyCode(int key)
