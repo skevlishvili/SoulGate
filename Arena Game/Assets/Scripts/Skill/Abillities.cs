@@ -8,7 +8,8 @@ public class Abillities : MonoBehaviour
 {
     bool isCoolDown = false;
     public bool canSkillshot = true;
-    public bool isFiring { get; private set; }
+    public bool IsFiring { get; private set; }
+    public bool IsAlive { get; private set; }
 
     private KeyCode _currentAbility;
 
@@ -46,7 +47,7 @@ public class Abillities : MonoBehaviour
         PlayergroundVFX.GetComponent<Image>().enabled = false;
         IndicatorVFX.GetComponent<Image>().enabled = false;
 
-        isFiring = false;
+        IsFiring = false;
 
         playerActionScript = GetComponent<PlayerAction>();
         unitStat = gameObject.GetComponent<Unit>();
@@ -156,7 +157,7 @@ public class Abillities : MonoBehaviour
         {
             IndicatorVFX.GetComponent<Image>().enabled = true;
             PlayergroundVFX.GetComponent<Image>().enabled = true;
-            isFiring = true;
+            IsFiring = true;
             _currentAbility = KeyCodeController.Ability1;
         }
         else
@@ -164,7 +165,7 @@ public class Abillities : MonoBehaviour
             _currentAbility = KeyCode.None;
         }
 
-        if (IndicatorVFX.GetComponent<Image>().enabled && isFiring && !Input.GetKey(_currentAbility))
+        if (IndicatorVFX.GetComponent<Image>().enabled && IsFiring && !Input.GetKey(_currentAbility))
         {
             Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
 
@@ -214,7 +215,7 @@ public class Abillities : MonoBehaviour
 
     public void StopFiring()
     {
-        isFiring = false;
+        IsFiring = false;
     }
 
     public void SpawnSkill()

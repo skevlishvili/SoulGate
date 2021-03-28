@@ -5,15 +5,28 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using System.IO;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
     public static bool PlayerLoaded;
+    public static int Round;
 
     void Awake()
     {
+        var players = PhotonNetwork.CurrentRoom.Players;
+        foreach (var player in players)
+        {
+            if (player.Value.IsLocal)
+            {
+                Hashtable hash = new Hashtable();
+                hash.Add("IsAlive", true);
+                PhotonNetwork.CurrentRoom.Players[player.Key].SetCustomProperties(hash);
+            }
+        }
+
         PlayerLoaded = false;
         if (Instance)
         {

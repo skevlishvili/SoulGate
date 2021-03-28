@@ -87,6 +87,7 @@ public class PlayerAction : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+
         var hudCanvas = HUD.GetComponent<CanvasGroup>();
         if (!PV.IsMine)
         {
@@ -117,7 +118,7 @@ public class PlayerAction : MonoBehaviourPun
         //}
 
 
-        if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring && !unitStat.IsDead)
+        if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.IsFiring && !unitStat.IsDead)
         {
             Move();
         }
@@ -181,9 +182,9 @@ public class PlayerAction : MonoBehaviourPun
         float HealthRegen = 1;
         float ManaRegen = 1;
 
-        if((unitStat.Health + HealthRegen) <= 200){
-            unitStat.Health += HealthRegen;
-        }
+        //if((unitStat.Health + HealthRegen) <= 200){
+        //    unitStat.Health += HealthRegen;
+        //}
 
         if ((unitStat.Mana + ManaRegen) <= 200)
         {
