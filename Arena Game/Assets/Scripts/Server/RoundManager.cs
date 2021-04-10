@@ -82,7 +82,7 @@ public class RoundManager : MonoBehaviourPun
             return;
 
 
-        Debug.Log($"this is current state {CurrentState}");
+        //Debug.Log($"this is current state {CurrentState}");
 
         RoundText.text = $"Round #{RoundCounter}";
         if (CurrentState == RoundState.PreRound) {

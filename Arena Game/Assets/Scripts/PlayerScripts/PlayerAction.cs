@@ -212,7 +212,7 @@ public class PlayerAction : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-
+        Debug.Log("Collided");
         Projectile projectile = other.GetComponent<Projectile>();
         float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2]; //----------------------------gasasworebelia---------------
         PhotonView ProjPV = other.GetComponent<PhotonView>();

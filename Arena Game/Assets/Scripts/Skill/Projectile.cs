@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
     public GameObject skillLibraryObj;
 
 
-    void Start()
+    private void Awake()
     {
         Spell = SkillLibrary.Skills[SkillIndex];
 
@@ -25,7 +25,6 @@ public class Projectile : MonoBehaviour
 
         speed = Spell.ProjectileSpeed;
     }
-
 
 
     // Update is called once per frame
