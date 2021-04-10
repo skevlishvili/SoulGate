@@ -21,7 +21,7 @@ public class SkillLibrary : MonoBehaviour
             SkillName = "FireBall",
 
             PhysicalDamage = 0,
-            MagicDamage = 20,
+            MagicDamage = 2000,
             SoulDamage = 0,
 
             HealthBuff = 0,

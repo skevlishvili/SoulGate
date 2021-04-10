@@ -66,13 +66,19 @@ public class PlayerAnimator : MonoBehaviourPun
         else if (animationName == "SkillThree")
         {
             anim.SetFloat("Blend", 0);
-        }
+        }   
     }
 
     public void IsDead()
     {
         anim.SetFloat("Blend", 0);
         anim.SetBool("IsDead", true);
+    }
+
+    public void IsAlive()
+    {
+        anim.SetFloat("Blend", 0);
+        anim.SetBool("IsDead", false);
     }
 
     public void EndAnimation(string animationName)

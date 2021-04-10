@@ -6,62 +6,193 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class RoundManager : MonoBehaviourPun
 {
-    PhotonView PV;
-    Unit unitStat;
+    public enum RoundState
+    {
+        PreRound = 1,
+        RoundStart = 2,
+        RoundEnd = 3
+    }
+
+
+    public PhotonView PV;
     public GameObject LocalPlayerGameObject;
-    static public int Round { get; set; }
+    public PlayerAction LocalPlayerAction;
+    public UnityEngine.UI.Text RoundText;
+    static public int CurrentRound;
+    static public int RoundCounter;
+
+
+    private RoundState _currentState;
+
+    public RoundState CurrentState
+    {
+        get { return _currentState; }
+        set {
+            var prevVal = _currentState;
+            _currentState = value;
+
+
+            if (_currentState != prevVal)
+            {
+                switch (value)
+                {
+                    case RoundState.PreRound:
+                        break;
+                    case RoundState.RoundStart:
+                        CurrentRound = RoundCounter;
+                        break;
+                    case RoundState.RoundEnd:
+                        RoundCounter = CurrentRound + 1;
+                        break;
+                    default:
+                        _currentState = value;
+                        break;
+                }
+            }
+        }
+    }
+
+
+    public int AlivePlayers;
+    public int ReadyPlayers;
+
 
 
     private void Awake()
     {
-        Round = 1;
         PV = gameObject.GetComponent<PhotonView>();
-        unitStat = LocalPlayerGameObject.GetComponent<Unit>();
-    }
+        if (!PV.IsMine)
+            return;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // giving all players custom property IsAlive, this could be better in awake, idk
-        var players = PhotonNetwork.CurrentRoom.Players;
-        foreach (var player in players)
-        {
-            if (player.Value.IsLocal) {
-                Hashtable hash = new Hashtable();
-                hash.Add("IsAlive", true);
-                PhotonNetwork.CurrentRoom.Players[player.Key].SetCustomProperties(hash);
-            }
-        }       
+        LocalPlayerAction = LocalPlayerGameObject.GetComponent<PlayerAction>();
+        RoundText = GetComponentInChildren<UnityEngine.UI.Text>();
+
+        RoundCounter = 1;
+        CurrentRound = 1;
+        ReadyPlayers = 0;
+        AlivePlayers = 0;
+        CurrentState = RoundState.PreRound;
     }
+    
 
     // Update is called once per frame
     void Update()
     {
-        if(PV.IsMine)
+        if (!PV.IsMine)
+            return;
+
+
+        Debug.Log($"this is current state {CurrentState}");
+
+        RoundText.text = $"Round #{RoundCounter}";
+        if (CurrentState == RoundState.PreRound) {
+
+            int readyPlayers = 0;
+
+            GameObject[] scenePlayers = GameObject.FindGameObjectsWithTag("Player");
+
+            foreach (var scenePlayer in scenePlayers)
+            {
+                if (scenePlayer.GetComponent<PlayerAction>().IsReady)
+                    readyPlayers++;
+            }
+
+            if (readyPlayers == PhotonNetwork.CurrentRoom.Players.Count)
+            {
+                CurrentState = RoundState.RoundStart;
+            }
+            return;
+        }
+
+
+        if (CurrentState == RoundState.RoundStart)
         {
-            var players = PhotonNetwork.CurrentRoom.Players;
-            int alivePlayers = 0;
-            foreach (var player in players)
-            {
-                if(player.Value.IsLocal && unitStat.Health == 0)
-                {
-                    Hashtable hash = new Hashtable();
-                    hash.Add("IsAlive", false);
-                    PhotonNetwork.CurrentRoom.Players[player.Key].SetCustomProperties(hash); // setting current players custom property is alive to false
-                }
+            GameObject[] scenePlayers = GameObject.FindGameObjectsWithTag("Player");
 
-                // checking alive players
-                if((bool)player.Value.CustomProperties["IsAlive"])
-                    alivePlayers++;
+            int aliveplayers = 0;
+            foreach (var scenePlayer in scenePlayers)
+            {
+                if (!scenePlayer.GetComponent<PlayerAction>().IsDead)
+                    aliveplayers++;
             }
 
-            // if 1 alive player is left, potential drawback, if everyone leaves round isn't over
-            if(alivePlayers <= 1 && players.Count != 1)
+            if (aliveplayers <= 1 && PhotonNetwork.CurrentRoom.Players.Count != 1)
             {
-                Round++; // get to second round
-                
-                //and respawn players, probably death needs to be rewritten
+                CurrentState = RoundState.RoundEnd;
             }
+
+            return;
+        }
+
+
+        if (CurrentState == RoundState.RoundEnd)
+        {
+            PV.RPC("Respawn", RpcTarget.All);
+
+            return;
         }
     }
+
+
+
+    void RoundStart()
+    {
+        if (!PV.IsMine)
+            return;
+     
+        StartCoroutine(RespawnAll());        
+    }
+
+    IEnumerator RespawnAll() {
+        yield return new WaitForSeconds(20f);
+        PV.RPC("ChangeAlivePlayers", RpcTarget.AllBuffered, PhotonNetwork.CurrentRoom.Players.Count);
+        PV.RPC("ChangeReadyPlayers", RpcTarget.AllBuffered, 0);
+        PV.RPC("Respawn", RpcTarget.AllBuffered);
+    }
+
+    void RoundEnd() {
+        if (!PV.IsMine)
+            return;
+
+        RoundStart();
+    }
+
+
+    void PlayerDeath() {
+        if (!PV.IsMine)
+            return;
+    }
+
+
+    #region RPC calls
+    [PunRPC]
+    void ChangeReadyPlayers(int readyPlayers)
+    {
+        if (!PV.IsMine)
+            return;
+
+        ReadyPlayers = readyPlayers;
+    }
+
+
+    [PunRPC]
+    void ChangeAlivePlayers(int alivePlayers)
+    {
+        if (!PV.IsMine)
+            return;
+
+        AlivePlayers = alivePlayers;
+    }
+
+
+    [PunRPC]
+    void Respawn()
+    {
+        //if (!PV.IsMine)
+        //    return;
+
+        CurrentState = RoundState.PreRound;
+        LocalPlayerAction.RespawnAll();
+    }
+    #endregion
 }
