@@ -21,13 +21,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Dark_Knight
-  m_Shader: {fileID: -6465566751694194690, guid: e82c92c7f2ef1fb4f8590c5f30df62ca,
+  m_Shader: {fileID: -6465566751694194690, guid: dedf4aace4cdab847a000a3a263f260b,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap:
     MotionVector: User
   disabledShaderPasses:
@@ -38,6 +38,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_1618DC78:
+        m_Texture: {fileID: 2800000, guid: 8ef133d650816314a87a78460460d5c0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_BF5D1913:
+        m_Texture: {fileID: 2800000, guid: 8ef133d650816314a87a78460460d5c0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_D53296C0:
         m_Texture: {fileID: 2800000, guid: 8ef133d650816314a87a78460460d5c0, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -79,6 +87,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_7A31516D: 0.2
+    - Vector1_9AE89CB0: -2
+    - Vector1_E2FB0924: 30
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
@@ -129,6 +140,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
+    - Color_1F8A3168: {r: 0, g: 0.8, b: 4, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

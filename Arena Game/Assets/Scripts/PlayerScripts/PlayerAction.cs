@@ -34,7 +34,6 @@ public class PlayerAction : MonoBehaviourPun
 
 
 
-
     void Awake()
     {
         unitStat.Health = 200;
@@ -76,6 +75,7 @@ public class PlayerAction : MonoBehaviourPun
         animator = gameObject.GetComponent<PlayerAnimator>();
 
         InvokeRepeating("Regeneration", 1.0f, 1.0f);
+
     }
 
     private void ToggleCanvas(CanvasGroup canvasGroup, bool on) {
@@ -119,6 +119,7 @@ public class PlayerAction : MonoBehaviourPun
 
         if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring && !unitStat.IsDead)
         {
+            agent.isStopped = false;
             Move();
         }
 
@@ -162,6 +163,9 @@ public class PlayerAction : MonoBehaviourPun
 
             transform.eulerAngles = new Vector3(0, rotationY, 0);
         }
+
+
+
     }
 
     private void OnTriggerEnter(Collider other)
