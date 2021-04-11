@@ -17,8 +17,7 @@ public class PlayerAction : MonoBehaviourPun
     #region Referances
     public NavMeshAgent agent;
 
-    [SerializeField]
-    private Camera cam;
+    public Camera cam;
 
     public PlayerAnimator animator;
 
@@ -54,7 +53,7 @@ public class PlayerAction : MonoBehaviourPun
 
         agent.speed = unitStat.Agility / 2;
 
-        PlayerSkills = new int[4] { 1, 0, 0, 0 };
+        PlayerSkills = new int[4] { 1, 6, 2, 5 };
 
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized

@@ -30,5 +30,14 @@ public class HudConetntController : MonoBehaviour
     {
         AB1.sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[0]].SkillImageUIVFX;
         AB1_Overlay.sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[0]].SkillImageUIVFX;
+
+        AB2.sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[1]].SkillImageUIVFX;
+        AB2_Overlay.sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[1]].SkillImageUIVFX;
+
+        AB3.sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[2]].SkillImageUIVFX;
+        AB3_Overlay.sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[2]].SkillImageUIVFX;
+
+        AB4.sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[3]].SkillImageUIVFX;
+        AB4_Overlay.sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[3]].SkillImageUIVFX;
     }
 }

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4a2a7feb52a567f4dbb8edf52c38e33d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cam: {instanceID: 0}
+  - agent: {instanceID: 0}
+  - teleportShader: {fileID: -6465566751694194690, guid: dedf4aace4cdab847a000a3a263f260b,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

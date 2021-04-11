@@ -25,7 +25,7 @@ public class CameraZoom : MonoBehaviour
 
         FOV -= mouseScrollInput * zoomSpeed;
 
-        FOV = Mathf.Clamp(FOV, 30, 60);
+        FOV = Mathf.Clamp(FOV, 10, 60);
 
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, FOV, zoomSpeed);

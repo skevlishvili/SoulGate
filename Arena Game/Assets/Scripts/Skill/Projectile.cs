@@ -12,8 +12,7 @@ public class Projectile : MonoBehaviour
 
     public int SkillIndex;
 
-    public GameObject skillLibraryObj;
-
+    //public GameObject skillLibraryObj;
 
     void Start()
     {

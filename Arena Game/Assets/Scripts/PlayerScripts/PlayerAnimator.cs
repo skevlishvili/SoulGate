@@ -9,7 +9,7 @@ public class PlayerAnimator : MonoBehaviourPun
 {
 
     private NavMeshAgent agent;
-    private Animator anim;
+    public Animator anim;
 
     float motionSmoothTime = .1f;
     PhotonView PV;
@@ -21,7 +21,7 @@ public class PlayerAnimator : MonoBehaviourPun
 
     private void Start()
     {
-        anim = gameObject.GetComponent<Animator>();
+        anim = gameObject.GetComponentInChildren<Animator>();
         agent = gameObject.GetComponent<NavMeshAgent>();
 
     }
@@ -41,32 +41,14 @@ public class PlayerAnimator : MonoBehaviourPun
     public void Move()
     {
         float speed = agent.velocity.magnitude / agent.speed;
-
-        // if(anim.GetFloat("Blend") < 0.01) {
-        //     anim.SetFloat("Blend", 0);
-        // } else {
         anim.SetFloat("Blend", speed, motionSmoothTime, Time.deltaTime);
-        // }
     }
 
     public void Attack(string animationName)
     {
-        if (animationName == "SkillOne")
-        {
-            anim.SetFloat("Blend", 0);
-            anim.SetBool("SkillOne", true);
-        }
-
-        else if (animationName == "SkillTwo")
-        {
-            anim.SetFloat("Blend", 0);
-            anim.SetBool("SkillTwo", true);
-        }
-
-        else if (animationName == "SkillThree")
-        {
-            anim.SetFloat("Blend", 0);
-        }
+        anim.SetBool("MagicAttack", true);
+        anim.SetFloat("Blend", 0);
+        anim.SetBool(animationName, true);
     }
 
     public void IsDead()
@@ -77,6 +59,7 @@ public class PlayerAnimator : MonoBehaviourPun
 
     public void EndAnimation(string animationName)
     {
+        anim.SetBool("MagicAttack", false);
         anim.SetBool(animationName, false);
     }
 }
