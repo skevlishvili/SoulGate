@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,8 @@ public class PlayerAction : MonoBehaviourPun
 
     public bool IsDead;
     public bool IsReady;
+
+    public GameObject ScoreBoard;
 
     [SerializeField]
     private Abillities abilities;
@@ -110,6 +113,17 @@ public class PlayerAction : MonoBehaviourPun
             ReadyText.GetComponent<UnityEngine.UI.Text>().text = "";
             OnPlayerReady();
             return;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ScoreBoard.SetActive(true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            ScoreBoard.SetActive(false);
         }
 
         //if (Input.GetKeyDown(KeyCodeController.Ability2))
@@ -216,8 +230,13 @@ public class PlayerAction : MonoBehaviourPun
         Projectile projectile = other.GetComponent<Projectile>();
         float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2]; //----------------------------gasasworebelia---------------
         PhotonView ProjPV = other.GetComponent<PhotonView>();
+
+
         if (PV.IsMine && !ProjPV.IsMine)
         {
+            var score = unitStat.Health - damage <= 0 ? 100 : (int)(damage / 10);
+
+            ScoreExtensions.AddScore(ProjPV.Owner, score);
             PV.RPC("takeDamage", RpcTarget.All, damage);
         }
     }

@@ -83,8 +83,9 @@ public class RoundManager : MonoBehaviourPun
 
 
         //Debug.Log($"this is current state {CurrentState}");
-
+        
         RoundText.text = $"Round #{RoundCounter}";
+        //RoundText.text = PhotonNetwork.LocalPlayer.NickName;
         if (CurrentState == RoundState.PreRound) {
 
             int readyPlayers = 0;
