@@ -67,7 +67,7 @@ public class Abillities : MonoBehaviour
 
         playerActionScript = GetComponent<PlayerAction>();
         unitStat = gameObject.GetComponent<Unit>();
-        anim = GetComponentInChildren<PlayerAnimator>();      
+        anim = GetComponentInChildren<PlayerAnimator>();
     }
 
     // Update is called once per frame
@@ -129,66 +129,92 @@ public class Abillities : MonoBehaviour
         abilityOneCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityOneCanvas.transform.rotation, 0f);
 
 
-
         if (Spell.HasTargetVFX)
         {
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                Vector3 toHit = hit.point - transform.position;
-                float distance = toHit.magnitude;
+                var hitPosDir = (hit.point - transform.position).normalized;
+                float distance = (hit.point - transform.position).magnitude;
+                distance = Mathf.Min(distance, Spell.Distance);
 
-                if (distance <= Spell.Distance)
-                {
-                    var y = hit.point.y + 0.1f;
-                    SkillSpawnPoint[2].position = new Vector3(hit.point.x, y, hit.point.z);
-                    TargetVFXGameObject.transform.position = new Vector3(hit.point.x, y, hit.point.z);
-                }
+                var newHitPos = transform.position + hitPosDir * distance;
+
+                var y = newHitPos.y + 0.1f;
+                SkillSpawnPoint[2].position = new Vector3(newHitPos.x, y, newHitPos.z);
+                TargetVFXGameObject.transform.position = new Vector3(newHitPos.x, 1, newHitPos.z);
+
+
+
+                //float distance = toHit.magnitude;
+
+
+
+
+
+
+                //Debug.Log(transform.position.magnitude);
+                //if (distance <= Spell.Distance)
+                //{
+                //    var y = hit.point.y + 0.1f;
+                //    SkillSpawnPoint[2].position = new Vector3(hit.point.x, y, hit.point.z);
+                //    TargetVFXGameObject.transform.position = new Vector3(hit.point.x, y, hit.point.z);
+                //}
+                //else
+                //{
+                //    Vector3 spellDirection = toHit.normalized;
+
+                //    Debug.DrawRay(transform.position, spellDirection*10, Color.green);
+
+
+                //}   
             }
         }
     }
 
     void AbilityActivation(int index)
     {
+
+
         if (SkillIsAvailable[index] && !ActiveCoolDown[index])
         {
             SkillVFXActivation();
             isFiring = true;
         }
 
-
-        if (IndicatorVFX.GetComponent<Image>().enabled && isFiring && !Input.GetKey(_currentAbillityKey))
+        if (isFiring && !Input.GetKey(_currentAbillityKey))
         {
-            Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
-
-            float rotationY = Mathf.SmoothDamp(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y, ref playerActionScript.rotateVelocity, 0);
-
-            transform.eulerAngles = new Vector3(0, rotationY, 0);
-
-            playerActionScript.agent.SetDestination(transform.position);
-            playerActionScript.agent.stoppingDistance = 0;
 
 
-            if (SkillIsAvailable[index])
+            if ((MaxRangeVFX.GetComponent<Image>().enabled || PlayergroundVFX.GetComponent<Image>().enabled))
             {
+
+
+
+
+                if (IndicatorVFX.GetComponent<Image>().enabled)
+                {
+                    Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
+
+                    float rotationY = Mathf.SmoothDamp(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y, ref playerActionScript.rotateVelocity, 0);
+
+                    transform.eulerAngles = new Vector3(0, rotationY, 0);
+
+                    playerActionScript.agent.SetDestination(transform.position);
+                    playerActionScript.agent.stoppingDistance = 0;
+                }
+
+
                 ActiveCoolDown[index] = true;
                 SkillImageUIVFX[_currentAbillityIndexInPlayerSkills].fillAmount = 1;
 
                 StartCoroutine(corSkillShot(index));
             }
+
         }
 
-        if ((MaxRangeVFX.GetComponent<Image>().enabled || PlayergroundVFX.GetComponent<Image>().enabled) && isFiring && !Input.GetKey(_currentAbillityKey))
-        {
-            if (SkillIsAvailable[index])
-            {
-                ActiveCoolDown[index] = true;
-                SkillImageUIVFX[_currentAbillityIndexInPlayerSkills].fillAmount = 1;
 
-                StartCoroutine(corSkillShot(index));
-            }
-        }
 
         if (ActiveCoolDown[index])
         {
@@ -267,7 +293,7 @@ public class Abillities : MonoBehaviour
         if (Spell.HasMaxRange)
         {
             MaxRangeVFX.GetComponent<Image>().enabled = true;
-            MaxRangeVFXGameObject.transform.localScale = new Vector3(Spell.Distance-3, Spell.Distance-3, Spell.Distance-3);
+            MaxRangeVFXGameObject.transform.localScale = new Vector3(Spell.Distance - 3, Spell.Distance - 3, Spell.Distance - 3);
         }
         if (Spell.HasTargetVFX)
         {
@@ -288,6 +314,10 @@ public class Abillities : MonoBehaviour
     {
         if (SkillConsumption(index))
         {
+
+            playerActionScript.agent.isStopped = true;
+
+            
             anim.Attack(Spell.AnimatorProperty);
             yield return new WaitForSeconds(Spell.ActivationTime);
             SpawnSkill();
@@ -298,13 +328,15 @@ public class Abillities : MonoBehaviour
 
     public void SpawnSkill()
     {
-        if (PV.IsMine && Spell.Skill3DModel!=null)
+
+        if (PV.IsMine && Spell.Skill3DModel != null)
         {
             if (Spell.HasIndicator)
             {
                 PhotonNetwork.Instantiate("Prefabs/Skill/" + Spell.Skill3DModel, SkillSpawnPoint[0].transform.position, SkillSpawnPoint[0].transform.rotation);
             }
-            else if (Spell.HasPlayergroundVFX){
+            else if (Spell.HasPlayergroundVFX)
+            {
                 PhotonNetwork.Instantiate("Prefabs/Skill/" + Spell.Skill3DModel, SkillSpawnPoint[1].transform.position, SkillSpawnPoint[1].transform.rotation);
             }
             else if (Spell.HasMaxRange)
@@ -325,7 +357,7 @@ public class Abillities : MonoBehaviour
         }
 
         return value;
-        
+
     }
 
     bool SkillConsumption(int index)

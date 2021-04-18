@@ -34,11 +34,11 @@ public class PlayerAnimator : MonoBehaviourPun
         // }
         if (PV.IsMine)
         {
-            Move();
+            MoveAnimation();
         }
     }
 
-    public void Move()
+    public void MoveAnimation()
     {
         float speed = agent.velocity.magnitude / agent.speed;
         anim.SetFloat("Blend", speed, motionSmoothTime, Time.deltaTime);
