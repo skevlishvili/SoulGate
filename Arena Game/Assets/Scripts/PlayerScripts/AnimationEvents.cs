@@ -12,7 +12,6 @@ public class AnimationEvents : MonoBehaviour
     public void EndOfSkill()
     {
         anim.EndAnimation(abillitiesScript.Spell.AnimatorProperty);
-        abillitiesScript.isFiring = false;
     }
 
     public void PlayFireSound()

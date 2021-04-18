@@ -69,59 +69,39 @@ public class Shop : MonoBehaviour
 
         Spell = SkillLibrary.Skills[_SkillIndex];
         SkillUiImageDetailed.sprite = Spell.SkillImageUIVFX;
+        GameObject.Find("SkillUIImage").GetComponent<Image>().sprite = Spell.SkillImageUIVFX;
+        
 
         string Damage = "";
-        if (Spell.PhysicalDamage != 0)
-        {
-            Damage += $"Physical: {Spell.PhysicalDamage},";
-        }
-        if (Spell.MagicDamage != 0)
-        {
-            Damage += $" Magical: {Spell.MagicDamage},";
-        }
-        if (Spell.SoulDamage != 0)
-        {
-            Damage += $" Soul: {Spell.SoulDamage}";
-        }
-
         string Consumption = "";
-        if (Spell.HealthConsumption != 0)
-        {
-            Consumption += $"Health: {Spell.HealthConsumption},";
-        }
-        if (Spell.ManaConsumption != 0)
-        {
-            Consumption += $" Mana: {Spell.ManaConsumption}";
-        }
-
         string Effects = "";
-        if (Spell.IsRestraining)
-        {
-            Effects += "Restraining,";
-        }
-        if (Spell.IsInvisible)
-        {
-            Effects += " Invisible,";
-        }
-        if (Spell.IsPasive)
-        {
-            Effects += " Pasive,";
-        }
-        if (Spell.IsBuff)
-        {
-            Effects += " Buff/debuff,";
-        }
-        if (Spell.IsProjectile)
-        {
-            Effects += " Projectile,";
-        }
-        if (Spell.HasRecharging)
-        {
-            Effects += " Recharging,";
-        }
+
+        #region Damage
+        Damage += Spell.PhysicalDamage == 0 ? "" : $"Physical: {Spell.PhysicalDamage},";
+        Damage += Spell.MagicDamage == 0 ? "" : $" Magical: {Spell.MagicDamage},";
+        Damage += Spell.SoulDamage == 0 ? "" : $" Soul: {Spell.SoulDamage}";
+
+        #endregion
+
+
+        #region Consumption
+        Consumption += Spell.HealthConsumption == 0 ? "" : $"Health: {Spell.HealthConsumption},";        
+        Consumption += Spell.ManaConsumption == 0 ? "" : $" Mana: {Spell.ManaConsumption}";
+        #endregion
+
+        #region Effects
+        Effects += Spell.IsRestraining ? "Restraining," : "";
+        Effects += Spell.IsInvisible ? "Invisible," : "";
+        Effects += Spell.IsPasive ? "Pasive," : "";
+        Effects += Spell.IsBuff ? "Buff/debuff," : "";
+        Effects += Spell.IsProjectile ? "Projectile," : "";
+        Effects += Spell.HasRecharging ? "Recharging" : "";
+        #endregion
+
+
 
         string DetailedInfo = $"Description: {Spell.SkillName}\n\nDamage: {Damage}\n\nConsumtion: {Consumption}\n\nCooldown: {Spell.Cooldown}\n\nEffects: {Effects }";
-        DetailedSkillInfo.text = DetailedInfo;
+        GameObject.Find("SkillInfoText").GetComponent<Text>().text = DetailedInfo;
     }
 
     public void SearchDropDownChange(Dropdown value)

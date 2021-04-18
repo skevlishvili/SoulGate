@@ -2,6 +2,7 @@
 using Photon.Pun.UtilityScripts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -208,7 +209,7 @@ public class PlayerAction : MonoBehaviourPun
         //}
 
 
-        if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring && !unitStat.IsDead)
+        if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring.All(x => x) && !unitStat.IsDead)
         {
             agent.isStopped = false;
             Move();
@@ -275,12 +276,6 @@ public class PlayerAction : MonoBehaviourPun
 
 
         float damage = 80f;
-
-
-
-
-
-
         if (PV.IsMine && !ProjPV.IsMine)
         {
             var score = unitStat.Health - damage <= 0 ? 100 : (int)(damage / 10);
@@ -319,7 +314,7 @@ public class PlayerAction : MonoBehaviourPun
         unitStat.Health = 200;
         unitStat.Mana = 200;
         unitStat.Xp = 0;
-        unitStat.Money = 0;
+        unitStat.Money = 50000;
         unitStat.PhysicalDefence = 20;
         unitStat.MagicDefence = 20;
         unitStat.Height = 2;
