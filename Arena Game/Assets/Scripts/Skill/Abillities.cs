@@ -282,11 +282,11 @@ public class Abillities : MonoBehaviour
     //Makes Skill VFX visible
     void SkillVFXActivation()
     {
-        if (Spell.HasPlayergroundVFX)
+        if (Spell.HasIndicator)
         {
             IndicatorVFX.GetComponent<Image>().enabled = true;
         }
-        if (Spell.HasIndicator)
+        if (Spell.HasPlayergroundVFX)
         {
             PlayergroundVFX.GetComponent<Image>().enabled = true;
         }

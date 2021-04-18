@@ -130,6 +130,8 @@ public class PlayerAction : MonoBehaviourPun
                 chatInputField.DeactivateInputField();
                 chatInputField.text = "";
                 IsTyping = false;
+
+                return;
             }
 
             chatInputField.ActivateInputField();
@@ -206,7 +208,7 @@ public class PlayerAction : MonoBehaviourPun
         //}
 
 
-        if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.IsFiring && !unitStat.IsDead)
+        if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring && !unitStat.IsDead)
         {
             agent.isStopped = false;
             Move();
