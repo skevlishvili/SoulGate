@@ -31,7 +31,7 @@ public class PlayerAction : MonoBehaviourPun
     public Canvas HUD;
     #endregion
 
-
+    PhotonView ProjPV;
 
     void Awake()
     {
@@ -65,7 +65,7 @@ public class PlayerAction : MonoBehaviourPun
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(this.gameObject);
 
-        PV = gameObject.GetComponent<PhotonView>();
+        PV = GetComponent<PhotonView>();
     }
 
     private void Start()
@@ -170,19 +170,48 @@ public class PlayerAction : MonoBehaviourPun
     private void OnTriggerEnter(Collider other)
     {
 
+
+        //if (!PV.IsMine)
+        //{
+        //    return;
+        //}
         Projectile projectile = other.GetComponent<Projectile>();
-        float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
-        PhotonView ProjPV = other.GetComponent<PhotonView>();
+        ProjPV = other.GetComponent<PhotonView>();
+
+        //float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
+
+
+
+        float damage = 80f;
+
+
+
+
+
+
         if (PV.IsMine && !ProjPV.IsMine)
         {
+
+
+
+            Debug.Log("INSIDE OF IF STATEMENT THAT CHECKS FOR IF THE PROJECTILE IS NOT MINE AND THE PLAYER IS MINE");
+
             PV.RPC("takeDamage", RpcTarget.All, damage);
         }
+
+        //PhotonNetwork.Destroy(projectile.gameObject);
+
+        //projectile.gameObject.SetActive(false);
+
+        projectile.DestroyProjectile();
+        GameObject hitVFX = PhotonNetwork.Instantiate("Prefabs/Skill/Spark/vfx_hit_v1", transform.position + Vector3.up * 2, projectile.transform.rotation);
+
     }
 
     void Regeneration()
     {
         float HealthRegen = 1;
-        float ManaRegen = 1;
+        float ManaRegen = 20;
 
         if((unitStat.Health + HealthRegen) <= 200){
             unitStat.Health += HealthRegen;
@@ -198,6 +227,8 @@ public class PlayerAction : MonoBehaviourPun
     [PunRPC]
     void takeDamage(float damage)
     {
+        Debug.Log("IN THE ACTUAL TAKE DAMAGE FUNCTION");
+
         unitStat.Health -= damage;
     }
 }

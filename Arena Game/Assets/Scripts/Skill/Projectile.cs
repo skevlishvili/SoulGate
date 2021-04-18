@@ -36,6 +36,12 @@ public class Projectile : MonoBehaviour
         gameObject.transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
     }
 
+
+    public void DestroyProjectile()
+    {
+        Destroy(gameObject);
+    }
+
     IEnumerator DestroyObject()
     {
         yield return new WaitForSeconds(Spell.Duration);

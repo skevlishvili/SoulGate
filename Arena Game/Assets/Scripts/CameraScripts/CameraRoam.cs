@@ -16,7 +16,7 @@ public class CameraRoam : MonoBehaviour
         //Up
         if (Input.mousePosition.y >= Screen.height - screenSizeThickness)
         {
-            pos.x -= camSpeed * Time.deltaTime;
+            pos.z += camSpeed * Time.deltaTime;
 
             //OR
             //pos.z += camSpeed * Time.deltaTime;
@@ -25,7 +25,7 @@ public class CameraRoam : MonoBehaviour
         //Down
         if (Input.mousePosition.y <= screenSizeThickness)
         {
-            pos.x += camSpeed * Time.deltaTime;
+            pos.z -= camSpeed * Time.deltaTime;
 
             //OR
             //pos.z -= camSpeed * Time.deltaTime;
@@ -34,7 +34,7 @@ public class CameraRoam : MonoBehaviour
         //Right
         if (Input.mousePosition.x >= Screen.width - screenSizeThickness)
         {
-            pos.z += camSpeed * Time.deltaTime;
+            pos.x += camSpeed * Time.deltaTime;
 
             //OR
             //pos.x += camSpeed * Time.deltaTime;
@@ -43,7 +43,7 @@ public class CameraRoam : MonoBehaviour
         //Left
         if (Input.mousePosition.x <= screenSizeThickness)
         {
-            pos.z -= camSpeed * Time.deltaTime;
+            pos.x -= camSpeed * Time.deltaTime;
 
             //OR
             //pos.z -= camSpeed * Time.deltaTime;
