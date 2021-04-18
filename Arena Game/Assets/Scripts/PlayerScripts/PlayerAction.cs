@@ -28,8 +28,12 @@ public class PlayerAction : MonoBehaviourPun
 
     public bool IsDead;
     public bool IsReady;
+    public bool IsTyping;
 
     public GameObject ScoreBoard;
+
+    public GameObject ChatInput;
+    private UnityEngine.UI.InputField chatInputField;
 
     [SerializeField]
     private Abillities abilities;
@@ -85,7 +89,7 @@ public class PlayerAction : MonoBehaviourPun
     {
         GameObject Player = GameObject.Find("Player");
         animator = gameObject.GetComponent<PlayerAnimator>();
-
+        chatInputField = ChatInput.GetComponent<UnityEngine.UI.InputField>();
         InvokeRepeating("Regeneration", 1.0f, 1.0f);
 
         //RoundManager.RM.AddPlayer(LocalPlayerInstance);
@@ -114,6 +118,27 @@ public class PlayerAction : MonoBehaviourPun
             OnPlayerReady();
             return;
         }
+
+
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            if (IsTyping)
+            {                
+                chatInputField.DeactivateInputField();
+                chatInputField.text = "";
+                IsTyping = false;
+            }
+
+            chatInputField.ActivateInputField();
+            IsTyping = true;
+
+            return;
+        }
+
+        if (IsTyping) {
+            return;
+        }
+
+        Debug.Log("Test");
 
 
         if (Input.GetKeyDown(KeyCode.Tab))
