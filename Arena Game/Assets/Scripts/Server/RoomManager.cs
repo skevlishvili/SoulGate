@@ -11,6 +11,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
     public static bool PlayerLoaded;
+    public GameObject Shop;
+    public GameObject Shop_prefab;
 
     void Awake()
     {
@@ -45,6 +47,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
             PlayerLoaded = true;
             Debug.Log("Loading Scene ... ");
             PhotonNetwork.Instantiate("Prefabs/Player/PlayerControllerPrefab", Vector3.zero, Quaternion.identity);
+            GameObject instantiatedGameObject = Instantiate(Shop_prefab, Vector3.zero, Quaternion.identity);
+            instantiatedGameObject.transform.SetParent(Shop.transform);
         }
     }
 

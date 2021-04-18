@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     private GameObject Menu;
 
     [SerializeField] Menu[] menus;
+
     #endregion
 
     #region Public 
@@ -39,14 +40,9 @@ public class MainMenu : MonoBehaviourPunCallbacks
         }
     }
 
-    public void Play()
+    public void OpenMenuButton(string Menuname)
     {
-        OpenMenu("Create_Room_Panel");
-    }
-
-    public void ReturnToMain()
-    {
-        OpenMenu("Control_Panel");
+        OpenMenu(Menuname);
     }
 
     public void OpenMenu(Menu menu)

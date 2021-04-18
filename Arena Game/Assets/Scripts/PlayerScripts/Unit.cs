@@ -5,101 +5,79 @@ using UnityEngine;
 
 public class Unit : AbstractUnitClass
 {
-    #region Private variables
-    private float _Health;
-    private float _Mana;
-    private int _Xp;
-    private int _Money;
-
-    private float _PhysicalDefence;
-    private float _MagicDefence;
-
-    private float _Height;
-    private float _weight;
-
-    private int _strength;
-    private int _Agility;
-    private int _Intelligence;
-    private int _Charisma;
-
-    private bool _IsHalfHealth;
-    private bool _IsDead;
-
-    #endregion
-
     public override float Health
     {
-        get { return _Health; }
-        set { _Health = value; }
+        get;
+        set;
     }
     public override float Mana
     {
-        get { return _Mana; }
-        set { _Mana = value; }
+        get;
+        set;
     }
-    public override int Xp
+    public override float Xp
     {
-        get { return _Xp; }
-        set { _Xp = value; }
+        get;
+        set;
     }
-    public override int Money
+    public override float Money
     {
-        get { return _Money; }
-        set { _Money = value; }
+        get;
+        set;
     }
 
     public override float PhysicalDefence
     {
-        get { return _PhysicalDefence; }
-        set { _PhysicalDefence = value; }
+        get;
+        set;
     }
     public override float MagicDefence
     {
-        get { return _MagicDefence; }
-        set { _MagicDefence = value; }
+        get;
+        set;
     }
 
 
     public override float Height
     {
-        get { return _Height; }
-        set { _Height = value; }
+        get;
+        set;
     }
     public override float weight
     {
-        get { return _weight; }
-        set { _weight = value; }
+        get;
+        set;
     }
 
     public override int strength
     {
-        get { return _strength; }
-        set { _strength = value; }
+        get;
+        set;
     }
     public override int Agility
     {
-        get { return _Agility; }
-        set { _Agility = value; }
+        get;
+        set;
     }
     public override int Intelligence
     {
-        get { return _Intelligence; }
-        set { _Intelligence = value; }
+        get;
+        set;
     }
     public override int Charisma
     {
-        get { return _Charisma; }
-        set { _Charisma = value; }
+        get;
+        set;
     }
 
     public override bool IsHalfHealth
     {
-        get { return _IsHalfHealth; }
-        set { _IsHalfHealth = value; }
+        get;
+        set;
     }
     public override bool IsDead
     {
-        get { return _IsDead; }
-        set { _IsDead = value; }
+        get;
+        set;
     }
 }

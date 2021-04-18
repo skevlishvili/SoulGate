@@ -38,7 +38,7 @@ public class PlayerAction : MonoBehaviourPun
         unitStat.Health = 200;
         unitStat.Mana = 200;
         unitStat.Xp = 0;
-        unitStat.Money = 0;
+        unitStat.Money = 1000;
         unitStat.PhysicalDefence = 20;
         unitStat.MagicDefence = 20;
         unitStat.Height = 2;
@@ -53,7 +53,7 @@ public class PlayerAction : MonoBehaviourPun
 
         agent.speed = unitStat.Agility / 2;
 
-        PlayerSkills = new int[4] { 1, 6, 2, 5 };
+        PlayerSkills = new int[9] { 1, 6, 2, 5, 0, 0, 0, 0, 0};
 
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized

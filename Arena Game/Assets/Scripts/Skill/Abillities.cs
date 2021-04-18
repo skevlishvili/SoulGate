@@ -92,40 +92,19 @@ public class Abillities : MonoBehaviour
     {
         if (key == KeyCodeController.Ability1)
         {
-            Spell = SkillLibrary.Skills[playerActionScript.PlayerSkills[0]];
-            if (CheckIfSkillCanCast(0))
-            {
-                _currentAbillityKey = KeyCodeController.Ability1;
-                SkillIsAvailable[0] = true;
-            }
-            
+            SetSkill(key, 0);
         }
         else if (key == KeyCodeController.Ability2)
         {
-            Spell = SkillLibrary.Skills[playerActionScript.PlayerSkills[1]];
-            if (CheckIfSkillCanCast(1))
-            {
-                _currentAbillityKey = KeyCodeController.Ability2;
-                SkillIsAvailable[1] = true;
-            }
+            SetSkill(key, 1);
         }
         else if (key == KeyCodeController.Ability3)
         {
-            Spell = SkillLibrary.Skills[playerActionScript.PlayerSkills[2]];
-            if (CheckIfSkillCanCast(2))
-            {
-                _currentAbillityKey = KeyCodeController.Ability3;
-                SkillIsAvailable[2] = true;
-            }
+            SetSkill(key, 2);
         }
         else if (key == KeyCodeController.Ability4)
         {
-            Spell = SkillLibrary.Skills[playerActionScript.PlayerSkills[3]];
-            if (CheckIfSkillCanCast(3))
-            {
-                _currentAbillityKey = KeyCodeController.Ability4;
-                SkillIsAvailable[3] = true;
-            }
+            SetSkill(key, 3);
         }
         else
         {
@@ -214,6 +193,19 @@ public class Abillities : MonoBehaviour
         if (ActiveCoolDown[index])
         {
             SkillVFXDeActivation();
+        }
+    }
+
+
+
+    // Set Spell Data
+    void SetSkill(KeyCode key, int index)
+    {
+        Spell = SkillLibrary.Skills[playerActionScript.PlayerSkills[index]];
+        if (CheckIfSkillCanCast(index))
+        {
+            _currentAbillityKey = key;
+            SkillIsAvailable[index] = true;
         }
     }
 

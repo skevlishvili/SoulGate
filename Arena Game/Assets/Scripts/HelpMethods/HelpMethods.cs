@@ -21,4 +21,18 @@ public class HelpMethods
 
         return finalString;
     }
+
+    public static int GetSkillIndexByName(String Skillname){
+        int _SkillIndex = 0;
+
+        for (int i = 1; i<SkillLibrary.Skills.Length; i++)
+        {
+            if (Skillname == SkillLibrary.Skills[i].SkillName)
+            {
+                _SkillIndex = i;
+            }
+        }
+
+        return _SkillIndex;
+    }
 }

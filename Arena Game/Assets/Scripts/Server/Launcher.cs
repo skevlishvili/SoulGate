@@ -14,7 +14,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private InputField GameCodeField;
 
-
     [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
     [SerializeField]
     private byte maxPlayersPerRoom = 4;
@@ -50,7 +49,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     #region MonoBehaviour CallBacks
     void Awake()
     {
-        Menu.OpenMenu("Control_Panel");
+        Menu.OpenMenu("Main_Panel");
         // This is an issue needs rework!!!!!!!!
         RoomName = HelpMethods.RandomString(4);
         RoomNameField.text = RoomName;
@@ -58,8 +57,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        Debug.Log("connected to master");
-
+        //Debug.Log("connected to master");
         IsConnecting = PhotonNetwork.ConnectUsingSettings();
     }
     #endregion
@@ -68,7 +66,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
-        Debug.Log(GameCodeField.text);
+        //Debug.Log(GameCodeField.text);
         PhotonNetwork.JoinRoom(GameCodeField.text);
     }
 
@@ -93,9 +91,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     #region MonoBehaviourPunCallbacks Callbacks
     public override void OnConnectedToMaster()
     {
-        Debug.Log("OnConnectedToMaster()");
-
-
+        //Debug.Log("OnConnectedToMaster()");
         PhotonNetwork.JoinLobby();
         PhotonNetwork.AutomaticallySyncScene = true;
 
@@ -111,25 +107,22 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        //Menu.OpenMenu("Create Room Panel");
-
         base.OnJoinedLobby();
-        Debug.Log("Joined Lobby");
+        //Debug.Log("Joined Lobby");
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("OnJoinRandomFailed() was called. No random room available, so we create one.\nReturning: Main Menu");
-
-        Menu.OpenMenu("Control_Panel");
+        Menu.OpenMenu("Menu_Panel");
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("OnJoinedRoom() called, Now this client is in a room.");
+        //Debug.Log("OnJoinedRoom() called, Now this client is in a room.");
 
         PhotonNetwork.LoadLevel(1);
-        Debug.Log(PhotonNetwork.CurrentRoom.Name);
+        //Debug.Log(PhotonNetwork.CurrentRoom.Name);
     }
     #endregion
 }
