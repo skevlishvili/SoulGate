@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SkillLibrary : MonoBehaviour
 {
-    public static Skill[] Skills = new Skill[2];
-    
+    public static Skill[] Skills = new Skill[7];
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -37,7 +37,7 @@ public class SkillLibrary : MonoBehaviour
 
             Duration = 5,
             Cooldown = 5,
-            ActivationTime = 0,
+            ActivationTime = 0.2f,
             ProjectileSpeed = 50,
             MaxRechargingTime = 0,
 
@@ -45,13 +45,14 @@ public class SkillLibrary : MonoBehaviour
             Distance = 250,
             Thickness = 0,
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Fireball_Ui_Sprite"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/BonusIcons/Basic_Spells/Normal/01_fire_arrow"),
             PlayergroundVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/FireCircle"),
             MaxRangeVFX = null,
             IndicatorVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Indicator"),
-            Skill3DModel = "Fireball_Prefab",
+            TargetVFX = null,
+            Skill3DModel = "Projectile/Fireball_Prefab",
             Sound = "Fireball_Sound",
-            AnimatorProperty = "SkillOne",
+            AnimatorProperty = "Attack_Magic_02",
 
             IsRestraining = false,
             IsInvisible = false,
@@ -63,6 +64,267 @@ public class SkillLibrary : MonoBehaviour
             HasPlayergroundVFX = true,
             HasIndicator = true,
             HasMaxRange = false,
+            HasTargetVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[2] = new Skill
+        {
+            SkillName = "FireStorm",
+
+            PhysicalDamage = 0,
+            MagicDamage = 100,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            ManaBuff = 0,
+            SpeedBuff = 0,
+            CooldownBuff = 0,
+
+            HealthConsumption = 0,
+            ManaConsumption = 50,
+
+            SkillPriceMoney = 200,
+            SkillPriceXp = 0,
+
+            Duration = 1,
+            Cooldown = 30,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            Height = 0,
+            Distance = 10,
+            Thickness = 0,
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Engineerskill_06"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/MaxRange"),
+            IndicatorVFX = null,
+            TargetVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Target"),
+            Skill3DModel = "AOE/vfx_aoe_fire",
+            Sound = "Fireball_Sound",
+            AnimatorProperty = "Attack_Magic_04",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = false,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = true,
+            HasTargetVFX = true,
+            HasRecharging = false
+        };
+
+        Skills[3] = new Skill
+        {
+            SkillName = "FireWall",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            ManaBuff = 0,
+            SpeedBuff = 0,
+            CooldownBuff = 0,
+
+            HealthConsumption = 0,
+            ManaConsumption = 0,
+
+            SkillPriceMoney = 0,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            Height = 0,
+            Distance = 0,
+            Thickness = 0,
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            Skill3DModel = "AOE/vfx_heal",
+            Sound = "Fireball_Sound",
+            AnimatorProperty = "Attack_Magic_02",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = false,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[4] = new Skill
+        {
+            SkillName = "Meteor",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            ManaBuff = 0,
+            SpeedBuff = 0,
+            CooldownBuff = 0,
+
+            HealthConsumption = 0,
+            ManaConsumption = 0,
+
+            SkillPriceMoney = 0,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            Height = 0,
+            Distance = 0,
+            Thickness = 0,
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Shamanskill_08"),
+            PlayergroundVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/FireCircle"),
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            Skill3DModel = "",
+            Sound = "Fireball_Sound",
+            AnimatorProperty = "Attack_Magic_02",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = false,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[5] = new Skill
+        {
+            SkillName = "HealthRegen",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            ManaBuff = 0,
+            SpeedBuff = 0,
+            CooldownBuff = 0,
+
+            HealthConsumption = 0,
+            ManaConsumption = 50,
+
+            SkillPriceMoney = 100,
+            SkillPriceXp = 0,
+
+            Duration = 1,
+            Cooldown = 120,
+            ActivationTime = 1,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            Height = 0,
+            Distance = 0,
+            Thickness = 0,
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Assassinskill_29"),
+            PlayergroundVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/FireCircle"),
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            Skill3DModel = "AOE/vfx_heal",
+            Sound = "HealthRegen_Sound",
+            AnimatorProperty = "Attack_Magic_03",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+            HasPlayergroundVFX = true,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[6] = new Skill
+        {
+            SkillName = "Teleport",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            ManaBuff = 0,
+            SpeedBuff = 0,
+            CooldownBuff = 0,
+
+            HealthConsumption = 0,
+            ManaConsumption = 50,
+
+            SkillPriceMoney = 200,
+            SkillPriceXp = 0,
+
+            Duration = 1,
+            Cooldown = 120,
+            ActivationTime = 1,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            Height = 0,
+            Distance = 20,
+            Thickness = 0,
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/BonusIcons/10newicons/Standart/Update_04"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/MaxRange"),
+            IndicatorVFX = null,
+            TargetVFX = null,
+            Skill3DModel = null,
+            Sound = "",
+            AnimatorProperty = "Attack_Magic_03",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = true,
+            HasTargetVFX = false,
             HasRecharging = false
         };
     }

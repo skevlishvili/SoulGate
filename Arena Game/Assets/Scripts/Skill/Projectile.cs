@@ -12,8 +12,7 @@ public class Projectile : MonoBehaviour
 
     public int SkillIndex;
 
-    public GameObject skillLibraryObj;
-
+    //public GameObject skillLibraryObj;
 
     private void Awake()
     {
@@ -34,6 +33,12 @@ public class Projectile : MonoBehaviour
 
         gameObject.transform.TransformDirection(Vector3.forward);
         gameObject.transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
+    }
+
+
+    public void DestroyProjectile()
+    {
+        Destroy(gameObject);
     }
 
     IEnumerator DestroyObject()

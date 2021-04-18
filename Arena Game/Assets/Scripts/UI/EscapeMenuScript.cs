@@ -9,14 +9,21 @@ public class EscapeMenuScript : MonoBehaviour
     PhotonView PV;
 
     public GameObject shopobj;
+    CanvasGroup canvasGroup;
     public int CounterShop = 0;
+
+    void Start()
+    {
+        InvokeRepeating("OpenShop", 0f, 0.5f);
+        canvasGroup = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCodeController.Menu))
         {
-            CanvasGroup canvasGroup = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
+            
             canvasGroup.alpha = 1f;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
@@ -26,12 +33,6 @@ public class EscapeMenuScript : MonoBehaviour
         {
             CounterShop += 1;
         }
-    }
-
-    void Start()
-    {
-        InvokeRepeating("OpenShop", 0f, 0.5f);
-
     }
 
     public void Resume() {

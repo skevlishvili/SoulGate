@@ -685,15 +685,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillLibraryObj: {fileID: 1576659336609340737, guid: a1fb2879c18d6ad43bff1f20cc5ddf71,
     type: 3}
-  PlayerActionObj: {fileID: 0}
-  AB1: {fileID: 575756202869379109}
-  AB1_Overlay: {fileID: 575756202907406905}
-  AB2: {fileID: 575756201966643767}
-  AB2_Overlay: {fileID: 575756201614033125}
-  AB3: {fileID: 575756201612724356}
-  AB3_Overlay: {fileID: 575756203038382664}
-  AB4: {fileID: 575756203033424082}
-  AB4_Overlay: {fileID: 575756201794350160}
+  Player_PrefabObj: {fileID: 2001586355745943458, guid: 5be18f0ac2a59f242ad2c132cd508e9d,
+    type: 3}
+  imagesObj:
+  - {fileID: 575756202869379109}
+  - {fileID: 575756202907406905}
+  - {fileID: 575756201966643767}
+  - {fileID: 575756201614033125}
+  - {fileID: 575756201612724356}
+  - {fileID: 575756203038382664}
+  - {fileID: 575756203033424082}
+  - {fileID: 575756201794350160}
 --- !u!1 &575756202869379111
 GameObject:
   m_ObjectHideFlags: 0

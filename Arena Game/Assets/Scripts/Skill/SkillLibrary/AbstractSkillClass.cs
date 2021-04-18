@@ -43,6 +43,7 @@ public abstract class AbstractSkillClass : MonoBehaviour
     public abstract Sprite PlayergroundVFX { get; set; }// spell max range visible image
     public abstract Sprite MaxRangeVFX { get; set; }// spell max range visible image
     public abstract Sprite IndicatorVFX { get; set; }// direction of attack
+    public abstract Sprite TargetVFX { get; set; }// position of attack
     public abstract string Skill3DModel { get; set; }// 3d model of spell
     public abstract string Sound { get; set; }// spell sound
     public abstract string AnimatorProperty { get; set; }// spell animator property
@@ -60,6 +61,7 @@ public abstract class AbstractSkillClass : MonoBehaviour
     public abstract bool HasPlayergroundVFX { get; set; }// if skill has visual ground where player stands
     public abstract bool HasIndicator { get; set; }// if skill has visual indicator
     public abstract bool HasMaxRange { get; set; }// if skill has visual max range
+    public abstract bool HasTargetVFX { get; set; }// if skill has visual Target
 
     public abstract bool HasRecharging { get; set; }// if skill has recharging time
 }

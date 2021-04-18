@@ -19,8 +19,7 @@ public class PlayerAction : MonoBehaviourPun
     #region Referances
     public NavMeshAgent agent;
 
-    [SerializeField]
-    private Camera cam;
+    public Camera cam;
 
     public PlayerAnimator animator;
 
@@ -49,6 +48,7 @@ public class PlayerAction : MonoBehaviourPun
 
     #endregion
 
+    PhotonView ProjPV;
     private Vector3 spawnPoint;
 
 
@@ -59,7 +59,10 @@ public class PlayerAction : MonoBehaviourPun
         spawnPoint = gameObject.transform.position;
         initStats();
 
-        PlayerSkills = new int[4] { 1, 0, 0, 0 };
+
+        agent.speed = unitStat.Agility / 2;
+
+        PlayerSkills = new int[9] { 1, 6, 2, 5, 0, 0, 0, 0, 0};
 
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
@@ -92,7 +95,8 @@ public class PlayerAction : MonoBehaviourPun
         chatInputField = ChatInput.GetComponent<UnityEngine.UI.InputField>();
         InvokeRepeating("Regeneration", 1.0f, 1.0f);
 
-        //RoundManager.RM.AddPlayer(LocalPlayerInstance);
+        InvokeRepeating("Regeneration", 1.0f, 1.0f);
+
     }
 
     private void ToggleCanvas(CanvasGroup canvasGroup, bool on) {
@@ -204,6 +208,7 @@ public class PlayerAction : MonoBehaviourPun
 
         if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.IsFiring && !unitStat.IsDead)
         {
+            agent.isStopped = false;
             Move();
         }
 
@@ -247,14 +252,31 @@ public class PlayerAction : MonoBehaviourPun
 
             transform.eulerAngles = new Vector3(0, rotationY, 0);
         }
+
+
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided");
+
+
+        //if (!PV.IsMine)
+        //{
+        //    return;
+        //}
         Projectile projectile = other.GetComponent<Projectile>();
-        float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2]; //----------------------------gasasworebelia---------------
-        PhotonView ProjPV = other.GetComponent<PhotonView>();
+        ProjPV = other.GetComponent<PhotonView>();
+
+        //float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
+
+
+
+        float damage = 80f;
+
+
+
+
 
 
         if (PV.IsMine && !ProjPV.IsMine)
@@ -264,12 +286,20 @@ public class PlayerAction : MonoBehaviourPun
             ScoreExtensions.AddScore(ProjPV.Owner, score);
             PV.RPC("takeDamage", RpcTarget.All, damage);
         }
+
+        //PhotonNetwork.Destroy(projectile.gameObject);
+
+        //projectile.gameObject.SetActive(false);
+
+        projectile.DestroyProjectile();
+        GameObject hitVFX = PhotonNetwork.Instantiate("Prefabs/Skill/Spark/vfx_hit_v1", transform.position + Vector3.up * 2, projectile.transform.rotation);
+
     }
 
     void Regeneration()
     {
-        float HealthRegen = 0;
-        float ManaRegen = 1;
+        float HealthRegen = 1;
+        float ManaRegen = 20;
 
         if ((unitStat.Health + HealthRegen) <= 200)
         {
@@ -351,6 +381,8 @@ public class PlayerAction : MonoBehaviourPun
     [PunRPC]
     void takeDamage(float damage)
     {
+        Debug.Log("IN THE ACTUAL TAKE DAMAGE FUNCTION");
+
         unitStat.Health -= damage;
     }
 }

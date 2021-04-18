@@ -12,6 +12,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
     public static bool PlayerLoaded;
+    public GameObject Shop;
+    public GameObject Shop_prefab;
     public static int Round;
     private static List<Vector3> playerPositions;
 
@@ -64,6 +66,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             PlayerLoaded = true;
             Debug.Log("Loading Scene ... ");
+            PhotonNetwork.Instantiate("Prefabs/Player/PlayerControllerPrefab", Vector3.zero, Quaternion.identity);
+            GameObject instantiatedGameObject = Instantiate(Shop_prefab, Vector3.zero, Quaternion.identity);
+            instantiatedGameObject.transform.SetParent(Shop.transform);
 
 
             //should be change in a way that doesn't require this duplicate code, just taking this out in a function isn't a solution

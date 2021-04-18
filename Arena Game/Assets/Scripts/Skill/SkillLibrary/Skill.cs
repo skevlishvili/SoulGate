@@ -139,6 +139,11 @@ public class Skill : AbstractSkillClass
         get;
         set;
     }
+    public override Sprite TargetVFX
+    {
+        get;
+        set;
+    }
     public override string Skill3DModel
     {
         get;
@@ -204,6 +209,11 @@ public class Skill : AbstractSkillClass
         set;
     }
     public override bool HasMaxRange
+    {
+        get;
+        set;
+    }
+    public override bool HasTargetVFX
     {
         get;
         set;
