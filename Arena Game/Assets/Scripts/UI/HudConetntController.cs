@@ -18,10 +18,10 @@ public class HudConetntController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadSkillUiImages();
+        LoadSkillUiImagesInHUD();
     }
 
-    public void LoadSkillUiImages()
+    public void LoadSkillUiImagesInHUD()
     {
         Player_PrefabObj = GameObject.FindGameObjectWithTag("Player");
         PlayerActionObj = Player_PrefabObj.GetComponentInChildren<PlayerAction>();

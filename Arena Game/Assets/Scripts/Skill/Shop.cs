@@ -21,7 +21,7 @@ public class Shop : MonoBehaviour
     [SerializeField]
     private MainMenu Menu;
 
-    public Image[] imagesObj;
+    public Image[] ShopHUDimagesObj;
     public Dropdown[] DropdownObj;
     #endregion
 
@@ -197,19 +197,28 @@ public class Shop : MonoBehaviour
     {
         if (Spell.SkillName != null)
         {
-            if (Spell.SkillPriceMoney != 0 && Spell.SkillPriceMoney <= playerActionObj.unitStat.Money)
+            _SkillIndex = HelpMethods.GetSkillIndexByName(Spell.SkillName);
+
+            //Check If player already has skill
+            if (!playerActionObj.PlayerSkills.Contains(_SkillIndex))
             {
-                if (true)//Check If Conditions are met to buy skill--------------------------------------------------------------
+                //Check If Conditions are met to buy skill
+                if (Spell.SkillPriceMoney != 0 && Spell.SkillPriceMoney <= playerActionObj.unitStat.Money)
                 {
                     Menu.OpenMenu("ChooseSkillIndexPanel");
+                }
+                else if (Spell.SkillPriceXp != 0 && Spell.SkillPriceXp <= playerActionObj.unitStat.Xp)
+                {
+                    Menu.OpenMenu("ChooseSkillIndexPanel");
+                }
+                else
+                {
+                    //Conditions are not met please choose another skill
                 }
             }
-            else if (Spell.SkillPriceXp != 0 && Spell.SkillPriceXp <= playerActionObj.unitStat.Xp)
+            else
             {
-                if (true)//Check If Conditions are met to buy skill--------------------------------------------------------------
-                {
-                    Menu.OpenMenu("ChooseSkillIndexPanel");
-                }
+                //tell player that he already has skill
             }
         }
     }
@@ -221,7 +230,6 @@ public class Shop : MonoBehaviour
             if (!Spell.IsPasive)
             {
                 playerActionObj.unitStat.Money -= Spell.SkillPriceMoney;
-                _SkillIndex = HelpMethods.GetSkillIndexByName(Spell.SkillName);
                 playerActionObj.PlayerSkills[index] = _SkillIndex;
                 Menu.OpenMenu("");//if it is empty it will close everything
             }
@@ -235,12 +243,9 @@ public class Shop : MonoBehaviour
         {
             if (Spell.IsPasive)
             {
-                if (Spell.SkillPriceMoney <= playerActionObj.unitStat.Money)
-                {
-                    playerActionObj.unitStat.Money -= Spell.SkillPriceMoney;
-                    playerActionObj.PlayerSkills[index] = _SkillIndex;
-                    Menu.OpenMenu("");//if it is empty it will close everything
-                }
+                playerActionObj.unitStat.Money -= Spell.SkillPriceMoney;
+                playerActionObj.PlayerSkills[index] = _SkillIndex;
+                Menu.OpenMenu("");//if it is empty it will close everything
             }
             else
             {
@@ -255,11 +260,11 @@ public class Shop : MonoBehaviour
     void LoadSkillUiImages()
     {
         HudConetntController hudConetnt = hudObj.GetComponentInChildren<HudConetntController>();
-        hudConetnt.LoadSkillUiImages();
+        hudConetnt.LoadSkillUiImagesInHUD();
 
         for (int i = 0; i < 9; i++)
         {
-            imagesObj[i].sprite = SkillLibrary.Skills[playerActionObj.PlayerSkills[i]].SkillImageUIVFX;
+            ShopHUDimagesObj[i].sprite = SkillLibrary.Skills[playerActionObj.PlayerSkills[i]].SkillImageUIVFX;
         }
     }
 }

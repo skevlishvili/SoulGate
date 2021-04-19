@@ -62,7 +62,6 @@ public class PlayerAction : MonoBehaviourPun
 
 
         agent.speed = unitStat.Agility / 2;
-
         PlayerSkills = new int[9] { 1, 6, 2, 5, 0, 0, 0, 0, 0};
 
         // #Important
@@ -145,9 +144,6 @@ public class PlayerAction : MonoBehaviourPun
             return;
         }
 
-        Debug.Log("Test");
-
-
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             ScoreBoard.SetActive(true);
@@ -157,12 +153,6 @@ public class PlayerAction : MonoBehaviourPun
         {
             ScoreBoard.SetActive(false);
         }
-
-        //if (Input.GetKeyDown(KeyCodeController.Ability2))
-        //{
-        //    RespawnAll();
-        //}
-
 
 
         if (!IsDead && !IsReady) {
@@ -178,14 +168,6 @@ public class PlayerAction : MonoBehaviourPun
         {
             OnPlayerDeath();
         }
-
-
-        //if (unitStat.Health >= 0)
-        //{
-        //    unitStat.Health -= 10;
-        //}
-
-
 
         GameObject canvas = GameObject.Find("EscapeMenu");
         if(canvas != null)
@@ -203,33 +185,21 @@ public class PlayerAction : MonoBehaviourPun
             }
         }
 
-        //if (Input.GetKeyDown(KeyCodeController.BasicAttack))
-        //{
-        //    abilities.SpellKeyCode(KeyCodeController.BasicAttack);
-        //}
-
-
         if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring.All(x => x) && !unitStat.IsDead)
         {
             agent.isStopped = false;
             Move();
         }
-
-        if (Input.GetKeyDown(KeyCodeController.Ability1) && !unitStat.IsDead)
+        
+        if (!unitStat.IsDead)
         {
-            abilities.SpellKeyCode(KeyCodeController.Ability1);
-        }
-        else if (Input.GetKeyDown(KeyCodeController.Ability2) && !unitStat.IsDead)
-        {
-            abilities.SpellKeyCode(KeyCodeController.Ability2);
-        }
-        else if (Input.GetKeyDown(KeyCodeController.Ability3) && !unitStat.IsDead)
-        {
-            abilities.SpellKeyCode(KeyCodeController.Ability3);
-        }
-        else if (Input.GetKeyDown(KeyCodeController.Ability4) && !unitStat.IsDead)
-        {
-            abilities.SpellKeyCode(KeyCodeController.Ability4);
+            for (int i = 0; i < KeyCodeController.AbilitiesKeyCodeArray.Length; i++)
+            {
+                if (Input.GetKeyDown(KeyCodeController.AbilitiesKeyCodeArray[i]))
+                {
+                    abilities.SpellKeyCode(KeyCodeController.AbilitiesKeyCodeArray[i]);
+                }
+            }
         }
     }
 

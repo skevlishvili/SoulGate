@@ -13,7 +13,6 @@ public class Abillities : MonoBehaviour
     bool[] isActivating { get; set; }
 
     private KeyCode _currentAbillityKey;
-    private int _currentAbillityIndexInPlayerSkills;
 
     #region Referances
     RaycastHit hit;
@@ -92,27 +91,17 @@ public class Abillities : MonoBehaviour
 
     public void SpellKeyCode(KeyCode key)
     {
-        if (key == KeyCodeController.Ability1)
+        for (int i = 0; i < KeyCodeController.AbilitiesKeyCodeArray.Length; i++)
         {
-            SetSkill(key, 0);
+            if (key == KeyCodeController.AbilitiesKeyCodeArray[i])
+            {
+                SetSkill(key, i);
+            }
+            else
+            {
+                _currentAbillityKey = KeyCode.None;
+            }
         }
-        else if (key == KeyCodeController.Ability2)
-        {
-            SetSkill(key, 1);
-        }
-        else if (key == KeyCodeController.Ability3)
-        {
-            SetSkill(key, 2);
-        }
-        else if (key == KeyCodeController.Ability4)
-        {
-            SetSkill(key, 3);
-        }
-        else
-        {
-            _currentAbillityKey = KeyCode.None;
-        }
-
         SkillVFXSpriteChange();
     }
 
@@ -172,11 +161,10 @@ public class Abillities : MonoBehaviour
                 }
 
                 ActiveCoolDown[index] = true;
-                SkillImageUIVFX[_currentAbillityIndexInPlayerSkills].fillAmount = 1;
+                SkillImageUIVFX[index].fillAmount = 1;
 
                 StartCoroutine(corSkillShot(index));
             }
-
         }
 
         if (ActiveCoolDown[index])
