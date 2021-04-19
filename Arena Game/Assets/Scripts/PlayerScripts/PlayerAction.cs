@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -155,6 +156,8 @@ public class PlayerAction : MonoBehaviourPun
             agent.SetDestination(destination.point);
 
 
+            StartCoroutine("SpawnMaker", destination);
+
             // ROTATION
             Quaternion rotationToLook = Quaternion.LookRotation(destination.point - transform.position);
 
@@ -162,9 +165,14 @@ public class PlayerAction : MonoBehaviourPun
 
             transform.eulerAngles = new Vector3(0, rotationY, 0);
         }
+    }
 
 
-
+    IEnumerator SpawnMaker(RaycastHit destination)
+    {
+        GameObject Marker = PhotonNetwork.Instantiate("Prefabs/UI/Marker 1", destination.point, Quaternion.Euler(-90, 0, 0));
+        yield return new WaitForSeconds(1);
+        PhotonNetwork.Destroy(Marker);
     }
 
     private void OnTriggerEnter(Collider other)

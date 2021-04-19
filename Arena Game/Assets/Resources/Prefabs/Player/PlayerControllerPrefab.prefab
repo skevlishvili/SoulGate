@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 3255337075855746706}
   - component: {fileID: 7106385388351518197}
   - component: {fileID: 3935492377218290071}
+  - component: {fileID: 7944303204738712160}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -403,6 +404,19 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &7944303204738712160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001586356334271734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d49eaae741288748a2193789e3b5aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 2001586357015933510}
 --- !u!1 &2001586356476654453
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,13 +697,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001586357015933535}
-  m_LocalRotation: {x: 0.37138018, y: -0.42467463, z: 0.19667713, w: 0.80190176}
-  m_LocalPosition: {x: 18.8, y: 24.5, z: -9.3}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: 30, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2001586355745943460}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 49.7, y: -55.81, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!20 &2001586357015933510
 Camera:
   m_ObjectHideFlags: 0
@@ -1430,28 +1444,28 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Blend
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: MagicAttack
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Attack_Magic_01
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Attack_Magic_02
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Attack_Magic_03
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Attack_Magic_04
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsDead
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!1 &3759067105777657629
 GameObject:
@@ -1720,6 +1734,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: c994e26f23818304199c0025260c61a8,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: c994e26f23818304199c0025260c61a8,
+        type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: d281c47f945ec1f459acecccfff1c2ce, type: 2}
@@ -1819,6 +1838,51 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: eb9df4aa5f3f5ca4991c89b8bc6a76ca,
         type: 3}
+    - target: {fileID: 575756202610992386, guid: 522103a43d11df24cadc15753404eb60,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 575756202610992386, guid: 522103a43d11df24cadc15753404eb60,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 575756202610992386, guid: 522103a43d11df24cadc15753404eb60,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 575756202610992386, guid: 522103a43d11df24cadc15753404eb60,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -68.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 575756202610992386, guid: 522103a43d11df24cadc15753404eb60,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -169.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 575756202818711441, guid: 522103a43d11df24cadc15753404eb60,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 575756202818711441, guid: 522103a43d11df24cadc15753404eb60,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 575756202818711441, guid: 522103a43d11df24cadc15753404eb60,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 575756202818711441, guid: 522103a43d11df24cadc15753404eb60,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -84.29
+      objectReference: {fileID: 0}
     - target: {fileID: 575756202869379109, guid: 522103a43d11df24cadc15753404eb60,
         type: 3}
       propertyPath: m_Sprite
