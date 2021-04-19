@@ -80,7 +80,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             return;
 
         Debug.Log(GameCodeField.text);
-        PhotonNetwork.LocalPlayer.NickName = string.IsNullOrEmpty(NicknameFieldJoin.text) ? NicknameFieldCreate.text : NicknameFieldJoin.text;
+        PhotonNetwork.LocalPlayer.NickName = NicknameFieldJoin.text;
         PhotonNetwork.JoinRoom(GameCodeField.text);
     }
 

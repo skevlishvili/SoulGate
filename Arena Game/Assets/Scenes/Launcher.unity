@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 32.792137, g: 40.631256, b: 53.777443, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -145,6 +145,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8478086615611316485}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &946301466 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7499920300287959541, guid: 6481be4021625104bb2e062a834a8e26,
+    type: 3}
+  m_PrefabInstance: {fileID: 8478086615611316485}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1412901545 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8478086617024082860, guid: 6481be4021625104bb2e062a834a8e26,
@@ -415,7 +427,7 @@ PrefabInstance:
         type: 3}
       propertyPath: NicknameFieldJoin
       value: 
-      objectReference: {fileID: 8478086615611316486}
+      objectReference: {fileID: 946301466}
     - target: {fileID: 8152779442425304220, guid: 05b82a0241df6614b8245e15463376eb,
         type: 3}
       propertyPath: NicknameFieldCreate
@@ -449,6 +461,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 220
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816111322766956917, guid: 6481be4021625104bb2e062a834a8e26,
+        type: 3}
+      propertyPath: m_Name
+      value: NicknameJoin
       objectReference: {fileID: 0}
     - target: {fileID: 6733702746830289128, guid: 6481be4021625104bb2e062a834a8e26,
         type: 3}
@@ -594,6 +611,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 8498422703988310735, guid: 6481be4021625104bb2e062a834a8e26,
+        type: 3}
+      propertyPath: m_Name
+      value: NicknameCreate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6481be4021625104bb2e062a834a8e26, type: 3}
