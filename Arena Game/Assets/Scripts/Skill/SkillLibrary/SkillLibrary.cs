@@ -21,7 +21,7 @@ public class SkillLibrary : MonoBehaviour
             SkillName = "FireBall",
 
             PhysicalDamage = 0,
-            MagicDamage = 10,
+            MagicDamage = 20,
             SoulDamage = 0,
 
             HealthBuff = 0,
@@ -174,7 +174,7 @@ public class SkillLibrary : MonoBehaviour
 
         Skills[4] = new Skill
         {
-            SkillName = "Meteor",
+            SkillName = "FireMeteor",
 
             PhysicalDamage = 50,
             MagicDamage = 100,
@@ -232,7 +232,7 @@ public class SkillLibrary : MonoBehaviour
             MagicDamage = 0,
             SoulDamage = 0,
 
-            HealthBuff = 0,
+            HealthBuff = 25,
             ManaBuff = 0,
             SpeedBuff = 0,
             CooldownBuff = 0,
@@ -244,7 +244,7 @@ public class SkillLibrary : MonoBehaviour
             SkillPriceXp = 0,
 
             Duration = 1,
-            Cooldown = 120,
+            Cooldown = 60,
             ActivationTime = 1,
             ProjectileSpeed = 0,
             MaxRechargingTime = 0,
@@ -334,7 +334,7 @@ public class SkillLibrary : MonoBehaviour
 
             PhysicalDamage = 0,
             MagicDamage = 100,
-            SoulDamage = 10,
+            SoulDamage = 20,
 
             HealthBuff = 0,
             ManaBuff = 0,
@@ -348,7 +348,7 @@ public class SkillLibrary : MonoBehaviour
             SkillPriceXp = 0,
 
             Duration = 3,
-            Cooldown = 90,
+            Cooldown = 60,
             ActivationTime = 0,
             ProjectileSpeed = 0,
             MaxRechargingTime = 0,

@@ -29186,6 +29186,7 @@ GameObject:
   - component: {fileID: 5450085853137169723}
   - component: {fileID: -6978192393809710237}
   - component: {fileID: 3703103468836475006}
+  - component: {fileID: 7247640448598842260}
   m_Layer: 0
   m_Name: LightningStrike
   m_TagString: Spell
@@ -34471,6 +34472,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 0, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7247640448598842260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604970523841052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0baf73e0f2e4f469fb281648476aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: []
+  SkillIndex: 7
 --- !u!1 &1782509883496884
 GameObject:
   m_ObjectHideFlags: 0

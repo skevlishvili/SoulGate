@@ -4858,7 +4858,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2981452296829496461}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -14480,7 +14480,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4436437394118104076}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -28882,9 +28882,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1298608913124528628}
-  - component: {fileID: 5439188265197292383}
-  - component: {fileID: 1626581300354906323}
-  - component: {fileID: -2560530248632297985}
+  - component: {fileID: 3783029433374942256}
+  - component: {fileID: 6214170791773837606}
+  - component: {fileID: -1033323430351391419}
   m_Layer: 0
   m_Name: vfx_heal
   m_TagString: Untagged
@@ -28907,7 +28907,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5439188265197292383
+--- !u!114 &3783029433374942256
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28916,19 +28916,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5167232171302041955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52f99f2331971954f93c311e10f4e06a, type: 3}
+  m_Script: {fileID: 11500000, guid: 762f3a6a9ebda7e42a09f990c3d1b77c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIndex: 5
-  StatName:
-  - Health
-  StatValue:
-  - 50
-  AddOrChangeMax: 0
-  skillLibraryObj: {fileID: 6579482026067811824, guid: a1fb2879c18d6ad43bff1f20cc5ddf71,
-    type: 3}
-  Player: {fileID: 2001586355745943458, guid: 5be18f0ac2a59f242ad2c132cd508e9d, type: 3}
---- !u!114 &1626581300354906323
+--- !u!114 &6214170791773837606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28946,11 +28938,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -1033323430351391419}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-2560530248632297985
+--- !u!114 &-1033323430351391419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28964,7 +28957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  m_SynchronizeScale: 1
   m_UseLocal: 1
 --- !u!1 &7779908788048889556
 GameObject:

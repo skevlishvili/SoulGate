@@ -6,19 +6,14 @@ using UnityEngine.UI;
 
 public class Mana : MonoBehaviour
 {
-    PhotonView PV;
-
     Slider ManaSlider3D;
     Slider ManaSlider2D;
-
-    public float MaxMana;
 
     public GameObject player;
     public Unit unitstat;
 
     void Awake()
     {
-        PV = GetComponentInParent<PhotonView>();
         unitstat = player.GetComponent<Unit>();
     }
 
@@ -29,9 +24,8 @@ public class Mana : MonoBehaviour
         ManaSlider2D = GetComponent<Slider>();
         ManaSlider3D = GetComponent<Slider>();
 
-        MaxMana = unitstat.Mana;
-        ManaSlider2D.maxValue = MaxMana;
-        ManaSlider3D.maxValue = MaxMana;
+        ManaSlider2D.maxValue = unitstat.MaxMana;
+        ManaSlider3D.maxValue = unitstat.MaxMana;
     }
 
     // Update is called once per frame

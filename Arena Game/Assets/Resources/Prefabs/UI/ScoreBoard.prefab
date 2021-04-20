@@ -110,10 +110,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7902681381389914038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25ee19bf7e3d50d4799a4ad185365a8e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d4e177b316b322429b261caddaafdbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreBoardText: {fileID: 0}
+  ScoreBoardText: {fileID: 7902681382732925721}
 --- !u!1 &7902681382732925727
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,15 +8,10 @@
         public Slider healthSlider3D;
         public Slider healthSlider2D;
 
-        public float Maxhealth;
-
-        public GameObject player;
-        PlayerAnimator anim;
         public Unit unitstat;
 
         void Awake()
         {
-            anim = GetComponentInParent<PlayerAnimator>();
             unitstat = GetComponentInParent<Unit>();
         }
 
@@ -27,9 +22,8 @@
             healthSlider2D = GetComponentInChildren<Slider>();
             healthSlider3D = GetComponentInChildren<Slider>();
 
-            Maxhealth = unitstat.Health;
-            healthSlider2D.maxValue = Maxhealth;
-            healthSlider3D.maxValue = Maxhealth;
+            healthSlider2D.maxValue = unitstat.MaxHealth;
+            healthSlider3D.maxValue = unitstat.MaxHealth;
         }
 
         // Update is called once per frame

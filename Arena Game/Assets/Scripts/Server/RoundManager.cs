@@ -94,7 +94,7 @@ public class RoundManager : MonoBehaviourPun
 
             foreach (var scenePlayer in scenePlayers)
             {
-                if (scenePlayer.GetComponent<PlayerAction>().IsReady)
+                if (scenePlayer.GetComponentInChildren<PlayerAction>().IsReady)
                     readyPlayers++;
             }
 

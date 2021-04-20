@@ -234,24 +234,21 @@ public class PlayerAction : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-
-
         //if (!PV.IsMine)
         //{
         //    return;
         //}
         Projectile projectile = other.GetComponent<Projectile>();
         ProjPV = other.GetComponent<PhotonView>();
+        
+        
+        
+        float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
 
-        //float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
-
-
-
-        float damage = 80f;
         if (PV.IsMine && !ProjPV.IsMine && other.tag == "Spell")
         {
-            var score = unitStat.Health - damage <= 0 ? 100 : (int)(damage / 10);
 
+            var score = unitStat.Health - damage <= 0 ? 100 : (int)(damage / 10);
             ScoreExtensions.AddScore(ProjPV.Owner, score);
             PV.RPC("takeDamage", RpcTarget.All, damage);
         }
@@ -267,17 +264,25 @@ public class PlayerAction : MonoBehaviourPun
 
     void Regeneration()
     {
-        float HealthRegen = 1;
-        float ManaRegen = 20;
+        float HealthRegen = 2;
+        float ManaRegen = 10;
 
-        if ((unitStat.Health + HealthRegen) <= 200)
+        if ((unitStat.Health + HealthRegen) <= unitStat.MaxHealth)
         {
             unitStat.Health += HealthRegen;
         }
+        else
+        {
+            unitStat.Health = unitStat.MaxHealth;
+        }
 
-        if ((unitStat.Mana + ManaRegen) <= 200)
+        if ((unitStat.Mana + ManaRegen) <= unitStat.MaxMana)
         {
             unitStat.Mana += ManaRegen;
+        }
+        else
+        {
+            unitStat.Mana = unitStat.MaxMana;
         }
 
     }
@@ -286,7 +291,9 @@ public class PlayerAction : MonoBehaviourPun
         unitStat.Health = 200;
         unitStat.Mana = 200;
         unitStat.Xp = 0;
-        unitStat.Money = 50000;
+        unitStat.Money = 5000;
+        unitStat.MaxHealth = unitStat.Health;
+        unitStat.MaxMana = unitStat.Mana;
         unitStat.PhysicalDefence = 20;
         unitStat.MagicDefence = 20;
         unitStat.Height = 2;
@@ -301,7 +308,7 @@ public class PlayerAction : MonoBehaviourPun
         IsDead = false;
         IsReady = false;
 
-        PlayerSkills = new int[9] { 1, 6, 2, 5, 0, 0, 0, 0, 0 };
+        PlayerSkills = new int[9] { 1, 7, 2, 5, 0, 0, 0, 0, 0 };
     }
 
     void ReadyAll()

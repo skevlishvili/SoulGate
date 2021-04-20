@@ -86567,6 +86567,7 @@ GameObject:
   - component: {fileID: 114021943827715266}
   - component: {fileID: 82637769133787220}
   - component: {fileID: -5455207564084697302}
+  - component: {fileID: -737364801854589533}
   m_Layer: 0
   m_Name: FireMeteor
   m_TagString: Spell
@@ -91529,6 +91530,20 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-737364801854589533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839445213900760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0baf73e0f2e4f469fb281648476aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: []
+  SkillIndex: 4
 --- !u!1 &1996958439019426
 GameObject:
   m_ObjectHideFlags: 0

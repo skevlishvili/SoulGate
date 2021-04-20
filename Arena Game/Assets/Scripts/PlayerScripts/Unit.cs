@@ -26,6 +26,19 @@ public class Unit : AbstractUnitClass
         set;
     }
 
+
+    public override float MaxHealth
+    {
+        get;
+        set;
+    }
+    public override float MaxMana
+    {
+        get;
+        set;
+    }
+
+
     public override float PhysicalDefence
     {
         get;

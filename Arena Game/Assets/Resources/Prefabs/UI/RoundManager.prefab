@@ -42,17 +42,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 466080851131712518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 960f79e1f04c79a4ca72b591df2d06f7, type: 3}
+  m_Script: {fileID: 11500000, guid: a5176a60b6ac1564b93fa71b3cf29c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalPlayerGameObject: {fileID: 2001586355745943458, guid: 5be18f0ac2a59f242ad2c132cd508e9d,
-    type: 3}
+  PV: {fileID: 0}
+  LocalPlayerGameObject: {fileID: 0}
   LocalPlayerAction: {fileID: 0}
-  RoundTextGameObject: {fileID: 7248352201439603162}
   RoundText: {fileID: 0}
-  RoundCounter: 0
-  RoundEnded: 0
-  RoundStarted: 0
   AlivePlayers: 0
   ReadyPlayers: 0
 --- !u!114 &466080851131712513

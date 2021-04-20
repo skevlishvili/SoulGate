@@ -175,7 +175,6 @@ public class Abillities : MonoBehaviour
     // Set Spell Data
     void SetSkill(KeyCode key, int index)
     {
-        Debug.Log("Something");
         Spell = SkillLibrary.Skills[playerActionScript.PlayerSkills[index]];
         _currentAbillityIndex = index;
 
@@ -302,6 +301,10 @@ public class Abillities : MonoBehaviour
                 {
                     PhotonNetwork.Instantiate("Prefabs/Skill/" + Spell.Skill3DModel, SkillSpawnPoint[1].transform.position, SkillSpawnPoint[1].transform.rotation);
                 }
+            }
+            else
+            {
+                PhotonNetwork.Instantiate("Prefabs/Skill/" + Spell.Skill3DModel, SkillSpawnPoint[1].transform.position, SkillSpawnPoint[1].transform.rotation);
             }
         }
     }
