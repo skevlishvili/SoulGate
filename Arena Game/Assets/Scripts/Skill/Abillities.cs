@@ -13,6 +13,7 @@ public class Abillities : MonoBehaviour
     bool[] isActivating { get; set; }
 
     private KeyCode _currentAbillityKey;
+    private int _currentAbillityIndex;
 
     #region Referances
     RaycastHit hit;
@@ -97,10 +98,6 @@ public class Abillities : MonoBehaviour
             {
                 SetSkill(key, i);
             }
-            else
-            {
-                _currentAbillityKey = KeyCode.None;
-            }
         }
         SkillVFXSpriteChange();
     }
@@ -141,7 +138,7 @@ public class Abillities : MonoBehaviour
 
     void AbilityActivation(int index)
     {
-        if (SkillIsAvailable[index] && !ActiveCoolDown[index])
+        if (SkillIsAvailable[_currentAbillityIndex] && !ActiveCoolDown[index])
         {
             SkillVFXActivation();
             isFiring[index] = true;
@@ -178,7 +175,10 @@ public class Abillities : MonoBehaviour
     // Set Spell Data
     void SetSkill(KeyCode key, int index)
     {
+        Debug.Log("Something");
         Spell = SkillLibrary.Skills[playerActionScript.PlayerSkills[index]];
+        _currentAbillityIndex = index;
+
         if (CheckIfSkillCanCast(index))
         {
             _currentAbillityKey = key;

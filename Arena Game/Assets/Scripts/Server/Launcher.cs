@@ -14,6 +14,16 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private InputField GameCodeField;
 
+    [Tooltip("Nickname for users to distinguish each other ")]
+    [SerializeField]
+    private InputField NicknameFieldJoin;
+
+
+    [Tooltip("Nickname for users to distinguish each other ")]
+    [SerializeField]
+    private InputField NicknameFieldCreate;
+
+
     [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
     [SerializeField]
     private byte maxPlayersPerRoom = 4;
@@ -66,7 +76,11 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
-        //Debug.Log(GameCodeField.text);
+        if (string.IsNullOrEmpty(NicknameFieldJoin.text))
+            return;
+
+        Debug.Log(GameCodeField.text);
+        PhotonNetwork.LocalPlayer.NickName = NicknameFieldJoin.text;
         PhotonNetwork.JoinRoom(GameCodeField.text);
     }
 
@@ -77,11 +91,12 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        if (string.IsNullOrEmpty(RoomNameField.text) || string.IsNullOrEmpty(RoomName))
+        if (string.IsNullOrEmpty(RoomNameField.text) || string.IsNullOrEmpty(RoomName) || string.IsNullOrEmpty(NicknameFieldCreate.text))
         {
             return;
         }
 
+        PhotonNetwork.LocalPlayer.NickName = NicknameFieldCreate.text;
         PhotonNetwork.CreateRoom(RoomName, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
     }
 

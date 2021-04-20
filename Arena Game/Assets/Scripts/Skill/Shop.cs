@@ -21,7 +21,7 @@ public class Shop : MonoBehaviour
     [SerializeField]
     private MainMenu Menu;
 
-    public Image[] imagesObj;
+    public Image[] ShopHUDimagesObj;
     public Dropdown[] DropdownObj;
     #endregion
 
@@ -69,59 +69,39 @@ public class Shop : MonoBehaviour
 
         Spell = SkillLibrary.Skills[_SkillIndex];
         SkillUiImageDetailed.sprite = Spell.SkillImageUIVFX;
+        GameObject.Find("SkillUIImage").GetComponent<Image>().sprite = Spell.SkillImageUIVFX;
+        
 
         string Damage = "";
-        if (Spell.PhysicalDamage != 0)
-        {
-            Damage += $"Physical: {Spell.PhysicalDamage},";
-        }
-        if (Spell.MagicDamage != 0)
-        {
-            Damage += $" Magical: {Spell.MagicDamage},";
-        }
-        if (Spell.SoulDamage != 0)
-        {
-            Damage += $" Soul: {Spell.SoulDamage}";
-        }
-
         string Consumption = "";
-        if (Spell.HealthConsumption != 0)
-        {
-            Consumption += $"Health: {Spell.HealthConsumption},";
-        }
-        if (Spell.ManaConsumption != 0)
-        {
-            Consumption += $" Mana: {Spell.ManaConsumption}";
-        }
-
         string Effects = "";
-        if (Spell.IsRestraining)
-        {
-            Effects += "Restraining,";
-        }
-        if (Spell.IsInvisible)
-        {
-            Effects += " Invisible,";
-        }
-        if (Spell.IsPasive)
-        {
-            Effects += " Pasive,";
-        }
-        if (Spell.IsBuff)
-        {
-            Effects += " Buff/debuff,";
-        }
-        if (Spell.IsProjectile)
-        {
-            Effects += " Projectile,";
-        }
-        if (Spell.HasRecharging)
-        {
-            Effects += " Recharging,";
-        }
+
+        #region Damage
+        Damage += Spell.PhysicalDamage == 0 ? "" : $"Physical: {Spell.PhysicalDamage},";
+        Damage += Spell.MagicDamage == 0 ? "" : $" Magical: {Spell.MagicDamage},";
+        Damage += Spell.SoulDamage == 0 ? "" : $" Soul: {Spell.SoulDamage}";
+
+        #endregion
+
+
+        #region Consumption
+        Consumption += Spell.HealthConsumption == 0 ? "" : $"Health: {Spell.HealthConsumption},";        
+        Consumption += Spell.ManaConsumption == 0 ? "" : $" Mana: {Spell.ManaConsumption}";
+        #endregion
+
+        #region Effects
+        Effects += Spell.IsRestraining ? "Restraining," : "";
+        Effects += Spell.IsInvisible ? "Invisible," : "";
+        Effects += Spell.IsPasive ? "Pasive," : "";
+        Effects += Spell.IsBuff ? "Buff/debuff," : "";
+        Effects += Spell.IsProjectile ? "Projectile," : "";
+        Effects += Spell.HasRecharging ? "Recharging" : "";
+        #endregion
+
+
 
         string DetailedInfo = $"Description: {Spell.SkillName}\n\nDamage: {Damage}\n\nConsumtion: {Consumption}\n\nCooldown: {Spell.Cooldown}\n\nEffects: {Effects }";
-        DetailedSkillInfo.text = DetailedInfo;
+        GameObject.Find("SkillInfoText").GetComponent<Text>().text = DetailedInfo;
     }
 
     public void SearchDropDownChange(Dropdown value)
@@ -217,19 +197,28 @@ public class Shop : MonoBehaviour
     {
         if (Spell.SkillName != null)
         {
-            if (Spell.SkillPriceMoney != 0 && Spell.SkillPriceMoney <= playerActionObj.unitStat.Money)
+            _SkillIndex = HelpMethods.GetSkillIndexByName(Spell.SkillName);
+
+            //Check If player already has skill
+            if (!playerActionObj.PlayerSkills.Contains(_SkillIndex))
             {
-                if (true)//Check If Conditions are met to buy skill--------------------------------------------------------------
+                //Check If Conditions are met to buy skill
+                if (Spell.SkillPriceMoney != 0 && Spell.SkillPriceMoney <= playerActionObj.unitStat.Money)
                 {
                     Menu.OpenMenu("ChooseSkillIndexPanel");
+                }
+                else if (Spell.SkillPriceXp != 0 && Spell.SkillPriceXp <= playerActionObj.unitStat.Xp)
+                {
+                    Menu.OpenMenu("ChooseSkillIndexPanel");
+                }
+                else
+                {
+                    //Conditions are not met please choose another skill
                 }
             }
-            else if (Spell.SkillPriceXp != 0 && Spell.SkillPriceXp <= playerActionObj.unitStat.Xp)
+            else
             {
-                if (true)//Check If Conditions are met to buy skill--------------------------------------------------------------
-                {
-                    Menu.OpenMenu("ChooseSkillIndexPanel");
-                }
+                //tell player that he already has skill
             }
         }
     }
@@ -241,7 +230,6 @@ public class Shop : MonoBehaviour
             if (!Spell.IsPasive)
             {
                 playerActionObj.unitStat.Money -= Spell.SkillPriceMoney;
-                _SkillIndex = HelpMethods.GetSkillIndexByName(Spell.SkillName);
                 playerActionObj.PlayerSkills[index] = _SkillIndex;
                 Menu.OpenMenu("");//if it is empty it will close everything
             }
@@ -255,12 +243,9 @@ public class Shop : MonoBehaviour
         {
             if (Spell.IsPasive)
             {
-                if (Spell.SkillPriceMoney <= playerActionObj.unitStat.Money)
-                {
-                    playerActionObj.unitStat.Money -= Spell.SkillPriceMoney;
-                    playerActionObj.PlayerSkills[index] = _SkillIndex;
-                    Menu.OpenMenu("");//if it is empty it will close everything
-                }
+                playerActionObj.unitStat.Money -= Spell.SkillPriceMoney;
+                playerActionObj.PlayerSkills[index] = _SkillIndex;
+                Menu.OpenMenu("");//if it is empty it will close everything
             }
             else
             {
@@ -275,11 +260,11 @@ public class Shop : MonoBehaviour
     void LoadSkillUiImages()
     {
         HudConetntController hudConetnt = hudObj.GetComponentInChildren<HudConetntController>();
-        hudConetnt.LoadSkillUiImages();
+        hudConetnt.LoadSkillUiImagesInHUD();
 
         for (int i = 0; i < 9; i++)
         {
-            imagesObj[i].sprite = SkillLibrary.Skills[playerActionObj.PlayerSkills[i]].SkillImageUIVFX;
+            ShopHUDimagesObj[i].sprite = SkillLibrary.Skills[playerActionObj.PlayerSkills[i]].SkillImageUIVFX;
         }
     }
 }

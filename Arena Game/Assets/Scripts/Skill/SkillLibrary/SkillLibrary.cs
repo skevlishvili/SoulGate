@@ -21,7 +21,7 @@ public class SkillLibrary : MonoBehaviour
             SkillName = "FireBall",
 
             PhysicalDamage = 0,
-            MagicDamage = 20,
+            MagicDamage = 10,
             SoulDamage = 0,
 
             HealthBuff = 0,
@@ -136,7 +136,7 @@ public class SkillLibrary : MonoBehaviour
             HealthConsumption = 0,
             ManaConsumption = 0,
 
-            SkillPriceMoney = 0,
+            SkillPriceMoney = 200,
             SkillPriceXp = 0,
 
             Duration = 0,
@@ -188,7 +188,7 @@ public class SkillLibrary : MonoBehaviour
             HealthConsumption = 0,
             ManaConsumption = 0,
 
-            SkillPriceMoney = 0,
+            SkillPriceMoney = 500,
             SkillPriceXp = 0,
 
             Duration = 0,
