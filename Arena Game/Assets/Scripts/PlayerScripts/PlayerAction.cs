@@ -245,7 +245,7 @@ public class PlayerAction : MonoBehaviourPun
         
         float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
 
-        if (PV.IsMine && !ProjPV.IsMine && other.tag == "Spell")
+        if (PV.IsMine && !ProjPV.IsMine)
         {
 
             var score = unitStat.Health - damage <= 0 ? 100 : (int)(damage / 10);

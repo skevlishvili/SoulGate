@@ -76,9 +76,14 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
+        Debug.Log(NicknameFieldJoin.text);
+
+
+
         if (string.IsNullOrEmpty(NicknameFieldJoin.text))
             return;
 
+        Debug.Log("something");
         Debug.Log(GameCodeField.text);
         PhotonNetwork.LocalPlayer.NickName = NicknameFieldJoin.text;
         PhotonNetwork.JoinRoom(GameCodeField.text);
