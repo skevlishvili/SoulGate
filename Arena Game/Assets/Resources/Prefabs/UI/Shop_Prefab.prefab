@@ -5994,10 +5994,10 @@ MonoBehaviour:
     type: 3}
   hudObj: {fileID: 575756203542452070, guid: 522103a43d11df24cadc15753404eb60, type: 3}
   DetailedPanel: {fileID: 452678734574386780}
-  DetailedSkillInfo: {fileID: 6333153680400704219}
+  DetailedSkillInfo: {fileID: 0}
   SkillUiImageDetailed: {fileID: 3701980899125432844}
   Menu: {fileID: 2097116612816416955}
-  imagesObj:
+  ShopHUDimagesObj:
   - {fileID: 986398601688003774}
   - {fileID: 3653987388401703025}
   - {fileID: 4037768909619110879}

@@ -57,6 +57,12 @@ public class PlayerAnimator : MonoBehaviourPun
         anim.SetBool("IsDead", true);
     }
 
+    public void IsAlive()
+    {
+        anim.SetFloat("Blend", 0);
+        anim.SetBool("IsDead", false);
+    }
+
     public void EndAnimation(string animationName)
     {
         anim.SetBool("MagicAttack", false);

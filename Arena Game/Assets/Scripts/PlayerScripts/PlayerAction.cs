@@ -1,9 +1,12 @@
 ﻿using Photon.Pun;
+using Photon.Pun.UtilityScripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.Events;
 
 public class PlayerAction : MonoBehaviourPun
 {
@@ -24,55 +27,74 @@ public class PlayerAction : MonoBehaviourPun
 
     public Unit unitStat;
 
+    public bool IsDead;
+    public bool IsReady;
+    public bool IsTyping;
+
+    public GameObject ScoreBoard;
+
+    public GameObject ChatInput;
+    private UnityEngine.UI.InputField chatInputField;
+
     [SerializeField]
     private Abillities abilities;
 
     PhotonView PV;
 
     public Canvas HUD;
+
+    public event Action OnPlayerDeath;
+    public event Action OnPlayerReady;
+
+    public GameObject ReadyText;
+
     #endregion
 
     PhotonView ProjPV;
+    private Vector3 spawnPoint;
+
+
+
 
     void Awake()
     {
-        unitStat.Health = 200;
-        unitStat.Mana = 200;
-        unitStat.Xp = 0;
-        unitStat.Money = 1000;
-        unitStat.PhysicalDefence = 20;
-        unitStat.MagicDefence = 20;
-        unitStat.Height = 2;
-        unitStat.weight = 80;
-        unitStat.strength = 20;
-        unitStat.Agility = 20;
-        unitStat.Intelligence = 20;
-        unitStat.Charisma = 20;
-        unitStat.IsHalfHealth = false;
-        unitStat.IsDead = false;
+        spawnPoint = gameObject.transform.position;
+        initStats();
 
 
         agent.speed = unitStat.Agility / 2;
-
         PlayerSkills = new int[9] { 1, 6, 2, 5, 0, 0, 0, 0, 0};
 
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
         if (photonView.IsMine)
         {
-            LocalPlayerInstance = this.gameObject;
+            LocalPlayerInstance = gameObject;
         }
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
 
-        PV = GetComponent<PhotonView>();
+        gameObject.tag = "Player";
+        PV = gameObject.GetComponent<PhotonView>();
+
+        OnPlayerDeath += DeathAll;        
+        OnPlayerReady += ReadyAll;
+
+        //if (PV.IsMine) {
+        //    var roundManager = LocalPlayerInstance.GetComponentInChildren<RoundManager>();
+        //    roundManager.LocalPlayerAction = LocalPlayerInstance.GetComponent<PlayerAction>();
+        //}
+
+        ReadyText.GetComponent<UnityEngine.UI.Text>().text = "Press \"enter\" when you're ready";
     }
 
     private void Start()
     {
         GameObject Player = GameObject.Find("Player");
         animator = gameObject.GetComponent<PlayerAnimator>();
+        chatInputField = ChatInput.GetComponent<UnityEngine.UI.InputField>();
+        InvokeRepeating("Regeneration", 1.0f, 1.0f);
 
         InvokeRepeating("Regeneration", 1.0f, 1.0f);
 
@@ -91,9 +113,62 @@ public class PlayerAction : MonoBehaviourPun
         if (!PV.IsMine)
         {
             ToggleCanvas(hudCanvas, false);
+            ReadyText.GetComponent<UnityEngine.UI.Text>().text = "";
             return;
         }
 
+        if (Input.GetKeyDown(KeyCode.Return) && !IsDead && !IsReady)
+        {
+            ReadyText.GetComponent<UnityEngine.UI.Text>().text = "";
+            OnPlayerReady();
+            return;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            if (IsTyping)
+            {                
+                chatInputField.DeactivateInputField();
+                chatInputField.text = "";
+                IsTyping = false;
+
+                return;
+            }
+
+            chatInputField.ActivateInputField();
+            IsTyping = true;
+
+            return;
+        }
+
+        if (IsTyping) {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ScoreBoard.SetActive(true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            ScoreBoard.SetActive(false);
+        }
+
+
+        if (!IsDead && !IsReady) {
+            ReadyText.GetComponent<UnityEngine.UI.Text>().text = "Press \"enter\" when you're ready";
+        }
+
+        if (IsDead || !IsReady)
+        {
+            return;
+        }
+
+        if (unitStat.Health <= 0 && !IsDead)
+        {
+            OnPlayerDeath();
+        }
 
         GameObject canvas = GameObject.Find("EscapeMenu");
         if(canvas != null)
@@ -111,40 +186,28 @@ public class PlayerAction : MonoBehaviourPun
             }
         }
 
-        //if (Input.GetKeyDown(KeyCodeController.BasicAttack))
-        //{
-        //    abilities.SpellKeyCode(KeyCodeController.BasicAttack);
-        //}
-
-
-        if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring && !unitStat.IsDead)
+        if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring.All(x => x) && !unitStat.IsDead)
         {
             agent.isStopped = false;
             Move();
         }
-
-        if (Input.GetKeyDown(KeyCodeController.Ability1) && !unitStat.IsDead)
+        
+        if (!unitStat.IsDead)
         {
-            abilities.SpellKeyCode(KeyCodeController.Ability1);
-        }
-        else if (Input.GetKeyDown(KeyCodeController.Ability2) && !unitStat.IsDead)
-        {
-            abilities.SpellKeyCode(KeyCodeController.Ability2);
-        }
-        else if (Input.GetKeyDown(KeyCodeController.Ability3) && !unitStat.IsDead)
-        {
-            abilities.SpellKeyCode(KeyCodeController.Ability3);
-        }
-        else if (Input.GetKeyDown(KeyCodeController.Ability4) && !unitStat.IsDead)
-        {
-            abilities.SpellKeyCode(KeyCodeController.Ability4);
+            for (int i = 0; i < KeyCodeController.AbilitiesKeyCodeArray.Length; i++)
+            {
+                if (Input.GetKeyDown(KeyCodeController.AbilitiesKeyCodeArray[i]))
+                {
+                    abilities.SpellKeyCode(KeyCodeController.AbilitiesKeyCodeArray[i]);
+                }
+            }
         }
     }
 
 
     public void Move()
     {
-
+        agent.isStopped = false;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit destination;
 
@@ -155,8 +218,7 @@ public class PlayerAction : MonoBehaviourPun
             // Gets the coordinates of where the mouse clicked and moves the character there
             agent.SetDestination(destination.point);
 
-
-            StartCoroutine("SpawnMaker", destination);
+	    StartCoroutine("SpawnMaker", destination);
 
             // ROTATION
             Quaternion rotationToLook = Quaternion.LookRotation(destination.point - transform.position);
@@ -165,14 +227,17 @@ public class PlayerAction : MonoBehaviourPun
 
             transform.eulerAngles = new Vector3(0, rotationY, 0);
         }
-    }
 
+
+
+    }
 
     IEnumerator SpawnMaker(RaycastHit destination)
     {
-        GameObject Marker = PhotonNetwork.Instantiate("Prefabs/UI/Marker 1", destination.point, Quaternion.Euler(-90, 0, 0));
-        yield return new WaitForSeconds(1);
-        PhotonNetwork.Destroy(Marker);
+	
+        GameObject Marker = PhotonNetwork.Instantiate("Prefabs/UI/Marker 1", destination.point, Quaternion.Euler(-90, 0, 0));	
+        yield return new WaitForSeconds(1);	
+        PhotonNetwork.Destroy(Marker);	
     }
 
     private void OnTriggerEnter(Collider other)
@@ -191,19 +256,11 @@ public class PlayerAction : MonoBehaviourPun
 
 
         float damage = 80f;
-
-
-
-
-
-
         if (PV.IsMine && !ProjPV.IsMine)
         {
+            var score = unitStat.Health - damage <= 0 ? 100 : (int)(damage / 10);
 
-
-
-            Debug.Log("INSIDE OF IF STATEMENT THAT CHECKS FOR IF THE PROJECTILE IS NOT MINE AND THE PLAYER IS MINE");
-
+            ScoreExtensions.AddScore(ProjPV.Owner, score);
             PV.RPC("takeDamage", RpcTarget.All, damage);
         }
 
@@ -221,7 +278,8 @@ public class PlayerAction : MonoBehaviourPun
         float HealthRegen = 1;
         float ManaRegen = 20;
 
-        if((unitStat.Health + HealthRegen) <= 200){
+        if ((unitStat.Health + HealthRegen) <= 200)
+        {
             unitStat.Health += HealthRegen;
         }
 
@@ -231,6 +289,71 @@ public class PlayerAction : MonoBehaviourPun
         }
 
     }
+
+    void initStats() {
+        unitStat.Health = 200;
+        unitStat.Mana = 200;
+        unitStat.Xp = 0;
+        unitStat.Money = 50000;
+        unitStat.PhysicalDefence = 20;
+        unitStat.MagicDefence = 20;
+        unitStat.Height = 2;
+        unitStat.weight = 80;
+        unitStat.strength = 20;
+        unitStat.Agility = 20;
+        unitStat.Intelligence = 20;
+        unitStat.Charisma = 20;
+        unitStat.IsHalfHealth = false;
+        unitStat.IsDead = false;
+        agent.speed = unitStat.Agility / 2;
+        IsDead = false;
+        IsReady = false;
+    }
+
+    void ReadyAll()
+    {
+        PV.RPC("Ready", RpcTarget.All);
+    }
+
+
+    [PunRPC]
+    void Ready() {
+        IsReady = true;
+    }
+
+    void DeathAll() {
+        PV.RPC("Death", RpcTarget.All);
+    }
+
+
+    [PunRPC]
+    void Death() {
+        animator.IsDead();
+        unitStat.IsDead = true;
+        IsDead = true;
+    }
+
+    
+    public void RespawnAll()
+    {
+        if (!PV.IsMine)
+            return;
+
+        PV.RPC("Respawn", RpcTarget.All);
+    }
+
+
+    [PunRPC]
+    public void Respawn()
+    {
+        agent.isStopped = true;
+        gameObject.transform.position = spawnPoint;
+
+
+        initStats();
+        animator.IsAlive();
+    }
+
 
     [PunRPC]
     void takeDamage(float damage)

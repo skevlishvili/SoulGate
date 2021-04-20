@@ -9,8 +9,15 @@ public class KeyCodeController
     public static KeyCode Menu = KeyCode.Escape;
     public static KeyCode Shop = KeyCode.P;
 
-    public static KeyCode Ability1 = KeyCode.Q;
-    public static KeyCode Ability2 = KeyCode.W;
-    public static KeyCode Ability3 = KeyCode.E;
-    public static KeyCode Ability4 = KeyCode.R;
+    static KeyCode Ability1 = KeyCode.Q;
+    static KeyCode Ability2 = KeyCode.W;
+    static KeyCode Ability3 = KeyCode.E;
+    static KeyCode Ability4 = KeyCode.R;
+
+    public static KeyCode[] AbilitiesKeyCodeArray = new KeyCode[]{
+        Ability1,
+        Ability2,
+        Ability3,
+        Ability4
+    };
 }
