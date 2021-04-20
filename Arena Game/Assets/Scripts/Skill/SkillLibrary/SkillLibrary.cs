@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillLibrary : MonoBehaviour
 {
-    public static Skill[] Skills = new Skill[7];
+    public static Skill[] Skills = new Skill[8];
 
     // Start is called before the first frame update
     void Awake()
@@ -102,7 +102,7 @@ public class SkillLibrary : MonoBehaviour
             MaxRangeVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/MaxRange"),
             IndicatorVFX = null,
             TargetVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Target"),
-            Skill3DModel = "AOE/vfx_aoe_fire",
+            Skill3DModel = "AOE/FireStorm",
             Sound = "Fireball_Sound",
             AnimatorProperty = "Attack_Magic_04",
 
@@ -176,8 +176,8 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Meteor",
 
-            PhysicalDamage = 0,
-            MagicDamage = 0,
+            PhysicalDamage = 50,
+            MagicDamage = 100,
             SoulDamage = 0,
 
             HealthBuff = 0,
@@ -186,28 +186,28 @@ public class SkillLibrary : MonoBehaviour
             CooldownBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 0,
+            ManaConsumption = 100,
 
             SkillPriceMoney = 500,
             SkillPriceXp = 0,
 
-            Duration = 0,
-            Cooldown = 0,
+            Duration = 3,
+            Cooldown = 120,
             ActivationTime = 0,
             ProjectileSpeed = 0,
             MaxRechargingTime = 0,
 
             Height = 0,
-            Distance = 0,
+            Distance = 25,
             Thickness = 0,
 
             SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Shamanskill_08"),
-            PlayergroundVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/FireCircle"),
-            MaxRangeVFX = null,
+            PlayergroundVFX = null,
+            MaxRangeVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/MaxRange"),
             IndicatorVFX = null,
-            TargetVFX = null,
-            Skill3DModel = "",
-            Sound = "Fireball_Sound",
+            TargetVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Target"),
+            Skill3DModel = "AOE/FireMeteor",
+            Sound = "",
             AnimatorProperty = "Attack_Magic_02",
 
             IsRestraining = false,
@@ -219,8 +219,8 @@ public class SkillLibrary : MonoBehaviour
             UsingWeapon = false,
             HasPlayergroundVFX = false,
             HasIndicator = false,
-            HasMaxRange = false,
-            HasTargetVFX = false,
+            HasMaxRange = true,
+            HasTargetVFX = true,
             HasRecharging = false
         };
 
@@ -325,6 +325,58 @@ public class SkillLibrary : MonoBehaviour
             HasIndicator = false,
             HasMaxRange = true,
             HasTargetVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[7] = new Skill
+        {
+            SkillName = "LightningStrike",
+
+            PhysicalDamage = 0,
+            MagicDamage = 100,
+            SoulDamage = 10,
+
+            HealthBuff = 0,
+            ManaBuff = 0,
+            SpeedBuff = 0,
+            CooldownBuff = 0,
+
+            HealthConsumption = 0,
+            ManaConsumption = 100,
+
+            SkillPriceMoney = 500,
+            SkillPriceXp = 0,
+
+            Duration = 3,
+            Cooldown = 90,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            Height = 0,
+            Distance = 25,
+            Thickness = 0,
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_nobg/Shamanskill_27_nobg"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/MaxRange"),
+            IndicatorVFX = null,
+            TargetVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Target"),
+            Skill3DModel = "AOE/LightningStrike",
+            Sound = "",
+            AnimatorProperty = "Attack_Magic_02",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = false,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = true,
+            HasTargetVFX = true,
             HasRecharging = false
         };
     }

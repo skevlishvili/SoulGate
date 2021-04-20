@@ -138,7 +138,7 @@ public class Abillities : MonoBehaviour
 
     void AbilityActivation(int index)
     {
-        if (SkillIsAvailable[_currentAbillityIndex] && !ActiveCoolDown[index])
+        if (SkillIsAvailable[index] && !ActiveCoolDown[index])
         {
             SkillVFXActivation();
             isFiring[index] = true;

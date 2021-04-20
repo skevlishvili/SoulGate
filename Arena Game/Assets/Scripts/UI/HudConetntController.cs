@@ -25,10 +25,11 @@ public class HudConetntController : MonoBehaviour
     {
         Player_PrefabObj = GameObject.FindGameObjectWithTag("Player");
         PlayerActionObj = Player_PrefabObj.GetComponentInChildren<PlayerAction>();
+        var HudContent = Player_PrefabObj.GetComponentInChildren<HudConetntController>();
 
         for (int i = 0; i < imagesObj.Length; i++)
         {
-            imagesObj[i].sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[i/2]].SkillImageUIVFX;
+            HudContent.imagesObj[i].sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[i/2]].SkillImageUIVFX;
         }
     }
 }

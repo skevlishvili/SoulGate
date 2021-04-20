@@ -61,10 +61,6 @@ public class PlayerAction : MonoBehaviourPun
         spawnPoint = gameObject.transform.position;
         initStats();
 
-
-        agent.speed = unitStat.Agility / 2;
-        PlayerSkills = new int[9] { 1, 6, 2, 5, 0, 0, 0, 0, 0};
-
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
         if (photonView.IsMine)
@@ -95,9 +91,6 @@ public class PlayerAction : MonoBehaviourPun
         animator = gameObject.GetComponent<PlayerAnimator>();
         chatInputField = ChatInput.GetComponent<UnityEngine.UI.InputField>();
         InvokeRepeating("Regeneration", 1.0f, 1.0f);
-
-        InvokeRepeating("Regeneration", 1.0f, 1.0f);
-
     }
 
     private void ToggleCanvas(CanvasGroup canvasGroup, bool on) {
@@ -234,7 +227,6 @@ public class PlayerAction : MonoBehaviourPun
 
     IEnumerator SpawnMaker(RaycastHit destination)
     {
-	
         GameObject Marker = PhotonNetwork.Instantiate("Prefabs/UI/Marker 1", destination.point, Quaternion.Euler(-90, 0, 0));	
         yield return new WaitForSeconds(1);	
         PhotonNetwork.Destroy(Marker);	
@@ -256,7 +248,7 @@ public class PlayerAction : MonoBehaviourPun
 
 
         float damage = 80f;
-        if (PV.IsMine && !ProjPV.IsMine)
+        if (PV.IsMine && !ProjPV.IsMine && other.tag == "Spell")
         {
             var score = unitStat.Health - damage <= 0 ? 100 : (int)(damage / 10);
 
@@ -308,6 +300,8 @@ public class PlayerAction : MonoBehaviourPun
         agent.speed = unitStat.Agility / 2;
         IsDead = false;
         IsReady = false;
+
+        PlayerSkills = new int[9] { 1, 6, 2, 5, 0, 0, 0, 0, 0 };
     }
 
     void ReadyAll()
