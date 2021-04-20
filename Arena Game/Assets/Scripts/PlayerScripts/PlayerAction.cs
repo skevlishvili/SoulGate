@@ -241,9 +241,10 @@ public class PlayerAction : MonoBehaviourPun
         Projectile projectile = other.GetComponent<Projectile>();
         ProjPV = other.GetComponent<PhotonView>();
         
-        
-        
         float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
+
+        Debug.Log("is it triggering?");
+
 
         if (PV.IsMine && !ProjPV.IsMine)
         {
