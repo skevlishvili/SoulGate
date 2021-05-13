@@ -226,11 +226,10 @@ public class PlayerAction : NetworkBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring.All(x => x) && !unitStat.IsDead)
-        {
-            agent.isStopped = false;
-            Move();
-        }
+        //if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring.All(x => x) && !unitStat.IsDead)
+        //{
+        //    agent.isStopped = false;
+        //}
         
         if (!unitStat.IsDead)
         {
@@ -244,63 +243,6 @@ public class PlayerAction : NetworkBehaviour
         }
 
         movement = transform.position - oldPosition;
-    }
-
-    [Client]
-    public void Move()
-    {
-        agent.isStopped = false;
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit destination;
-
-        // Checks if raycast hit the navmesh (navmesh is a predefined system where the agent can go)
-        if (Physics.Raycast(ray, out destination, Mathf.Infinity))
-        {
-            StartCoroutine("SpawnMaker", destination);
-
-
-            CmdMove(destination.point);
-        }
-    }
-
-    [Command]
-    private void CmdMove(Vector3 destination) {
-        // make additional checks if needed
-
-        // TODO: check client
-
-
-        //agent.SetDestination(destination);
-
-        //// ROTATION
-        //Quaternion rotationToLook = Quaternion.LookRotation(destination - transform.position);
-        //float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationToLook.eulerAngles.y, ref rotateVelocity, rotateSpeedMovement * (Time.deltaTime * 5));
-        //transform.eulerAngles = new Vector3(0, rotationY, 0);
-
-        RpcMove(destination);
-    }
-
-    [ClientRpc]
-    private void RpcMove(Vector3 destination) {
-        // MOVE
-        // Gets the coordinates of where the mouse clicked and moves the character there
-        agent.SetDestination(destination);
-
-        // ROTATION
-        Quaternion rotationToLook = Quaternion.LookRotation(destination - transform.position);
-        float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationToLook.eulerAngles.y, ref rotateVelocity, rotateSpeedMovement * (Time.deltaTime * 5));
-        transform.eulerAngles = new Vector3(0, rotationY, 0);
-        Debug.Log("Called");
-    }
-
-    [Client]
-    IEnumerator SpawnMaker(RaycastHit destination)
-    {
-        UnityEngine.Object pPrefab = Resources.Load("Prefabs/UI/Marker 1"); // note: not .prefab!
-        
-        GameObject Marker = (GameObject)GameObject.Instantiate(pPrefab, destination.point, Quaternion.Euler(-90, 0, 0));	
-        yield return new WaitForSeconds(1);	    
-        Destroy(Marker);	
     }
 
     private void OnTriggerEnter(Collider other)
