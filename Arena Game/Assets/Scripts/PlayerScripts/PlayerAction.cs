@@ -1,5 +1,4 @@
-﻿using Photon.Pun;
-using Photon.Pun.UtilityScripts;
+﻿using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class PlayerAction : MonoBehaviourPun
+public class PlayerAction : NetworkBehaviour
 {
     public float rotateSpeedMovement = 0.1f;
     public float rotateVelocity;
@@ -39,7 +38,7 @@ public class PlayerAction : MonoBehaviourPun
     [SerializeField]
     private Abillities abilities;
 
-    PhotonView PV;
+    //PhotonView PV;
 
     public Canvas HUD;
 
@@ -50,11 +49,33 @@ public class PlayerAction : MonoBehaviourPun
 
     #endregion
 
-    PhotonView ProjPV;
+    //PhotonView ProjPV;
     private Vector3 spawnPoint;
+    private Vector3 movement;
+    private Vector3 networkPosition;
+    private Quaternion networkRotation;
 
 
+    public float speed = 9.16f;
 
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(transform.position);
+    //        stream.SendNext(transform.rotation);
+    //        stream.SendNext(movement);
+    //    }
+    //    else
+    //    {
+    //        networkPosition = (Vector3)stream.ReceiveNext();
+    //        networkRotation = (Quaternion)stream.ReceiveNext();
+    //        movement = (Vector3)stream.ReceiveNext();
+
+
+    //        float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+    //        networkPosition += (movement * lag);
+    //    }
+    //}
 
     void Awake()
     {
@@ -63,16 +84,16 @@ public class PlayerAction : MonoBehaviourPun
 
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
-        if (photonView.IsMine)
-        {
+        //if (photonView.IsMine)
+        //{
             LocalPlayerInstance = gameObject;
-        }
+        //}
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(gameObject);
 
         gameObject.tag = "Player";
-        PV = gameObject.GetComponent<PhotonView>();
+        //PV = gameObject.GetComponent<PhotonView>();
 
         OnPlayerDeath += DeathAll;        
         OnPlayerReady += ReadyAll;
@@ -82,7 +103,14 @@ public class PlayerAction : MonoBehaviourPun
         //    roundManager.LocalPlayerAction = LocalPlayerInstance.GetComponent<PlayerAction>();
         //}
 
-        ReadyText.GetComponent<UnityEngine.UI.Text>().text = "Press \"enter\" when you're ready";
+        //ReadyText.GetComponent<UnityEngine.UI.Text>().text = "Press \"enter\" when you're ready";
+
+        IsReady = true;
+
+
+        var cameras = GameObject.FindGameObjectsWithTag("MainCamera");
+
+        cam = cameras[0].GetComponent<Camera>();
     }
 
     private void Start()
@@ -100,16 +128,25 @@ public class PlayerAction : MonoBehaviourPun
     }
 
     // Update is called once per frame
-    void Update()
+    [Client]
+    void FixedUpdate()
     {
         var hudCanvas = HUD.GetComponent<CanvasGroup>();
-        if (!PV.IsMine)
+
+        if (!isLocalPlayer)
         {
             ToggleCanvas(hudCanvas, false);
             ReadyText.GetComponent<UnityEngine.UI.Text>().text = "";
+
+
+            //transform.position = Vector3.MoveTowards(transform.position, networkPosition, Time.deltaTime * speed);
+            //Debug.Log(agent.speed);
+            //transform.rotation = networkRotation;
+
             return;
         }
 
+        Vector3 oldPosition = transform.position;
         if (Input.GetKeyDown(KeyCode.Return) && !IsDead && !IsReady)
         {
             ReadyText.GetComponent<UnityEngine.UI.Text>().text = "";
@@ -118,21 +155,31 @@ public class PlayerAction : MonoBehaviourPun
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Return)) {
-            if (IsTyping)
-            {                
-                chatInputField.DeactivateInputField();
-                chatInputField.text = "";
-                IsTyping = false;
+        //if (Input.GetKeyDown(KeyCode.Return)) {
+        //    if (IsTyping)
+        //    {
+        //        try
+        //        {
+        //            speed = float.Parse(chatInputField.text);
+        //        }
+        //        catch (Exception)
+        //        {
+        //            Debug.LogError(chatInputField.text);
+        //        }
 
-                return;
-            }
 
-            chatInputField.ActivateInputField();
-            IsTyping = true;
+        //        chatInputField.DeactivateInputField();
+        //        chatInputField.text = "";
+        //        IsTyping = false;
 
-            return;
-        }
+        //        return;
+        //    }
+
+        //    chatInputField.ActivateInputField();
+        //    IsTyping = true;
+
+        //    return;
+        //}
 
         if (IsTyping) {
             return;
@@ -195,9 +242,11 @@ public class PlayerAction : MonoBehaviourPun
                 }
             }
         }
+
+        movement = transform.position - oldPosition;
     }
 
-
+    [Client]
     public void Move()
     {
         agent.isStopped = false;
@@ -207,29 +256,51 @@ public class PlayerAction : MonoBehaviourPun
         // Checks if raycast hit the navmesh (navmesh is a predefined system where the agent can go)
         if (Physics.Raycast(ray, out destination, Mathf.Infinity))
         {
-            // MOVE
-            // Gets the coordinates of where the mouse clicked and moves the character there
-            agent.SetDestination(destination.point);
+            StartCoroutine("SpawnMaker", destination);
 
-	    StartCoroutine("SpawnMaker", destination);
 
-            // ROTATION
-            Quaternion rotationToLook = Quaternion.LookRotation(destination.point - transform.position);
-
-            float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationToLook.eulerAngles.y, ref rotateVelocity, rotateSpeedMovement * (Time.deltaTime * 5));
-
-            transform.eulerAngles = new Vector3(0, rotationY, 0);
+            CmdMove(destination.point);
         }
-
-
-
     }
 
+    [Command]
+    private void CmdMove(Vector3 destination) {
+        // make additional checks if needed
+
+        // TODO: check client
+
+
+        //agent.SetDestination(destination);
+
+        //// ROTATION
+        //Quaternion rotationToLook = Quaternion.LookRotation(destination - transform.position);
+        //float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationToLook.eulerAngles.y, ref rotateVelocity, rotateSpeedMovement * (Time.deltaTime * 5));
+        //transform.eulerAngles = new Vector3(0, rotationY, 0);
+
+        RpcMove(destination);
+    }
+
+    [ClientRpc]
+    private void RpcMove(Vector3 destination) {
+        // MOVE
+        // Gets the coordinates of where the mouse clicked and moves the character there
+        agent.SetDestination(destination);
+
+        // ROTATION
+        Quaternion rotationToLook = Quaternion.LookRotation(destination - transform.position);
+        float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationToLook.eulerAngles.y, ref rotateVelocity, rotateSpeedMovement * (Time.deltaTime * 5));
+        transform.eulerAngles = new Vector3(0, rotationY, 0);
+        Debug.Log("Called");
+    }
+
+    [Client]
     IEnumerator SpawnMaker(RaycastHit destination)
     {
-        GameObject Marker = PhotonNetwork.Instantiate("Prefabs/UI/Marker 1", destination.point, Quaternion.Euler(-90, 0, 0));	
-        yield return new WaitForSeconds(1);	
-        PhotonNetwork.Destroy(Marker);	
+        UnityEngine.Object pPrefab = Resources.Load("Prefabs/UI/Marker 1"); // note: not .prefab!
+        
+        GameObject Marker = (GameObject)GameObject.Instantiate(pPrefab, destination.point, Quaternion.Euler(-90, 0, 0));	
+        yield return new WaitForSeconds(1);	    
+        Destroy(Marker);	
     }
 
     private void OnTriggerEnter(Collider other)
@@ -239,28 +310,29 @@ public class PlayerAction : MonoBehaviourPun
         //    return;
         //}
         Projectile projectile = other.GetComponent<Projectile>();
-        ProjPV = other.GetComponent<PhotonView>();
+        if (projectile == null)
+            return;
+        //ProjPV = other.GetComponent<PhotonView>();
         
         float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
 
         Debug.Log("is it triggering?");
 
 
-        if (PV.IsMine && !ProjPV.IsMine)
-        {
+        //if (PV.IsMine && !ProjPV.IsMine)
+        //{
 
-            var score = unitStat.Health - damage <= 0 ? 100 : (int)(damage / 10);
-            ScoreExtensions.AddScore(ProjPV.Owner, score);
-            PV.RPC("takeDamage", RpcTarget.All, damage);
-        }
+        //    var score = unitStat.Health - damage <= 0 ? 100 : (int)(damage / 10);
+        //    ScoreExtensions.AddScore(ProjPV.Owner, score);
+        //    PV.RPC("takeDamage", RpcTarget.All, damage);
+        //}
 
         //PhotonNetwork.Destroy(projectile.gameObject);
 
         //projectile.gameObject.SetActive(false);
 
-        projectile.DestroyProjectile();
-        GameObject hitVFX = PhotonNetwork.Instantiate("Prefabs/Skill/Spark/vfx_hit_v1", transform.position + Vector3.up * 2, projectile.transform.rotation);
-
+        //projectile.DestroyProjectile();
+        //GameObject hitVFX = PhotonNetwork.Instantiate("Prefabs/Skill/Spark/vfx_hit_v1", transform.position + Vector3.up * 2, projectile.transform.rotation);
     }
 
     void Regeneration()
@@ -314,54 +386,56 @@ public class PlayerAction : MonoBehaviourPun
 
     void ReadyAll()
     {
-        PV.RPC("Ready", RpcTarget.All);
-    }
-
-
-    [PunRPC]
-    void Ready() {
         IsReady = true;
-    }
-
-    void DeathAll() {
-        PV.RPC("Death", RpcTarget.All);
+        //PV.RPC("Ready", RpcTarget.All);
     }
 
 
-    [PunRPC]
-    void Death() {
-        animator.IsDead();
-        unitStat.IsDead = true;
-        IsDead = true;
-    }
+    //[PunRPC]
+    //void Ready() {
+    //    IsReady = true;
+    //}
 
-    
-    public void RespawnAll()
+    void DeathAll()
     {
-        if (!PV.IsMine)
-            return;
-
-        PV.RPC("Respawn", RpcTarget.All);
+        //PV.RPC("Death", RpcTarget.All);
     }
 
 
-    [PunRPC]
-    public void Respawn()
-    {
-        agent.isStopped = true;
-        gameObject.transform.position = spawnPoint;
+    //[PunRPC]
+    //void Death() {
+    //    animator.IsDead();
+    //    unitStat.IsDead = true;
+    //    IsDead = true;
+    //}
 
 
-        initStats();
-        animator.IsAlive();
-    }
+    //public void RespawnAll()
+    //{
+    //    if (!PV.IsMine)
+    //        return;
+
+    //    PV.RPC("Respawn", RpcTarget.All);
+    //}
 
 
-    [PunRPC]
-    void takeDamage(float damage)
-    {
-        Debug.Log("IN THE ACTUAL TAKE DAMAGE FUNCTION");
+    //[PunRPC]
+    //public void Respawn()
+    //{
+    //    agent.isStopped = true;
+    //    gameObject.transform.position = spawnPoint;
 
-        unitStat.Health -= damage;
-    }
+
+    //    initStats();
+    //    animator.IsAlive();
+    //}
+
+
+    //[PunRPC]
+    //void takeDamage(float damage)
+    //{
+    //    Debug.Log("IN THE ACTUAL TAKE DAMAGE FUNCTION");
+
+    //    unitStat.Health -= damage;
+    //}
 }

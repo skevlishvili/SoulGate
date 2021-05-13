@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
-using Photon.Realtime;
 using System.IO;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
-public class RoomManager : MonoBehaviourPunCallbacks
+
+public class RoomManager : MonoBehaviour
 {
     public static RoomManager Instance;
     public static bool PlayerLoaded;
@@ -26,7 +24,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         playerPositions.Add(new Vector3(30, 0, -30));
         playerPositions.Add(new Vector3(-30, 0, -30));
 
-        var players = PhotonNetwork.CurrentRoom.Players;
+        //var players = PhotonNetwork.CurrentRoom.Players;
         //foreach (var player in players)
         //{
         //    if (player.Value.IsLocal)
@@ -48,17 +46,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Instance = this;
     }
 
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
+    //public override void OnEnable()
+    //{
+    //    base.OnEnable();
+    //    SceneManager.sceneLoaded += OnSceneLoaded;
+    //}
 
 
-    public override void OnDisable()
-    {
-        base.OnDisable();    
-    }
+    //public override void OnDisable()
+    //{
+    //    base.OnDisable();    
+    //}
 
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
@@ -73,17 +71,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
             //should be change in a way that doesn't require this duplicate code, just taking this out in a function isn't a solution
 
             var currentPosition = Vector3.zero;
-            var players = PhotonNetwork.CurrentRoom.Players;
-            foreach (var player in players)
-            {
-                if (player.Value.IsLocal)
-                {
-                    currentPosition = playerPositions[players.Count - 1];
-                    break;
-                }
-            }
+            //var players = PhotonNetwork.CurrentRoom.Players;
+            //foreach (var player in players)
+            //{
+            //    if (player.Value.IsLocal)
+            //    {
+            //        currentPosition = playerPositions[players.Count - 1];
+            //        break;
+            //    }
+            //}
 
-            PhotonNetwork.Instantiate("Prefabs/Player/PlayerControllerPrefab", currentPosition, Quaternion.identity);
+            //PhotonNetwork.Instantiate("Prefabs/Player/PlayerControllerPrefab", currentPosition, Quaternion.identity);
             GameObject instantiatedGameObject = Instantiate(Shop_prefab, Vector3.zero, Quaternion.identity);
             instantiatedGameObject.transform.SetParent(Shop.transform);
         }

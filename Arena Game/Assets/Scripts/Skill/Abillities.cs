@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
-public class Abillities : MonoBehaviour
+
+public class Abillities : NetworkBehaviour
 {
     bool[] ActiveCoolDown = new bool[] { false, false, false, false };//checks if cooldown is started
 
@@ -38,14 +39,13 @@ public class Abillities : MonoBehaviour
 
     public Transform player;
     public Unit unitStat;
-    PhotonView PV;
 
     public Skill Spell;
     #endregion
 
     void Awake()
     {
-        PV = gameObject.GetComponent<PhotonView>();
+        //PV = gameObject.GetComponent<PhotonView>();
         PlayergroundVFX = PlayergroundVFXGameObject.GetComponent<Image>();
         IndicatorVFX = IndicatorVFXGameObject.GetComponent<Image>();
         MaxRangeVFX = MaxRangeVFXGameObject.GetComponent<Image>();
@@ -75,10 +75,6 @@ public class Abillities : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!PV.IsMine)
-        {
-            return;
-        }
 
         SkillUiImageCooldown();
 
@@ -178,7 +174,7 @@ public class Abillities : MonoBehaviour
         Spell = SkillLibrary.Skills[playerActionScript.PlayerSkills[index]];
         _currentAbillityIndex = index;
 
-        if (CheckIfSkillCanCast(index))
+        if (CanCast(index))
         {
             _currentAbillityKey = key;
             SkillIsAvailable[index] = true;
@@ -278,38 +274,38 @@ public class Abillities : MonoBehaviour
         }
     }
 
+    [Client]
     public void SpawnSkill()
     {
+        if (Spell.Skill3DModel == null)
+            return;
 
-        if (PV.IsMine && Spell.Skill3DModel != null)
-        {
-            if (!Spell.IsBuff)
-            {
-                if (Spell.HasIndicator)
-                {
-                    PhotonNetwork.Instantiate("Prefabs/Skill/" + Spell.Skill3DModel, SkillSpawnPoint[0].transform.position, SkillSpawnPoint[0].transform.rotation);
-                }
-                else if (Spell.HasTargetVFX)
-                {
-                    PhotonNetwork.Instantiate("Prefabs/Skill/" + Spell.Skill3DModel, SkillSpawnPoint[2].transform.position, SkillSpawnPoint[2].transform.rotation);
-                }
-                else if (Spell.HasPlayergroundVFX || Spell.HasMaxRange)
-                {
-                    PhotonNetwork.Instantiate("Prefabs/Skill/" + Spell.Skill3DModel, SkillSpawnPoint[1].transform.position, SkillSpawnPoint[1].transform.rotation);
-                }
-                else
-                {
-                    PhotonNetwork.Instantiate("Prefabs/Skill/" + Spell.Skill3DModel, SkillSpawnPoint[1].transform.position, SkillSpawnPoint[1].transform.rotation);
-                }
-            }
-            else
-            {
-                PhotonNetwork.Instantiate("Prefabs/Skill/" + Spell.Skill3DModel, SkillSpawnPoint[1].transform.position, SkillSpawnPoint[1].transform.rotation);
-            }
-        }
+        var prefabSrc = "Prefabs/Skill/" + Spell.Skill3DModel;
+        var position = new Vector3();
+        var rotation = new Quaternion();
+
+
+        var spellType = Spell.IsBuff ? 1 : 
+                        Spell.HasIndicator ? 0 : 
+                        Spell.HasTargetVFX ? 2 : 
+                        1;
+
+        position = SkillSpawnPoint[spellType].transform.position;
+        rotation = SkillSpawnPoint[spellType].transform.rotation;
+
+
+        //GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
+
+        CmdSpawnSkill(prefabSrc, position, rotation);
     }
 
-    bool CheckIfSkillCanCast(int index)
+
+    [Command]
+    private void CmdSpawnSkill(string prefabSrc, Vector3 position, Quaternion rotation) { 
+        NetworkServer.Spawn((GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation));
+    }
+
+    bool CanCast(int index)
     {
         bool value = false;
 

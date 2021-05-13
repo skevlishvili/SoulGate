@@ -1,8 +1,7 @@
-﻿using Photon.Pun;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun.UtilityScripts;
+
 public class ScoreBoardScript : MonoBehaviour
 {
     public UnityEngine.UI.Text ScoreBoardText;
@@ -17,9 +16,9 @@ public class ScoreBoardScript : MonoBehaviour
     void Update()
     {
         ScoreBoardText.text = "";
-        foreach (var player in PhotonNetwork.PlayerList)
-        {
-            ScoreBoardText.text += $"{player.NickName} --- {ScoreExtensions.GetScore(player)}\n\n";
-        }
+        //foreach (var player in PhotonNetwork.PlayerList)
+        //{
+        //    ScoreBoardText.text += $"{player.NickName} --- {ScoreExtensions.GetScore(player)}\n\n";
+        //}
     }
 }

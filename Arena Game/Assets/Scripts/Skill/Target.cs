@@ -1,5 +1,4 @@
-﻿using Photon.Pun;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +23,6 @@ public class Target : MonoBehaviour
     IEnumerator DestroyObject()
     {
         yield return new WaitForSeconds(Spell.Duration);
-        PhotonNetwork.Destroy(gameObject);
+        //PhotonNetwork.Destroy(gameObject);
     }
 }

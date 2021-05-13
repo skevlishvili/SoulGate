@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
-using Photon.Realtime;
 
-public class MainMenu : MonoBehaviourPunCallbacks
+public class MainMenu : MonoBehaviour
 {
 
     public static MainMenu Instance;

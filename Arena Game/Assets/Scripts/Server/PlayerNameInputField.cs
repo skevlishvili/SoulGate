@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
-using Photon.Realtime;
 
 
 /// <summary>
@@ -34,7 +32,7 @@ public class PlayerNameInputField : MonoBehaviour
             }
         }
 
-        PhotonNetwork.NickName = defaultName;
+        //PhotonNetwork.NickName = defaultName;
     }
     #endregion
 
@@ -52,7 +50,7 @@ public class PlayerNameInputField : MonoBehaviour
             Debug.LogError("Player Name is null or empty");
             return;
         }
-        PhotonNetwork.NickName = value;
+        //PhotonNetwork.NickName = value;
 
 
         PlayerPrefs.SetString(playerNamePrefKey, value);

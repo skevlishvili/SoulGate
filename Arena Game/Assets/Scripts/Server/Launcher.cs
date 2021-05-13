@@ -2,11 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine.UI;
 
-public class Launcher : MonoBehaviourPunCallbacks
+public class Launcher : MonoBehaviour
 {
     #region Private Serializable Fields
 
@@ -68,7 +66,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     void Start()
     {
         //Debug.Log("connected to master");
-        IsConnecting = PhotonNetwork.ConnectUsingSettings();
+        //IsConnecting = PhotonNetwork.ConnectUsingSettings();
     }
     #endregion
 
@@ -85,8 +83,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         Debug.Log("something");
         Debug.Log(GameCodeField.text);
-        PhotonNetwork.LocalPlayer.NickName = NicknameFieldJoin.text;
-        PhotonNetwork.JoinRoom(GameCodeField.text);
+        //PhotonNetwork.LocalPlayer.NickName = NicknameFieldJoin.text;
+        //PhotonNetwork.JoinRoom(GameCodeField.text);
     }
 
     public void CloseGame()
@@ -101,48 +99,50 @@ public class Launcher : MonoBehaviourPunCallbacks
             return;
         }
 
-        PhotonNetwork.LocalPlayer.NickName = NicknameFieldCreate.text;
-        PhotonNetwork.CreateRoom(RoomName, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+        //PhotonNetwork.LocalPlayer.NickName = NicknameFieldCreate.text;
+        //PhotonNetwork.CreateRoom(RoomName, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
     }
 
 
     #endregion
 
-    #region MonoBehaviourPunCallbacks Callbacks
-    public override void OnConnectedToMaster()
-    {
-        //Debug.Log("OnConnectedToMaster()");
-        PhotonNetwork.JoinLobby();
-        PhotonNetwork.AutomaticallySyncScene = true;
+    //#region MonoBehaviourPunCallbacks Callbacks
+    //public override void OnConnectedToMaster()
+    //{
+    //    //Debug.Log("OnConnectedToMaster()");
+    //    //PhotonNetwork.JoinLobby();
+    //    //PhotonNetwork.AutomaticallySyncScene = true;
 
-    }
+    //}
 
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        Menu.OpenMenu("Create_Room_Panel");
+    //public override void OnDisconnected(DisconnectCause cause)
+    //{
+    //    Menu.OpenMenu("Create_Room_Panel");
 
-        IsConnecting = false;
-        Debug.LogWarningFormat("OnDisconnected() was called with reason {0}", cause);
-    }
+    //    IsConnecting = false;
+    //    Debug.LogWarningFormat("OnDisconnected() was called with reason {0}", cause);
+    //}
 
-    public override void OnJoinedLobby()
-    {
-        base.OnJoinedLobby();
-        //Debug.Log("Joined Lobby");
-    }
+    //public override void OnJoinedLobby()
+    //{
+    //    base.OnJoinedLobby();
+    //    //Debug.Log("Joined Lobby");
+    //}
 
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        Debug.Log("OnJoinRandomFailed() was called. No random room available, so we create one.\nReturning: Main Menu");
-        Menu.OpenMenu("Menu_Panel");
-    }
+    //public override void OnJoinRandomFailed(short returnCode, string message)
+    //{
+    //    Debug.Log("OnJoinRandomFailed() was called. No random room available, so we create one.\nReturning: Main Menu");
+    //    Menu.OpenMenu("Menu_Panel");
+    //}
 
-    public override void OnJoinedRoom()
-    {
-        //Debug.Log("OnJoinedRoom() called, Now this client is in a room.");
+    //public override void OnJoinedRoom()
+    //{
+    //    //Debug.Log("OnJoinedRoom() called, Now this client is in a room.");
 
-        PhotonNetwork.LoadLevel(1);
-        //Debug.Log(PhotonNetwork.CurrentRoom.Name);
-    }
-    #endregion
+    //    PhotonNetwork.LoadLevel(1);
+    //    //Debug.Log(PhotonNetwork.CurrentRoom.Name);
+    //}
+    //#endregion
+
+
 }

@@ -1,22 +1,20 @@
-﻿using Photon.Pun;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 
-public class PlayerAnimator : MonoBehaviourPun
+public class PlayerAnimator : MonoBehaviour
 {
 
     private NavMeshAgent agent;
     public Animator anim;
 
     float motionSmoothTime = .1f;
-    PhotonView PV;
 
     private void Awake()
     {
-        PV = gameObject.GetComponent<PhotonView>();
+
     }
 
     private void Start()
@@ -32,10 +30,10 @@ public class PlayerAnimator : MonoBehaviourPun
         // if(!PV.IsMine) {
         //     Debug.Log(anim.GetFloat("Blend"));
         // }
-        if (PV.IsMine)
-        {
+        //if (PV.IsMine)
+        //{
             MoveAnimation();
-        }
+        //}
     }
 
     public void MoveAnimation()
