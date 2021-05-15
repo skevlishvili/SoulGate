@@ -118,7 +118,6 @@ public class PlayerAction : NetworkBehaviour
         GameObject Player = GameObject.Find("Player");
         animator = gameObject.GetComponent<PlayerAnimator>();
         chatInputField = ChatInput.GetComponent<UnityEngine.UI.InputField>();
-        InvokeRepeating("Regeneration", 1.0f, 1.0f);
     }
 
     private void ToggleCanvas(CanvasGroup canvasGroup, bool on) {
@@ -245,79 +244,17 @@ public class PlayerAction : NetworkBehaviour
         movement = transform.position - oldPosition;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //if (!PV.IsMine)
-        //{
-        //    return;
-        //}
-        Projectile projectile = other.GetComponent<Projectile>();
-        if (projectile == null)
-            return;
-        //ProjPV = other.GetComponent<PhotonView>();
-        
-        float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
-
-        Debug.Log("is it triggering?");
-
-
-        //if (PV.IsMine && !ProjPV.IsMine)
-        //{
-
-        //    var score = unitStat.Health - damage <= 0 ? 100 : (int)(damage / 10);
-        //    ScoreExtensions.AddScore(ProjPV.Owner, score);
-        //    PV.RPC("takeDamage", RpcTarget.All, damage);
-        //}
-
-        //PhotonNetwork.Destroy(projectile.gameObject);
-
-        //projectile.gameObject.SetActive(false);
-
-        //projectile.DestroyProjectile();
-        //GameObject hitVFX = PhotonNetwork.Instantiate("Prefabs/Skill/Spark/vfx_hit_v1", transform.position + Vector3.up * 2, projectile.transform.rotation);
-    }
-
-    void Regeneration()
-    {
-        float HealthRegen = 2;
-        float ManaRegen = 10;
-
-        if ((unitStat.Health + HealthRegen) <= unitStat.MaxHealth)
-        {
-            unitStat.Health += HealthRegen;
-        }
-        else
-        {
-            unitStat.Health = unitStat.MaxHealth;
-        }
-
-        if ((unitStat.Mana + ManaRegen) <= unitStat.MaxMana)
-        {
-            unitStat.Mana += ManaRegen;
-        }
-        else
-        {
-            unitStat.Mana = unitStat.MaxMana;
-        }
-
-    }
-
     void initStats() {
-        unitStat.Health = 200;
-        unitStat.Mana = 200;
-        unitStat.Xp = 0;
-        unitStat.Money = 5000;
-        unitStat.MaxHealth = unitStat.Health;
-        unitStat.MaxMana = unitStat.Mana;
+        //unitStat.Health = 200;
+        //unitStat.Mana = 200;
+        //unitStat.Money = 5000;
+        //unitStat.MaxHealth = unitStat.Health;
+        //unitStat.MaxMana = unitStat.Mana;
         unitStat.PhysicalDefence = 20;
         unitStat.MagicDefence = 20;
-        unitStat.Height = 2;
-        unitStat.weight = 80;
-        unitStat.strength = 20;
+        unitStat.Strength = 20;
         unitStat.Agility = 20;
         unitStat.Intelligence = 20;
-        unitStat.Charisma = 20;
-        unitStat.IsHalfHealth = false;
         unitStat.IsDead = false;
         agent.speed = unitStat.Agility / 2;
         IsDead = false;

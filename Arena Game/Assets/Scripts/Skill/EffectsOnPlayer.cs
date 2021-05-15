@@ -57,43 +57,43 @@ public class EffectsOnPlayer : MonoBehaviour
 
     void Regeneration()
     {
-        float HealthRegen = unitStat.MaxHealth * Spell.HealthBuff / 100;
-        float ManaRegen = unitStat.MaxMana * Spell.ManaBuff / 100;
+        //float HealthRegen = unitStat.MaxHealth * Spell.HealthBuff / 100;
+        //float ManaRegen = unitStat.MaxMana * Spell.ManaBuff / 100;
 
-        if ((unitStat.Health + HealthRegen) <= unitStat.MaxHealth)
-        {
-            unitStat.Health += HealthRegen;
-        }
-        else
-        {
-            unitStat.Health = unitStat.MaxHealth;
-        }
+        //if ((unitStat.Health + HealthRegen) <= unitStat.MaxHealth)
+        //{
+        //    unitStat.Health += HealthRegen;
+        //}
+        //else
+        //{
+        //    unitStat.Health = unitStat.MaxHealth;
+        //}
 
-        if ((unitStat.Mana + ManaRegen) <= unitStat.MaxMana)
-        {
-            unitStat.Mana += ManaRegen;
-        }
-        else
-        {
-            unitStat.Mana = unitStat.MaxMana;
-        }
+        //if ((unitStat.Mana + ManaRegen) <= unitStat.MaxMana)
+        //{
+        //    unitStat.Mana += ManaRegen;
+        //}
+        //else
+        //{
+        //    unitStat.Mana = unitStat.MaxMana;
+        //}
     }
 
     void MaxStatChange(bool condition)
     {
-        float MaxHealth = unitStat.MaxMana * Spell.HealthBuff / 100;
-        float MaxMana = unitStat.MaxMana * Spell.ManaBuff / 100;
+        //float MaxHealth = unitStat.MaxMana * Spell.HealthBuff / 100;
+        //float MaxMana = unitStat.MaxMana * Spell.ManaBuff / 100;
 
-        if (condition)
-        {
-            unitStat.Health += MaxHealth;
-            unitStat.MaxMana += MaxMana;
-        }
-        else
-        {
-            unitStat.Health -= MaxHealth;
-            unitStat.MaxMana -= MaxMana;
-        }
+        //if (condition)
+        //{
+        //    unitStat.Health += MaxHealth;
+        //    unitStat.MaxMana += MaxMana;
+        //}
+        //else
+        //{
+        //    unitStat.Health -= MaxHealth;
+        //    unitStat.MaxMana -= MaxMana;
+        //}
         
     }
 

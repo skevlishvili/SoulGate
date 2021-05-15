@@ -30,7 +30,7 @@ public class Mana : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ManaSlider2D.value = unitstat.Mana;
-        ManaSlider3D.value = unitstat.Mana;
+        //ManaSlider2D.value = unitstat.Mana;
+        //ManaSlider3D.value = unitstat.Mana;
     }
 }

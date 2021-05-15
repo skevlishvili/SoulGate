@@ -1,96 +1,109 @@
 ﻿
-using System.Collections;
-using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class Unit : AbstractUnitClass
+public class Unit : NetworkBehaviour
 {
-    public override float Health
+    [Header("Settings")]
+    public float MaxHealth = 200;
+    public float MaxMana = 200;
+
+    [SyncVar]
+    [SerializeField] private float _health = 100;
+    [SerializeField] private float _mana = 100;
+
+    public float Health
     {
-        get;
-        set;
+        get { return _health; }
+        private set { _health = value; }
     }
-    public override float Mana
+
+    public float Mana
     {
-        get;
-        set;
-    }
-    public override float Xp
-    {
-        get;
-        set;
-    }
-    public override float Money
-    {
-        get;
-        set;
+        get { return _mana; }
+        private set { _mana = value; }
     }
 
 
-    public override float MaxHealth
+
+
+
+    public delegate void HealthChangedDelegate(float Health, float MaxHealth);
+    public event HealthChangedDelegate EventHealthChanged;
+
+    public float Money = 5000;
+    public float PhysicalDefence = 20;
+    public float MagicDefence = 20;
+    public float Agility = 20;
+    public float Strength = 20;
+    public float Intelligence = 20;
+    public bool IsDead = false;
+
+    [Server]
+    private void SetHealth(float value)
     {
-        get;
-        set;
+        _health = value;
+        EventHealthChanged?.Invoke(_health, MaxHealth);
     }
-    public override float MaxMana
+
+    [Server]
+    public void Regen(float value)
     {
-        get;
-        set;
+        SetHealth(Mathf.Min(Health + value, MaxHealth));
     }
 
 
-    public override float PhysicalDefence
+    [Server]
+    public void TakeDamage(float value)
     {
-        get;
-        set;
-    }
-    public override float MagicDefence
-    {
-        get;
-        set;
+        SetHealth(Mathf.Max(Health - value, 0));
     }
 
 
-    public override float Height
+
+    [Server]
+    private void Regeneration()
     {
-        get;
-        set;
-    }
-    public override float weight
-    {
-        get;
-        set;
+        float HealthRegen = 2;
+        float ManaRegen = 10;
+
+
+        Debug.Log($"Regen {_health}");
+        Regen(HealthRegen);
+
+
+        //if ((unitStat.Mana + ManaRegen) <= unitStat.MaxMana)
+        //{
+        //    unitStat.Mana += ManaRegen;
+        //}
+        //else
+        //{
+        //    unitStat.Mana = unitStat.MaxMana;
+        //}
+
     }
 
-    public override int strength
+    public override void OnStartClient()
     {
-        get;
-        set;
-    }
-    public override int Agility
-    {
-        get;
-        set;
-    }
-    public override int Intelligence
-    {
-        get;
-        set;
-    }
-    public override int Charisma
-    {
-        get;
-        set;
+        if (!hasAuthority)
+            return;
+        StartRegen();
     }
 
-    public override bool IsHalfHealth
+
+    public override void OnStartServer()
     {
-        get;
-        set;
+        Debug.Log("Server start");
+
+        SetHealth(MaxHealth);
     }
-    public override bool IsDead
-    {
-        get;
-        set;
+
+    [Command]
+    private void StartRegen() {
+        Debug.Log("Start regen");
+
+        InvokeRepeating("Regeneration", 1.0f, 1.0f);
     }
+
+
 }

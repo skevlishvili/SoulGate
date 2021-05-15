@@ -325,8 +325,8 @@ public class Abillities : NetworkBehaviour
 
         if (SkillIsAvailable[index])
         {
-            unitStat.Mana -= Spell.ManaConsumption;
-            unitStat.Health -= Spell.HealthConsumption;
+            //unitStat.Mana -= Spell.ManaConsumption;
+            //unitStat.Health -= Spell.HealthConsumption;
             value = true;
         }
 

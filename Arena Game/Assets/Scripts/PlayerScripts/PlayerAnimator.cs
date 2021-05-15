@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 
-public class PlayerAnimator : MonoBehaviour
+public class PlayerAnimator : NetworkBehaviour
 {
 
     private NavMeshAgent agent;
@@ -36,12 +37,14 @@ public class PlayerAnimator : MonoBehaviour
         //}
     }
 
+    [Client]
     public void MoveAnimation()
     {
         float speed = agent.velocity.magnitude / agent.speed;
         anim.SetFloat("Blend", speed, motionSmoothTime, Time.deltaTime);
     }
 
+    [Client]
     public void Attack(string animationName)
     {
         anim.SetBool("MagicAttack", true);
@@ -49,18 +52,21 @@ public class PlayerAnimator : MonoBehaviour
         anim.SetBool(animationName, true);
     }
 
+    [Client]
     public void IsDead()
     {
         anim.SetFloat("Blend", 0);
         anim.SetBool("IsDead", true);
     }
 
+    [Client]
     public void IsAlive()
     {
         anim.SetFloat("Blend", 0);
         anim.SetBool("IsDead", false);
     }
 
+    [Client]
     public void EndAnimation(string animationName)
     {
         anim.SetBool("MagicAttack", false);

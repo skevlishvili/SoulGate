@@ -207,7 +207,7 @@ public class Shop : MonoBehaviour
                 {
                     Menu.OpenMenu("ChooseSkillIndexPanel");
                 }
-                else if (Spell.SkillPriceXp != 0 && Spell.SkillPriceXp <= playerActionObj.unitStat.Xp)
+                else if (Spell.SkillPriceXp != 0/* && Spell.SkillPriceXp <= playerActionObj.unitStat.Xp*/)
                 {
                     Menu.OpenMenu("ChooseSkillIndexPanel");
                 }
