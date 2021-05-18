@@ -68,12 +68,20 @@ public class PlayerMove : NetworkBehaviour
         if (base.hasAuthority)
         {
             ProcessReceivedServerMoveState();
-            SendInputs();
         }
 
         if (base.isServer)
         {
             ProcessReceivedClientMoveState();
+        }
+    }
+
+
+    private void Update()
+    {
+        if (base.isLocalPlayer)
+        {
+            SendInputs();
         }
     }
 
@@ -109,7 +117,7 @@ public class PlayerMove : NetworkBehaviour
         //transform.position = serverState.Position;
         //transform.rotation = serverState.Rotation;
 
-       
+
         //ProcessInputs(_clientMoveState);
 
 
@@ -126,7 +134,8 @@ public class PlayerMove : NetworkBehaviour
             _clientMoveStates.RemoveRange(0, index);
 
         //Snap motor to server values.
-        if ((transform.position - serverState.Position).magnitude > 15) {
+        if ((transform.position - serverState.Position).magnitude > 15)
+        {
             transform.position = serverState.Position;
         }
         transform.rotation = serverState.Rotation;
@@ -147,7 +156,7 @@ public class PlayerMove : NetworkBehaviour
 
         //sbyte timingStepChange = 0;
 
-  
+
         ////If there is input to process.
         ////if (_clientMoveState.Destination == Vector3.zero)
         ////{
@@ -214,32 +223,34 @@ public class PlayerMove : NetworkBehaviour
     [Client]
     private void SendInputs()
     {
-        if (!(Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring.All(x => x)))
+        if (!(Input.GetKeyDown(KeyCodeController.Moving) && !abilities.PlayerAbillities.All(x => x.IsFiring)))
             return;
+
 
         agent.isStopped = false;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit destination;
 
+        Vector3 target = new Vector3();
+
         // Checks if raycast hit the navmesh (navmesh is a predefined system where the agent can go)
         if (Physics.Raycast(ray, out destination, Mathf.Infinity))
         {
-            StartCoroutine("SpawnMaker", destination);
+            target = new Vector3(destination.point.x, 0, destination.point.z);
+            StartCoroutine("SpawnMaker", target);
+        }
+        else
+        {
+            return;
         }
 
 
-        //var vectors = new List<Vector3>();
-        //vectors.Add(new Vector3(30, 0, 30));
-        //vectors.Add(new Vector3(-30, 0, 30));
-        //vectors.Add(new Vector3(-30, 0, -30));
-        //vectors.Add(new Vector3(30, 0, -30));
-        //System.Random random = new System.Random();
-        //var dest = vectors[random.Next(vectors.Count)];
+
 
         ClientMoveState state = new ClientMoveState
         {
             FixedFrame = 0,
-            Destination = destination.point
+            Destination = target
         };
 
         _clientMoveStates.Add(state);
@@ -302,11 +313,11 @@ public class PlayerMove : NetworkBehaviour
 
 
     [Client]
-    IEnumerator SpawnMaker(RaycastHit destination)
+    IEnumerator SpawnMaker(Vector3 destination)
     {
         UnityEngine.Object pPrefab = Resources.Load("Prefabs/UI/Marker 1"); // note: not .prefab!
 
-        GameObject Marker = (GameObject)GameObject.Instantiate(pPrefab, destination.point, Quaternion.Euler(-90, 0, 0));
+        GameObject Marker = (GameObject)GameObject.Instantiate(pPrefab, destination, Quaternion.Euler(-90, 0, 0));
         yield return new WaitForSeconds(1);
         Destroy(Marker);
     }

@@ -1,16 +1,14 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HudConetntController : MonoBehaviour
+public class HudConetntController : NetworkBehaviour
 {
 
     #region Referances
-    public SkillLibrary SkillLibraryObj;
-
-    public GameObject Player_PrefabObj;
-    PlayerAction PlayerActionObj;
+    public Abillities Abillities;
 
     public Image[] imagesObj;
     #endregion
@@ -23,13 +21,13 @@ public class HudConetntController : MonoBehaviour
 
     public void LoadSkillUiImagesInHUD()
     {
-        Player_PrefabObj = GameObject.FindGameObjectWithTag("Player");
-        PlayerActionObj = Player_PrefabObj.GetComponentInChildren<PlayerAction>();
-        var HudContent = Player_PrefabObj.GetComponentInChildren<HudConetntController>();
-
+        
         for (int i = 0; i < imagesObj.Length; i++)
         {
-            HudContent.imagesObj[i].sprite = SkillLibrary.Skills[PlayerActionObj.PlayerSkills[i/2]].SkillImageUIVFX;
+            Debug.Log(i);
+            Debug.Log(Abillities.PlayerAbillities[i / 2]);
+            Debug.Log(Abillities.PlayerAbillities[i / 2].Skill.SkillImageUIVFX);
+            imagesObj[i].sprite = Abillities.PlayerAbillities[i/2].Skill.SkillImageUIVFX;
         }
     }
 }

@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: []
-  SkillIndex: 7
+  SkillIndex: 2
 --- !u!1 &268595743994423630
 GameObject:
   m_ObjectHideFlags: 0

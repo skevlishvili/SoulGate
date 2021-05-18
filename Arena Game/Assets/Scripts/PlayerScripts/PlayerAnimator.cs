@@ -52,6 +52,15 @@ public class PlayerAnimator : NetworkBehaviour
         anim.SetBool(animationName, true);
     }
 
+
+    [Client]
+    public void StopAttack(string animationName)
+    {
+        anim.SetBool("MagicAttack", false);
+        anim.SetFloat("Blend", 0);
+        anim.SetBool(animationName, false);
+    }
+
     [Client]
     public void IsDead()
     {

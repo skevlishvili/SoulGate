@@ -15,7 +15,7 @@ public class PlayerAction : NetworkBehaviour
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
 
-    public int[] PlayerSkills;
+    //public int[] PlayerSkills;
 
     #region Referances
     public NavMeshAgent agent;
@@ -54,6 +54,8 @@ public class PlayerAction : NetworkBehaviour
     private Vector3 movement;
     private Vector3 networkPosition;
     private Quaternion networkRotation;
+
+    public int[] PlayerSkills;
 
 
     public float speed = 9.16f;
@@ -138,10 +140,6 @@ public class PlayerAction : NetworkBehaviour
             ReadyText.GetComponent<UnityEngine.UI.Text>().text = "";
 
 
-            //transform.position = Vector3.MoveTowards(transform.position, networkPosition, Time.deltaTime * speed);
-            //Debug.Log(agent.speed);
-            //transform.rotation = networkRotation;
-
             return;
         }
 
@@ -153,32 +151,6 @@ public class PlayerAction : NetworkBehaviour
             return;
         }
 
-
-        //if (Input.GetKeyDown(KeyCode.Return)) {
-        //    if (IsTyping)
-        //    {
-        //        try
-        //        {
-        //            speed = float.Parse(chatInputField.text);
-        //        }
-        //        catch (Exception)
-        //        {
-        //            Debug.LogError(chatInputField.text);
-        //        }
-
-
-        //        chatInputField.DeactivateInputField();
-        //        chatInputField.text = "";
-        //        IsTyping = false;
-
-        //        return;
-        //    }
-
-        //    chatInputField.ActivateInputField();
-        //    IsTyping = true;
-
-        //    return;
-        //}
 
         if (IsTyping) {
             return;
@@ -225,31 +197,10 @@ public class PlayerAction : NetworkBehaviour
             }
         }
 
-        //if (Input.GetKeyDown(KeyCodeController.Moving) && !abilities.isFiring.All(x => x) && !unitStat.IsDead)
-        //{
-        //    agent.isStopped = false;
-        //}
-        
-        if (!unitStat.IsDead)
-        {
-            for (int i = 0; i < KeyCodeController.AbilitiesKeyCodeArray.Length; i++)
-            {
-                if (Input.GetKeyDown(KeyCodeController.AbilitiesKeyCodeArray[i]))
-                {
-                    abilities.SpellKeyCode(KeyCodeController.AbilitiesKeyCodeArray[i]);
-                }
-            }
-        }
-
         movement = transform.position - oldPosition;
     }
 
     void initStats() {
-        //unitStat.Health = 200;
-        //unitStat.Mana = 200;
-        //unitStat.Money = 5000;
-        //unitStat.MaxHealth = unitStat.Health;
-        //unitStat.MaxMana = unitStat.Mana;
         unitStat.PhysicalDefence = 20;
         unitStat.MagicDefence = 20;
         unitStat.Strength = 20;
@@ -266,7 +217,6 @@ public class PlayerAction : NetworkBehaviour
     void ReadyAll()
     {
         IsReady = true;
-        //PV.RPC("Ready", RpcTarget.All);
     }
 
 

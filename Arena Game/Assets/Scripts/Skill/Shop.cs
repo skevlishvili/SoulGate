@@ -23,6 +23,9 @@ public class Shop : MonoBehaviour
 
     public Image[] ShopHUDimagesObj;
     public Dropdown[] DropdownObj;
+
+    public bool ShopOpen = false;
+    public GameObject Panel; 
     #endregion
 
     int _SkillIndex;
@@ -36,6 +39,16 @@ public class Shop : MonoBehaviour
         Skills_Shop = SkillLibrary.Skills.OrderBy(x => x.SkillPriceMoney).ToArray();
         SkillScrollContentFill();
         LoadSkillUiImages();
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCodeController.Shop))
+        {
+            ShopOpen = !ShopOpen;
+            Panel.SetActive(ShopOpen);
+        }
     }
 
     void SkillScrollContentFill()
@@ -70,7 +83,7 @@ public class Shop : MonoBehaviour
         Spell = SkillLibrary.Skills[_SkillIndex];
         SkillUiImageDetailed.sprite = Spell.SkillImageUIVFX;
         GameObject.Find("SkillUIImage").GetComponent<Image>().sprite = Spell.SkillImageUIVFX;
-        
+
 
         string Damage = "";
         string Consumption = "";
@@ -85,7 +98,7 @@ public class Shop : MonoBehaviour
 
 
         #region Consumption
-        Consumption += Spell.HealthConsumption == 0 ? "" : $"Health: {Spell.HealthConsumption},";        
+        Consumption += Spell.HealthConsumption == 0 ? "" : $"Health: {Spell.HealthConsumption},";
         Consumption += Spell.ManaConsumption == 0 ? "" : $" Mana: {Spell.ManaConsumption}";
         #endregion
 
@@ -95,7 +108,6 @@ public class Shop : MonoBehaviour
         Effects += Spell.IsPasive ? "Pasive," : "";
         Effects += Spell.IsBuff ? "Buff/debuff," : "";
         Effects += Spell.IsProjectile ? "Projectile," : "";
-        Effects += Spell.HasRecharging ? "Recharging" : "";
         #endregion
 
 
@@ -106,52 +118,27 @@ public class Shop : MonoBehaviour
 
     public void SearchDropDownChange(Dropdown value)
     {
-        if(Skills_Shop.Length == 0)
-        {
-            if (value.value == 0)
-            {
-                Skills_Shop = SkillLibrary.Skills.OrderBy(x => x.SkillPriceMoney).ToArray();
-            }
-            else if (value.value == 1)
-            {
-                Skills_Shop = SkillLibrary.Skills.OrderBy(x => x.SkillName).ToArray();
-            }
-            else if (value.value == 2)
-            {
-                Skills_Shop = SkillLibrary.Skills.OrderBy(x => x.PhysicalDamage).ToArray();
-            }
-            else if (value.value == 3)
-            {
-                Skills_Shop = SkillLibrary.Skills.OrderBy(x => x.MagicDamage).ToArray();
-            }
-            else if (value.value == 4)
-            {
-                Skills_Shop = SkillLibrary.Skills.OrderBy(x => x.SoulDamage).ToArray();
-            }
+        var skills = Skills_Shop.Length == 0 ? SkillLibrary.Skills : Skills_Shop;
 
-        }
-        else
+        switch (value.value)
         {
-            if (value.value == 0)
-            {
-                Skills_Shop = Skills_Shop.OrderBy(x => x.SkillPriceMoney).ToArray();
-            }
-            else if (value.value == 1)
-            {
-                Skills_Shop = Skills_Shop.OrderBy(x => x.SkillName).ToArray();
-            }
-            else if (value.value == 2)
-            {
-                Skills_Shop = Skills_Shop.OrderBy(x => x.PhysicalDamage).ToArray();
-            }
-            else if (value.value == 3)
-            {
-                Skills_Shop = Skills_Shop.OrderBy(x => x.MagicDamage).ToArray();
-            }
-            else if (value.value == 4)
-            {
-                Skills_Shop = Skills_Shop.OrderBy(x => x.SoulDamage).ToArray();
-            }
+            case 0:
+                Skills_Shop = skills.OrderBy(x => x.SkillPriceMoney).ToArray();
+                break;
+            case 1:
+                Skills_Shop = skills.OrderBy(x => x.SkillName).ToArray();
+                break;
+            case 2:
+                Skills_Shop = skills.OrderBy(x => x.PhysicalDamage).ToArray();
+                break;
+            case 3:
+                Skills_Shop = skills.OrderBy(x => x.MagicDamage).ToArray();
+                break;
+            case 4:
+                Skills_Shop = skills.OrderBy(x => x.SoulDamage).ToArray();
+                break;
+            default:
+                break;
         }
 
         SkillScrollContentFill();
@@ -207,10 +194,10 @@ public class Shop : MonoBehaviour
                 {
                     Menu.OpenMenu("ChooseSkillIndexPanel");
                 }
-                else if (Spell.SkillPriceXp != 0/* && Spell.SkillPriceXp <= playerActionObj.unitStat.Xp*/)
-                {
-                    Menu.OpenMenu("ChooseSkillIndexPanel");
-                }
+                //else if (Spell.SkillPriceXp != 0 && Spell.SkillPriceXp <= playerActionObj.unitStat.Xp)
+                //{
+                //    Menu.OpenMenu("ChooseSkillIndexPanel");
+                //}
                 else
                 {
                     //Conditions are not met please choose another skill
@@ -233,11 +220,12 @@ public class Shop : MonoBehaviour
                 playerActionObj.PlayerSkills[index] = _SkillIndex;
                 Menu.OpenMenu("");//if it is empty it will close everything
             }
-            else{
+            else
+            {
                 Menu.OpenMenu("ChooseSkillIndexPanel");
                 //needs error show ---------------------------------------------------------------------------
             }
-            
+
         }
         else
         {

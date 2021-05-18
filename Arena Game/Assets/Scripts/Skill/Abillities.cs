@@ -1,20 +1,22 @@
 ﻿using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 public class Abillities : NetworkBehaviour
 {
-    bool[] ActiveCoolDown = new bool[] { false, false, false, false };//checks if cooldown is started
+    //bool[] ActiveCoolDown = new bool[] { false, false, false, false };//checks if cooldown is started
 
-    bool[] SkillIsAvailable = new bool[] { false, false, false, false };// controls when to activate skill, also checks if you fullfil demands
-    public bool[] isFiring { get; set; }
-    bool[] isActivating { get; set; }
+    public List<Abillity> PlayerAbillities;
 
-    private KeyCode _currentAbillityKey;
-    private int _currentAbillityIndex;
+    /*bool[] SkillIsAvailable = new bool[] { false, false, false, false };*/// controls when to activate skill, also checks if you fullfil demands
+    //public bool[] isFiring;
+    //bool[] isActivating;
+
+    private int CurrentAbillity;
 
     #region Referances
     RaycastHit hit;
@@ -39,8 +41,6 @@ public class Abillities : NetworkBehaviour
 
     public Transform player;
     public Unit unitStat;
-
-    public Skill Spell;
     #endregion
 
     void Awake()
@@ -50,12 +50,18 @@ public class Abillities : NetworkBehaviour
         IndicatorVFX = IndicatorVFXGameObject.GetComponent<Image>();
         MaxRangeVFX = MaxRangeVFXGameObject.GetComponent<Image>();
         TargetVFX = TargetVFXGameObject.GetComponent<Image>();
+
+        PlayerAbillities = new List<Abillity>();
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[0], Skill = SkillLibrary.Skills[1], IsFiring = false, IsActivating = false });
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[1], Skill = SkillLibrary.Skills[7], IsFiring = false, IsActivating = false });
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[2], Skill = SkillLibrary.Skills[2], IsFiring = false, IsActivating = false });
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[3], Skill = SkillLibrary.Skills[5], IsFiring = false, IsActivating = false });
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Spell = SkillLibrary.Skills[playerActionScript.PlayerSkills[0]];
+        // SkillLibrary.Skills[playerActionScript.PlayerSkills[0]];
 
         for (int i = 0; i < SkillImageUIVFX.Length; i++)
         {
@@ -64,8 +70,6 @@ public class Abillities : NetworkBehaviour
 
         SkillVFXDeActivation();
 
-        isFiring = new bool[] { false, false, false, false };
-        isActivating = new bool[] { false, false, false, false };
 
         playerActionScript = GetComponent<PlayerAction>();
         unitStat = gameObject.GetComponent<Unit>();
@@ -75,28 +79,61 @@ public class Abillities : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isLocalPlayer)
+            return;
+
 
         SkillUiImageCooldown();
+        bool skillIsActivating = PlayerAbillities.Any(x => x.IsActivating);
+        bool skillIsFiring = PlayerAbillities.Any(x => x.IsFiring);
 
-        AbilityActivation(0);
-        AbilityActivation(1);
-        AbilityActivation(2);
-        AbilityActivation(3);
 
-        targetLocationDirection();
-    }
-
-    public void SpellKeyCode(KeyCode key)
-    {
-        for (int i = 0; i < KeyCodeController.AbilitiesKeyCodeArray.Length; i++)
-        {
-            if (key == KeyCodeController.AbilitiesKeyCodeArray[i])
+        if (!skillIsActivating && !skillIsFiring) { 
+            for (int i = 0; i < 4; i++)
             {
-                SetSkill(key, i);
+                if (Input.GetKey(PlayerAbillities[i].KeyCode))
+                {
+                    AbilityActivation(i);
+                    break;
+                }
+            }
+        } else if(skillIsActivating && !skillIsFiring) {          
+            if (Input.GetKeyUp((PlayerAbillities[CurrentAbillity].KeyCode)))
+            {
+                AbilityFire();
             }
         }
-        SkillVFXSpriteChange();
+
+
+
+        targetLocationDirection();
+
+        //CheckFiring();
     }
+
+
+    //void CheckFiring()
+    //{
+    //    KeyCode? key = KeyCodeController.AbilitiesKeyCodeArray.FirstOrDefault(x => Input.GetKeyDown(x));
+
+    //    if (key != null)
+    //    {
+    //        SpellKeyCode(key.Value);
+    //    }
+    //}
+
+    //public void SpellKeyCode(KeyCode key)
+    //{
+    //    for (int i = 0; i < KeyCodeController.AbilitiesKeyCodeArray.Length; i++)
+    //    {
+    //        if (key == KeyCodeController.AbilitiesKeyCodeArray[i] && CanCast(i))
+    //        {
+    //            CurrentAbillity = i;
+    //        }
+    //    }
+
+    //    SkillVFXSpriteChange();
+    //}
 
     void targetLocationDirection()
     {
@@ -113,7 +150,7 @@ public class Abillities : NetworkBehaviour
         abilityOneCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityOneCanvas.transform.rotation, 0f);
 
 
-        if (Spell.HasTargetVFX)
+        if (PlayerAbillities[CurrentAbillity].Skill.HasTargetVFX)
         {
             RaycastHit hit;
 
@@ -121,7 +158,7 @@ public class Abillities : NetworkBehaviour
             {
                 var hitPosDir = (hit.point - transform.position).normalized;
                 float distance = (hit.point - transform.position).magnitude;
-                distance = Mathf.Min(distance, Spell.Distance);
+                distance = Mathf.Min(distance, PlayerAbillities[CurrentAbillity].Skill.Distance);
 
                 var newHitPos = transform.position + hitPosDir * distance;
 
@@ -129,71 +166,62 @@ public class Abillities : NetworkBehaviour
                 SkillSpawnPoint[2].position = new Vector3(newHitPos.x, y, newHitPos.z);
                 TargetVFXGameObject.transform.position = new Vector3(newHitPos.x, 1, newHitPos.z);
             }
+
+        }
+
+
+        if (IndicatorVFX.enabled)
+        {
+            RotatePlayer();
         }
     }
 
     void AbilityActivation(int index)
     {
-        if (SkillIsAvailable[index] && !ActiveCoolDown[index])
+        CurrentAbillity = index;
+        SkillVFXSpriteChange();
+
+        if (!PlayerAbillities[index].ActiveCoolDown)
         {
             SkillVFXActivation();
-            isFiring[index] = true;
-        }
-
-        if (isFiring[index] && !Input.GetKey(_currentAbillityKey))
-        {
-            if ((MaxRangeVFX.GetComponent<Image>().enabled || PlayergroundVFX.GetComponent<Image>().enabled))
-            {
-                if (IndicatorVFX.GetComponent<Image>().enabled)
-                {
-                    Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
-                    float rotationY = Mathf.SmoothDamp(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y, ref playerActionScript.rotateVelocity, 0);
-                    transform.eulerAngles = new Vector3(0, rotationY, 0);
-                    playerActionScript.agent.SetDestination(transform.position);
-                    playerActionScript.agent.stoppingDistance = 0;
-                }
-
-                ActiveCoolDown[index] = true;
-                SkillImageUIVFX[index].fillAmount = 1;
-
-                StartCoroutine(corSkillShot(index));
-            }
-        }
-
-        if (ActiveCoolDown[index])
-        {
-            SkillVFXDeActivation();
+            PlayerAbillities[index].IsActivating = true;
+           
         }
     }
 
 
+    void AbilityFire() {
+        PlayerAbillities[CurrentAbillity].ActiveCoolDown = true;
+        SkillImageUIVFX[CurrentAbillity].fillAmount = 1;
 
-    // Set Spell Data
-    void SetSkill(KeyCode key, int index)
+        StartCoroutine(corSkillShot(CurrentAbillity));
+    }
+
+    void RotatePlayer()
     {
-        Spell = SkillLibrary.Skills[playerActionScript.PlayerSkills[index]];
-        _currentAbillityIndex = index;
-
-        if (CanCast(index))
-        {
-            _currentAbillityKey = key;
-            SkillIsAvailable[index] = true;
-        }
+        Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
+        float rotationY = Mathf.SmoothDamp(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y, ref playerActionScript.rotateVelocity, 0);
+        transform.eulerAngles = new Vector3(0, rotationY, 0);
+        playerActionScript.agent.SetDestination(transform.position);
+        playerActionScript.agent.stoppingDistance = 0;
     }
+
+
 
     //Cooldown Effect
     void SkillUiImageCooldown()
     {
         for (int i = 0; i < SkillImageUIVFX.Length; i++)
         {
-            if (ActiveCoolDown[i])
+            if (PlayerAbillities[i].ActiveCoolDown)
             {
-                SkillImageUIVFX[i].fillAmount -= 1 / SkillLibrary.Skills[playerActionScript.PlayerSkills[i]].Cooldown * Time.deltaTime;
+                //TODO change
+                SkillImageUIVFX[i].fillAmount -= 1 / PlayerAbillities[i].Skill.Cooldown * Time.deltaTime;
 
                 if (SkillImageUIVFX[i].fillAmount <= 0)
                 {
                     SkillImageUIVFX[i].fillAmount = 0;
-                    ActiveCoolDown[i] = false;
+                    PlayerAbillities[i].ActiveCoolDown = false;
                 }
             }
         }
@@ -207,87 +235,78 @@ public class Abillities : NetworkBehaviour
         MaxRangeVFX.sprite = null;
         TargetVFX.sprite = null;
 
-        if (Spell.HasPlayergroundVFX)
+        if (PlayerAbillities[CurrentAbillity].Skill.HasPlayergroundVFX)
         {
-            PlayergroundVFX.sprite = Spell.PlayergroundVFX;
+            PlayergroundVFX.sprite = PlayerAbillities[CurrentAbillity].Skill.PlayergroundVFX;
         }
-        if (Spell.HasIndicator)
+        if (PlayerAbillities[CurrentAbillity].Skill.HasIndicator)
         {
-            IndicatorVFX.sprite = Spell.IndicatorVFX;
+            IndicatorVFX.sprite = PlayerAbillities[CurrentAbillity].Skill.IndicatorVFX;
         }
-        if (Spell.HasMaxRange)
+        if (PlayerAbillities[CurrentAbillity].Skill.HasMaxRange)
         {
-            MaxRangeVFX.sprite = Spell.MaxRangeVFX;
+            MaxRangeVFX.sprite = PlayerAbillities[CurrentAbillity].Skill.MaxRangeVFX;
         }
-        if (Spell.HasTargetVFX)
+        if (PlayerAbillities[CurrentAbillity].Skill.HasTargetVFX)
         {
-            TargetVFX.sprite = Spell.TargetVFX;
+            TargetVFX.sprite = PlayerAbillities[CurrentAbillity].Skill.TargetVFX;
         }
     }
 
     //Makes Skill VFX visible
     void SkillVFXActivation()
     {
-        if (Spell.HasPlayergroundVFX)
-        {
-            PlayergroundVFX.GetComponent<Image>().enabled = true;
-        }
-        if (Spell.HasIndicator)
-        {
-            IndicatorVFX.GetComponent<Image>().enabled = true;
-        }
-        if (Spell.HasMaxRange)
-        {
-            MaxRangeVFX.GetComponent<Image>().enabled = true;
-            MaxRangeVFXGameObject.transform.localScale = new Vector3(Spell.Distance - 3, Spell.Distance - 3, Spell.Distance - 3);
-        }
-        if (Spell.HasTargetVFX)
-        {
-            TargetVFX.GetComponent<Image>().enabled = true;
-        }
+        PlayergroundVFX.enabled = PlayerAbillities[CurrentAbillity].Skill.HasPlayergroundVFX;
+        IndicatorVFX.enabled = PlayerAbillities[CurrentAbillity].Skill.HasIndicator;
+        MaxRangeVFX.enabled = PlayerAbillities[CurrentAbillity].Skill.HasMaxRange;
+        MaxRangeVFXGameObject.transform.localScale = new Vector3(PlayerAbillities[CurrentAbillity].Skill.Distance - 3, PlayerAbillities[CurrentAbillity].Skill.Distance - 3, PlayerAbillities[CurrentAbillity].Skill.Distance - 3);
+        TargetVFX.enabled = PlayerAbillities[CurrentAbillity].Skill.HasTargetVFX;
     }
 
     //Hides Skill VFX
     void SkillVFXDeActivation()
     {
-        IndicatorVFX.GetComponent<Image>().enabled = false;
-        PlayergroundVFX.GetComponent<Image>().enabled = false;
-        MaxRangeVFX.GetComponent<Image>().enabled = false;
-        TargetVFX.GetComponent<Image>().enabled = false;
+        IndicatorVFX.enabled = false;
+        PlayergroundVFX.enabled = false;
+        MaxRangeVFX.enabled = false;
+        TargetVFX.enabled = false;
     }
 
     IEnumerator corSkillShot(int index)
     {
-        if (!isActivating[index])
+        if (PlayerAbillities[index].IsActivating && SkillConsumption(index))
         {
-            if (SkillConsumption(index))
-            {
-                isActivating[index] = true;
-                playerActionScript.agent.isStopped = true;
-                anim.Attack(Spell.AnimatorProperty);
-                yield return new WaitForSeconds(Spell.ActivationTime);
-                SpawnSkill();
-                isFiring[index] = false;
-                SkillIsAvailable[index] = false;
-                isActivating[index] = false;
-            }
+            SkillVFXDeActivation();
+            PlayerAbillities[index].IsActivating = false;
+            PlayerAbillities[index].IsFiring = true;
+            playerActionScript.agent.isStopped = true;
+            anim.Attack(PlayerAbillities[CurrentAbillity].Skill.AnimatorProperty);
+
+            yield return new WaitForSeconds(PlayerAbillities[CurrentAbillity].Skill.ActivationTime);
+
+
+            SpawnSkill();
+            PlayerAbillities[index].IsFiring = false;
+            PlayerAbillities[index].IsActivating = false;
+            anim.StopAttack(PlayerAbillities[CurrentAbillity].Skill.AnimatorProperty);
+            //SkillIsAvailable[index] = false;
         }
     }
 
     [Client]
     public void SpawnSkill()
     {
-        if (Spell.Skill3DModel == null)
+        if (PlayerAbillities[CurrentAbillity].Skill.Skill3DModel == null)
             return;
 
-        var prefabSrc = "Prefabs/Skill/" + Spell.Skill3DModel;
+        var prefabSrc = "Prefabs/Skill/" + PlayerAbillities[CurrentAbillity].Skill.Skill3DModel;
         var position = new Vector3();
         var rotation = new Quaternion();
 
 
-        var spellType = Spell.IsBuff ? 1 : 
-                        Spell.HasIndicator ? 0 : 
-                        Spell.HasTargetVFX ? 2 : 
+        var spellType = PlayerAbillities[CurrentAbillity].Skill.IsBuff ? 1 :
+                        PlayerAbillities[CurrentAbillity].Skill.HasIndicator ? 0 :
+                        PlayerAbillities[CurrentAbillity].Skill.HasTargetVFX ? 2 :
                         1;
 
         position = SkillSpawnPoint[spellType].transform.position;
@@ -301,34 +320,26 @@ public class Abillities : NetworkBehaviour
 
 
     [Command]
-    private void CmdSpawnSkill(string prefabSrc, Vector3 position, Quaternion rotation) { 
+    private void CmdSpawnSkill(string prefabSrc, Vector3 position, Quaternion rotation)
+    {
         NetworkServer.Spawn((GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation));
     }
 
     bool CanCast(int index)
     {
-        bool value = false;
-
-        if (Spell.ManaConsumption <= unitStat.Mana || (Spell.HealthConsumption != 0 && Spell.HealthConsumption <= unitStat.Health))
-        {
-            SkillIsAvailable[index] = false;
-            value = true;
-        }
-
-        return value;
-
+        return PlayerAbillities[index].ActiveCoolDown && unitStat.Mana >= PlayerAbillities[CurrentAbillity].Skill.ManaConsumption && unitStat.Health > PlayerAbillities[CurrentAbillity].Skill.HealthConsumption && !unitStat.IsDead;
     }
 
     bool SkillConsumption(int index)
     {
         bool value = false;
 
-        if (SkillIsAvailable[index])
-        {
-            //unitStat.Mana -= Spell.ManaConsumption;
-            //unitStat.Health -= Spell.HealthConsumption;
-            value = true;
-        }
+        //if (SkillIsAvailable[index])
+        //{
+        //unitStat.Mana -= PlayerAbillities[CurrentAbillity].Skill.ManaConsumption;
+        //unitStat.Health -= PlayerAbillities[CurrentAbillity].Skill.HealthConsumption;
+        value = true;
+        //}
 
         return value;
     }

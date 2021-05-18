@@ -49,6 +49,11 @@ public class MainMenu : MonoBehaviour
     }
 
 
+    public void StartGame() {
+        SceneManager.LoadScene("Map_1");
+    }
+
+
     public void CloseMenu(Menu menu)
     {
         menu.Close();

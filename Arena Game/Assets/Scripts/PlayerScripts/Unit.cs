@@ -68,7 +68,6 @@ public class Unit : NetworkBehaviour
         float ManaRegen = 10;
 
 
-        Debug.Log($"Regen {_health}");
         Regen(HealthRegen);
 
 
@@ -93,15 +92,11 @@ public class Unit : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        Debug.Log("Server start");
-
         SetHealth(MaxHealth);
     }
 
     [Command]
     private void StartRegen() {
-        Debug.Log("Start regen");
-
         InvokeRepeating("Regeneration", 1.0f, 1.0f);
     }
 

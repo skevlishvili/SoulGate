@@ -2,225 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill : AbstractSkillClass
+public class Skill
 {
-    public override string SkillName
-    {
-        get;
-        set;
-    }
+    public string SkillName;// name
 
     //Damage Types
-    public override float PhysicalDamage
-    {
-        get;
-        set;
-    }
-    public override float MagicDamage
-    {
-        get;
-        set;
-    }
-    public override float SoulDamage
-    {
-        get;
-        set;
-    }
+    public float PhysicalDamage;// affects only health
+    public float MagicDamage;// affects Health and Mana
+    public float SoulDamage;// True Damage(affects Health and Mana)
 
     //Buff/Debuff
-    public override float HealthBuff
-    {
-        get;
-        set;
-    }
-    public override float ManaBuff
-    {
-        get;
-        set;
-    }
-    public override float SpeedBuff
-    {
-        get;
-        set;
-    }
-    public override float CooldownBuff
-    {
-        get;
-        set;
-    }
+    public float HealthBuff;// Max health increase/decrease and Health regen
+    public float ManaBuff;// Max Mana increase/decrease and Mana regen
+    public float SpeedBuff;// Max speed increase
+    public float CooldownBuff;// Max cooldown Decrease
 
     //Consumption
-    public override float HealthConsumption
-    {
-        get;
-        set;
-    }
-    public override float ManaConsumption
-    {
-        get;
-        set;
-    }
+    public float HealthConsumption;// uses health to cast spell/skill
+    public float ManaConsumption;// uses mana to cast spell/skill
 
     //Price
-    public override float SkillPriceMoney
-    {
-        get;
-        set;
-    }
-    public override float SkillPriceXp
-    {
-        get;
-        set;
-    }
+    public float SkillPriceMoney;// uses Money to buy spell/skill
+    public float SkillPriceXp;// uses Xp to buy spell/skill
 
     //Time
-    public override float Duration
-    {
-        get;
-        set;
-    }
-    public override float Cooldown
-    {
-        get;
-        set;
-    }
-    public override float ActivationTime
-    {
-        get;
-        set;
-    }
-    public override float ProjectileSpeed
-    {
-        get;
-        set;
-    }
-    public override float MaxRechargingTime
-    {
-        get;
-        set;
-    }
+    public float Duration;// duration of skill/spell
+    public float Cooldown;// Cooldown time
+    public float ActivationTime;// time before spell/skill activates
+    public float ProjectileSpeed;// speed of thrown object
+    public float MaxRechargingTime;// max time for recharging spell
 
     //Transform
-    public override float Height
-    {
-        get;
-        set;
-    }
-    public override float Distance
-    {
-        get;
-        set;
-    }
-    public override float Thickness
-    {
-        get;
-        set;
-    }
-
+    public float Height;// barrier height
+    public float Distance;// max distance of spell, can be used as radius of circle
+    public float Thickness;// barrier thickness
 
     //Unity Object
-    public override Sprite SkillImageUIVFX
-    {
-        get;
-        set;
-    }
-    public override Sprite PlayergroundVFX
-    {
-        get;
-        set;
-    }
-    public override Sprite MaxRangeVFX
-    {
-        get;
-        set;
-    }
-    public override Sprite IndicatorVFX
-    {
-        get;
-        set;
-    }
-    public override Sprite TargetVFX
-    {
-        get;
-        set;
-    }
-    public override string Skill3DModel
-    {
-        get;
-        set;
-    }
+    public Sprite SkillImageUIVFX;// image on user interface
+    public Sprite PlayergroundVFX;// spell max range visible image
+    public Sprite MaxRangeVFX;// spell max range visible image
+    public Sprite IndicatorVFX;// direction of attack
+    public Sprite TargetVFX;// position of attack
+    public string Skill3DModel;// 3d model of spell
+    public string Sound;// spell sound
+    public string AnimatorProperty;// spell animator property
 
-    public override string Sound
-    {
-        get;
-        set;
-    }
-    public override string AnimatorProperty
-    {
-        get;
-        set;
-    }
 
     //Condition
-    public override bool IsRestraining
-    {
-        get;
-        set;
-    }
-    public override bool IsInvisible
-    {
-        get;
-        set;
-    }
-    public override bool IsPasive
-    {
-        get;
-        set;
-    }
-    public override bool IsBuff
-    {
-        get;
-        set;
-    }
-    public override bool IsProjectile
-    {
-        get;
-        set;
-    }
+    public bool IsRestraining;// if skill affects movement
+    public bool IsInvisible;// if spell is invisible for enemy
+    public bool IsPasive;// if skill is passive
+    public bool IsBuff;// if skill is buff or debuff
+    public bool IsProjectile;// if skill/spell throws something
+    public bool IsRecharged;// if skill/spell is Recharged
+    public bool UsingWeapon;// if skill/spell needs weapon
 
-    public override bool IsRecharged
-    {
-        get;
-        set;
-    }
-    public override bool UsingWeapon
-    {
-        get;
-        set;
-    }
-    public override bool HasPlayergroundVFX
-    {
-        get;
-        set;
-    }
-    public override bool HasIndicator
-    {
-        get;
-        set;
-    }
-    public override bool HasMaxRange
-    {
-        get;
-        set;
-    }
-    public override bool HasTargetVFX
-    {
-        get;
-        set;
-    }
-    public override bool HasRecharging
-    {
-        get;
-        set;
-    }
+    public bool HasPlayergroundVFX;// if skill has visual ground where player stands
+    public bool HasIndicator;// if skill has visual indicator
+    public bool HasMaxRange;// if skill has visual max range
+    public bool HasTargetVFX;// if skill has visual Target
+
+    public bool HasRecharging;// if skill has recharging time
 }

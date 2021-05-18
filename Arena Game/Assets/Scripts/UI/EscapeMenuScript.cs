@@ -6,13 +6,12 @@ public class EscapeMenuScript : MonoBehaviour
 {
     public GameObject player;
 
-    public GameObject shopobj;
+    //public GameObject shopobj;
     CanvasGroup canvasGroup;
-    public int CounterShop = 0;
+    public bool ShopOpen = false;
 
     void Start()
     {
-        InvokeRepeating("OpenShop", 0f, 0.5f);
         canvasGroup = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
     }
 
@@ -25,11 +24,6 @@ public class EscapeMenuScript : MonoBehaviour
             canvasGroup.alpha = 1f;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
-        }
-
-        if (Input.GetKeyDown(KeyCodeController.Shop))
-        {
-            CounterShop += 1;
         }
     }
 
@@ -50,16 +44,4 @@ public class EscapeMenuScript : MonoBehaviour
         Application.Quit();
     }
 
-
-    void OpenShop()
-    {
-        if (CounterShop % 2 == 1)
-        {
-            shopobj.SetActive(true);
-        }
-        else
-        {
-            shopobj.SetActive(false);
-        }
-    }
 }

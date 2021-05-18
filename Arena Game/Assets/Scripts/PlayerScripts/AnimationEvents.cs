@@ -10,13 +10,13 @@ public class AnimationEvents : MonoBehaviour
     #endregion
 
     public void EndOfSkill()
-    {
-        anim.EndAnimation(abillitiesScript.Spell.AnimatorProperty);
+    {        
+        anim.EndAnimation(abillitiesScript.PlayerAbillities[abillitiesScript.ComponentIndex].Skill.AnimatorProperty);
     }
 
     public void PlayFireSound()
     {
         SoundManagerScript sound = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
-        sound.PlaySound(abillitiesScript.Spell.Sound);
+        sound.PlaySound(abillitiesScript.PlayerAbillities[abillitiesScript.ComponentIndex].Skill.Sound);
     }
 }
