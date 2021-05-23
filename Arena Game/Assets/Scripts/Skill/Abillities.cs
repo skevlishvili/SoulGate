@@ -299,7 +299,7 @@ public class Abillities : NetworkBehaviour
         if (PlayerAbillities[CurrentAbillity].Skill.Skill3DModel == null)
             return;
 
-        var prefabSrc = "Prefabs/Skill/" + PlayerAbillities[CurrentAbillity].Skill.Skill3DModel;
+        var prefabSrc = PlayerAbillities[CurrentAbillity].Skill.Skill3DModel;
         var position = new Vector3();
         var rotation = new Quaternion();
 
@@ -319,7 +319,7 @@ public class Abillities : NetworkBehaviour
     }
 
 
-    [Command]
+    [Command]//sachiroa projectile Scriptshi HIt da Flash instiatingis dros ----------------------- 
     private void CmdSpawnSkill(string prefabSrc, Vector3 position, Quaternion rotation)
     {
         NetworkServer.Spawn((GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation));

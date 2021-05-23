@@ -28,7 +28,7 @@ public class PlayerCollision : NetworkBehaviour
         //{
         //    return;
         //}
-        Projectile projectile = other.GetComponent<Projectile>();
+        Projectile projectile = other.GetComponent<Projectile>();//----------------------------gasasworebelia---------------
         if (projectile == null)
             return;
         //ProjPV = other.GetComponent<PhotonView>();
@@ -50,7 +50,6 @@ public class PlayerCollision : NetworkBehaviour
 
         //projectile.gameObject.SetActive(false);
 
-        //projectile.DestroyProjectile();
         //GameObject hitVFX = PhotonNetwork.Instantiate("Prefabs/Skill/Spark/vfx_hit_v1", transform.position + Vector3.up * 2, projectile.transform.rotation);
         CheckCollision(other.gameObject.GetComponent<SphereCollider>().radius, other.transform.position, damage);
     }

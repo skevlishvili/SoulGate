@@ -14271,8 +14271,8 @@ GameObject:
   - component: {fileID: 3041790422260252824}
   - component: {fileID: 3796545964996821806}
   m_Layer: 0
-  m_Name: Fireball_Parent
-  m_TagString: Untagged
+  m_Name: Fireball_Parent1
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

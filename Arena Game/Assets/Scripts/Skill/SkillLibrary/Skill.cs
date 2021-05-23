@@ -44,6 +44,8 @@ public class Skill
     public Sprite IndicatorVFX;// direction of attack
     public Sprite TargetVFX;// position of attack
     public string Skill3DModel;// 3d model of spell
+    public string SkillFlashPrefab;// Flash Prefab address
+    public string SkillHitPrefab;// Hit Prefab address
     public string Sound;// spell sound
     public string AnimatorProperty;// spell animator property
 

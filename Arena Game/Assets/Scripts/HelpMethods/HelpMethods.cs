@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class HelpMethods
 {
@@ -34,5 +35,18 @@ public class HelpMethods
         }
 
         return _SkillIndex;
+    }
+
+    public static float MathLerpFunc(float Minimum, float Maximum, float T, float MaxValueBeforeSwap)
+    {
+        if (T > MaxValueBeforeSwap)
+        {
+            float temp = Maximum;
+            Maximum = Minimum;
+            Minimum = temp;
+            T = 0.0f;
+        }
+
+        return Mathf.Lerp(Minimum, Maximum, T);
     }
 }

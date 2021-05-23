@@ -21,17 +21,17 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Pillar_Crystal
-  m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3cbd1a61aa4c54349a0838dbcdd8606e,
+    type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _BLENDMODE_ALPHA _BLENDMODE_PRESERVE_SPECULAR_LIGHTING
     _DISABLE_DECALS _ENABLE_FOG_ON_TRANSPARENT _MATERIAL_FEATURE_CLEAR_COAT _MATERIAL_FEATURE_IRIDESCENCE
     _NORMALMAP_TANGENT_SPACE _REFRACTION_SPHERE _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap:
     MotionVector: User
-    RenderType: Transparent
   disabledShaderPasses:
   - DistortionVectors
   - MOTIONVECTORS
@@ -130,6 +130,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Dissolve_Fac: 0
+    - Vector1_26157FDC: 0.5
+    - Vector1_474600D4: 0
+    - Vector1_598BCD4B: 1
+    - Vector1_7A31516D: 0.01
+    - Vector1_7A69C9CC: 0.5
+    - Vector1_9A0EAF65: -5
+    - Vector1_BA19916: 50
+    - Vector1_CBB0A787: 5
+    - Vector1_E2FB0924: 30
+    - Vector1_F4C78C33: 1
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -252,6 +263,9 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
+    - Color_1F8A3168: {r: 0, g: 3.2670155, b: 15.999998, a: 1}
+    - Color_91E1E234: {r: 0.086500466, g: 0.65837497, b: 0.5583406, a: 1}
+    - Color_B144E8D6: {r: 0.08627451, g: 0.65882355, b: 0.56078434, a: 1}
     - _BaseColor: {r: 0.08627451, g: 0.65882355, b: 0.56078434, a: 0.5882353}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.08627448, g: 0.65882355, b: 0.5607843, a: 0.5882353}

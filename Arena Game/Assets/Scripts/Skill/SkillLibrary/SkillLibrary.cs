@@ -50,7 +50,9 @@ public class SkillLibrary : MonoBehaviour
             MaxRangeVFX = null,
             IndicatorVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Indicator"),
             TargetVFX = null,
-            Skill3DModel = "Projectile/Fireball_Prefab",
+            Skill3DModel = "Prefabs/Skill/Projectile/Fireball_Prefab",
+            SkillHitPrefab = "Prefabs/Skill/Hit/Fireball_Hit_Prefab",
+            SkillFlashPrefab = null,
             Sound = "Fireball_Sound",
             AnimatorProperty = "Attack_Magic_02",
 
@@ -61,6 +63,7 @@ public class SkillLibrary : MonoBehaviour
             IsProjectile = true,
             IsRecharged = false,
             UsingWeapon = false,
+
             HasPlayergroundVFX = true,
             HasIndicator = true,
             HasMaxRange = false,
@@ -102,7 +105,9 @@ public class SkillLibrary : MonoBehaviour
             MaxRangeVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/MaxRange"),
             IndicatorVFX = null,
             TargetVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Target"),
-            Skill3DModel = "AOE/FireStorm",
+            Skill3DModel = "Prefabs/Skill/AOE/FireStorm",
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
             Sound = "Fireball_Sound",
             AnimatorProperty = "Attack_Magic_04",
 
@@ -113,6 +118,7 @@ public class SkillLibrary : MonoBehaviour
             IsProjectile = false,
             IsRecharged = false,
             UsingWeapon = false,
+
             HasPlayergroundVFX = false,
             HasIndicator = false,
             HasMaxRange = true,
@@ -154,7 +160,9 @@ public class SkillLibrary : MonoBehaviour
             MaxRangeVFX = null,
             IndicatorVFX = null,
             TargetVFX = null,
-            Skill3DModel = "AOE/vfx_heal",
+            Skill3DModel = "Prefabs/Skill/AOE/vfx_heal",
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
             Sound = "Fireball_Sound",
             AnimatorProperty = "Attack_Magic_02",
 
@@ -165,6 +173,7 @@ public class SkillLibrary : MonoBehaviour
             IsProjectile = false,
             IsRecharged = false,
             UsingWeapon = false,
+
             HasPlayergroundVFX = false,
             HasIndicator = false,
             HasMaxRange = false,
@@ -206,7 +215,9 @@ public class SkillLibrary : MonoBehaviour
             MaxRangeVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/MaxRange"),
             IndicatorVFX = null,
             TargetVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Target"),
-            Skill3DModel = "AOE/FireMeteor",
+            Skill3DModel = "Prefabs/Skill/AOE/FireMeteor",
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
             Sound = "",
             AnimatorProperty = "Attack_Magic_02",
 
@@ -217,6 +228,7 @@ public class SkillLibrary : MonoBehaviour
             IsProjectile = false,
             IsRecharged = false,
             UsingWeapon = false,
+
             HasPlayergroundVFX = false,
             HasIndicator = false,
             HasMaxRange = true,
@@ -258,7 +270,9 @@ public class SkillLibrary : MonoBehaviour
             MaxRangeVFX = null,
             IndicatorVFX = null,
             TargetVFX = null,
-            Skill3DModel = "AOE/vfx_heal",
+            Skill3DModel = "Prefabs/Skill/AOE/vfx_heal",
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
             Sound = "HealthRegen_Sound",
             AnimatorProperty = "Attack_Magic_03",
 
@@ -269,6 +283,7 @@ public class SkillLibrary : MonoBehaviour
             IsProjectile = false,
             IsRecharged = false,
             UsingWeapon = false,
+
             HasPlayergroundVFX = true,
             HasIndicator = false,
             HasMaxRange = false,
@@ -311,6 +326,8 @@ public class SkillLibrary : MonoBehaviour
             IndicatorVFX = null,
             TargetVFX = null,
             Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
             Sound = "",
             AnimatorProperty = "Attack_Magic_03",
 
@@ -321,6 +338,7 @@ public class SkillLibrary : MonoBehaviour
             IsProjectile = false,
             IsRecharged = false,
             UsingWeapon = false,
+
             HasPlayergroundVFX = false,
             HasIndicator = false,
             HasMaxRange = true,
@@ -362,7 +380,9 @@ public class SkillLibrary : MonoBehaviour
             MaxRangeVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/MaxRange"),
             IndicatorVFX = null,
             TargetVFX = Resources.Load<Sprite>("Design/Skill/Skill Indicator/Target"),
-            Skill3DModel = "AOE/LightningStrike",
+            Skill3DModel = "Prefabs/Skill/AOE/LightningStrike",
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
             Sound = "",
             AnimatorProperty = "Attack_Magic_02",
 
@@ -373,6 +393,7 @@ public class SkillLibrary : MonoBehaviour
             IsProjectile = false,
             IsRecharged = false,
             UsingWeapon = false,
+
             HasPlayergroundVFX = false,
             HasIndicator = false,
             HasMaxRange = true,
