@@ -30,13 +30,15 @@ public class Tower : MonoBehaviour
     public List<Abillity> TowerSpells;
     public bool[] PlayerWithinRange;
 
+    NetworkIdentity LastColliderdObjectid;
+
 
     // Start is called before the first frame update
     void Start()
     {
-         Players[0] = ClientScene.localPlayer.gameObject;//Gadasaweria mirrorze-----------------------------------------------------------
+         //Players[0] = ClientScene.localPlayer.gameObject;//Gadasaweria mirrorze-----------------------------------------------------------
 
-               Tower_Position = gameObject.transform.localPosition;
+        Tower_Position = gameObject.transform.localPosition;
         Tower_Position.y = 0.3f;
         Tower_Rotation = gameObject.transform.localRotation;
         Tower_Rotation.z = 0;
@@ -44,14 +46,14 @@ public class Tower : MonoBehaviour
 
         initStats();
 
-        InvokeRepeating("Regeneration",1,1);//calls funqtion every second
-        InvokeRepeating("TowerEvolution", 1, 1);
+        //InvokeRepeating("Regeneration",1,1);//calls funqtion every second
+        //InvokeRepeating("TowerEvolution", 1, 1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckIfPlayerIsWithinRange(0);
+        //CheckIfPlayerIsWithinRange(0);
         //CheckIfPlayerIsWithinRange(1);
         //CheckIfPlayerIsWithinRange(2);
         //CheckIfPlayerIsWithinRange(3);
@@ -161,6 +163,11 @@ public class Tower : MonoBehaviour
     {
         if (other.tag == "Spell")
         {
+            if (LastColliderdObjectid == other.gameObject.GetComponent<NetworkIdentity>())
+            {
+                return;
+            }
+
             takeDamage(CalculateDamage(other));
             Debug.Log(TowerHealth);
         }
@@ -189,8 +196,12 @@ public class Tower : MonoBehaviour
 
         if (other.tag == "Spell")
         {
+            if (LastColliderdObjectid == other.gameObject.GetComponent<NetworkIdentity>())
+            {
+                return;
+            }
+
             takeDamage(Damage);
-            Debug.Log(TowerHealth);
         }
     }
 }

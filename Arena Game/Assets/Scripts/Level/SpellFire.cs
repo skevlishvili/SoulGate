@@ -16,7 +16,7 @@ public class SpellFire : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        if (towerScript.PlayerWithinRange[0])
+        if (true)//!towerScript.PlayerWithinRange[0]
             return;
 
         bool skillIsActivating = towerScript.TowerSpells.Any(x => x.IsActivating);
