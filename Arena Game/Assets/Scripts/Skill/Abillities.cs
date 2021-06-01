@@ -34,10 +34,12 @@ public class Abillities : NetworkBehaviour
     private Image IndicatorVFX;
     private Image MaxRangeVFX;
     private Image TargetVFX;
+    private Image BurstVFX;
     public GameObject PlayergroundVFXGameObject;
     public GameObject IndicatorVFXGameObject;
     public GameObject MaxRangeVFXGameObject;
     public GameObject TargetVFXGameObject;
+    public GameObject BurstVFXGameObject;
 
     public Transform player;
     public Unit unitStat;
@@ -45,17 +47,18 @@ public class Abillities : NetworkBehaviour
 
     void Awake()
     {
-        //PV = gameObject.GetComponent<PhotonView>();
         PlayergroundVFX = PlayergroundVFXGameObject.GetComponent<Image>();
         IndicatorVFX = IndicatorVFXGameObject.GetComponent<Image>();
         MaxRangeVFX = MaxRangeVFXGameObject.GetComponent<Image>();
         TargetVFX = TargetVFXGameObject.GetComponent<Image>();
+        BurstVFX = BurstVFXGameObject.GetComponent<Image>();
+
 
         PlayerAbillities = new List<Abillity>();
-        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[0], Skill = SkillLibrary.Skills[1], IsFiring = false, IsActivating = false });
-        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[1], Skill = SkillLibrary.Skills[7], IsFiring = false, IsActivating = false });
-        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[2], Skill = SkillLibrary.Skills[2], IsFiring = false, IsActivating = false });
-        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[3], Skill = SkillLibrary.Skills[5], IsFiring = false, IsActivating = false });
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[0], Skill = SkillLibrary.Skills[13], IsFiring = false, IsActivating = false });
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[1], Skill = SkillLibrary.Skills[9], IsFiring = false, IsActivating = false });
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[2], Skill = SkillLibrary.Skills[19], IsFiring = false, IsActivating = false });
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[3], Skill = SkillLibrary.Skills[18], IsFiring = false, IsActivating = false });
     }
 
     // Start is called before the first frame update
@@ -153,7 +156,7 @@ public class Abillities : NetworkBehaviour
         if (PlayerAbillities[CurrentAbillity].Skill.HasTargetVFX)
         {
             RaycastHit hit;
-
+           
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 var hitPosDir = (hit.point - transform.position).normalized;
@@ -162,15 +165,14 @@ public class Abillities : NetworkBehaviour
 
                 var newHitPos = transform.position + hitPosDir * distance;
 
-                var y = newHitPos.y + 0.1f;
-                SkillSpawnPoint[2].position = new Vector3(newHitPos.x, y, newHitPos.z);
-                TargetVFXGameObject.transform.position = new Vector3(newHitPos.x, 1, newHitPos.z);
+                SkillSpawnPoint[2].position = new Vector3(newHitPos.x, 0.5f, newHitPos.z);
+                TargetVFXGameObject.transform.position = new Vector3(newHitPos.x, 0.5f, newHitPos.z);
             }
 
         }
 
 
-        if (IndicatorVFX.enabled)
+        if (IndicatorVFX.enabled || BurstVFX.enabled)
         {
             RotatePlayer();
         }
@@ -234,6 +236,7 @@ public class Abillities : NetworkBehaviour
         IndicatorVFX.sprite = null;
         MaxRangeVFX.sprite = null;
         TargetVFX.sprite = null;
+        BurstVFX.sprite = null;
 
         if (PlayerAbillities[CurrentAbillity].Skill.HasPlayergroundVFX)
         {
@@ -251,6 +254,10 @@ public class Abillities : NetworkBehaviour
         {
             TargetVFX.sprite = PlayerAbillities[CurrentAbillity].Skill.TargetVFX;
         }
+        if (PlayerAbillities[CurrentAbillity].Skill.HasBurstVFX)
+        {
+            BurstVFX.sprite = PlayerAbillities[CurrentAbillity].Skill.BurstVFX;
+        }
     }
 
     //Makes Skill VFX visible
@@ -258,9 +265,14 @@ public class Abillities : NetworkBehaviour
     {
         PlayergroundVFX.enabled = PlayerAbillities[CurrentAbillity].Skill.HasPlayergroundVFX;
         IndicatorVFX.enabled = PlayerAbillities[CurrentAbillity].Skill.HasIndicator;
+        
         MaxRangeVFX.enabled = PlayerAbillities[CurrentAbillity].Skill.HasMaxRange;
-        MaxRangeVFXGameObject.transform.localScale = new Vector3(PlayerAbillities[CurrentAbillity].Skill.Distance - 3, PlayerAbillities[CurrentAbillity].Skill.Distance - 3, PlayerAbillities[CurrentAbillity].Skill.Distance - 3);
+        MaxRangeVFXGameObject.transform.localScale = new Vector3(PlayerAbillities[CurrentAbillity].Skill.Distance, PlayerAbillities[CurrentAbillity].Skill.Distance, PlayerAbillities[CurrentAbillity].Skill.Distance);
+        
         TargetVFX.enabled = PlayerAbillities[CurrentAbillity].Skill.HasTargetVFX;
+        TargetVFXGameObject.transform.localScale = new Vector3(PlayerAbillities[CurrentAbillity].Skill.AttackRadius, PlayerAbillities[CurrentAbillity].Skill.AttackRadius, PlayerAbillities[CurrentAbillity].Skill.AttackRadius);
+        
+        BurstVFX.enabled = PlayerAbillities[CurrentAbillity].Skill.HasBurstVFX;
     }
 
     //Hides Skill VFX
@@ -270,6 +282,7 @@ public class Abillities : NetworkBehaviour
         PlayergroundVFX.enabled = false;
         MaxRangeVFX.enabled = false;
         TargetVFX.enabled = false;
+        BurstVFX.enabled = false;
     }
 
     IEnumerator corSkillShot(int index)
@@ -306,8 +319,7 @@ public class Abillities : NetworkBehaviour
 
         var spellType = PlayerAbillities[CurrentAbillity].Skill.IsBuff ? 1 :
                         PlayerAbillities[CurrentAbillity].Skill.HasIndicator ? 0 :
-                        PlayerAbillities[CurrentAbillity].Skill.HasTargetVFX ? 2 :
-                        1;
+                        PlayerAbillities[CurrentAbillity].Skill.HasTargetVFX ? 2 : 1;
 
         position = SkillSpawnPoint[spellType].transform.position;
         rotation = SkillSpawnPoint[spellType].transform.rotation;

@@ -4,7 +4,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"a4d5c10c-97e8-41f3-bb5c-dd9ed41c31f7\"\n    },\n    \"m_Name\": \"Dissolve_Fac\",\n    \"m_DefaultReferenceName\": \"Vector1_9AE89CB0\",\n    \"m_OverrideReferenceName\": \"Dissolve_Fac\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": 0.0,\n    \"m_FloatType\": 0,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    }\n}"
+            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"a4d5c10c-97e8-41f3-bb5c-dd9ed41c31f7\"\n    },\n    \"m_Name\": \"Dissolve_Fac\",\n    \"m_DefaultReferenceName\": \"Vector1_9AE89CB0\",\n    \"m_OverrideReferenceName\": \"Dissolve_Fac\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": 0.5,\n    \"m_FloatType\": 0,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    }\n}"
         },
         {
             "typeInfo": {

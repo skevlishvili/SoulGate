@@ -35,7 +35,6 @@ public class HideDestroyedLevelGameObject : MonoBehaviour
             Crystal_material.SetFloat("Dissolve_Fac", HelpMethods.MathLerpFunc(-2, 10, TIncrement, 10));
             Pillar_material.SetFloat("Dissolve_Fac", HelpMethods.MathLerpFunc(-2, 10, TIncrement, 10));
             TIncrement += 0.1f * Time.deltaTime;
-            Debug.Log(TIncrement);
         }
     }
 

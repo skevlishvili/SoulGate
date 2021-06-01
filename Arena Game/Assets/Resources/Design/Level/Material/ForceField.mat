@@ -124,11 +124,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _fillTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a70baf435f0938f40a615a99882dc9f5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _scanlineTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1ca3282f66739a8429f64b24736c6e6a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:

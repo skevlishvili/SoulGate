@@ -24,9 +24,6 @@ public class HudConetntController : NetworkBehaviour
         
         for (int i = 0; i < imagesObj.Length; i++)
         {
-            Debug.Log(i);
-            Debug.Log(Abillities.PlayerAbillities[i / 2]);
-            Debug.Log(Abillities.PlayerAbillities[i / 2].Skill.SkillImageUIVFX);
             imagesObj[i].sprite = Abillities.PlayerAbillities[i/2].Skill.SkillImageUIVFX;
         }
     }

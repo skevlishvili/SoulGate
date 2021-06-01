@@ -123,7 +123,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Dissolve_Fac: 7.383859
+    - Dissolve_Fac: -2
     - Vector1_7A31516D: 2
     - Vector1_9AE89CB0: 0
     - Vector1_E2FB0924: 100

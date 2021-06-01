@@ -31,6 +31,7 @@ public class Projectile : MonoBehaviour
 
         if (Spell.SkillFlashPrefab != null)
         {
+            flash = (GameObject)Resources.Load(Spell.SkillFlashPrefab);
             var flashInstance = Instantiate(flash, transform.position, Quaternion.identity);
             flashInstance.transform.forward = gameObject.transform.forward;
             var flashPs = flashInstance.GetComponent<ParticleSystem>();

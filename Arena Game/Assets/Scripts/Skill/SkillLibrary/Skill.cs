@@ -33,9 +33,8 @@ public class Skill
     public float MaxRechargingTime;// max time for recharging spell
 
     //Transform
-    public float Height;// barrier height
+    public float AttackRadius;// Attack radius
     public float Distance;// max distance of spell, can be used as radius of circle
-    public float Thickness;// barrier thickness
 
     //Unity Object
     public Sprite SkillImageUIVFX;// image on user interface
@@ -43,6 +42,7 @@ public class Skill
     public Sprite MaxRangeVFX;// spell max range visible image
     public Sprite IndicatorVFX;// direction of attack
     public Sprite TargetVFX;// position of attack
+    public Sprite BurstVFX;// direction of attack
     public string Skill3DModel;// 3d model of spell
     public string SkillFlashPrefab;// Flash Prefab address
     public string SkillHitPrefab;// Hit Prefab address
@@ -63,6 +63,7 @@ public class Skill
     public bool HasIndicator;// if skill has visual indicator
     public bool HasMaxRange;// if skill has visual max range
     public bool HasTargetVFX;// if skill has visual Target
+    public bool HasBurstVFX;// If skill has visual Burst Vfx
 
     public bool HasRecharging;// if skill has recharging time
 }

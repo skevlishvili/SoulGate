@@ -17,12 +17,6 @@ public class Target : MonoBehaviour
         damage.Add(Spell.MagicDamage);
         damage.Add(Spell.SoulDamage);
 
-        StartCoroutine(DestroyObject());
-    }
-
-    IEnumerator DestroyObject()
-    {
-        yield return new WaitForSeconds(Spell.Duration);
-        //PhotonNetwork.Destroy(gameObject);
+        Destroy(gameObject, Spell.Duration);
     }
 }
