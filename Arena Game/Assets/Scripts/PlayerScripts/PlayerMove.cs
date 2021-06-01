@@ -31,6 +31,8 @@ public class PlayerMove : NetworkBehaviour
     /// </summary>
     private ServerMoveState? _receivedServerMoveState = null;
 
+    private Unit _unitStat;
+
 
     //private ServerMoveState _serverMoveState;
     //private ClientMoveState _clientMoveState;
@@ -55,11 +57,19 @@ public class PlayerMove : NetworkBehaviour
         var cameras = GameObject.FindGameObjectsWithTag("MainCamera");
 
         cam = cameras[0].GetComponent<Camera>();
+        _unitStat = GetComponent<Unit>();
+    }
+
+    private bool CanMove() {
+        return !_unitStat.IsDead && _unitStat.IsReady;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!CanMove())
+            return;
+
         //if (!base.hasAuthority && !base.isServer)
         //{
         //    CancelVelocity(false);
@@ -79,6 +89,9 @@ public class PlayerMove : NetworkBehaviour
 
     private void Update()
     {
+        if (!CanMove())
+            return;
+
         if (base.isLocalPlayer)
         {
             SendInputs();

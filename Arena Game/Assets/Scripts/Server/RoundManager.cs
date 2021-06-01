@@ -1,199 +1,201 @@
-﻿//using Photon.Pun;
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using Hashtable = ExitGames.Client.Photon.Hashtable;
+﻿using Mirror;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class RoundManager : NetworkBehaviour
+{
+    public enum RoundState
+    {
+        PreRound = 1,
+        RoundStart = 2,
+        RoundEnd = 3
+    }
 
-//public class RoundManager : MonoBehaviourPun
-//{
-//    public enum RoundState
-//    {
-//        PreRound = 1,
-//        RoundStart = 2,
-//        RoundEnd = 3
-//    }
+    //public GameObject LocalPlayerGameObject;
+    //public PlayerAction LocalPlayerAction;
+    public UnityEngine.UI.Text RoundText;
+    public int CurrentRound = 1;
+    public int MaxRounds = 20;
 
+    public PlayerManager Manager;
+    public ReadyScript Ready;
 
-//    public PhotonView PV;
-//    public GameObject LocalPlayerGameObject;
-//    public PlayerAction LocalPlayerAction;
-//    public UnityEngine.UI.Text RoundText;
-//    static public int CurrentRound;
-//    static public int RoundCounter;
+    private RoundState _currentState;
 
-
-//    private RoundState _currentState;
-
-//    public RoundState CurrentState
-//    {
-//        get { return _currentState; }
-//        set {
-//            var prevVal = _currentState;
-//            _currentState = value;
-
-
-//            if (_currentState != prevVal)
-//            {
-//                switch (value)
-//                {
-//                    case RoundState.PreRound:
-//                        break;
-//                    case RoundState.RoundStart:
-//                        CurrentRound = RoundCounter;
-//                        break;
-//                    case RoundState.RoundEnd:
-//                        RoundCounter = CurrentRound + 1;
-//                        break;
-//                    default:
-//                        _currentState = value;
-//                        break;
-//                }
-//            }
-//        }
-//    }
+    public RoundState CurrentState
+    {
+        get { return _currentState; }
+        set
+        {
+            var prevVal = _currentState;
+            _currentState = value;
 
 
-//    public int AlivePlayers;
-//    public int ReadyPlayers;
+            if (_currentState != prevVal)
+            {
+                switch (value)
+                {
+                    //case RoundState.PreRound:
+                    //    break;
+                    //case RoundState.RoundStart:
+                    //    CurrentRound = RoundCounter;
+                    //    break;
+                    //case RoundState.RoundEnd:
+                    //    RoundCounter = CurrentRound + 1;
+                    //    break;
+                    default:
+                        _currentState = value;
+                        break;
+                }
+            }
+        }
+    }
 
 
-
-//    private void Awake()
-//    {
-//        PV = gameObject.GetComponent<PhotonView>();
-//        //if (!PV.IsMine)
-//        //    return;
-
-//        LocalPlayerAction = LocalPlayerGameObject.GetComponent<PlayerAction>();
-//        RoundText = GetComponentInChildren<UnityEngine.UI.Text>();
-
-//        RoundCounter = 1;
-//        CurrentRound = 1;
-//        ReadyPlayers = 0;
-//        AlivePlayers = 0;
-//        CurrentState = RoundState.PreRound;
-//    }
-    
-
-//    // Update is called once per frame
-//    void Update()
-//    {
-//        //if (!PV.IsMine)
-//        //    return;
+    private void OnServerInitialized()
+    {
+        CurrentState = RoundState.RoundStart;
+        ChangeRountCounter(1);
+    }
 
 
-//        //Debug.Log($"this is current state {CurrentState}");
-        
-//        RoundText.text = $"Round #{RoundCounter}";
-//        //RoundText.text = PhotonNetwork.LocalPlayer.NickName;
-//        if (CurrentState == RoundState.PreRound) {
-
-//            int readyPlayers = 0;
-
-//            GameObject[] scenePlayers = GameObject.FindGameObjectsWithTag("Player");
-
-//            foreach (var scenePlayer in scenePlayers)
-//            {
-//                if (scenePlayer.GetComponentInChildren<PlayerAction>().IsReady)
-//                    readyPlayers++;
-//            }
-
-//            //if (readyPlayers == PhotonNetwork.CurrentRoom.Players.Count)
-//            //{
-//                CurrentState = RoundState.RoundStart;
-//            //}
-//            return;
-//        }
+    private void Start()
+    {
+        CurrentState = RoundState.PreRound;
+        RoundText.text = $"Round 1";
+    }
 
 
-//        if (CurrentState == RoundState.RoundStart)
-//        {
-//            GameObject[] scenePlayers = GameObject.FindGameObjectsWithTag("Player");
+    // Update is called once per frame
+    [Server]
+    void Update()
+    {
+        switch (CurrentState)
+        {
+            case RoundState.PreRound:
+                PreRoundCheck();
+                break;
+            case RoundState.RoundStart:
+                RoundCheck();
+                break;
+            case RoundState.RoundEnd:
+                PostRoundCheck();
+                break;
+            default:
+                break;
+        }
+    }
 
-//            int aliveplayers = 0;
-//            foreach (var scenePlayer in scenePlayers)
-//            {
-//                if (!scenePlayer.GetComponent<PlayerAction>().IsDead)
-//                    aliveplayers++;
-//            }
+    [Server]
+    void PreRoundCheck() {
 
-//            if (aliveplayers <= 1 && PhotonNetwork.CurrentRoom.Players.Count != 1)
-//            {
-//                CurrentState = RoundState.RoundEnd;
-//            }
-
-//            return;
-//        }
-
-
-//        if (CurrentState == RoundState.RoundEnd)
-//        {
-//            PV.RPC("Respawn", RpcTarget.All);
-
-//            return;
-//        }
-//    }
-
-
-
-//    void RoundStart()
-//    {
-//        //if (!PV.IsMine)
-//        //    return;
-     
-//        StartCoroutine(RespawnAll());        
-//    }
-
-//    IEnumerator RespawnAll() {
-//        yield return new WaitForSeconds(20f);
-//        PV.RPC("ChangeAlivePlayers", RpcTarget.AllBuffered, PhotonNetwork.CurrentRoom.Players.Count);
-//        PV.RPC("ChangeReadyPlayers", RpcTarget.AllBuffered, 0);
-//        PV.RPC("Respawn", RpcTarget.AllBuffered);
-//    }
-
-//    void RoundEnd() {
-//        //if (!PV.IsMine)
-//        //    return;
-
-//        RoundStart();
-//    }
+        if (Manager.Players.Count > 1)
+        {
+            var readyPlayers = Manager.Players.Count;
+            foreach (var player in Manager.Players)
+            {
+                var unit = player.GetComponent<Unit>();
 
 
-//    void PlayerDeath() {
-//        //if (!PV.IsMine)
-//        //    return;
-//    }
+                if (!unit.IsReady)
+                {
+                    readyPlayers--;
+                }
+            }
+
+            if (readyPlayers == Manager.Players.Count)
+            {
+                StartRound();
+            }
+        }
+    }
+
+    [Server]
+    private void StartRound()
+    {
+        CurrentState = RoundState.RoundStart;
+        HideReadyButton();
+    }
 
 
-//    #region RPC calls
-//    [PunRPC]
-//    void ChangeReadyPlayers(int readyPlayers)
-//    {
-//        //if (!PV.IsMine)
-//        //    return;
-
-//        ReadyPlayers = readyPlayers;
-//    }
-
-
-//    [PunRPC]
-//    void ChangeAlivePlayers(int alivePlayers)
-//    {
-//        //if (!PV.IsMine)
-//        //    return;
-
-//        AlivePlayers = alivePlayers;
-//    }
+    [Server]
+    void RoundCheck() {
+        if (Manager.Players.Count > 1)
+        {
+            var alivePlayers = Manager.Players.Count;
+            foreach (var player in Manager.Players)
+            {
+                var unit = player.GetComponent<Unit>();
 
 
-//    [PunRPC]
-//    void Respawn()
-//    {
-//        //if (!PV.IsMine)
-//        //    return;
+                if (unit.IsDead)
+                {
+                    alivePlayers--;
+                }
+            }
 
-//        CurrentState = RoundState.PreRound;
-//        LocalPlayerAction.RespawnAll();
-//    }
-//    #endregion
-//}
+            if (alivePlayers == 1)
+            {
+                EndRound();
+            }
+        }
+    }
+
+    [Server]
+    private void EndRound()
+    {
+        CurrentState = RoundState.RoundEnd;
+    }
+
+    [Server]
+    void PostRoundCheck() {
+
+        if (CurrentRound < MaxRounds) {
+            StartPreRound();
+
+            return;
+        } 
+    }
+
+    [Server]
+    private void StartPreRound()
+    {
+        CurrentState = RoundState.PreRound;
+        CurrentRound++;
+        ResetPlayers();
+        ShowReadyButton();
+        ChangeRountCounter(CurrentRound);
+    }
+
+    [Server]
+    private void ResetPlayers()
+    {
+        for (int i = 0; i < Manager.Players.Count; i++)
+        {
+            var unit = Manager.Players[i].GetComponent<Unit>();
+
+            unit.Revive();
+        }
+    }
+
+    [ClientRpc]
+    private void ShowReadyButton() {
+        Ready.Show();
+    }
+
+    [ClientRpc]
+    private void HideReadyButton()
+    {
+           Ready.Hide();
+    }
+
+
+    #region RPC calls
+    [ClientRpc]
+    void ChangeRountCounter(int currentRound) {
+        CurrentRound = currentRound;
+
+        RoundText.text = $"Round {CurrentRound}";
+    }
+    #endregion
+}

@@ -16,7 +16,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   rotation:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 27
     min: 0
     max: 360
   skyIntensityMode:
@@ -24,7 +24,7 @@ MonoBehaviour:
     m_Value: 0
   exposure:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 4.68
   multiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -35,7 +35,7 @@ MonoBehaviour:
     min: 0
   upperHemisphereLuxColor:
     m_OverrideState: 0
-    m_Value: {x: 0.12723069, y: 0.5, z: 0.2470832}
+    m_Value: {x: 0.1272307, y: 0.5, z: 0.24708323}
   desiredLuxValue:
     m_OverrideState: 0
     m_Value: 20000
@@ -164,7 +164,7 @@ MonoBehaviour:
     showEyeDropper: 1
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 5000
+    m_Value: 10000
     min: 1
   enableVolumetricFog:
     m_OverrideState: 1
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d877ec3e844f2ca46830012e8e79319b, type: 3}
   m_Name: PhysicallyBasedSky
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   rotation:
     m_OverrideState: 0

@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Mirror;
 
-public class Projectile : MonoBehaviour
+public class Projectile : NetworkBehaviour
 {
     Skill Spell;
     public List<float> damage = new List<float>();
     public float speed;
 
     public int SkillIndex;
+
+    public GameObject player;
 
     //public GameObject skillLibraryObj;
 
@@ -34,11 +37,30 @@ public class Projectile : MonoBehaviour
         gameObject.transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
     }
 
-
-    public void DestroyProjectile()
+    [Server]
+    public void DestroyProjectile(Vector3 vfxPosition)
     {
+        DestroyProjectileRpc(vfxPosition);
+    }
+
+
+    [ClientRpc]
+    public void DestroyProjectileRpc(Vector3 vfxPosition)
+    {
+        StartCoroutine("CreateVFX", vfxPosition);
         Destroy(gameObject);
     }
+
+    [Client]
+    IEnumerator CreateVFX(Vector3 vfxPosition)
+    {
+        Object onHitPref = Resources.Load("Prefabs/Skill/Spark/vfx_hit_v1"); // note: not .prefab!
+
+        GameObject onHitObj = (GameObject)GameObject.Instantiate(onHitPref, vfxPosition, Quaternion.Euler(-90, 0, 0));
+        yield return new WaitForSeconds(1);
+        Destroy(onHitObj);
+    }
+
 
     IEnumerator DestroyObject()
     {

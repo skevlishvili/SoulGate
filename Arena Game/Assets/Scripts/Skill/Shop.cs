@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 public class Shop : MonoBehaviour
 {
@@ -11,11 +12,16 @@ public class Shop : MonoBehaviour
     public GameObject ShopSkillUi_PrefabObj; // This is our prefab object that will be exposed in the inspector
     public GameObject hudObj;
     GameObject Player_PrefabObj;
-    PlayerAction playerActionObj;
+    Unit playerUnitStats;
+    Abillities playerAbilities;
 
     public GameObject DetailedPanel;
     public Text DetailedSkillInfo;
     public Image SkillUiImageDetailed;
+    public Menu ActiveSkill;
+    public Menu PassiveSkill;
+
+    public CursorScript cursor;
 
     [Tooltip("The UI Label to inform the user that the connection is in progress")]
     [SerializeField]
@@ -32,13 +38,19 @@ public class Shop : MonoBehaviour
     Skill[] Skills_Shop;
     static Skill Spell;
 
+
     void OnEnable()
     {
-        Player_PrefabObj = GameObject.FindGameObjectWithTag("Player");
-        playerActionObj = Player_PrefabObj.GetComponentInChildren<PlayerAction>();
         Skills_Shop = SkillLibrary.Skills.OrderBy(x => x.SkillPriceMoney).ToArray();
         SkillScrollContentFill();
-        LoadSkillUiImages();
+    }
+
+
+    private void Start()
+    {
+        var player = ClientScene.localPlayer.gameObject;
+        playerUnitStats = player.GetComponent<Unit>();
+        playerAbilities = player.GetComponent<Abillities>();
     }
 
 
@@ -144,6 +156,7 @@ public class Shop : MonoBehaviour
         SkillScrollContentFill();
     }
 
+    //search
     public void SearchDetailedSearch()
     {
         Skills_Shop = SkillLibrary.Skills.ToArray();
@@ -180,79 +193,131 @@ public class Shop : MonoBehaviour
         SearchDropDownChange(DropdownObj[0]);
     }
 
+
+    //opens menu that asks you to select slot
     public void BuySkill()
     {
-        if (Spell.SkillName != null)
-        {
-            _SkillIndex = HelpMethods.GetSkillIndexByName(Spell.SkillName);
+        if (!CanBuy())
+            return;
 
-            //Check If player already has skill
-            if (!playerActionObj.PlayerSkills.Contains(_SkillIndex))
-            {
-                //Check If Conditions are met to buy skill
-                if (Spell.SkillPriceMoney != 0 && Spell.SkillPriceMoney <= playerActionObj.unitStat.Money)
-                {
-                    Menu.OpenMenu("ChooseSkillIndexPanel");
-                }
-                //else if (Spell.SkillPriceXp != 0 && Spell.SkillPriceXp <= playerActionObj.unitStat.Xp)
-                //{
-                //    Menu.OpenMenu("ChooseSkillIndexPanel");
-                //}
-                else
-                {
-                    //Conditions are not met please choose another skill
-                }
-            }
-            else
-            {
-                //tell player that he already has skill
-            }
+        if (Spell.IsPasive)
+        {
+            PassiveSkill.Open();
+            ActiveSkill.Close();
+            LoadPassiveSkillUiImages();
+        }
+        else {
+            PassiveSkill.Close();
+            ActiveSkill.Open();
+            LoadActiveSkillUiImages();
         }
     }
 
-    public void ChangeSkillIndex(int index)
-    {
-        if (index < 4)
-        {
-            if (!Spell.IsPasive)
-            {
-                playerActionObj.unitStat.Money -= Spell.SkillPriceMoney;
-                playerActionObj.PlayerSkills[index] = _SkillIndex;
-                Menu.OpenMenu("");//if it is empty it will close everything
-            }
-            else
-            {
-                Menu.OpenMenu("ChooseSkillIndexPanel");
-                //needs error show ---------------------------------------------------------------------------
-            }
 
-        }
-        else
-        {
-            if (Spell.IsPasive)
-            {
-                playerActionObj.unitStat.Money -= Spell.SkillPriceMoney;
-                playerActionObj.PlayerSkills[index] = _SkillIndex;
-                Menu.OpenMenu("");//if it is empty it will close everything
-            }
-            else
-            {
-                Menu.OpenMenu("ChooseSkillIndexPanel");
-                //needs error show ---------------------------------------------------------------------------
-            }
-        }
-
-        LoadSkillUiImages();
+    // assigns passive skill to specific slot
+    public void ChangeActiveSkill(int index) {
+        playerUnitStats.Money -= Spell.SkillPriceMoney;
+        //playerActionObj.PlayerSkills[index] = _SkillIndex;
+        //Menu.OpenMenu("");//if it is empty it will close everything
+        playerAbilities.ChangeActiveSkill(Spell, index);
+        PassiveSkill.Close();
+        ActiveSkill.Close();
     }
 
-    void LoadSkillUiImages()
+    // assigns passive skill to specific slot
+    public void ChangePassiveSkill(int index)
     {
-        HudConetntController hudConetnt = hudObj.GetComponentInChildren<HudConetntController>();
-        hudConetnt.LoadSkillUiImagesInHUD();
+        playerUnitStats.Money -= Spell.SkillPriceMoney;
+        //playerActionObj.PlayerSkills[index] = _SkillIndex;
+        //Menu.OpenMenu("");//if it is empty it will close everything
+        PassiveSkill.Close();
+        ActiveSkill.Close();
+    }
 
-        for (int i = 0; i < 9; i++)
+    //
+    //public void ChangeSkillIndex(int index)
+    //{
+    //    if (index < 4)
+    //    {
+    //        if (!Spell.IsPasive)
+    //        {
+    //            playerActionObj.unitStat.Money -= Spell.SkillPriceMoney;
+    //            playerActionObj.PlayerSkills[index] = _SkillIndex;
+    //            Menu.OpenMenu("");//if it is empty it will close everything
+    //        }
+    //        else
+    //        {
+    //            Menu.OpenMenu("ChooseSkillIndexPanel");
+    //            //needs error show ---------------------------------------------------------------------------
+    //        }
+
+    //    }
+    //    else
+    //    {
+    //        if (Spell.IsPasive)
+    //        {
+    //            playerActionObj.unitStat.Money -= Spell.SkillPriceMoney;
+    //            playerActionObj.PlayerSkills[index] = _SkillIndex;
+    //            Menu.OpenMenu("");//if it is empty it will close everything
+    //        }
+    //        else
+    //        {
+    //            Menu.OpenMenu("ChooseSkillIndexPanel");
+    //            //needs error show ---------------------------------------------------------------------------
+    //        }
+    //    }
+
+    //    LoadSkillUiImages();
+    //}
+
+    void LoadActiveSkillUiImages()
+    {
+        for (int i = 0; i < 4; i++)
         {
-            ShopHUDimagesObj[i].sprite = SkillLibrary.Skills[playerActionObj.PlayerSkills[i]].SkillImageUIVFX;
+            ShopHUDimagesObj[i].sprite = playerAbilities.PlayerAbillities[i].Skill.SkillImageUIVFX;
         }
+    }
+
+    void LoadPassiveSkillUiImages()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            ShopHUDimagesObj[4+i].sprite = playerAbilities.PlayerPassives[i].Skill.SkillImageUIVFX;
+        }
+    }
+
+
+    public void OnMouseOverBuy()
+    {
+        if (CanBuy()) {
+            cursor.OnMouseOver(3);
+        } else {
+            cursor.OnMouseOver(5);
+        }
+    }
+
+    public bool CanBuy() {
+        if (Spell.SkillName == null)
+            return false;
+        //_SkillIndex = HelpMethods.GetSkillIndexByName(Spell.SkillName);
+
+        //Check If player already has skill
+        if (playerAbilities.PlayerAbillities.FirstOrDefault(p => p.Skill == Spell) != null)
+        {
+            //tell player that he already has skill
+            Debug.LogWarning("Player already has this skill");
+            return false;
+        }
+
+
+        //Check If Conditions are met to buy skill
+        if (Spell.SkillPriceMoney > playerUnitStats.Money)
+        {
+            //Conditions are not met please choose another skill
+            Debug.LogWarning("Player doesn't have enough money");
+            return false;
+        }
+
+        return true;
     }
 }

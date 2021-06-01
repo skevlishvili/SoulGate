@@ -24,6 +24,7 @@ public class CursorScript : MonoBehaviour
     {
         Cursor.SetCursor(CursorImages[Index], mouse, CursorMode.Auto);
     }
+
     public void OnMouseExit()
     {
         Cursor.SetCursor(null, mouse, CursorMode.Auto);

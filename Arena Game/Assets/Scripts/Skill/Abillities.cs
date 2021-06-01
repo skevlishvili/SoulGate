@@ -11,6 +11,7 @@ public class Abillities : NetworkBehaviour
     //bool[] ActiveCoolDown = new bool[] { false, false, false, false };//checks if cooldown is started
 
     public List<Abillity> PlayerAbillities;
+    public List<Abillity> PlayerPassives;
 
     /*bool[] SkillIsAvailable = new bool[] { false, false, false, false };*/// controls when to activate skill, also checks if you fullfil demands
     //public bool[] isFiring;
@@ -41,6 +42,7 @@ public class Abillities : NetworkBehaviour
 
     public Transform player;
     public Unit unitStat;
+    private ChatBehaviour chat;
     #endregion
 
     void Awake()
@@ -56,6 +58,13 @@ public class Abillities : NetworkBehaviour
         PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[1], Skill = SkillLibrary.Skills[7], IsFiring = false, IsActivating = false });
         PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[2], Skill = SkillLibrary.Skills[2], IsFiring = false, IsActivating = false });
         PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[3], Skill = SkillLibrary.Skills[5], IsFiring = false, IsActivating = false });
+
+        PlayerPassives = new List<Abillity>();
+        PlayerPassives.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCode.None, Skill = null, IsFiring = false, IsActivating = false });
+        PlayerPassives.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCode.None, Skill = null, IsFiring = false, IsActivating = false });
+        PlayerPassives.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCode.None, Skill = null, IsFiring = false, IsActivating = false });
+        PlayerPassives.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCode.None, Skill = null, IsFiring = false, IsActivating = false });
+        PlayerPassives.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCode.None, Skill = null, IsFiring = false, IsActivating = false });
     }
 
     // Start is called before the first frame update
@@ -74,12 +83,13 @@ public class Abillities : NetworkBehaviour
         playerActionScript = GetComponent<PlayerAction>();
         unitStat = gameObject.GetComponent<Unit>();
         anim = GetComponentInChildren<PlayerAnimator>();
+        chat = GetComponent<ChatBehaviour>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer || unitStat.IsDead || !unitStat.IsReady || chat.IsTyping)
             return;
 
 
@@ -322,7 +332,9 @@ public class Abillities : NetworkBehaviour
     [Command]
     private void CmdSpawnSkill(string prefabSrc, Vector3 position, Quaternion rotation)
     {
-        NetworkServer.Spawn((GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation));
+        var projectile = (GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
+        projectile.GetComponent<Projectile>().player = gameObject;
+        NetworkServer.Spawn(projectile, gameObject);
     }
 
     bool CanCast(int index)
@@ -342,5 +354,20 @@ public class Abillities : NetworkBehaviour
         //}
 
         return value;
+    }
+
+
+    public void ChangeActiveSkill(Skill skill, int index) {
+        PlayerAbillities[index].Skill = skill;
+        HudContentController hudConetnt = gameObject.GetComponentInChildren<HudContentController>();
+        hudConetnt.LoadSkillUiImagesInHUD();
+    }
+
+
+    public void ChangePassiveSkill(Skill skill, int index)
+    {
+        PlayerPassives[index].Skill = skill;
+        //HudContentController hudConetnt = gameObject.GetComponentInChildren<HudContentController>();
+        //hudConetnt.LoadSkillUiImagesInHUD();
     }
 }

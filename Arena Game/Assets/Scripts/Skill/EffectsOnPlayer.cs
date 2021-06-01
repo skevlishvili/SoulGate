@@ -107,3 +107,4 @@ public class EffectsOnPlayer : MonoBehaviour
         //PhotonNetwork.Destroy(gameObject);
     }
 }
+ 

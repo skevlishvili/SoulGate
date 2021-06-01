@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HudConetntController : NetworkBehaviour
+public class HudContentController : NetworkBehaviour
 {
 
     #region Referances
@@ -20,13 +20,9 @@ public class HudConetntController : NetworkBehaviour
     }
 
     public void LoadSkillUiImagesInHUD()
-    {
-        
+    {        
         for (int i = 0; i < imagesObj.Length; i++)
         {
-            Debug.Log(i);
-            Debug.Log(Abillities.PlayerAbillities[i / 2]);
-            Debug.Log(Abillities.PlayerAbillities[i / 2].Skill.SkillImageUIVFX);
             imagesObj[i].sprite = Abillities.PlayerAbillities[i/2].Skill.SkillImageUIVFX;
         }
     }

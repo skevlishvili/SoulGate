@@ -1,12 +1,13 @@
 ﻿
 using Mirror;
+using System;
 using UnityEngine;
 
 public class Unit : NetworkBehaviour
 {
     [Header("Settings")]
-    public float MaxHealth = 200;
-    public float MaxMana = 200;
+    public float MaxHealth = 100;
+    public float MaxMana = 100;
 
     [SyncVar]
     [SerializeField] private float _health = 100;
@@ -26,8 +27,6 @@ public class Unit : NetworkBehaviour
 
 
 
-
-
     public delegate void HealthChangedDelegate(float Health, float MaxHealth);
     public event HealthChangedDelegate EventHealthChanged;
 
@@ -38,6 +37,14 @@ public class Unit : NetworkBehaviour
     public float Strength = 20;
     public float Intelligence = 20;
     public bool IsDead = false;
+    public bool IsReady = false;
+    public PlayerAnimator Animator;
+
+    [ServerCallback]
+    private void Update()
+    {
+        CheckDeath();
+    }
 
     [Server]
     private void SetHealth(float value)
@@ -57,29 +64,7 @@ public class Unit : NetworkBehaviour
     public void TakeDamage(float value)
     {
         SetHealth(Mathf.Max(Health - value, 0));
-    }
-
-
-
-    [Server]
-    private void Regeneration()
-    {
-        float HealthRegen = 2;
-        float ManaRegen = 10;
-
-
-        Regen(HealthRegen);
-
-
-        //if ((unitStat.Mana + ManaRegen) <= unitStat.MaxMana)
-        //{
-        //    unitStat.Mana += ManaRegen;
-        //}
-        //else
-        //{
-        //    unitStat.Mana = unitStat.MaxMana;
-        //}
-
+        SetHealth(0);
     }
 
     public override void OnStartClient()
@@ -100,5 +85,114 @@ public class Unit : NetworkBehaviour
         InvokeRepeating("Regeneration", 1.0f, 1.0f);
     }
 
+    [Server]
+    private void Regeneration()
+    {
+        if (IsDead)
+            return;
+
+        float HealthRegen = 2;
+        float ManaRegen = 10;
+
+
+        Regen(HealthRegen);
+
+
+        //if ((unitStat.Mana + ManaRegen) <= unitStat.MaxMana)
+        //{
+        //    unitStat.Mana += ManaRegen;
+        //}
+        //else
+        //{
+        //    unitStat.Mana = unitStat.MaxMana;
+        //}
+
+    }
+
+
+    [Server]
+    public void Revive() {
+        _health = MaxHealth;
+        _mana = MaxMana;
+        IsDead = false;
+
+        ReviveRpc();
+    }
+
+    [Command]
+    public void ReadyCmd()
+    {
+        Ready();
+    }
+
+    [Server]
+    public void Ready()
+    {
+        IsReady = true;
+
+        ReadyRpc();
+    }
+
+
+    [Command]
+    public void UnreadyCmd()
+    {
+        Unready();
+    }
+
+    [Server]
+    public void Unready()
+    {
+        IsReady = false;
+
+        UnreadyRpc();
+    }
+
+
+
+    [Server]
+    private void CheckDeath()
+    {
+        if (Health <= 0)
+        {
+            Death();
+        }
+    }
+
+    [Server]
+    public void Death() {
+        IsDead = true;
+        IsReady = false;
+        DeathRpc();
+    }
+
+    [ClientRpc]
+    private void ReviveRpc()
+    {
+        _health = MaxHealth;
+        _mana = MaxMana;
+        IsDead = false;
+        Animator.IsAlive();
+    }
+
+    [ClientRpc]
+    private void DeathRpc()
+    {
+        IsReady = false;
+        IsDead = true;
+        Animator.IsDead();
+    }
+
+    [ClientRpc]
+    private void ReadyRpc()
+    {
+        IsReady = true;
+    }
+
+    [ClientRpc]
+    private void UnreadyRpc()
+    {
+        IsReady = false;
+    }
 
 }

@@ -132,72 +132,73 @@ public class PlayerAction : NetworkBehaviour
     [Client]
     void FixedUpdate()
     {
-        var hudCanvas = HUD.GetComponent<CanvasGroup>();
 
-        if (!isLocalPlayer)
-        {
-            ToggleCanvas(hudCanvas, false);
-            ReadyText.GetComponent<UnityEngine.UI.Text>().text = "";
+        //var hudCanvas = HUD.GetComponent<CanvasGroup>();
 
-
-            return;
-        }
-
-        Vector3 oldPosition = transform.position;
-        if (Input.GetKeyDown(KeyCode.Return) && !IsDead && !IsReady)
-        {
-            ReadyText.GetComponent<UnityEngine.UI.Text>().text = "";
-            OnPlayerReady();
-            return;
-        }
+        //if (!isLocalPlayer)
+        //{
+        //    ToggleCanvas(hudCanvas, false);
+        //    ReadyText.GetComponent<UnityEngine.UI.Text>().text = "";
 
 
-        if (IsTyping) {
-            return;
-        }
+        //    return;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            ScoreBoard.SetActive(true);
-        }
-
-        if (Input.GetKeyUp(KeyCode.Tab))
-        {
-            ScoreBoard.SetActive(false);
-        }
+        //Vector3 oldPosition = transform.position;
+        //if (Input.GetKeyDown(KeyCode.Return) && !IsDead && !IsReady)
+        //{
+        //    ReadyText.GetComponent<UnityEngine.UI.Text>().text = "";
+        //    OnPlayerReady();
+        //    return;
+        //}
 
 
-        if (!IsDead && !IsReady) {
-            ReadyText.GetComponent<UnityEngine.UI.Text>().text = "Press \"enter\" when you're ready";
-        }
+        //if (IsTyping) {
+        //    return;
+        //}
 
-        if (IsDead || !IsReady)
-        {
-            return;
-        }
+        //if (Input.GetKeyDown(KeyCode.Tab))
+        //{
+        //    ScoreBoard.SetActive(true);
+        //}
 
-        if (unitStat.Health <= 0 && !IsDead)
-        {
-            OnPlayerDeath();
-        }
+        //if (Input.GetKeyUp(KeyCode.Tab))
+        //{
+        //    ScoreBoard.SetActive(false);
+        //}
 
-        GameObject canvas = GameObject.Find("EscapeMenu");
-        if(canvas != null)
-        {
-            CanvasGroup canvasTest = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
 
-            if (canvasTest.alpha == 1f)
-            {
-                ToggleCanvas(hudCanvas, false);
-                return;
-            }
-            else
-            {
-                ToggleCanvas(hudCanvas, true);
-            }
-        }
+        //if (!IsDead && !IsReady) {
+        //    ReadyText.GetComponent<UnityEngine.UI.Text>().text = "Press \"enter\" when you're ready";
+        //}
 
-        movement = transform.position - oldPosition;
+        //if (IsDead || !IsReady)
+        //{
+        //    return;
+        //}
+
+        //if (unitStat.Health <= 0 && !IsDead)
+        //{
+        //    OnPlayerDeath();
+        //}
+
+        //GameObject canvas = GameObject.Find("EscapeMenu");
+        //if(canvas != null)
+        //{
+        //    CanvasGroup canvasTest = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
+
+        //    if (canvasTest.alpha == 1f)
+        //    {
+        //        ToggleCanvas(hudCanvas, false);
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        ToggleCanvas(hudCanvas, true);
+        //    }
+        //}
+
+        //movement = transform.position - oldPosition;
     }
 
     void initStats() {
