@@ -11,7 +11,16 @@ public class Projectile : NetworkBehaviour
     public float speed;
     public int SkillIndex;
 
+    public GameObject player;
+
     //public GameObject skillLibraryObj;
+    public float hitOffset = 0f;
+    public bool UseFirePointRotation;
+    public Vector3 rotationOffset = new Vector3(0, 0, 0);
+    public GameObject hit;
+    public GameObject flash;
+    private Rigidbody rb;
+    public GameObject[] Detached;
 
     void Start()
     {
@@ -22,7 +31,7 @@ public class Projectile : NetworkBehaviour
         damage.Add(Spell.MagicDamage);
         damage.Add(Spell.SoulDamage);
 
-        speed = Spell.ProjectileSpeed; 
+        speed = Spell.ProjectileSpeed;
 
         if (Spell.SkillFlashPrefab != null)
         {
@@ -52,25 +61,77 @@ public class Projectile : NetworkBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    //void OnCollisionEnter(Collision collision)
+    //{
+
+
+    //    Destroy(gameObject);
+    //}
+
+    [Server]
+    public void DestroyProjectile(Vector3 vfxPosition)
     {
-        //Lock all axes movement and rotation
-        rb.constraints = RigidbodyConstraints.FreezeAll;
-        speed = 0;
-
-        ContactPoint contact = collision.contacts[0];
-        Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-        Vector3 pos = contact.point + contact.normal * hitOffset;
+        DestroyProjectileRpc(vfxPosition);
+    }
 
 
-    public void DestroyProjectile()
+    [ClientRpc]
+    public void DestroyProjectileRpc(Vector3 vfxPosition)
     {
+        StartCoroutine("CreateVFX", vfxPosition);
         Destroy(gameObject);
+    }
+
+    [Client]
+    IEnumerator CreateVFX(Vector3 vfxPosition)
+    {
+        Object onHitPref = Resources.Load("Prefabs/Skill/Spark/vfx_hit_v1"); // note: not .prefab!
+
+        GameObject onHitObj = (GameObject)GameObject.Instantiate(onHitPref, vfxPosition, Quaternion.Euler(-90, 0, 0));
+        yield return new WaitForSeconds(1);
+        Destroy(onHitObj);
     }
 
     IEnumerator DestroyObject()
     {
         yield return new WaitForSeconds(Spell.Duration);
-        //PhotonNetwork.Destroy(gameObject);
+
+
+        ////Lock all axes movement and rotation
+        //rb.constraints = RigidbodyConstraints.FreezeAll;
+        //speed = 0;
+
+        //ContactPoint contact = collision.contacts[0];
+        //Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+        //Vector3 pos = contact.point + contact.normal * hitOffset;
+
+        //if (Spell.SkillHitPrefab != null)
+        //{
+        //    hit = (GameObject)Resources.Load(Spell.SkillHitPrefab);
+        //    var hitInstance = Instantiate(hit, pos, rot);
+        //    if (UseFirePointRotation) { hitInstance.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(0, 180f, 0); }
+        //    else if (rotationOffset != Vector3.zero) { hitInstance.transform.rotation = Quaternion.Euler(rotationOffset); }
+        //    else { hitInstance.transform.LookAt(contact.point + contact.normal); }
+
+        //    var hitPs = hitInstance.GetComponent<ParticleSystem>();
+        //    if (hitPs != null)
+        //    {
+        //        Destroy(hitInstance, hitPs.main.duration);
+        //    }
+        //    else
+        //    {
+        //        var hitPsParts = hitInstance.transform.GetChild(0).GetComponent<ParticleSystem>();
+        //        Destroy(hitInstance, hitPsParts.main.duration);
+        //    }
+        //}
+        //foreach (var detachedPrefab in Detached)
+        //{
+        //    if (detachedPrefab != null)
+        //    {
+        //        detachedPrefab.transform.parent = null;
+        //    }
+        //}
+
+        Destroy(gameObject);
     }
 }
