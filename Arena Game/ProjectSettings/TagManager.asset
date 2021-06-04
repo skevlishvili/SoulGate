@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Spell
+  - Arena_Shield
   layers:
   - Default
   - TransparentFX

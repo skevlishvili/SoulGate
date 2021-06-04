@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.AI;
 
 public class PlayerCollision : NetworkBehaviour
 {
     [SerializeField]
     private Unit unitStat;
+
+    [SerializeField]
+    private NavMeshAgent navmesh;
 
     // Start is called before the first frame update
     void Start()
@@ -24,21 +28,35 @@ public class PlayerCollision : NetworkBehaviour
     [Server]
     private void OnTriggerEnter(Collider other)
     {
+        var projectile = other.GetComponent<Projectile>();
+        var burst = other.GetComponent<Burst>();
+        var target = other.GetComponent<Target>();
 
         //if (!PV.IsMine)
         //{
         //    return;
         //}
-        Projectile projectile = other.GetComponent<Projectile>();//----------------------------gasasworebelia---------------
-        if (projectile == null)
-            return;
 
-        if (gameObject.GetInstanceID() == projectile.player.GetInstanceID())
-            return;
+        if (projectile == null || burst == null || target == null)
+                return;
+
+        if (projectile != null)
+            if (gameObject.GetInstanceID() == projectile.player.GetInstanceID())
+                return;
+
+        if (burst != null)
+            if (gameObject.GetInstanceID() == burst.player.GetInstanceID())
+                return;
+
+        if (target != null)
+            if (gameObject.GetInstanceID() == target.player.GetInstanceID())
+                return;
+
+        float damage = projectile != null ? (unitStat.PhysicalDefence / 100 * projectile.damage[0]) + (unitStat.MagicDefence / 100 * projectile.damage[1]) + projectile.damage[2] :
+                       burst != null ? (unitStat.PhysicalDefence / 100 * burst.damage[0]) + (unitStat.MagicDefence / 100 * burst.damage[1]) + burst.damage[2] :
+                       target != null ? (unitStat.PhysicalDefence / 100 * target.damage[0]) + (unitStat.MagicDefence / 100 * target.damage[1]) + target.damage[2] : 0;
 
         //ProjPV = other.GetComponent<PhotonView>();
-
-        float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
 
         //Debug.Log("is it triggering?");
 

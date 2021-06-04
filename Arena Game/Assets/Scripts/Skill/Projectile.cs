@@ -85,7 +85,8 @@ public class Projectile : NetworkBehaviour
     [Client]
     IEnumerator CreateVFX(Vector3 vfxPosition)
     {
-        Object onHitPref = Resources.Load("Prefabs/Skill/Spark/vfx_hit_v1"); // note: not .prefab!
+        //Object onHitPref = Resources.Load("Prefabs/Skill/Spark/vfx_hit_v1"); // note: not .prefab!
+        Object onHitPref = Resources.Load(Spell.SkillHitPrefab); // note: not .prefab!
 
         GameObject onHitObj = (GameObject)GameObject.Instantiate(onHitPref, vfxPosition, Quaternion.Euler(-90, 0, 0));
         yield return new WaitForSeconds(1);
