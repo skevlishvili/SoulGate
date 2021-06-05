@@ -163,36 +163,41 @@ public class Tower : MonoBehaviour
     {
         if (other.tag == "Spell")
         {
-            if (LastColliderdObjectid == other.gameObject.GetComponent<NetworkIdentity>())
-            {
+            Projectile projectile = other.GetComponent<Projectile>();
+            if (projectile == null)
                 return;
+
+            Skill Spell = SkillLibrary.Skills[HelpMethods.GetSkillIndexByName(other.name)];
+
+            // ----------------------------------------------gasasworebelia---------------------------------------------
+            Vector3 contact = other.gameObject.GetComponent<Collider>().ClosestPoint(transform.position);
+            //Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact);
+            Quaternion rot = Quaternion.FromToRotation(Vector3.zero, Vector3.zero);
+            Vector3 pos = contact + contact.normalized;
+            //----------------------------------------------------------------------------------------------------------
+
+            if (Spell.SkillHitPrefab != null)
+            {
+                GameObject hit = (GameObject)Resources.Load(Spell.SkillHitPrefab);
+                var hitInstance = Instantiate(hit, pos, rot);
+                hitInstance.transform.LookAt(contact + contact.normalized);
             }
 
             takeDamage(CalculateDamage(other));
+
+            projectile.DestroyProjectile(gameObject.transform.position);
+
             Debug.Log(TowerHealth);
         }
     }
 
     private void OnParticleCollision(GameObject other)
     {
-        var projectile = other.GetComponent<Projectile>();
-        var burst = other.GetComponent<Burst>();
-        var target = other.GetComponent<Target>();
+        Projectile projectile = other.GetComponent<Projectile>();
+        if (projectile == null)
+            return;
 
-        float Damage = 0;
-
-        if (projectile != null)
-        {
-            Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
-        }
-        if (burst != null)
-        {
-            Damage = burst.damage[0] + burst.damage[1] + burst.damage[2];
-        }
-        if (target != null)
-        {
-            Damage = target.damage[0] + target.damage[1] + target.damage[2];
-        }
+        float Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
 
         if (other.tag == "Spell")
         {
@@ -201,6 +206,7 @@ public class Tower : MonoBehaviour
                 return;
             }
 
+            Debug.Log(TowerHealth);
             takeDamage(Damage);
         }
     }

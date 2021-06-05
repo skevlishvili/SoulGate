@@ -114,6 +114,9 @@ public class RoundManager : NetworkBehaviour
     private void StartRound()
     {
         CurrentState = RoundState.RoundStart;
+
+        Skull_Shader_Script.Skull_Texture_Diffusion(true);
+
         HideReadyButton();
     }
 

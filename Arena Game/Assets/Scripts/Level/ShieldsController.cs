@@ -89,7 +89,7 @@ public class ShieldsController : MonoBehaviour
         }
     }
 
-    IEnumerator ShieldsActivation(int Quantity)
+    public IEnumerator ShieldsActivation(int Quantity)
     {
 
         if (Quantity <= Avaliable_Shields.Count)
@@ -116,7 +116,7 @@ public class ShieldsController : MonoBehaviour
         yield return new WaitForSeconds(Shield_Duration);
     }
 
-    IEnumerator ShieldsDeactivation()
+    public IEnumerator ShieldsDeactivation()
     {
         yield return new WaitForSeconds(Shield_Duration);
 
