@@ -30,6 +30,11 @@ public class Unit : NetworkBehaviour
     public delegate void HealthChangedDelegate(float Health, float MaxHealth);
     public event HealthChangedDelegate EventHealthChanged;
 
+
+    public delegate void PlayerDeathDelegate(GameObject currentPlayer, GameObject killerPlayer);
+    public event PlayerDeathDelegate EventPlayerDeath;
+
+
     public float Money = 5000;
     public float PhysicalDefence = 20;
     public float MagicDefence = 20;
@@ -39,6 +44,7 @@ public class Unit : NetworkBehaviour
     public bool IsDead = false;
     public bool IsReady = false;
     public PlayerAnimator Animator;
+    private GameObject lastDamageReceivedFrom;
 
     [ServerCallback]
     private void Update()
@@ -61,10 +67,10 @@ public class Unit : NetworkBehaviour
 
 
     [Server]
-    public void TakeDamage(float value)
+    public void TakeDamage(float value, GameObject player)
     {
         SetHealth(Mathf.Max(Health - value, 0));
-        SetHealth(0);
+
     }
 
     public override void OnStartClient()
@@ -163,6 +169,7 @@ public class Unit : NetworkBehaviour
     public void Death() {
         IsDead = true;
         IsReady = false;
+        EventPlayerDeath?.Invoke(gameObject, lastDamageReceivedFrom);
         DeathRpc();
     }
 

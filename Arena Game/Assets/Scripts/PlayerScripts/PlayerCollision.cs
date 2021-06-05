@@ -62,7 +62,7 @@ public class PlayerCollision : NetworkBehaviour
 
         projectile.DestroyProjectile(gameObject.transform.position);
 
-        unitStat.TakeDamage(damage);
+        unitStat.TakeDamage(damage, projectile.player);
     }
 
 
@@ -74,7 +74,7 @@ public class PlayerCollision : NetworkBehaviour
         //DealDamage(damage);
         projectile.DestroyProjectile(gameObject.transform.position);
 
-        unitStat.TakeDamage(damage);        
+        unitStat.TakeDamage(damage, projectile.player);        
     }
 
 

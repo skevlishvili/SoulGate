@@ -345,6 +345,9 @@ public class Abillities : NetworkBehaviour
     private void CmdSpawnSkill(string prefabSrc, Vector3 position, Quaternion rotation)
     {
         var projectile = (GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
+        var projScript = projectile.GetComponent<Projectile>();
+        if (projScript == null)
+            return;
         projectile.GetComponent<Projectile>().player = gameObject;
         NetworkServer.Spawn(projectile, gameObject);
     }
