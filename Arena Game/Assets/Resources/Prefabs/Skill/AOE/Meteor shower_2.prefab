@@ -4797,7 +4797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EffectsOnCollision:
-  - {fileID: 1312756255662086, guid: a7cb112e9339d01408d0002aede091cf, type: 3}
+  - {fileID: 1312756255662086, guid: 44fca2c59eed71f438b753acc786e541, type: 3}
   DestroyTimeDelay: 2
   UseWorldSpacePosition: 1
   Offset: 0.01
