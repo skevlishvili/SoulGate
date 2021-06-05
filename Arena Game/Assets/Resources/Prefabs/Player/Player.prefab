@@ -646,7 +646,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   unitStat: {fileID: 7250282779211670784}
-  navmesh: {fileID: 7250282779211670790}
 --- !u!114 &8573729476377585588
 MonoBehaviour:
   m_ObjectHideFlags: 0
