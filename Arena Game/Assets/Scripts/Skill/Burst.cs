@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Burst : MonoBehaviour
 {
+    public GameObject player;
+
     Skill Spell;
     public List<float> damage = new List<float>();
     public int SkillIndex;

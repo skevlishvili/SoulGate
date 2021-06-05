@@ -36,8 +36,8 @@ public class Unit : NetworkBehaviour
 
 
     public float Money = 5000;
-    public float PhysicalDefence = 20;
-    public float MagicDefence = 20;
+    public float PhysicalDefence = 5; //% procentulia
+    public float MagicDefence = 10;//% procentulia
     public float Agility = 20;
     public float Strength = 20;
     public float Intelligence = 20;
@@ -98,7 +98,7 @@ public class Unit : NetworkBehaviour
             return;
 
         float HealthRegen = 2;
-        float ManaRegen = 10;
+        //float ManaRegen = 10;
 
 
         Regen(HealthRegen);

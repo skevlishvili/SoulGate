@@ -100,7 +100,7 @@ public class SpellFire : MonoBehaviour
 
     bool CanCast(int index)
     {
-        return towerScript.TowerSpells[index].ActiveCoolDown && towerScript.TowerMana >= towerScript.TowerSpells[CurrentAbillity].Skill.ManaConsumption && !towerScript.IsDestroyed;
+        return towerScript.TowerSpells[index].ActiveCoolDown && !towerScript.IsDestroyed;
     }
 
     bool SkillConsumption(int index)

@@ -29185,8 +29185,8 @@ GameObject:
   - component: {fileID: 114635776230039818}
   - component: {fileID: 5450085853137169723}
   - component: {fileID: 3703103468836475006}
-  - component: {fileID: 7247640448598842260}
   - component: {fileID: 1688842605192206483}
+  - component: {fileID: -8917361732390379679}
   m_Layer: 0
   m_Name: LightningStrike
   m_TagString: Spell
@@ -34143,7 +34143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EffectsOnCollision:
-  - {fileID: 1219712984032920, guid: b87545f0bb40e5f4d910e8c21aacafb7, type: 3}
+  - {fileID: 1219712984032920, guid: 3de0844a63da5a64b83244a81d6265f8, type: 3}
   DestroyTimeDelay: 1.5
   UseWorldSpacePosition: 1
   Offset: 0.01
@@ -34451,20 +34451,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 0.1, z: 10}
   m_Center: {x: 0, y: 0.2, z: 0}
---- !u!114 &7247640448598842260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604970523841052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f0baf73e0f2e4f469fb281648476aef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: []
-  SkillIndex: 7
 --- !u!114 &1688842605192206483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34482,6 +34468,30 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &-8917361732390379679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604970523841052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  damage: []
+  speed: 0
+  SkillIndex: 7
+  player: {fileID: 0}
+  hitOffset: 0
+  UseFirePointRotation: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
+  hit: {fileID: 0}
+  flash: {fileID: 0}
+  Detached: []
 --- !u!1 &1782509883496884
 GameObject:
   m_ObjectHideFlags: 0

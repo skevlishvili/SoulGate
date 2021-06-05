@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 114536902040008898}
   - component: {fileID: 82660171331382076}
   - component: {fileID: 3425650315837318068}
-  - component: {fileID: 4368360344740975994}
   - component: {fileID: -1703233613351687340}
+  - component: {fileID: -6948434016817170061}
   m_Layer: 0
   m_Name: KnivesRain
   m_TagString: Spell
@@ -5128,23 +5128,6 @@ MonoBehaviour:
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
   m_AreaLightEmissiveMeshLayer: -1
---- !u!114 &4368360344740975994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168529248583268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 562d05122b5faac498ca23f7742b7606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: []
-  SkillIndex: 9
-  CreateCollider: 1
-  WaitBeforeCreate: 1.5
-  ColliderCoordinatesFromParticleSystem: {x: 22, y: 7}
 --- !u!114 &-1703233613351687340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5162,6 +5145,30 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &-6948434016817170061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168529248583268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  damage: []
+  speed: 0
+  SkillIndex: 9
+  player: {fileID: 0}
+  hitOffset: 0
+  UseFirePointRotation: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
+  hit: {fileID: 0}
+  flash: {fileID: 0}
+  Detached: []
 --- !u!1 &1222912878218796
 GameObject:
   m_ObjectHideFlags: 0

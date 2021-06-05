@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 199798401150151838}
   - component: {fileID: 108158424509105500}
   - component: {fileID: 3124943156161753348}
-  - component: {fileID: 2577652404832272887}
   - component: {fileID: 8690887032893182019}
+  - component: {fileID: -5307993229449929005}
   m_Layer: 0
   m_Name: Meteor shower_2
   m_TagString: Spell
@@ -4797,7 +4797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EffectsOnCollision:
-  - {fileID: 1312756255662086, guid: a7cb112e9339d01408d0002aede091cf, type: 3}
+  - {fileID: 1312756255662086, guid: 44fca2c59eed71f438b753acc786e541, type: 3}
   DestroyTimeDelay: 2
   UseWorldSpacePosition: 1
   Offset: 0.01
@@ -5041,20 +5041,6 @@ MonoBehaviour:
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
   m_AreaLightEmissiveMeshLayer: -1
---- !u!114 &2577652404832272887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1135581048890362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f0baf73e0f2e4f469fb281648476aef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: []
-  SkillIndex: 10
 --- !u!114 &8690887032893182019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5072,6 +5058,30 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &-5307993229449929005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135581048890362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  damage: []
+  speed: 0
+  SkillIndex: 10
+  player: {fileID: 0}
+  hitOffset: 0
+  UseFirePointRotation: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
+  hit: {fileID: 0}
+  flash: {fileID: 0}
+  Detached: []
 --- !u!1 &1194898084312818
 GameObject:
   m_ObjectHideFlags: 0

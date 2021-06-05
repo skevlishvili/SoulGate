@@ -57,10 +57,10 @@ public class Abillities : NetworkBehaviour
 
 
         PlayerAbillities = new List<Abillity>();
-        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[0], Skill = SkillLibrary.Skills[9], IsFiring = false, IsActivating = false });
-        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[1], Skill = SkillLibrary.Skills[13], IsFiring = false, IsActivating = false });
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[0], Skill = SkillLibrary.Skills[1], IsFiring = false, IsActivating = false });
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[1], Skill = SkillLibrary.Skills[9], IsFiring = false, IsActivating = false });
         PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[2], Skill = SkillLibrary.Skills[16], IsFiring = false, IsActivating = false });
-        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[3], Skill = SkillLibrary.Skills[17], IsFiring = false, IsActivating = false });
+        PlayerAbillities.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCodeController.AbilitiesKeyCodeArray[3], Skill = SkillLibrary.Skills[19], IsFiring = false, IsActivating = false });
 
         PlayerPassives = new List<Abillity>();
         PlayerPassives.Add(new Abillity { ActiveCoolDown = false, KeyCode = KeyCode.None, Skill = null, IsFiring = false, IsActivating = false });

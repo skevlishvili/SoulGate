@@ -14468,8 +14468,8 @@ GameObject:
   - component: {fileID: 199276795878250424}
   - component: {fileID: 82402265451621132}
   - component: {fileID: 114228352284236026}
-  - component: {fileID: 5984625191109136383}
   - component: {fileID: 4465280749215230054}
+  - component: {fileID: 884634784520912284}
   m_Layer: 0
   m_Name: Magic_Bullets
   m_TagString: Spell
@@ -19416,23 +19416,6 @@ MonoBehaviour:
   RandomVolume: 0
   minVolume: 0.4
   maxVolume: 1
---- !u!114 &5984625191109136383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701074268541622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 562d05122b5faac498ca23f7742b7606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: []
-  SkillIndex: 16
-  CreateCollider: 0
-  WaitBeforeCreate: 0
-  ColliderCoordinatesFromParticleSystem: {x: 0, y: 0}
 --- !u!114 &4465280749215230054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19450,3 +19433,27 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &884634784520912284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701074268541622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  damage: []
+  speed: 0
+  SkillIndex: 16
+  player: {fileID: 0}
+  hitOffset: 0
+  UseFirePointRotation: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
+  hit: {fileID: 0}
+  flash: {fileID: 0}
+  Detached: []

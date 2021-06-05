@@ -15,13 +15,9 @@ public class Tower : MonoBehaviour
 
     public float TowerMaxHealth;
     public float TowerHealth;
-    public float TowerMaxMana;
-    public float TowerMana;
-    public float ManaRegen;
 
     public float DamageMultiplier;
     public float HealingMultiplier;
-    public float ManaRegenMultiplalier;
 
     public bool IsDestroyed;
     #endregion
@@ -86,38 +82,35 @@ public class Tower : MonoBehaviour
 
         TowerMaxHealth = 1000;
         TowerHealth = TowerMaxHealth;
-        TowerMaxMana = 100;
-        TowerMana = 0;
 
         IsDestroyed = false;
 
         DamageMultiplier = 1;
         HealingMultiplier = 1;
-        ManaRegenMultiplalier = 1;
     }
 
-    void TowerEvolution()
-    {
-        if (TowerMana >= TowerMaxMana)
-        {
-            TowerLevel += 1;
+    //void TowerEvolution()
+    //{
+    //    if (TowerMana >= TowerMaxMana)
+    //    {
+    //        TowerLevel += 1;
 
-            TowerMaxHealth *= 2;
-            TowerMaxMana *= 2;
+    //        TowerMaxHealth *= 2;
+    //        TowerMaxMana *= 2;
 
-            DamageMultiplier *= 1.5f;
-            HealingMultiplier *= 1.5f;
-            ManaRegenMultiplalier *= 1.5f;
-        }
-    }
+    //        DamageMultiplier *= 1.5f;
+    //        HealingMultiplier *= 1.5f;
+    //        ManaRegenMultiplalier *= 1.5f;
+    //    }
+    //}
 
-    void Regeneration()
-    {
-        var Regen = IsDestroyed ? 0 :
-                       TowerHealth == TowerMaxHealth? TowerMana += ManaRegenMultiplalier * ManaRegen :
-                       TowerHealth + HealingMultiplier * ManaRegen > TowerMaxHealth ? TowerHealth = TowerMaxHealth :
-                       TowerHealth += HealingMultiplier * ManaRegen; TowerMana += ManaRegenMultiplalier * ManaRegen / 2;
-    }
+    //void Regeneration()
+    //{
+    //    var Regen = IsDestroyed ? 0 :
+    //                   TowerHealth == TowerMaxHealth? TowerMana += ManaRegenMultiplalier * ManaRegen :
+    //                   TowerHealth + HealingMultiplier * ManaRegen > TowerMaxHealth ? TowerHealth = TowerMaxHealth :
+    //                   TowerHealth += HealingMultiplier * ManaRegen; TowerMana += ManaRegenMultiplalier * ManaRegen / 2;
+    //}
 
     void takeDamage(float damage)
     {
@@ -135,64 +128,50 @@ public class Tower : MonoBehaviour
         }
     }
 
-    float CalculateDamage(Collider other)
-    {
-        var projectile = other.GetComponent<Projectile>();
-        var burst = other.GetComponent<Burst>();
-        var target = other.GetComponent<Target>();
-
-        float Damage = 0;
-
-        if (projectile != null)
-        {
-            Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
-        }
-        if (burst != null)
-        {
-            Damage = burst.damage[0] + burst.damage[1] + burst.damage[2];
-        }
-        if (target != null)
-        {
-            Damage = target.damage[0] + target.damage[1] + target.damage[2];
-        }
-
-        return Damage;
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Spell")
         {
-            if (LastColliderdObjectid == other.gameObject.GetComponent<NetworkIdentity>())
-            {
+            Projectile projectile = other.GetComponent<Projectile>();
+            if (projectile == null)
                 return;
+
+            float Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
+
+            
+            Skill Spell = SkillLibrary.Skills[HelpMethods.GetSkillIndexByName(other.name)];
+
+            // ----------------------------------------------gasasworebelia---------------------------------------------
+            //Vector3 contact = other.gameObject.GetComponent<Collider>().ClosestPoint(transform.position);
+            Vector3 contact = other.gameObject.transform.position;
+            //Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact);
+            Quaternion rot = Quaternion.FromToRotation(Vector3.zero, Vector3.zero);
+            Vector3 pos = contact + contact.normalized;
+            //----------------------------------------------------------------------------------------------------------
+
+            if (Spell.SkillHitPrefab != null)
+            {
+                GameObject hit = (GameObject)Resources.Load(Spell.SkillHitPrefab);
+                var hitInstance = Instantiate(hit, pos, rot);
+                hitInstance.transform.LookAt(contact + contact.normalized);
             }
 
-            takeDamage(CalculateDamage(other));
+            takeDamage(Damage);
+
+            projectile.DestroyProjectile(gameObject.transform.position);
+
             Debug.Log(TowerHealth);
         }
     }
 
     private void OnParticleCollision(GameObject other)
     {
-        var projectile = other.GetComponent<Projectile>();
-        var burst = other.GetComponent<Burst>();
-        var target = other.GetComponent<Target>();
+        Projectile projectile = other.GetComponent<Projectile>();
+        if (projectile == null)
+            return;
 
-        float Damage = 0;
-
-        if (projectile != null)
-        {
-            Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
-        }
-        if (burst != null)
-        {
-            Damage = burst.damage[0] + burst.damage[1] + burst.damage[2];
-        }
-        if (target != null)
-        {
-            Damage = target.damage[0] + target.damage[1] + target.damage[2];
-        }
+        float Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
 
         if (other.tag == "Spell")
         {
@@ -201,6 +180,7 @@ public class Tower : MonoBehaviour
                 return;
             }
 
+            Debug.Log(TowerHealth);
             takeDamage(Damage);
         }
     }

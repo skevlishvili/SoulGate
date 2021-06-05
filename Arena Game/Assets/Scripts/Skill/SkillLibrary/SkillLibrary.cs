@@ -849,7 +849,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Mageskill_26"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Mageskill_48"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,
@@ -1068,7 +1068,7 @@ public class SkillLibrary : MonoBehaviour
             SkillPriceXp = 0,
 
             Duration = 10,
-            Cooldown = 15,
+            Cooldown = 30,
             ActivationTime = 0,
             ProjectileSpeed = 0,
             MaxRechargingTime = 0,
