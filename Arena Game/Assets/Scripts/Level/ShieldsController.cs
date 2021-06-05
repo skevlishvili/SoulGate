@@ -21,16 +21,19 @@ public class ShieldsController : MonoBehaviour
     void Start()
     {
         Shield_Duration = 30;
-        IsShieldActive = true;
 
         foreach (var item in Shields)
         {
             item.Render.material.SetFloat("DiffuseTransition", 0);
         }
 
-        CheckAvaliableShields();
-        StartCoroutine(ShieldsActivation(16));
-        StartCoroutine(ShieldsDeactivation());
+
+        //needs to move where Round starts
+        IsShieldActive = false;//Set true After you move your code where round starts
+
+        //CheckAvaliableShields();
+        //StartCoroutine(ShieldsActivation(16));
+        //StartCoroutine(ShieldsDeactivation());
     }
 
     // Update is called once per frame
@@ -88,7 +91,8 @@ public class ShieldsController : MonoBehaviour
 
     IEnumerator ShieldsActivation(int Quantity)
     {
-        if (Quantity >= Avaliable_Shields.Count)
+
+        if (Quantity <= Avaliable_Shields.Count)
         {
             Active_Shields = Avaliable_Shields.AsEnumerable().OrderBy(n => Guid.NewGuid()).Take(Quantity).ToList();
         }

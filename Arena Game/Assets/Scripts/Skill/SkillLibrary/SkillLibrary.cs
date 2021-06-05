@@ -849,7 +849,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Mageskill_26"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Mageskill_48"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,

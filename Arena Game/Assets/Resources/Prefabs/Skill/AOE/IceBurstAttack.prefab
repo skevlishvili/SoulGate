@@ -33454,8 +33454,8 @@ GameObject:
   - component: {fileID: 82794692696160056}
   - component: {fileID: 114023983230246292}
   - component: {fileID: 1219687705662625217}
-  - component: {fileID: -4038243898232074704}
   - component: {fileID: 344031859032881889}
+  - component: {fileID: 3571961208074097763}
   m_Layer: 0
   m_Name: IceBurstAttack
   m_TagString: Spell
@@ -38407,23 +38407,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 6
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-4038243898232074704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965956805206708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 562d05122b5faac498ca23f7742b7606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: []
-  SkillIndex: 8
-  CreateCollider: 0
-  WaitBeforeCreate: 0
-  ColliderCoordinatesFromParticleSystem: {x: 0, y: 0}
 --- !u!114 &344031859032881889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38441,6 +38424,30 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &3571961208074097763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965956805206708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  damage: []
+  speed: 0
+  SkillIndex: 8
+  player: {fileID: 0}
+  hitOffset: 0
+  UseFirePointRotation: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
+  hit: {fileID: 0}
+  flash: {fileID: 0}
+  Detached: []
 --- !u!1 &1994824758168566
 GameObject:
   m_ObjectHideFlags: 0
