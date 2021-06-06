@@ -69,8 +69,9 @@ public class Unit : NetworkBehaviour
     [Server]
     public void TakeDamage(float value, GameObject player)
     {
+        lastDamageReceivedFrom = player;
         SetHealth(Mathf.Max(Health - value, 0));
-
+        SetHealth(0);
     }
 
     public override void OnStartClient()
@@ -167,6 +168,8 @@ public class Unit : NetworkBehaviour
 
     [Server]
     public void Death() {
+        if (IsDead)
+            return;
         IsDead = true;
         IsReady = false;
         EventPlayerDeath?.Invoke(gameObject, lastDamageReceivedFrom);

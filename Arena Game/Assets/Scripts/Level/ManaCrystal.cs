@@ -53,7 +53,7 @@ public class ManaCrystal : MonoBehaviour
     void takeDamage(float damage)
     {
         CrystalHealth -= damage;
-        Debug.Log(CrystalHealth);
+        //Debug.Log(CrystalHealth);
     }
 
 

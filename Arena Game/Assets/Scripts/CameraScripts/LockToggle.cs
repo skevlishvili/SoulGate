@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,9 @@ public class LockToggle : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
+                if (ClientScene.localPlayer.gameObject.GetComponent<ChatBehaviour>().IsTyping)
+                    return;
+
                 camViewChanged = true;
 
                 cameraRoam.enabled = true;
@@ -32,6 +36,9 @@ public class LockToggle : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
+                if (ClientScene.localPlayer.gameObject.GetComponent<ChatBehaviour>().IsTyping)
+                    return;
+
                 camViewChanged = false;
 
                 cameraRoam.enabled = false;

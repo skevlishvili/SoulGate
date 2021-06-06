@@ -17,7 +17,7 @@ public class RoundManager : NetworkBehaviour
     public int CurrentRound = 1;
     public int MaxRounds = 20;
 
-    public PlayerManager Manager;
+    public Players Manager;
     public ReadyScript Ready;
 
     private RoundState _currentState;
@@ -89,10 +89,10 @@ public class RoundManager : NetworkBehaviour
     [Server]
     void PreRoundCheck() {
 
-        if (Manager.Players.Count > 1)
+        if (Manager.PlayersGameObjects.Count > 1)
         {
-            var readyPlayers = Manager.Players.Count;
-            foreach (var player in Manager.Players)
+            var readyPlayers = Manager.PlayersGameObjects.Count;
+            foreach (var player in Manager.PlayersGameObjects)
             {
                 var unit = player.GetComponent<Unit>();
 
@@ -103,7 +103,7 @@ public class RoundManager : NetworkBehaviour
                 }
             }
 
-            if (readyPlayers == Manager.Players.Count)
+            if (readyPlayers == Manager.PlayersGameObjects.Count)
             {
                 StartRound();
             }
@@ -123,10 +123,10 @@ public class RoundManager : NetworkBehaviour
 
     [Server]
     void RoundCheck() {
-        if (Manager.Players.Count > 1)
+        if (Manager.PlayersGameObjects.Count > 1)
         {
-            var alivePlayers = Manager.Players.Count;
-            foreach (var player in Manager.Players)
+            var alivePlayers = Manager.PlayersGameObjects.Count;
+            foreach (var player in Manager.PlayersGameObjects)
             {
                 var unit = player.GetComponent<Unit>();
 
@@ -173,9 +173,9 @@ public class RoundManager : NetworkBehaviour
     [Server]
     private void ResetPlayers()
     {
-        for (int i = 0; i < Manager.Players.Count; i++)
+        for (int i = 0; i < Manager.PlayersGameObjects.Count; i++)
         {
-            var unit = Manager.Players[i].GetComponent<Unit>();
+            var unit = Manager.PlayersGameObjects[i].GetComponent<Unit>();
 
             unit.Revive();
         }

@@ -40,7 +40,6 @@ public class PlayerCollision : NetworkBehaviour
 
         float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
 
-        Debug.Log("is it triggering?");
 
 
         //if (PV.IsMine && !ProjPV.IsMine)
@@ -57,7 +56,7 @@ public class PlayerCollision : NetworkBehaviour
 
         //projectile.DestroyProjectile();
         //GameObject hitVFX = PhotonNetwork.Instantiate("Prefabs/Skill/Spark/vfx_hit_v1", transform.position + Vector3.up * 2, projectile.transform.rotation);
-        Debug.Log("Collision");
+        
         //CheckCollision(other.gameObject.GetComponent<SphereCollider>().radius, other.transform.position, damage, projectile);
 
 
@@ -67,17 +66,17 @@ public class PlayerCollision : NetworkBehaviour
     }
 
 
-    [Command]
-    private void CheckCollision(float radius, Vector3 position, float damage, Projectile projectile)
-    {
-        //if ((position - transform.position).magnitude + radius < 2.0f) 
-        //    return;
+    //[Command]
+    //private void CheckCollision(float radius, Vector3 position, float damage, Projectile projectile)
+    //{
+    //    //if ((position - transform.position).magnitude + radius < 2.0f) 
+    //    //    return;
 
-        //DealDamage(damage);
-        projectile.DestroyProjectile(gameObject.transform.position);
+    //    //DealDamage(damage);
+    //    projectile.DestroyProjectile(gameObject.transform.position);
 
-        unitStat.TakeDamage(damage, projectile.player);        
-    }
+    //    unitStat.TakeDamage(damage, projectile.player);        
+    //}
 
 
     //[ClientRpc]

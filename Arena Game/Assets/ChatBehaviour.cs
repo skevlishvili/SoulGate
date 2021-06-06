@@ -8,10 +8,12 @@ using System;
 public class ChatBehaviour : NetworkBehaviour
 {
     public bool IsTyping = false;
+    public PlayerNickname Nickname;
+    public CanvasGroup ChatCanvasGroup;
     [SerializeField] private GameObject chatUI = null;
     [SerializeField] private TMP_Text chatText = null;
     [SerializeField] private TMP_InputField inputField = null;
-
+    
 
   
 
@@ -22,6 +24,7 @@ public class ChatBehaviour : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Return) && !inputField.isFocused) {
             inputField.Select();
             inputField.ActivateInputField();
+            ChatCanvasGroup.alpha = 1;
         }
 
         IsTyping = inputField.isFocused;
@@ -44,7 +47,10 @@ public class ChatBehaviour : NetworkBehaviour
 
     private void HandleNewMessage(string message)
     {
+
+        ChatCanvasGroup.alpha = 1;
         chatText.text += message;
+        ChatOff();
     }
 
     [Client]
@@ -56,18 +62,27 @@ public class ChatBehaviour : NetworkBehaviour
 
         CmdSendMessage(message);
 
+        StartCoroutine(ChatOff());
+
         inputField.text = string.Empty;
     }
 
     [Command]
     private void CmdSendMessage(string message)
     {
-        RpcHandleMessage($"[{connectionToClient.connectionId}]: {message}");
+        RpcHandleMessage($"{Nickname.Nickname} : {message}");
     }
 
     [ClientRpc]
     private void RpcHandleMessage(string message)
     {
         OnMessage?.Invoke($"\n{message}");
+    }
+
+    private IEnumerator ChatOff()
+    {
+        yield return new WaitForSeconds(5);
+
+        ChatCanvasGroup.alpha = 0.1f;
     }
 }

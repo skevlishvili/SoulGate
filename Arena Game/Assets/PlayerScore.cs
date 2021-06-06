@@ -15,6 +15,17 @@ public class PlayerScore : NetworkBehaviour
     [SyncVar]
     private int score = 0;
 
+
+    public delegate void ScoreChangeDelegate();
+    public event ScoreChangeDelegate EventScoreChange;
+
+
+    [Server]
+    private void Start()
+    {
+        unitStat.EventPlayerDeath += OnPlayerDeath;
+    }
+
     public int Kills {
         get {
             return kills;
@@ -51,17 +62,38 @@ public class PlayerScore : NetworkBehaviour
     [Server]
     public void IncrementKill() {
         kills++;
+        EventScoreChange?.Invoke();
+        //ScoreChangedRpc();
     }
 
     [Server]
     public void IncrementDeath()
     {
         deaths++;
+        EventScoreChange?.Invoke();
+        //ScoreChangedRpc();
     }
 
     [Server]
     public void AddScore(int addedScore)
     {
         score += addedScore;
+        EventScoreChange?.Invoke();
+        //ScoreChangedRpc();
     }
+
+    [Server]
+    public void OnPlayerDeath(GameObject current, GameObject killer) {
+        var playerScore = killer.GetComponent<PlayerScore>();
+
+        playerScore.AddScore(100);
+
+        IncrementDeath();
+        playerScore.IncrementKill();
+    }
+
+    //[ClientRpc]
+    //private void ScoreChangedRpc() {
+    //    EventScoreChange?.Invoke();
+    //}
 }

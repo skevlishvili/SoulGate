@@ -20,6 +20,7 @@ public class Shop : MonoBehaviour
     public Image SkillUiImageDetailed;
     public Menu ActiveSkill;
     public Menu PassiveSkill;
+    public ChatBehaviour chat;
 
     public CursorScript cursor;
 
@@ -56,6 +57,9 @@ public class Shop : MonoBehaviour
 
     private void Update()
     {
+        if (chat.IsTyping)
+            return;
+
         if (Input.GetKeyDown(KeyCodeController.Shop))
         {
             ShopOpen = !ShopOpen;

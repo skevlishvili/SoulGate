@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerManager : NetworkManager
 {
-    public List<GameObject> Players = new List<GameObject>();
+    public Players players;
 
 
     public override void OnServerAddPlayer(NetworkConnection conn)
@@ -16,6 +16,7 @@ public class PlayerManager : NetworkManager
         if (conn.identity.gameObject == null)
             return;
 
-        Players.Add(conn.identity.gameObject);
+        players.AddPlayer(conn.identity.gameObject);
     }
+
 }

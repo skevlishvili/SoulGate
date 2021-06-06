@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class MainMenu : MonoBehaviour
     #endregion
 
     #region Public 
+
+    public Text Nickname;
 
     void Awake()
     {
@@ -50,7 +53,11 @@ public class MainMenu : MonoBehaviour
 
 
     public void StartGame() {
-        SceneManager.LoadScene("Map_1");
+        if (Nickname != null && Nickname.text != "") {
+            PlayerNickname.LocalNickname = Nickname.text;
+
+            SceneManager.LoadScene("Map_1");
+        }
     }
 
 

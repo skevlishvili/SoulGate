@@ -42,11 +42,13 @@ public class ReadyScript : MonoBehaviour
 
     public void Hide() {
         ReadyText.text = "";
+        ReadyButtonImage.color = new Color { r = 255, g = 255, b = 255, a = 0.5f };
         ReadyButtonImage.enabled = false;
     }
 
     public void Show() {
         ReadyText.text = "Not ready";
+        ReadyButtonImage.color = new Color { r = 255, g = 255, b = 255, a = 0.5f };
         ReadyButtonImage.enabled = true;
     }
 }
