@@ -672,7 +672,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: 0, z: 5}
     m_Rotation: {x: 0, y: 0, z: 0}
     m_Scale: {x: 0, y: 0, z: 0}
     placementMode: 0
@@ -4875,7 +4875,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 1, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 2.7695e-41, z: 0, w: 50.25}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -4907,7 +4907,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 5}
 --- !u!114 &-6142141322442712980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5050,15 +5050,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  SkillIndex: 12
   damage: []
   speed: 0
-  SkillIndex: 0
-  player: {fileID: 0}
-  hitOffset: 0
-  UseFirePointRotation: 0
-  rotationOffset: {x: 0, y: 0, z: 0}
   hit: {fileID: 0}
   flash: {fileID: 0}
+  AudioRepeating: 0
+  AudioStartTime: 0
+  AudioRepeatTime: 30
+  player: {fileID: 0}
+  UseFirePointRotation: 0
+  hitOffset: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   Detached: []
 --- !u!1 &1655099193879956
 GameObject:

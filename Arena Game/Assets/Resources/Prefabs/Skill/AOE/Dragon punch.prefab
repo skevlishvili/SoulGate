@@ -48197,15 +48197,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  SkillIndex: 17
   damage: []
   speed: 0
-  SkillIndex: 17
-  player: {fileID: 0}
-  hitOffset: 0
-  UseFirePointRotation: 0
-  rotationOffset: {x: 0, y: 0, z: 0}
   hit: {fileID: 0}
   flash: {fileID: 0}
+  AudioRepeating: 0
+  AudioStartTime: 0
+  AudioRepeatTime: 30
+  player: {fileID: 0}
+  UseFirePointRotation: 0
+  hitOffset: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   Detached: []
 --- !u!1 &1931102524043194
 GameObject:

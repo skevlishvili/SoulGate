@@ -13,10 +13,4 @@ public class AnimationEvents : MonoBehaviour
     {        
         anim.EndAnimation(abillitiesScript.PlayerAbillities[abillitiesScript.ComponentIndex].Skill.AnimatorProperty);
     }
-
-    public void PlayFireSound()
-    {
-        SoundManagerScript sound = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
-        sound.PlaySound(abillitiesScript.PlayerAbillities[abillitiesScript.ComponentIndex].Skill.Sound);
-    }
 }

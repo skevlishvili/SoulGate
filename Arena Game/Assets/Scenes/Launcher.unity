@@ -360,6 +360,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6857499575584476996, guid: 6481be4021625104bb2e062a834a8e26,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
     - target: {fileID: 6857499575584477003, guid: 6481be4021625104bb2e062a834a8e26,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -384,6 +389,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6857499575655724132, guid: 6481be4021625104bb2e062a834a8e26,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
       objectReference: {fileID: 0}
     - target: {fileID: 6857499575796072689, guid: 6481be4021625104bb2e062a834a8e26,
         type: 3}
@@ -494,6 +504,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MenuPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6857499575933403324, guid: 6481be4021625104bb2e062a834a8e26,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6481be4021625104bb2e062a834a8e26, type: 3}

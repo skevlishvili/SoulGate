@@ -19406,9 +19406,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79ba5bb0b3780b4a98ce45e779b6441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Repeating: 0
-  RepeatTime: 2
-  StartTime: 0
+  Skill_Index: 10
+  Repeating: 1
+  RepeatTime: 10
+  StartTime: 0.1
   RandomVolume: 1
   minVolume: 0.1
   maxVolume: 0.3

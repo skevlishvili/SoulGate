@@ -1,53 +1,60 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
     Skill Spell;
-    public List<float> damage = new List<float>();
     public int SkillIndex;
-
+    public Renderer Render;
     public bool Dissolve;
-    Material ShieldMaterial;
 
-    float TextureDeffusion = 0;
-    float TextureDeffusionMaximum = 1.5f;
-    float TextureDeffusionmMinimum = 0f;
+    DateTime ShieldActivatinTime;
+
+    float TextureDiffusion = 0;
+    float TextureDiffusionMaximum = 1.5f;
+    float TextureDiffusionmMinimum = 0f;
+
+    private void Awake()
+    {
+        Render.material.SetFloat("DiffuseTransition", 0);
+        ShieldActivatinTime = DateTime.Now;
+    }
 
     void Start()
     {
         Spell = SkillLibrary.Skills[SkillIndex];
-        damage.Add(Spell.PhysicalDamage);
-        damage.Add(Spell.MagicDamage);
-        damage.Add(Spell.SoulDamage);
-
-        ShieldMaterial = GetComponent<Renderer>().material;
-
         gameObject.transform.localScale = new Vector3(Spell.AttackRadius, Spell.AttackRadius, Spell.AttackRadius);
-
-        Destroy(gameObject, Spell.Duration);
     }
 
     private void Update()
     {
-        TextureDiffusion();
+        DiffuseTransition();
     }
 
-    void TextureDiffusion()
+    void DiffuseTransition()
     {
-        if (Dissolve)
-        {
-            ShieldMaterial.SetFloat("DiffuseTransition", Mathf.Lerp(TextureDeffusionmMinimum, TextureDeffusionMaximum, TextureDeffusion));
-            TextureDeffusion += 0.1f * Time.deltaTime;
+        Render.material.SetFloat("DiffuseTransition", Mathf.Lerp(TextureDiffusionmMinimum, TextureDiffusionMaximum, TextureDiffusion));
+        var TimeAfterActivation = DateTime.Now - ShieldActivatinTime;
 
-            if (TextureDeffusion > 1.5f)
-            {
-                float temp = TextureDeffusionMaximum;
-                TextureDeffusionMaximum = TextureDeffusionmMinimum;
-                TextureDeffusionmMinimum = temp;
-                TextureDeffusion = 0.0f;
-            }
+        if (TimeAfterActivation.TotalSeconds >= Spell.Duration - 3f)
+        {
+            TextureDiffusion += 0.35f * Time.deltaTime;
+        }
+        else
+        {
+            TextureDiffusion += 0.2f * Time.deltaTime;
+        }
+
+
+
+        if (TextureDiffusion > 1 && TimeAfterActivation.TotalSeconds >= Spell.Duration - 3f)
+        {
+            float temp = TextureDiffusionMaximum;
+            TextureDiffusionMaximum = TextureDiffusionmMinimum;
+            TextureDiffusionmMinimum = temp;
+            TextureDiffusion = 0.0f;
         }
     }
 }

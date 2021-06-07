@@ -7,25 +7,40 @@ using Mirror;
 public class Projectile : NetworkBehaviour
 {
     Skill Spell;
+
+    public int SkillIndex;
     public List<float> damage = new List<float>();
     public float speed;
-    public int SkillIndex;
 
-    public GameObject player;
-
-    //public GameObject skillLibraryObj;
-    public float hitOffset = 0f;
-    public bool UseFirePointRotation;
-    public Vector3 rotationOffset = new Vector3(0, 0, 0);
     public GameObject hit;
     public GameObject flash;
     private Rigidbody rb;
+
+    //-----Audio------------------
+    GameObject AudioManagerObj;
+    public bool AudioRepeating = false;
+    public float AudioStartTime = 0.0f;
+    public float AudioRepeatTime = 1f;
+
+    
+
+    //Useless parts
+    public GameObject player;
+    public bool UseFirePointRotation;
+    public float hitOffset = 0f;
+    public Vector3 rotationOffset = new Vector3(0, 0, 0);
     public GameObject[] Detached;
+
+
 
     void Start()
     {
         Spell = SkillLibrary.Skills[SkillIndex];
         rb = GetComponent<Rigidbody>();
+        AudioManagerObj = GameObject.FindGameObjectWithTag("Audio");
+        AudioManagerScript audioManager = AudioManagerObj.GetComponent<AudioManagerScript>();
+        audioManager.PlaySound(SkillIndex, AudioRepeating, AudioStartTime, AudioRepeatTime);
+
 
         damage.Add(Spell.PhysicalDamage);
         damage.Add(Spell.MagicDamage);
@@ -50,6 +65,7 @@ public class Projectile : NetworkBehaviour
             }
         }
         Destroy(gameObject, Spell.Duration);
+
     }
 
     void FixedUpdate()

@@ -53,7 +53,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 250,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/BonusIcons/Basic_Spells/Normal/01_fire_arrow"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/01_fire_arrow"),
             PlayergroundVFX = PlayergroundVFX,
             MaxRangeVFX = null,
             IndicatorVFX = IndicatorVFX,
@@ -62,7 +62,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/Projectile/Fireball_Prefab",
             SkillHitPrefab = "Prefabs/Skill/Hit/Fireball_Hit_Prefab",
             SkillFlashPrefab = null,
-            Sound = "Fireball_Sound",
+            Sound = "Design/Music/Sounds/Fireball_Sound",
             AnimatorProperty = "Attack_Magic_02",
 
             IsRestraining = false,
@@ -109,7 +109,7 @@ public class SkillLibrary : MonoBehaviour
             AttackRadius = 2,
             Distance = 15,
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Engineerskill_06"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_06"),
             PlayergroundVFX = null,
             MaxRangeVFX = MaxRangeVFX,
             IndicatorVFX = null,
@@ -118,7 +118,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/FireStorm",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "Fireball_Sound",
+            Sound = "Design/Music/Sounds/Fireball_Sound",
             AnimatorProperty = "Attack_Magic_04",
 
             IsRestraining = false,
@@ -166,7 +166,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Engineerskill_43"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,
@@ -223,7 +223,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 25,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Shamanskill_08"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Shamanskill_08"),
             PlayergroundVFX = null,
             MaxRangeVFX = MaxRangeVFX,
             IndicatorVFX = null,
@@ -232,7 +232,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/FireMeteor",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "",
+            Sound = "Design/Music/Sounds/Skill 4",
             AnimatorProperty = "Attack_Magic_02",
 
             IsRestraining = false,
@@ -280,7 +280,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Assassinskill_29"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Assassinskill_29"),
             PlayergroundVFX = PlayergroundVFX,
             MaxRangeVFX = null,
             IndicatorVFX = null,
@@ -289,12 +289,12 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/vfx_heal",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "HealthRegen_Sound",
+            Sound = "Design/Music/Sounds/HealthRegen_Sound",
             AnimatorProperty = "Attack_Magic_03",
 
             IsRestraining = false,
             IsInvisible = false,
-            IsPasive = true,
+            IsPasive = false,
             IsBuff = false,
             IsProjectile = false,
             IsRecharged = false,
@@ -337,7 +337,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 20,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/BonusIcons/10newicons/Standart/Update_04"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Update_04"),
             PlayergroundVFX = null,
             MaxRangeVFX = MaxRangeVFX,
             IndicatorVFX = null,
@@ -394,7 +394,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 15,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_nobg/Shamanskill_27_nobg"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Shamanskill_27"),
             PlayergroundVFX = null,
             MaxRangeVFX = MaxRangeVFX,
             IndicatorVFX = null,
@@ -403,7 +403,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/LightningStrike",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "",
+            Sound = "Design/Music/Sounds/Skill 2",
             AnimatorProperty = "Attack_Magic_02",
 
             IsRestraining = false,
@@ -451,7 +451,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Mageskill_26"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Mageskill_26"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,
@@ -460,7 +460,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/IceBurstAttack",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "",
+            Sound = "Design/Music/Sounds/Skill 8",
             AnimatorProperty = "Attack_Magic_03",
 
             IsRestraining = false,
@@ -484,7 +484,7 @@ public class SkillLibrary : MonoBehaviour
             SkillName = "Knives Rain",
 
             PhysicalDamage = 0,
-            MagicDamage = 50,
+            MagicDamage = 20,
             SoulDamage = 0,
 
             HealthBuff = 0,
@@ -508,7 +508,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Assassinskill_42"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Assassinskill_42"),
             PlayergroundVFX = PlayergroundVFX,
             MaxRangeVFX = null,
             IndicatorVFX = IndicatorVFX,
@@ -517,7 +517,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/KnivesRain",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "",
+            Sound = "Design/Music/Sounds/Skill 1",
             AnimatorProperty = "Attack_Magic_01",
 
             IsRestraining = false,
@@ -541,7 +541,7 @@ public class SkillLibrary : MonoBehaviour
             SkillName = "Meteor shower 2",
 
             PhysicalDamage = 0,
-            MagicDamage = 150,
+            MagicDamage = 50,
             SoulDamage = 0,
 
             HealthBuff = 0,
@@ -565,7 +565,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 30,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Mageskill_02"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Mageskill_02"),
             PlayergroundVFX = null,
             MaxRangeVFX = MaxRangeVFX,
             IndicatorVFX = null,
@@ -574,7 +574,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/Meteor shower_2",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "",
+            Sound = "Design/Music/Sounds/Skill 10",
             AnimatorProperty = "Attack_Magic_03",
 
             IsRestraining = false,
@@ -622,7 +622,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Archerskill_45"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Archerskill_45"),
             PlayergroundVFX = PlayergroundVFX,
             MaxRangeVFX = null,
             IndicatorVFX = IndicatorVFX,
@@ -631,7 +631,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/Projectile/Wind_Arrow",
             SkillHitPrefab = "Prefabs/Skill/Hit/Wind Arrow Hit",
             SkillFlashPrefab = "Prefabs/Skill/Flash/Wind Arrow Flash",
-            Sound = "",
+            Sound = "Design/Music/Sounds/Wind Arrow",
             AnimatorProperty = "Attack_Magic_01",
 
             IsRestraining = false,
@@ -679,7 +679,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Archerskill_05"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Archerskill_05"),
             PlayergroundVFX = PlayergroundVFX,
             MaxRangeVFX = null,
             IndicatorVFX = IndicatorVFX,
@@ -687,7 +687,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/Projectile/Energy_Arrow",
             SkillHitPrefab = "Prefabs/Skill/Hit/Energy_Arrow_Hit",
             SkillFlashPrefab = null,
-            Sound = "",
+            Sound = "Design/Music/Sounds/Energy arrow",
             AnimatorProperty = "Attack_Magic_01",
 
             IsRestraining = false,
@@ -735,7 +735,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/BonusIcons/Basic_Spells/Normal/13_frost_arrow"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/13_frost_arrow"),
             PlayergroundVFX = PlayergroundVFX,
             MaxRangeVFX = null,
             IndicatorVFX = IndicatorVFX,
@@ -792,7 +792,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Mageskill_50"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Mageskill_50"),
             PlayergroundVFX = PlayergroundVFX,
             MaxRangeVFX = null,
             IndicatorVFX = IndicatorVFX,
@@ -849,7 +849,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Mageskill_48"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Mageskill_48"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,
@@ -858,7 +858,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/Ice_spikes",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "",
+            Sound = "Design/Music/Sounds/Skill 8",
             AnimatorProperty = "Attack_Magic_01",
 
             IsRestraining = false,
@@ -906,7 +906,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Mageskill_06"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Mageskill_06"),
             PlayergroundVFX = PlayergroundVFX, 
             MaxRangeVFX = null,
             IndicatorVFX = IndicatorVFX,
@@ -915,7 +915,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/Magic_Bullets",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "",
+            Sound = "Design/Music/Sounds/Skill 9",
             AnimatorProperty = "Attack_Magic_04",
 
             IsRestraining = false,
@@ -963,7 +963,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/BonusIcons/neutral_skills/dragon_firebreath"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/dragon_coldbreath"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,
@@ -972,7 +972,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/Dragon punch",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "",
+            Sound = "Design/Music/Sounds/Skill 5",
             AnimatorProperty = "Attack_Magic_01",
 
             IsRestraining = false,
@@ -1020,7 +1020,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Mageskill_19"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Mageskill_19"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,
@@ -1077,7 +1077,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/500_skillicons/Skill_standart/Engineerskill_43"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,
