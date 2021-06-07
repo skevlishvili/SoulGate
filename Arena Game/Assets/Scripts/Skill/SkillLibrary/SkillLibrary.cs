@@ -100,8 +100,8 @@ public class SkillLibrary : MonoBehaviour
             SkillPriceMoney = 200,
             SkillPriceXp = 0,
 
-            Duration = 1,
-            Cooldown = 30,
+            Duration = 2,
+            Cooldown = 15,
             ActivationTime = 0,
             ProjectileSpeed = 0,
             MaxRechargingTime = 0,
