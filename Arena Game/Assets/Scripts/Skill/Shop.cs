@@ -230,6 +230,7 @@ public class Shop : MonoBehaviour
         playerUnitStats.Money -= Spell.SkillPriceMoney;
         //playerActionObj.PlayerSkills[index] = _SkillIndex;
         //Menu.OpenMenu("");//if it is empty it will close everything
+        playerAbilities.ChangePassiveSkill(Spell, index);
         PassiveSkill.Close();
         ActiveSkill.Close();
     }
@@ -274,7 +275,14 @@ public class Shop : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            ShopHUDimagesObj[i].sprite = playerAbilities.PlayerAbillities[i].Skill.SkillImageUIVFX;
+            if (playerAbilities.PlayerAbillities[i].Skill != null)
+            {
+                ShopHUDimagesObj[i].sprite = playerAbilities.PlayerAbillities[i].Skill.SkillImageUIVFX;
+            }
+            else
+            {
+                ShopHUDimagesObj[i].sprite = null;
+            }
         }
     }
 
@@ -282,7 +290,14 @@ public class Shop : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            ShopHUDimagesObj[4+i].sprite = playerAbilities.PlayerPassives[i].Skill.SkillImageUIVFX;
+            if (playerAbilities.PlayerPassives[i].Skill != null)
+            {
+                ShopHUDimagesObj[4 + i].sprite = playerAbilities.PlayerPassives[i].Skill.SkillImageUIVFX;
+            }
+            else
+            {
+                ShopHUDimagesObj[4 + i].sprite = null;
+            }
         }
     }
 

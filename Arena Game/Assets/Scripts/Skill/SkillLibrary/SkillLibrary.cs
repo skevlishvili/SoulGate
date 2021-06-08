@@ -294,7 +294,7 @@ public class SkillLibrary : MonoBehaviour
 
             IsRestraining = false,
             IsInvisible = false,
-            IsPasive = false,
+            IsPasive = true,
             IsBuff = false,
             IsProjectile = false,
             IsRecharged = false,

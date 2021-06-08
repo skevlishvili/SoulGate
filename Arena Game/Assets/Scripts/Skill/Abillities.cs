@@ -382,7 +382,7 @@ public class Abillities : NetworkBehaviour
     public void ChangePassiveSkill(Skill skill, int index)
     {
         PlayerPassives[index].Skill = skill;
-        //HudContentController hudConetnt = gameObject.GetComponentInChildren<HudContentController>();
-        //hudConetnt.LoadSkillUiImagesInHUD();
+        HudContentController hudConetnt = gameObject.GetComponentInChildren<HudContentController>();
+        hudConetnt.LoadPassiveSkillUiImagesInHUD();
     }
 }

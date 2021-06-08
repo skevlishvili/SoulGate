@@ -14,11 +14,11 @@ public class ManaCrystal : MonoBehaviour
 
     void Start()
     {
-        CrystalHealth = 2500;
+        CrystalHealth = 1000;
         IsDestroyed = false;
 
-        Crystal_Position = gameObject.transform.localPosition;
-        Crystal_Rotation = gameObject.transform.localRotation;
+        Crystal_Position = gameObject.transform.position;
+        Crystal_Rotation = gameObject.transform.rotation;
         Crystal_Rotation.z = 0;
         Crystal_Rotation.x = 0;
 

@@ -128,7 +128,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Spell")
@@ -165,6 +165,7 @@ public class Tower : MonoBehaviour
         }
     }
 
+    [Server]
     private void OnParticleCollision(GameObject other)
     {
         Projectile projectile = other.GetComponent<Projectile>();
@@ -173,6 +174,7 @@ public class Tower : MonoBehaviour
 
         float Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
 
+
         if (other.tag == "Spell")
         {
             if (LastColliderdObjectid == other.gameObject.GetComponent<NetworkIdentity>())
@@ -180,8 +182,10 @@ public class Tower : MonoBehaviour
                 return;
             }
 
-            Debug.Log(TowerHealth);
+            LastColliderdObjectid = other.gameObject.GetComponent<NetworkIdentity>();
+
             takeDamage(Damage);
+            Debug.Log(TowerHealth);
         }
     }
 }
