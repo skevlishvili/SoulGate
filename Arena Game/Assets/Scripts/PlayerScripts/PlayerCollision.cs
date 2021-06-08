@@ -8,6 +8,9 @@ public class PlayerCollision : NetworkBehaviour
     [SerializeField]
     private Unit unitStat;
 
+    NetworkIdentity LastColliderdObjectid;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +67,29 @@ public class PlayerCollision : NetworkBehaviour
         projectile.DestroyProjectile(gameObject.transform.position);
 
         unitStat.TakeDamage(damage, projectile.player);
+    }
+
+    [Server]
+    private void OnParticleCollision(GameObject other)
+    {
+        Projectile projectile = other.GetComponent<Projectile>();
+        if (projectile == null)
+            return;
+
+        float Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
+
+
+        if (other.tag == "Spell")
+        {
+            if (LastColliderdObjectid == other.gameObject.GetComponent<NetworkIdentity>())
+            {
+                return;
+            }
+
+            LastColliderdObjectid = other.gameObject.GetComponent<NetworkIdentity>();
+
+            unitStat.TakeDamage(Damage, projectile.player);
+        }
     }
 
 
