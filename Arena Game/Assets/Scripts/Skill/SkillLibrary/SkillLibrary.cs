@@ -118,7 +118,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/FireStorm",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "Design/Music/Sounds/Fireball_Sound",
+            Sound = "Design/Music/Sounds/mage-fireball-skill",
             AnimatorProperty = "Attack_Magic_04",
 
             IsRestraining = false,
@@ -139,7 +139,7 @@ public class SkillLibrary : MonoBehaviour
 
         Skills[3] = new Skill
         {
-            SkillName = "FireWall",
+            SkillName = "Magic Trap",
 
             PhysicalDamage = 0,
             MagicDamage = 0,
@@ -156,29 +156,29 @@ public class SkillLibrary : MonoBehaviour
             SkillPriceMoney = 200,
             SkillPriceXp = 0,
 
-            Duration = 0,
-            Cooldown = 0,
+            Duration = 5,
+            Cooldown = 30,
             ActivationTime = 0,
             ProjectileSpeed = 0,
             MaxRechargingTime = 0,
 
-            AttackRadius = 0,
-            Distance = 0,
+            AttackRadius = 5,
+            Distance = 25,
             
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Mageskill_23"),
             PlayergroundVFX = null,
-            MaxRangeVFX = null,
+            MaxRangeVFX = MaxRangeVFX,
             IndicatorVFX = null,
-            TargetVFX = null,
+            TargetVFX = TargetVFX,
             BurstVFX = null,
-            Skill3DModel = "Prefabs/Skill/AOE/vfx_heal",
+            Skill3DModel = "Prefabs/Skill/AOE/Trap",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "Fireball_Sound",
+            Sound = "Design/Music/Sounds/effect",
             AnimatorProperty = "Attack_Magic_02",
 
-            IsRestraining = false,
+            IsRestraining = true,
             IsInvisible = false,
             IsPasive = false,
             IsBuff = false,
@@ -188,8 +188,8 @@ public class SkillLibrary : MonoBehaviour
 
             HasPlayergroundVFX = false,
             HasIndicator = false,
-            HasMaxRange = false,
-            HasTargetVFX = false,
+            HasMaxRange = true,
+            HasTargetVFX = true,
             HasBurstVFX = false,
             HasRecharging = false
         };
@@ -744,7 +744,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/Projectile/Ice_Bullet",
             SkillHitPrefab = "Prefabs/Skill/Hit/Ice_Bullet_Hit",
             SkillFlashPrefab = "Prefabs/Skill/Flash/Ice_Bullet_Flash",
-            Sound = "",
+            Sound = "Design/Music/Sounds/wet-spell-shoot",
             AnimatorProperty = "Attack_Magic_01",
 
             IsRestraining = false,
@@ -801,7 +801,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/Projectile/Micro_Sun",
             SkillHitPrefab = "Prefabs/Skill/Hit/Micro_Sun_Hit",
             SkillFlashPrefab = "Prefabs/Skill/Flash/Micro_Sun_Flash",
-            Sound = "",
+            Sound = "Design/Music/Sounds/Fireball Launch",
             AnimatorProperty = "Attack_Magic_01",
 
             IsRestraining = false,
@@ -972,7 +972,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/Dragon punch",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "Design/Music/Sounds/Skill 5",
+            Sound = "Design/Music/Sounds/demonic-anger",
             AnimatorProperty = "Attack_Magic_01",
 
             IsRestraining = false,
@@ -996,7 +996,7 @@ public class SkillLibrary : MonoBehaviour
             SkillName = "Dust Burst",
 
             PhysicalDamage = 0,
-            MagicDamage = 20,
+            MagicDamage = 100,
             SoulDamage = 0,
 
             HealthBuff = 0,
@@ -1029,7 +1029,7 @@ public class SkillLibrary : MonoBehaviour
             Skill3DModel = "Prefabs/Skill/AOE/Dust_Burst",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
-            Sound = "",
+            Sound = "Design/Music/Sounds/Skill 5",
             AnimatorProperty = "Attack_Magic_02",
 
             IsRestraining = false,
