@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 466080851131712515}
   - component: {fileID: 466080851131712512}
-  - component: {fileID: 466080851131712513}
+  - component: {fileID: 6656268382090967825}
   m_Layer: 0
   m_Name: RoundManager
   m_TagString: Untagged
@@ -45,13 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5176a60b6ac1564b93fa71b3cf29c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PV: {fileID: 0}
-  LocalPlayerGameObject: {fileID: 0}
-  LocalPlayerAction: {fileID: 0}
-  RoundText: {fileID: 0}
-  AlivePlayers: 0
-  ReadyPlayers: 0
---- !u!114 &466080851131712513
+  syncMode: 0
+  syncInterval: 0.1
+  RoundTextObj: {fileID: 0}
+  RoundText: 
+  CurrentRound: 1
+  MaxRounds: 20
+  Manager: {fileID: 0}
+  Ready: {fileID: 0}
+--- !u!114 &6656268382090967825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,19 +62,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 466080851131712518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 2
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1505351144531655138
 GameObject:
   m_ObjectHideFlags: 0

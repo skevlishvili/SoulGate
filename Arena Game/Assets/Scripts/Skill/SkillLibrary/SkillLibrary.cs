@@ -21,7 +21,7 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "EmptySlot",
 
-            SkillImageUIVFX = Resources.Load<Sprite>("unity_builtin_extra"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/UI/Shop"),
         };
 
         Skills[1] = new Skill

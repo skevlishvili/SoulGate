@@ -117,9 +117,9 @@ public class Shop : MonoBehaviour
             string Consumption = "";
 
             #region Damage
-            Damage += Spell.PhysicalDamage == 0 ? "" : $"Physical: {Spell.PhysicalDamage},";
-            Damage += Spell.MagicDamage == 0 ? "" : $" Magical: {Spell.MagicDamage},";
-            Damage += Spell.SoulDamage == 0 ? "" : $" Soul: {Spell.SoulDamage}";
+            Damage += Spell.PhysicalDamage == 0 ? "" : $"\nPhysical: {Spell.PhysicalDamage},";
+            Damage += Spell.MagicDamage == 0 ? "" : $"\nMagical: {Spell.MagicDamage},";
+            Damage += Spell.SoulDamage == 0 ? "" : $"\nSoul: {Spell.SoulDamage}";
             #endregion
 
 
@@ -160,19 +160,19 @@ public class Shop : MonoBehaviour
         switch (value.value)
         {
             case 0:
-                Skills_Shop = skills.OrderBy(x => x.SkillPriceMoney).ToArray();
+                Skills_Shop = skills.OrderBy(x => x.SkillPriceMoney).Where(x=> x.SkillName != "EmptySlot").ToArray();
                 break;
             case 1:
-                Skills_Shop = skills.OrderBy(x => x.SkillName).ToArray();
+                Skills_Shop = skills.OrderBy(x => x.SkillName).Where(x => x.SkillName != "EmptySlot").ToArray();
                 break;
             case 2:
-                Skills_Shop = skills.OrderBy(x => x.PhysicalDamage).ToArray();
+                Skills_Shop = skills.OrderBy(x => x.PhysicalDamage).Where(x => x.SkillName != "EmptySlot").ToArray();
                 break;
             case 3:
-                Skills_Shop = skills.OrderBy(x => x.MagicDamage).ToArray();
+                Skills_Shop = skills.OrderBy(x => x.MagicDamage).Where(x => x.SkillName != "EmptySlot").ToArray();
                 break;
             case 4:
-                Skills_Shop = skills.OrderBy(x => x.SoulDamage).ToArray();
+                Skills_Shop = skills.OrderBy(x => x.SoulDamage).Where(x => x.SkillName != "EmptySlot").ToArray();
                 break;
             default:
                 break;
@@ -194,26 +194,6 @@ public class Shop : MonoBehaviour
         {
             Skills_Shop = SkillLibrary.Skills.Where(x => x.IsPasive == true).ToArray();
         }
-
-
-        if (DropdownObj[2].value == 1)
-        {
-            Skills_Shop = SkillLibrary.Skills.Where(x => x.IsBuff == false).ToArray();
-        }
-        else if (DropdownObj[2].value == 2)
-        {
-            Skills_Shop = SkillLibrary.Skills.Where(x => x.IsBuff == true).ToArray();
-        }
-
-        //-------------------------------------------Attribute search is not complete--------------------------------------------
-        //if (DropdownObj[3].value == 1)
-        //{
-        //    Skills_Shop = SkillLibrary.Skills.Where(x => x.IsPasive == false).ToArray();
-        //}
-        //else if (DropdownObj[3].value == 2)
-        //{
-        //    Skills_Shop = SkillLibrary.Skills.Where(x => x.IsPasive == true).ToArray();
-        //}
 
         SearchDropDownChange(DropdownObj[0]);
     }
@@ -306,7 +286,7 @@ public class Shop : MonoBehaviour
             }
             else
             {
-                ShopHUDimagesObj[i].sprite = null;
+                ShopHUDimagesObj[i].sprite = Resources.Load<Sprite>("Design/UI/Shop"); ;
             }
         }
     }
@@ -321,7 +301,7 @@ public class Shop : MonoBehaviour
             }
             else
             {
-                ShopHUDimagesObj[4 + i].sprite = null;
+                ShopHUDimagesObj[4 + i].sprite = Resources.Load<Sprite>("Design/UI/Shop"); ;
             }
         }
     }
@@ -339,7 +319,6 @@ public class Shop : MonoBehaviour
     public bool CanBuy() {
         if (Spell.SkillName == null)
             return false;
-        //_SkillIndex = HelpMethods.GetSkillIndexByName(Spell.SkillName);
 
         //Check If player already has skill
         if (playerAbilities.PlayerAbillities.FirstOrDefault(p => p.Skill == Spell) != null)
