@@ -18,7 +18,6 @@ public class Abillities : NetworkBehaviour
     //bool[] isActivating;
 
     private int CurrentAbillity;
-    float PassiveCooldown = 0;
 
     #region Referances
     RaycastHit hit;
@@ -132,30 +131,15 @@ public class Abillities : NetworkBehaviour
 
     private void ApplyPassives()
     {
-        float MaxHealth = 0;
-        float HealthRegen = 0;
-        float PhysicalDefence = 0;
-        float MagicDefence =0;
-        float Damage = 0;
-        float Agility = 0;
-        float MoneyRegen = 0;
-        PassiveCooldown = 0;
-
         foreach (var item in PlayerPassives)
         {
             if (item.Skill != null)
             {
-                MaxHealth += item.Skill.HealthBuff;
-                HealthRegen += item.Skill.HealthRegenBuff;
-                PhysicalDefence += item.Skill.PhysicalDefenceBuff;
-                MagicDefence += item.Skill.MagicDefenceBuff;
-                Damage += item.Skill.DamageBuff;
-                Agility += item.Skill.AgilityBuff;
-                MoneyRegen += item.Skill.MoneyRegenBuff;
-                PassiveCooldown += item.Skill.CooldownBuff;
+                item.Skill.Passive(item.Skill, player.gameObject);
             }
         }
-        unitStat.ChangeUnitStats(MaxHealth, HealthRegen, PhysicalDefence, MagicDefence, Damage, Agility, MoneyRegen);
+
+        PassiveSkillsfunctionality.UnitStatsPassiveSum = new UnitStruct();
     }
 
 
@@ -261,7 +245,9 @@ public class Abillities : NetworkBehaviour
         {
             if (PlayerAbillities[i].ActiveCoolDown)
             {
-                var cooldown = PlayerAbillities[i].Skill.Cooldown - PlayerAbillities[i].Skill.Cooldown * PassiveCooldown;
+                var cooldown = PlayerAbillities[i].Skill.Cooldown - PlayerAbillities[i].Skill.Cooldown * unitStat.AbilityCooldown;
+                
+                Debug.Log(unitStat.AbilityCooldown);
                 //TODO change
                 SkillImageUIVFX[i].fillAmount -= 1 / cooldown * Time.deltaTime;
 

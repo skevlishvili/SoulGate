@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillLibrary : MonoBehaviour
 {
-    public static Skill[] Skills = new Skill[28];
+    public static Skill[] Skills = new Skill[30];
 
     public static Skill[] TowerSkills = new Skill[1];
 
@@ -1162,6 +1162,9 @@ public class SkillLibrary : MonoBehaviour
             HasRecharging = false
         };
 
+
+
+        //Passives
         Skills[20] = new Skill
         {
             SkillName = "Warrior Heath",
@@ -1533,7 +1536,7 @@ public class SkillLibrary : MonoBehaviour
             HealthBuff = 0,
             HealthRegenBuff = 0,
             PhysicalDefenceBuff = 0,
-            MagicDefenceBuff = 20,
+            MagicDefenceBuff = 0,
             DamageBuff = 0,
             AgilityBuff = 0,
             CooldownBuff = 0.1f,
@@ -1642,6 +1645,125 @@ public class SkillLibrary : MonoBehaviour
             HasRecharging = false
         };
 
+        Skills[28] = new Skill
+        {
+            SkillName = "Berserk",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            HealthRegenBuff = 1,
+            PhysicalDefenceBuff = 20,
+            MagicDefenceBuff = 20,
+            DamageBuff = 20,
+            AgilityBuff = 5,
+            CooldownBuff = 0,
+            MoneyRegenBuff = 0,
+
+            HealthConsumption = 0,
+
+            SkillPriceMoney = 1000,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            AttackRadius = 0,
+            Distance = 0,
+
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            BurstVFX = null,
+            Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
+            Sound = "",
+            AnimatorProperty = "",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasBurstVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[29] = new Skill
+        {
+            SkillName = "Last Breathe",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            HealthRegenBuff = 5,
+            PhysicalDefenceBuff = 50,
+            MagicDefenceBuff = 50,
+            DamageBuff = 50,
+            AgilityBuff = 10,
+            CooldownBuff = 0,
+            MoneyRegenBuff = 0,
+
+            HealthConsumption = 0,
+
+            SkillPriceMoney = 1000,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            AttackRadius = 0,
+            Distance = 0,
+
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            BurstVFX = null,
+            Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
+            Sound = "",
+            AnimatorProperty = "",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasBurstVFX = false,
+            HasRecharging = false
+        };
 
         //Tower Skills ------------------------------------------------------------------------------------------
 

@@ -15,6 +15,8 @@ public class Projectile : NetworkBehaviour
     public GameObject hit;
     public GameObject flash;
     private Rigidbody rb;
+    public GameObject player;
+
 
     //-----Audio------------------
     GameObject AudioManagerObj;
@@ -25,7 +27,6 @@ public class Projectile : NetworkBehaviour
     
 
     //Useless parts
-    public GameObject player;
     public bool UseFirePointRotation;
     public float hitOffset = 0f;
     public Vector3 rotationOffset = new Vector3(0, 0, 0);
@@ -35,16 +36,19 @@ public class Projectile : NetworkBehaviour
 
     void Start()
     {
+        player = ClientScene.localPlayer.gameObject;
+        Unit unitStats = player.GetComponent<Unit>(); 
+
         Spell = SkillLibrary.Skills[SkillIndex];
         rb = GetComponent<Rigidbody>();
         AudioManagerObj = GameObject.FindGameObjectWithTag("Audio");
         AudioManagerScript audioManager = AudioManagerObj.GetComponent<AudioManagerScript>();
         audioManager.PlaySound(SkillIndex, AudioRepeating, AudioStartTime, AudioRepeatTime);
 
-
-        damage.Add(Spell.PhysicalDamage);
-        damage.Add(Spell.MagicDamage);
-        damage.Add(Spell.SoulDamage);
+        float BasicDamage = unitStats.Damage / 3;
+        damage.Add(Spell.PhysicalDamage + BasicDamage);
+        damage.Add(Spell.MagicDamage + BasicDamage);
+        damage.Add(Spell.SoulDamage + BasicDamage);
 
         speed = Spell.ProjectileSpeed;
 

@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public delegate void SkillDelegate(Skill Skill, GameObject Player);
+
 public class Skill
 {
+    public SkillDelegate Passive;
+
     public string SkillName;// name
 
     //Damage Types

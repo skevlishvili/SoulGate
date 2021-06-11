@@ -1,6 +1,7 @@
 ﻿using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +26,7 @@ public class Health : NetworkBehaviour
         healthSlider2D = GetComponentInChildren<Slider>();
         healthSlider3D = GetComponentInChildren<Slider>();
 
-        Healthtext.text = $"{unitstat.Health}/{unitstat.MaxHealth}";
+        Healthtext.text = $"{(int)unitstat.Health}/{(int)unitstat.MaxHealth}";
 
         healthSlider2D.maxValue = unitstat.MaxHealth;
         healthSlider3D.maxValue = unitstat.MaxHealth;
@@ -70,7 +71,8 @@ public class Health : NetworkBehaviour
     //// Update is called once per frame
     void Update()
     {
-        Healthtext.text = $"{unitstat.Health}/{unitstat.MaxHealth}";
+        
+        Healthtext.text = $"{(int)unitstat.Health}/{(int)unitstat.MaxHealth}";
 
         healthSlider2D.maxValue = unitstat.MaxHealth;
         healthSlider3D.maxValue = unitstat.MaxHealth; 

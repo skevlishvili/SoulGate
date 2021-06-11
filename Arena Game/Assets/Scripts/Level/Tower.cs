@@ -148,12 +148,19 @@ public class Tower : MonoBehaviour
             //Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact);
             Quaternion rot = Quaternion.FromToRotation(Vector3.zero, Vector3.zero);
             Vector3 pos = contact + contact.normalized;
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit))
+            {
+                contact = hit.point;
+            }
+
             //----------------------------------------------------------------------------------------------------------
 
             if (Spell.SkillHitPrefab != null)
             {
-                GameObject hit = (GameObject)Resources.Load(Spell.SkillHitPrefab);
-                var hitInstance = Instantiate(hit, pos, rot);
+                GameObject hitPrefab = (GameObject)Resources.Load(Spell.SkillHitPrefab);
+                var hitInstance = Instantiate(hitPrefab, pos, rot);
                 hitInstance.transform.LookAt(contact + contact.normalized);
             }
 

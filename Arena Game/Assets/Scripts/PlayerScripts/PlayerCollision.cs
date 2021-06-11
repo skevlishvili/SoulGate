@@ -41,7 +41,7 @@ public class PlayerCollision : NetworkBehaviour
 
         //ProjPV = other.GetComponent<PhotonView>();
 
-        float damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
+        float damage = (1 - unitStat.PhysicalDefence / 100) * projectile.damage[0] + (1 - unitStat.MagicDefence / 100) * projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
 
         Debug.Log("is it triggering?");
 
@@ -76,7 +76,7 @@ public class PlayerCollision : NetworkBehaviour
         if (projectile == null)
             return;
 
-        float Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
+        float Damage = (1 - unitStat.PhysicalDefence / 100) * projectile.damage[0] + (1 - unitStat.MagicDefence / 100) * projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
 
 
         if (other.tag == "Spell")

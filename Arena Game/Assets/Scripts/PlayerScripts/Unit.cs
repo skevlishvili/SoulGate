@@ -3,6 +3,19 @@ using Mirror;
 using System;
 using UnityEngine;
 
+public struct UnitStruct
+{
+    public float Health;
+    public float HealthRegen;
+    public float PhysicalDefence;
+    public float MagicDefence;
+    public float Damage;
+    public float Agility;
+    public float MoneyRegen;
+    public float AbilityCooldown;
+}
+
+
 public class Unit : NetworkBehaviour
 {
     [Header("Settings")]
@@ -13,6 +26,8 @@ public class Unit : NetworkBehaviour
     public float baseDamage = 20;
     public float baseAgility = 20;
     public float baseMoneyRegen = 1;
+    public float baseAbilityCooldown = 0;
+
 
     public float MaxHealth;
     public float HealthRegen;
@@ -21,6 +36,7 @@ public class Unit : NetworkBehaviour
     public float Damage;
     public float Agility;
     public float MoneyRegen;
+    public float AbilityCooldown;
 
     public float Money = 5000;
 
@@ -62,6 +78,7 @@ public class Unit : NetworkBehaviour
         Damage = baseDamage;
         Agility = baseAgility;
         MoneyRegen = baseMoneyRegen;
+        AbilityCooldown = baseAbilityCooldown;
 
         IsDead = false;
 
@@ -76,6 +93,7 @@ public class Unit : NetworkBehaviour
                 //playerScore.EventScoreChange += PlayerScore_EventScoreChange;
             }
         }
+
     }
 
     [Client]
@@ -89,26 +107,27 @@ public class Unit : NetworkBehaviour
     {
         if (isServer)
             CheckDeath();
+
+        PassiveIncome();
     }
 
-    public void ChangeUnitStats(float HealthBuff, float HealthRegenBuff, float PhysicalDefenceBuff, float MagicDefenceBuff, float DamageBuff, float AgilityBuff, float MoneyRegenBuff)
+    public void ChangeUnitStats(float[] Values)
     {
-        MaxHealth = baseMaxHealth + HealthBuff;
-        HealthRegen = baseHealthRegen + HealthRegenBuff;
-        PhysicalDefence = basePhysicalDefence + PhysicalDefenceBuff;
-        MagicDefence = baseMagicDefence + MagicDefenceBuff;
-        Damage = baseDamage + DamageBuff;
-        Agility = baseAgility + AgilityBuff;
-        MoneyRegen = baseMoneyRegen + MoneyRegenBuff;
-
-        Debug.Log(MaxHealth);
+        MaxHealth = baseMaxHealth + Values[0];
+        HealthRegen = baseHealthRegen + Values[1];
+        PhysicalDefence = basePhysicalDefence + Values[2];
+        MagicDefence = baseMagicDefence + Values[3];
+        Damage = baseDamage + Values[4];
+        Agility = baseAgility + Values[5];
+        MoneyRegen = baseMoneyRegen + Values[6];
+        AbilityCooldown = baseAbilityCooldown + Values[7];
     }
 
     private void PassiveIncome()
     {
         if (roundManager.CurrentState == RoundManager.RoundState.RoundStart)
         {
-            Money += MoneyRegen;
+            Money += MoneyRegen * Time.deltaTime;
         }
     }
 

@@ -345,6 +345,12 @@ public class Shop : MonoBehaviour
             return false;
         }
 
+        if (playerAbilities.PlayerPassives.FirstOrDefault(p => p.Skill == Spell) != null)
+        {
+            //tell player that he already has skill
+            Debug.LogWarning("Player already has this skill");
+            return false;
+        }
 
         //Check If Conditions are met to buy skill
         if (Spell.SkillPriceMoney > playerUnitStats.Money)
