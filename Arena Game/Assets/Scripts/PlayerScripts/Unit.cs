@@ -3,26 +3,56 @@ using Mirror;
 using System;
 using UnityEngine;
 
+public struct UnitStruct
+{
+    public float Health;
+    public float HealthRegen;
+    public float PhysicalDefence;
+    public float MagicDefence;
+    public float Damage;
+    public float Agility;
+    public float MoneyRegen;
+    public float AbilityCooldown;
+}
+
+
 public class Unit : NetworkBehaviour
 {
     [Header("Settings")]
-    public float MaxHealth = 100;
-    public float MaxMana = 100;
+    public float baseMaxHealth = 100;
+    public float baseHealthRegen = 1;
+    public float basePhysicalDefence = 20;
+    public float baseMagicDefence = 20;
+    public float baseDamage = 20;
+    public float baseAgility = 20;
+    public float baseMoneyRegen = 1;
+    public float baseAbilityCooldown = 0;
+
+
+    public float MaxHealth;
+    public float HealthRegen;
+    public float PhysicalDefence;
+    public float MagicDefence;
+    public float Damage;
+    public float Agility;
+    public float MoneyRegen;
+    public float AbilityCooldown;
+
+    public float Money = 5000;
+
+    [SyncVar]
+    public bool IsDead = false;
+    [SyncVar]
+    public bool IsReady = false;
+
 
     [SyncVar]
     [SerializeField] private float _health = 100;
-    [SerializeField] private float _mana = 100;
 
     public float Health
     {
         get { return _health; }
         private set { _health = value; }
-    }
-
-    public float Mana
-    {
-        get { return _mana; }
-        private set { _mana = value; }
     }
 
 
@@ -34,25 +64,23 @@ public class Unit : NetworkBehaviour
     public delegate void PlayerDeathDelegate(GameObject currentPlayer, GameObject killerPlayer);
     public event PlayerDeathDelegate EventPlayerDeath;
 
-
-    public float Money = 5000;
-    public float PhysicalDefence = 5; //% procentulia
-    public float MagicDefence = 10;//% procentulia
-    public float Agility = 20;
-    public float Strength = 20;
-    public float Intelligence = 20;
-    [SyncVar]
-    public bool IsDead = false;
-    [SyncVar]
-    public bool IsReady = false;
     public PlayerAnimator Animator;
     private GameObject lastDamageReceivedFrom;
     private RoundManager roundManager;
     private PlayerScore playerScore;
 
-
     private void Start()
     {
+        MaxHealth = baseMaxHealth;
+        HealthRegen = baseHealthRegen;
+        PhysicalDefence = basePhysicalDefence;
+        MagicDefence = baseMagicDefence;
+        Damage = baseDamage;
+        Agility = baseAgility;
+        MoneyRegen = baseMoneyRegen;
+        AbilityCooldown = baseAbilityCooldown;
+
+        IsDead = false;
 
         var roundMangerObjs = GameObject.FindGameObjectsWithTag("RoundManager");
         if (roundMangerObjs.Length > 0 && roundMangerObjs[0] != null)
@@ -61,11 +89,11 @@ public class Unit : NetworkBehaviour
             if (isClient)
             {
                 InvokeRepeating("PassiveIncome", 1.0f, 1.0f);
-
                 playerScore = gameObject.GetComponent<PlayerScore>();
-                playerScore.EventScoreChange += PlayerScore_EventScoreChange;
+                //playerScore.EventScoreChange += PlayerScore_EventScoreChange;
             }
         }
+
     }
 
     [Client]
@@ -73,11 +101,34 @@ public class Unit : NetworkBehaviour
     {
         Money += score;
     }
+    
 
     private void Update()
     {
-        if(isServer)
-            CheckDeath();       
+        if (isServer)
+            CheckDeath();
+
+        PassiveIncome();
+    }
+
+    public void ChangeUnitStats(float[] Values)
+    {
+        MaxHealth = baseMaxHealth + Values[0];
+        HealthRegen = baseHealthRegen + Values[1];
+        PhysicalDefence = basePhysicalDefence + Values[2];
+        MagicDefence = baseMagicDefence + Values[3];
+        Damage = baseDamage + Values[4];
+        Agility = baseAgility + Values[5];
+        MoneyRegen = baseMoneyRegen + Values[6];
+        AbilityCooldown = baseAbilityCooldown + Values[7];
+    }
+
+    private void PassiveIncome()
+    {
+        if (roundManager.CurrentState == RoundManager.RoundState.RoundStart)
+        {
+            Money += MoneyRegen * Time.deltaTime;
+        }
     }
 
 
@@ -133,12 +184,9 @@ public class Unit : NetworkBehaviour
         if (IsDead)
             return;
 
-        float HealthRegen = 2;
         //float ManaRegen = 10;
 
-
         Regen(HealthRegen);
-
 
         //if ((unitStat.Mana + ManaRegen) <= unitStat.MaxMana)
         //{
@@ -155,7 +203,6 @@ public class Unit : NetworkBehaviour
     [Server]
     public void Revive() {
         _health = MaxHealth;
-        _mana = MaxMana;
         IsDead = false;
 
         ReviveRpc();
@@ -216,7 +263,6 @@ public class Unit : NetworkBehaviour
     private void ReviveRpc()
     {
         _health = MaxHealth;
-        _mana = MaxMana;
         IsDead = false;
         Animator.IsAlive();
     }
@@ -228,8 +274,6 @@ public class Unit : NetworkBehaviour
         IsDead = true;
         Animator.IsDead();
     }
-
-
 
     //[ClientRpc]
     //private void ReadyRpc()

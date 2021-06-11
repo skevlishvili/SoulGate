@@ -12,11 +12,11 @@ public class EffectsOnPlayer : MonoBehaviour
 
     void Start()
     {
-        Player_PrefabObj = GameObject.FindGameObjectWithTag("Player");
+        Player_PrefabObj = GameObject.FindGameObjectWithTag("Player");// gadasaweria mirrorze
         unitStat = Player_PrefabObj.GetComponentInChildren<Unit>();
 
         Spell = SkillLibrary.Skills[SkillIndex];
-        StartCoroutine(DestroyObject());
+        //StartCoroutine(DestroyObject());
 
         if (Spell.IsPasive)
         {
@@ -33,7 +33,7 @@ public class EffectsOnPlayer : MonoBehaviour
 
     void ActiveEffect()
     {
-        if (Spell.HealthBuff != 0 || Spell.ManaBuff != 0)
+        if (Spell.HealthBuff != 0)
         {
             Regeneration();
         }
@@ -41,7 +41,7 @@ public class EffectsOnPlayer : MonoBehaviour
 
     void PassiveBuffON()
     {
-        if (Spell.HealthBuff != 0 || Spell.ManaBuff != 0)
+        if (Spell.HealthBuff != 0)
         {
             MaxStatChange(true);
         }
@@ -49,7 +49,7 @@ public class EffectsOnPlayer : MonoBehaviour
 
     void PassiveBuffOFF()
     {
-        if (Spell.HealthBuff != 0 || Spell.ManaBuff != 0)
+        if (Spell.HealthBuff != 0)
         {
             MaxStatChange(false);
         }
@@ -95,16 +95,6 @@ public class EffectsOnPlayer : MonoBehaviour
         //    unitStat.MaxMana -= MaxMana;
         //}
         
-    }
-
-    IEnumerator DestroyObject()
-    {
-        yield return new WaitForSeconds(Spell.Duration);
-        if (Spell.IsBuff)
-        {
-            PassiveBuffOFF();
-        }
-        //PhotonNetwork.Destroy(gameObject);
     }
 }
  

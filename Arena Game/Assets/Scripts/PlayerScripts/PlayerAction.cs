@@ -204,12 +204,7 @@ public class PlayerAction : NetworkBehaviour
     }
 
     void initStats() {
-        unitStat.PhysicalDefence = 20;
-        unitStat.MagicDefence = 20;
-        unitStat.Strength = 20;
-        unitStat.Agility = 20;
-        unitStat.Intelligence = 20;
-        unitStat.IsDead = false;
+
         agent.speed = unitStat.Agility / 2;
         IsDead = false;
         IsReady = false;

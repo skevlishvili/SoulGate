@@ -128,7 +128,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Spell")
@@ -148,12 +148,19 @@ public class Tower : MonoBehaviour
             //Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact);
             Quaternion rot = Quaternion.FromToRotation(Vector3.zero, Vector3.zero);
             Vector3 pos = contact + contact.normalized;
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit))
+            {
+                contact = hit.point;
+            }
+
             //----------------------------------------------------------------------------------------------------------
 
             if (Spell.SkillHitPrefab != null)
             {
-                GameObject hit = (GameObject)Resources.Load(Spell.SkillHitPrefab);
-                var hitInstance = Instantiate(hit, pos, rot);
+                GameObject hitPrefab = (GameObject)Resources.Load(Spell.SkillHitPrefab);
+                var hitInstance = Instantiate(hitPrefab, pos, rot);
                 hitInstance.transform.LookAt(contact + contact.normalized);
             }
 
@@ -165,6 +172,7 @@ public class Tower : MonoBehaviour
         }
     }
 
+    [Server]
     private void OnParticleCollision(GameObject other)
     {
         Projectile projectile = other.GetComponent<Projectile>();
@@ -173,6 +181,7 @@ public class Tower : MonoBehaviour
 
         float Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
 
+
         if (other.tag == "Spell")
         {
             if (LastColliderdObjectid == other.gameObject.GetComponent<NetworkIdentity>())
@@ -180,8 +189,10 @@ public class Tower : MonoBehaviour
                 return;
             }
 
-            Debug.Log(TowerHealth);
+            LastColliderdObjectid = other.gameObject.GetComponent<NetworkIdentity>();
+
             takeDamage(Damage);
+            Debug.Log(TowerHealth);
         }
     }
 }

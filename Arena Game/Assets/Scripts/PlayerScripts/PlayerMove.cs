@@ -340,7 +340,7 @@ public class PlayerMove : NetworkBehaviour
     IEnumerator SpawnMaker(Vector3 destination)
     {
         UnityEngine.Object pPrefab = Resources.Load("Prefabs/UI/Marker 1"); // note: not .prefab!
-
+        destination.y += 1;
         GameObject Marker = (GameObject)GameObject.Instantiate(pPrefab, destination, Quaternion.Euler(-90, 0, 0));
         yield return new WaitForSeconds(1);
         Destroy(Marker);

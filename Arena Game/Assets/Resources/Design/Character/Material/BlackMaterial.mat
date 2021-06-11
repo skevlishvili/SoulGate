@@ -274,8 +274,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_335D8E9A: {r: 0, g: 0, b: 0, a: 1}
-    - Color_C6E8139C: {r: 0.007520473, g: 0.122641504, b: 0.018076174, a: 1}
-    - Color_FBBDC94F: {r: 0, g: 0, b: 0, a: 1}
+    - Color_C6E8139C: {r: 0.007843138, g: 0.12156863, b: 0.019607844, a: 1}
+    - Color_FBBDC94F: {r: 0, g: 0.0007314645, b: 0.00060891546, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

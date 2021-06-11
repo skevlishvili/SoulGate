@@ -36,9 +36,9 @@ public class Settings : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        Masterslider.value = PlayerPrefs.GetFloat("Master", 0.75f);
-        Musicslider.value = PlayerPrefs.GetFloat("Master", 0.75f);
-        Soundslider.value = PlayerPrefs.GetFloat("Master", 0.75f);
+        Masterslider.value = PlayerPrefs.GetFloat("Master", 0.5f);
+        Musicslider.value = PlayerPrefs.GetFloat("Music", 0.25f);
+        Soundslider.value = PlayerPrefs.GetFloat("Sound", 0.5f);
     }
 
     public void SetVolumeMaster(float volume)

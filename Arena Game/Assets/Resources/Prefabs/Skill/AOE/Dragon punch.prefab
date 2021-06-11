@@ -43325,7 +43325,7 @@ GameObject:
   - component: {fileID: 3990818245817738625}
   m_Layer: 0
   m_Name: Dragon punch
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43438,7 +43438,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.8
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -48197,15 +48197,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  SkillIndex: 17
   damage: []
   speed: 0
-  SkillIndex: 17
-  player: {fileID: 0}
-  hitOffset: 0
-  UseFirePointRotation: 0
-  rotationOffset: {x: 0, y: 0, z: 0}
   hit: {fileID: 0}
   flash: {fileID: 0}
+  AudioRepeating: 0
+  AudioStartTime: 0
+  AudioRepeatTime: 30
+  player: {fileID: 0}
+  UseFirePointRotation: 0
+  hitOffset: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   Detached: []
 --- !u!1 &1931102524043194
 GameObject:
@@ -53243,8 +53246,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 0.9671496, b: 0.9292453, a: 0.6431373}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.509434, g: 0.35790056, b: 0.2811499, a: 0.49411765}
-        key1: {r: 1, g: 0.86341655, b: 0.6462264, a: 0.85882354}
+        key0: {r: 0.08627451, g: 0.65882355, b: 0.56078434, a: 0.49411765}
+        key1: {r: 0, g: 1, b: 0.82876706, a: 0.85882354}
         key2: {r: 1, g: 0.96548647, b: 0.8745098, a: 0.3764706}
         key3: {r: 1, g: 0.9838426, b: 0.8726415, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

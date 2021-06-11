@@ -149622,14 +149622,6 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.5
-    functionName: PlayFireSound
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: a6db366751902184e88f19669310c2cb,
-      type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
   - time: 2
     functionName: EndOfSkill
     data: 

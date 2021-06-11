@@ -9640,6 +9640,8 @@ GameObject:
   - component: {fileID: -2682677286782307899}
   - component: {fileID: 2447565062544840819}
   - component: {fileID: 4769071749634610273}
+  - component: {fileID: 1024456558240369897}
+  - component: {fileID: 8240128282352744339}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Spell
@@ -9720,7 +9722,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8434136868836375771
 MonoBehaviour:
@@ -9799,13 +9801,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  SkillIndex: 19
   damage: []
   speed: 0
-  SkillIndex: 19
-  player: {fileID: 0}
-  hitOffset: 0
-  UseFirePointRotation: 0
-  rotationOffset: {x: 0, y: 0, z: 0}
   hit: {fileID: 0}
   flash: {fileID: 0}
+  AudioRepeating: 0
+  AudioStartTime: 0
+  AudioRepeatTime: 30
+  player: {fileID: 0}
+  UseFirePointRotation: 0
+  hitOffset: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   Detached: []
+--- !u!114 &1024456558240369897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434136868836375770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd22e45afeed8f4692631690122b08e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8240128282352744339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434136868836375770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822db94b9f977944390fcfa2c9ff2460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillIndex: 19
+  Render: {fileID: 8434136868836375781}
+  Dissolve: 0

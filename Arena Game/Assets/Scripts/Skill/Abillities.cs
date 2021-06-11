@@ -129,6 +129,24 @@ public class Abillities : NetworkBehaviour
         targetLocationDirection();
 
         //CheckFiring();
+
+        if (isServer)
+        {
+            ApplyPassives();
+        }
+    }
+
+    private void ApplyPassives()
+    {
+        foreach (var item in PlayerPassives)
+        {
+            if (item.Skill != null)
+            {
+                item.Skill.Passive(item.Skill, player.gameObject);
+            }
+        }
+
+        PassiveSkillsfunctionality.UnitStatsPassiveSum = new UnitStruct();
     }
 
 
@@ -234,8 +252,11 @@ public class Abillities : NetworkBehaviour
         {
             if (PlayerAbillities[i].ActiveCoolDown)
             {
+                var cooldown = PlayerAbillities[i].Skill.Cooldown - PlayerAbillities[i].Skill.Cooldown * unitStat.AbilityCooldown;
+                
+                Debug.Log(unitStat.AbilityCooldown);
                 //TODO change
-                SkillImageUIVFX[i].fillAmount -= 1 / PlayerAbillities[i].Skill.Cooldown * Time.deltaTime;
+                SkillImageUIVFX[i].fillAmount -= 1 / cooldown * Time.deltaTime;
 
                 if (SkillImageUIVFX[i].fillAmount <= 0)
                 {
@@ -361,7 +382,7 @@ public class Abillities : NetworkBehaviour
 
     bool CanCast(int index)
     {
-        return PlayerAbillities[index].ActiveCoolDown && unitStat.Mana >= PlayerAbillities[CurrentAbillity].Skill.ManaConsumption && unitStat.Health > PlayerAbillities[CurrentAbillity].Skill.HealthConsumption && !unitStat.IsDead;
+        return PlayerAbillities[index].ActiveCoolDown && unitStat.Health > PlayerAbillities[CurrentAbillity].Skill.HealthConsumption && !unitStat.IsDead;
     }
 
     bool SkillConsumption(int index)
@@ -389,7 +410,7 @@ public class Abillities : NetworkBehaviour
     public void ChangePassiveSkill(Skill skill, int index)
     {
         PlayerPassives[index].Skill = skill;
-        //HudContentController hudConetnt = gameObject.GetComponentInChildren<HudContentController>();
-        //hudConetnt.LoadSkillUiImagesInHUD();
+        HudContentController hudConetnt = gameObject.GetComponentInChildren<HudContentController>();
+        hudConetnt.LoadPassiveSkillUiImagesInHUD();
     }
 }
