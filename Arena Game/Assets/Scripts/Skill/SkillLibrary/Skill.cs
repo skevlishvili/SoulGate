@@ -12,14 +12,17 @@ public class Skill
     public float SoulDamage;// True Damage(affects Health and Mana)
 
     //Buff/Debuff
-    public float HealthBuff;// Max health increase/decrease and Health regen
-    public float ManaBuff;// Max Mana increase/decrease and Mana regen
-    public float SpeedBuff;// Max speed increase
+    public float HealthBuff;// Max health increase/decrease
+    public float HealthRegenBuff;// HealthRegen increase/decrease
+    public float PhysicalDefenceBuff;// physicalDefence  increase/decrease
+    public float MagicDefenceBuff;// MagicDefence  increase/decrease
+    public float DamageBuff;// Damage  increase/decrease
+    public float AgilityBuff;// Max speed increase
     public float CooldownBuff;// Max cooldown Decrease
+    public float MoneyRegenBuff;// Money Regen increase/decrease
 
     //Consumption
     public float HealthConsumption;// uses health to cast spell/skill
-    public float ManaConsumption;// uses mana to cast spell/skill
 
     //Price
     public float SkillPriceMoney;// uses Money to buy spell/skill

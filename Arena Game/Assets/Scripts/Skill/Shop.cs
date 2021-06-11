@@ -96,23 +96,8 @@ public class Shop : MonoBehaviour
         SkillUiImageDetailed.sprite = Spell.SkillImageUIVFX;
         GameObject.Find("SkillUIImage").GetComponent<Image>().sprite = Spell.SkillImageUIVFX;
 
-
-        string Damage = "";
-        string Consumption = "";
+        string DetailedInfo = "";
         string Effects = "";
-
-        #region Damage
-        Damage += Spell.PhysicalDamage == 0 ? "" : $"Physical: {Spell.PhysicalDamage},";
-        Damage += Spell.MagicDamage == 0 ? "" : $" Magical: {Spell.MagicDamage},";
-        Damage += Spell.SoulDamage == 0 ? "" : $" Soul: {Spell.SoulDamage}";
-
-        #endregion
-
-
-        #region Consumption
-        Consumption += Spell.HealthConsumption == 0 ? "" : $"Health: {Spell.HealthConsumption},";
-        Consumption += Spell.ManaConsumption == 0 ? "" : $" Mana: {Spell.ManaConsumption}";
-        #endregion
 
         #region Effects
         Effects += Spell.IsRestraining ? "Restraining," : "";
@@ -122,9 +107,45 @@ public class Shop : MonoBehaviour
         Effects += Spell.IsProjectile ? "Projectile," : "";
         #endregion
 
+        if (!Spell.IsPasive)
+        {
+            string Damage = "";
+            string Consumption = "";
+
+            #region Damage
+            Damage += Spell.PhysicalDamage == 0 ? "" : $"Physical: {Spell.PhysicalDamage},";
+            Damage += Spell.MagicDamage == 0 ? "" : $" Magical: {Spell.MagicDamage},";
+            Damage += Spell.SoulDamage == 0 ? "" : $" Soul: {Spell.SoulDamage}";
+            #endregion
 
 
-        string DetailedInfo = $"Description: {Spell.SkillName}\n\nDamage: {Damage}\n\nConsumtion: {Consumption}\n\nCooldown: {Spell.Cooldown}\n\nEffects: {Effects }";
+            #region Consumption
+            Consumption += Spell.HealthConsumption == 0 ? "" : $"Health: {Spell.HealthConsumption},";
+            #endregion
+
+            DetailedInfo = $"Description: {Spell.SkillName}\n\nDamage: {Damage}\n\nConsumtion: {Consumption}\n\nCooldown: {Spell.Cooldown}\n\nEffects: {Effects }";
+        }
+        else
+        {
+            string Buffs = "";
+
+            #region Buffs
+            Buffs += Spell.HealthBuff == 0 ? "" : $"\nHealth: {Spell.HealthBuff},";
+            Buffs += Spell.HealthRegenBuff == 0 ? "" : $"\nHealth Regen: {Spell.HealthRegenBuff},";
+            Buffs += Spell.PhysicalDefenceBuff == 0 ? "" : $"\nPhysical Defence: {Spell.PhysicalDefenceBuff},";
+            Buffs += Spell.MagicDefenceBuff == 0 ? "" : $"\nMagic Defence: {Spell.MagicDefenceBuff},";
+            Buffs += Spell.DamageBuff == 0 ? "" : $"\nDamage: {Spell.DamageBuff},";
+            Buffs += Spell.AgilityBuff == 0 ? "" : $"\nAgility: {Spell.AgilityBuff},";
+            Buffs += Spell.CooldownBuff == 0 ? "" : $"\nCooldown: {Spell.CooldownBuff},";
+            Buffs += Spell.MoneyRegenBuff == 0 ? "" : $"\nMoney Regen: {Spell.MoneyRegenBuff},";
+            #endregion
+
+            DetailedInfo = $"Description: {Spell.SkillName}\n\nBuff: {Buffs}\n\nEffects: {Effects }";
+        }
+
+
+
+
         GameObject.Find("SkillInfoText").GetComponent<Text>().text = DetailedInfo;
     }
 

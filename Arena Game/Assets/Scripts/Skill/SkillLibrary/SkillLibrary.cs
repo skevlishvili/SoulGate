@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillLibrary : MonoBehaviour
 {
-    public static Skill[] Skills = new Skill[20];
+    public static Skill[] Skills = new Skill[28];
 
     public static Skill[] TowerSkills = new Skill[1];
 
@@ -28,17 +28,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "FireBall",
 
-            PhysicalDamage = 0,
+            PhysicalDamage = 5,
             MagicDamage = 20,
             SoulDamage = 0,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 10,
 
             SkillPriceMoney = 100,
             SkillPriceXp = 0,
@@ -85,17 +88,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "FireStorm",
 
-            PhysicalDamage = 0,
+            PhysicalDamage =20,
             MagicDamage = 100,
             SoulDamage = 0,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 50,
 
             SkillPriceMoney = 200,
             SkillPriceXp = 0,
@@ -146,12 +152,15 @@ public class SkillLibrary : MonoBehaviour
             SoulDamage = 0,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 0,
 
             SkillPriceMoney = 200,
             SkillPriceXp = 0,
@@ -200,15 +209,18 @@ public class SkillLibrary : MonoBehaviour
 
             PhysicalDamage = 50,
             MagicDamage = 100,
-            SoulDamage = 0,
+            SoulDamage = 20,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 100,
 
             SkillPriceMoney = 500,
             SkillPriceXp = 0,
@@ -259,13 +271,16 @@ public class SkillLibrary : MonoBehaviour
             MagicDamage = 0,
             SoulDamage = 0,
 
-            HealthBuff = 25,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 50,
 
             SkillPriceMoney = 100,
             SkillPriceXp = 0,
@@ -294,7 +309,7 @@ public class SkillLibrary : MonoBehaviour
 
             IsRestraining = false,
             IsInvisible = false,
-            IsPasive = true,
+            IsPasive = false,
             IsBuff = false,
             IsProjectile = false,
             IsRecharged = false,
@@ -317,12 +332,15 @@ public class SkillLibrary : MonoBehaviour
             SoulDamage = 0,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 50,
 
             SkillPriceMoney = 200,
             SkillPriceXp = 0,
@@ -369,17 +387,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "LightningStrike",
 
-            PhysicalDamage = 0,
+            PhysicalDamage = 10,
             MagicDamage = 100,
             SoulDamage = 20,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 100,
 
             SkillPriceMoney = 500,
             SkillPriceXp = 0,
@@ -426,17 +447,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Ice Burst",
 
-            PhysicalDamage = 0,
+            PhysicalDamage = 20,
             MagicDamage = 100,
-            SoulDamage = 0,
+            SoulDamage = 10,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 200,
 
             SkillPriceMoney = 1000,
             SkillPriceXp = 0,
@@ -483,17 +507,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Knives Rain",
 
-            PhysicalDamage = 0,
-            MagicDamage = 20,
-            SoulDamage = 0,
+            PhysicalDamage = 50,
+            MagicDamage = 100,
+            SoulDamage = 10,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 100,
 
             SkillPriceMoney = 250,
             SkillPriceXp = 0,
@@ -540,23 +567,26 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Meteor shower 2",
 
-            PhysicalDamage = 0,
+            PhysicalDamage = 20,
             MagicDamage = 50,
-            SoulDamage = 0,
+            SoulDamage = 30,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 200,
 
             SkillPriceMoney = 1000,
             SkillPriceXp = 0,
 
-            Duration = 5,
-            Cooldown = 60,
+            Duration = 3,
+            Cooldown = 15,
             ActivationTime = 0,
             ProjectileSpeed = 0,
             MaxRechargingTime = 0,
@@ -597,17 +627,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Wind Arrow",
 
-            PhysicalDamage = 0,
+            PhysicalDamage = 10,
             MagicDamage = 50,
             SoulDamage = 0,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 50,
 
             SkillPriceMoney = 200,
             SkillPriceXp = 0,
@@ -654,17 +687,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Energy Arrow",
 
-            PhysicalDamage = 0,
+            PhysicalDamage = 10,
             MagicDamage = 50,
             SoulDamage = 0,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 50,
 
             SkillPriceMoney = 200,
             SkillPriceXp = 0,
@@ -710,17 +746,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Ice Bullet",
 
-            PhysicalDamage = 0,
+            PhysicalDamage = 10,
             MagicDamage = 50,
             SoulDamage = 0,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 50,
 
             SkillPriceMoney = 200,
             SkillPriceXp = 0,
@@ -767,17 +806,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Micro Sun",
 
-            PhysicalDamage = 0,
-            MagicDamage = 250,
-            SoulDamage = 0,
+            PhysicalDamage = 50,
+            MagicDamage = 100,
+            SoulDamage = 50,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 50,
 
             SkillPriceMoney = 1000,
             SkillPriceXp = 0,
@@ -824,17 +866,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Ice Spikes",
 
-            PhysicalDamage = 0,
+            PhysicalDamage = 50,
             MagicDamage = 100,
             SoulDamage = 0,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 100,
 
             SkillPriceMoney = 500,
             SkillPriceXp = 0,
@@ -881,17 +926,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Magic Bullets",
 
-            PhysicalDamage = 0,
-            MagicDamage = 100,
-            SoulDamage = 0,
+            PhysicalDamage = 10,
+            MagicDamage = 200,
+            SoulDamage = 20,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 100,
 
             SkillPriceMoney = 500,
             SkillPriceXp = 0,
@@ -938,17 +986,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Dragon Punch",
 
-            PhysicalDamage = 0,
-            MagicDamage = 200,
-            SoulDamage = 0,
+            PhysicalDamage = 100,
+            MagicDamage = 100,
+            SoulDamage = 50,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 100,
 
             SkillPriceMoney = 1000,
             SkillPriceXp = 0,
@@ -995,17 +1046,20 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Dust Burst",
 
-            PhysicalDamage = 0,
+            PhysicalDamage = 10,
             MagicDamage = 100,
-            SoulDamage = 0,
+            SoulDamage = 20,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 100,
 
             SkillPriceMoney = 500,
             SkillPriceXp = 0,
@@ -1057,12 +1111,15 @@ public class SkillLibrary : MonoBehaviour
             SoulDamage = 0,
 
             HealthBuff = 0,
-            ManaBuff = 0,
-            SpeedBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
             CooldownBuff = 0,
+            MoneyRegenBuff = 0,
 
             HealthConsumption = 0,
-            ManaConsumption = 100,
 
             SkillPriceMoney = 500,
             SkillPriceXp = 0,
@@ -1105,6 +1162,487 @@ public class SkillLibrary : MonoBehaviour
             HasRecharging = false
         };
 
+        Skills[20] = new Skill
+        {
+            SkillName = "Warrior Heath",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 100,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
+            CooldownBuff = 0,
+            MoneyRegenBuff = 0,
+
+            HealthConsumption = 0,
+
+            SkillPriceMoney = 100,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            AttackRadius = 0,
+            Distance = 0,
+
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            BurstVFX = null,
+            Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
+            Sound = "",
+            AnimatorProperty = "",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasBurstVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[21] = new Skill
+        {
+            SkillName = "Knight Heath",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 100,
+            HealthRegenBuff = 1,
+            PhysicalDefenceBuff = 10,
+            MagicDefenceBuff = 10,
+            DamageBuff = 0,
+            AgilityBuff = 0,
+            CooldownBuff = 0,
+            MoneyRegenBuff = 0,
+
+            HealthConsumption = 0,
+
+            SkillPriceMoney = 500,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            AttackRadius = 0,
+            Distance = 0,
+
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            BurstVFX = null,
+            Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
+            Sound = "",
+            AnimatorProperty = "",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasBurstVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[22] = new Skill
+        {
+            SkillName = "Grand Knight Heath",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 200,
+            HealthRegenBuff = 3,
+            PhysicalDefenceBuff = 20,
+            MagicDefenceBuff = 20,
+            DamageBuff = 0,
+            AgilityBuff = 0,
+            CooldownBuff = 0,
+            MoneyRegenBuff = 0,
+
+            HealthConsumption = 0,
+
+            SkillPriceMoney = 1000,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            AttackRadius = 0,
+            Distance = 0,
+
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            BurstVFX = null,
+            Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
+            Sound = "",
+            AnimatorProperty = "",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasBurstVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[23] = new Skill
+        {
+            SkillName = "Warrior Rage",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 10,
+            AgilityBuff = 0,
+            CooldownBuff = 0,
+            MoneyRegenBuff = 0,
+
+            HealthConsumption = 0,
+
+            SkillPriceMoney = 100,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            AttackRadius = 0,
+            Distance = 0,
+
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            BurstVFX = null,
+            Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
+            Sound = "",
+            AnimatorProperty = "",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasBurstVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[24] = new Skill
+        {
+            SkillName = "Knight Discipline",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 10,
+            MagicDefenceBuff = 0,
+            DamageBuff = 20,
+            AgilityBuff = 5,
+            CooldownBuff = 0,
+            MoneyRegenBuff = 0,
+
+            HealthConsumption = 0,
+
+            SkillPriceMoney = 500,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            AttackRadius = 0,
+            Distance = 0,
+
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            BurstVFX = null,
+            Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
+            Sound = "",
+            AnimatorProperty = "",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasBurstVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[25] = new Skill
+        {
+            SkillName = "Mage Defence",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 20,
+            DamageBuff = 0,
+            AgilityBuff = 0,
+            CooldownBuff = 0,
+            MoneyRegenBuff = 0,
+
+            HealthConsumption = 0,
+
+            SkillPriceMoney = 500,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            AttackRadius = 0,
+            Distance = 0,
+
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            BurstVFX = null,
+            Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
+            Sound = "",
+            AnimatorProperty = "",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasBurstVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[26] = new Skill
+        {
+            SkillName = "Mage Chant",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 20,
+            DamageBuff = 0,
+            AgilityBuff = 0,
+            CooldownBuff = 0.1f,
+            MoneyRegenBuff = 0,
+
+            HealthConsumption = 0,
+
+            SkillPriceMoney = 500,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            AttackRadius = 0,
+            Distance = 0,
+
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            BurstVFX = null,
+            Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
+            Sound = "",
+            AnimatorProperty = "",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasBurstVFX = false,
+            HasRecharging = false
+        };
+
+        Skills[27] = new Skill
+        {
+            SkillName = "Gold Hands",
+
+            PhysicalDamage = 0,
+            MagicDamage = 0,
+            SoulDamage = 0,
+
+            HealthBuff = 0,
+            HealthRegenBuff = 0,
+            PhysicalDefenceBuff = 0,
+            MagicDefenceBuff = 0,
+            DamageBuff = 0,
+            AgilityBuff = 0,
+            CooldownBuff = 0,
+            MoneyRegenBuff = 1,
+
+            HealthConsumption = 0,
+
+            SkillPriceMoney = 500,
+            SkillPriceXp = 0,
+
+            Duration = 0,
+            Cooldown = 0,
+            ActivationTime = 0,
+            ProjectileSpeed = 0,
+            MaxRechargingTime = 0,
+
+            AttackRadius = 0,
+            Distance = 0,
+
+
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            PlayergroundVFX = null,
+            MaxRangeVFX = null,
+            IndicatorVFX = null,
+            TargetVFX = null,
+            BurstVFX = null,
+            Skill3DModel = null,
+            SkillHitPrefab = null,
+            SkillFlashPrefab = null,
+            Sound = "",
+            AnimatorProperty = "",
+
+            IsRestraining = false,
+            IsInvisible = false,
+            IsPasive = true,
+            IsBuff = false,
+            IsProjectile = false,
+            IsRecharged = false,
+            UsingWeapon = false,
+
+            HasPlayergroundVFX = false,
+            HasIndicator = false,
+            HasMaxRange = false,
+            HasTargetVFX = false,
+            HasBurstVFX = false,
+            HasRecharging = false
+        };
+
+
         //Tower Skills ------------------------------------------------------------------------------------------
 
         TowerSkills[0] = new Skill
@@ -1114,8 +1652,6 @@ public class SkillLibrary : MonoBehaviour
             PhysicalDamage = 0,
             MagicDamage = 2,
             SoulDamage = 0,
-
-            ManaConsumption = 1,
 
             Duration = 0,
             Cooldown = 0,

@@ -18,6 +18,7 @@ public class Abillities : NetworkBehaviour
     //bool[] isActivating;
 
     private int CurrentAbillity;
+    float PassiveCooldown = 0;
 
     #region Referances
     RaycastHit hit;
@@ -122,6 +123,39 @@ public class Abillities : NetworkBehaviour
         targetLocationDirection();
 
         //CheckFiring();
+
+        if (isServer)
+        {
+            ApplyPassives();
+        }
+    }
+
+    private void ApplyPassives()
+    {
+        float MaxHealth = 0;
+        float HealthRegen = 0;
+        float PhysicalDefence = 0;
+        float MagicDefence =0;
+        float Damage = 0;
+        float Agility = 0;
+        float MoneyRegen = 0;
+        PassiveCooldown = 0;
+
+        foreach (var item in PlayerPassives)
+        {
+            if (item.Skill != null)
+            {
+                MaxHealth += item.Skill.HealthBuff;
+                HealthRegen += item.Skill.HealthRegenBuff;
+                PhysicalDefence += item.Skill.PhysicalDefenceBuff;
+                MagicDefence += item.Skill.MagicDefenceBuff;
+                Damage += item.Skill.DamageBuff;
+                Agility += item.Skill.AgilityBuff;
+                MoneyRegen += item.Skill.MoneyRegenBuff;
+                PassiveCooldown += item.Skill.CooldownBuff;
+            }
+        }
+        unitStat.ChangeUnitStats(MaxHealth, HealthRegen, PhysicalDefence, MagicDefence, Damage, Agility, MoneyRegen);
     }
 
 
@@ -227,8 +261,9 @@ public class Abillities : NetworkBehaviour
         {
             if (PlayerAbillities[i].ActiveCoolDown)
             {
+                var cooldown = PlayerAbillities[i].Skill.Cooldown - PlayerAbillities[i].Skill.Cooldown * PassiveCooldown;
                 //TODO change
-                SkillImageUIVFX[i].fillAmount -= 1 / PlayerAbillities[i].Skill.Cooldown * Time.deltaTime;
+                SkillImageUIVFX[i].fillAmount -= 1 / cooldown * Time.deltaTime;
 
                 if (SkillImageUIVFX[i].fillAmount <= 0)
                 {
@@ -354,7 +389,7 @@ public class Abillities : NetworkBehaviour
 
     bool CanCast(int index)
     {
-        return PlayerAbillities[index].ActiveCoolDown && unitStat.Mana >= PlayerAbillities[CurrentAbillity].Skill.ManaConsumption && unitStat.Health > PlayerAbillities[CurrentAbillity].Skill.HealthConsumption && !unitStat.IsDead;
+        return PlayerAbillities[index].ActiveCoolDown && unitStat.Health > PlayerAbillities[CurrentAbillity].Skill.HealthConsumption && !unitStat.IsDead;
     }
 
     bool SkillConsumption(int index)

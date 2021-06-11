@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Health : NetworkBehaviour
 {
+    public Text Healthtext;
     public Slider healthSlider3D;
     public Slider healthSlider2D;
 
@@ -24,11 +25,10 @@ public class Health : NetworkBehaviour
         healthSlider2D = GetComponentInChildren<Slider>();
         healthSlider3D = GetComponentInChildren<Slider>();
 
+        Healthtext.text = $"{unitstat.Health}/{unitstat.MaxHealth}";
+
         healthSlider2D.maxValue = unitstat.MaxHealth;
         healthSlider3D.maxValue = unitstat.MaxHealth;
-
-        //healthSlider2D.value = unitstat.MaxHealth/2;
-        //healthSlider3D.value = unitstat.MaxHealth/2;
     }
 
     //private void OnEnable()
@@ -70,6 +70,11 @@ public class Health : NetworkBehaviour
     //// Update is called once per frame
     void Update()
     {
+        Healthtext.text = $"{unitstat.Health}/{unitstat.MaxHealth}";
+
+        healthSlider2D.maxValue = unitstat.MaxHealth;
+        healthSlider3D.maxValue = unitstat.MaxHealth; 
+
         healthSlider2D.value = unitstat.Health;
         healthSlider3D.value = unitstat.Health;
     }

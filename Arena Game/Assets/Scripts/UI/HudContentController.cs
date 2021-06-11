@@ -26,6 +26,10 @@ public class HudContentController : NetworkBehaviour
         LoadPassiveSkillUiImagesInHUD();
         LoadUnitStats();
     }
+    private void Update()
+    {
+        LoadUnitStats();
+    }
 
     public void LoadSkillUiImagesInHUD()
     {        
@@ -56,7 +60,7 @@ public class HudContentController : NetworkBehaviour
 
     public void LoadUnitStats()
     {
-        UnitStatTexts[0].text = UnitStats.Strength.ToString();
+        UnitStatTexts[0].text = UnitStats.Damage.ToString();
         UnitStatTexts[1].text = UnitStats.PhysicalDefence.ToString();
         UnitStatTexts[2].text = UnitStats.MagicDefence.ToString();
         UnitStatTexts[3].text = UnitStats.Money.ToString();

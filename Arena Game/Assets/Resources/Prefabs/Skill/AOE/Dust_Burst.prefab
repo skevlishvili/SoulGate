@@ -24013,7 +24013,7 @@ GameObject:
   - component: {fileID: 4840114555622966980}
   m_Layer: 0
   m_Name: Dust_Burst
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
