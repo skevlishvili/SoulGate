@@ -21,6 +21,7 @@ public class Health : NetworkBehaviour
 
 
     // Start is called before the first frame update
+    [Client]
     void Start()
     {
         healthSlider2D = GetComponentInChildren<Slider>();
@@ -69,6 +70,7 @@ public class Health : NetworkBehaviour
 
 
     //// Update is called once per frame
+    [Client]
     void Update()
     {
         

@@ -77,6 +77,8 @@ public class PlayerCollision : NetworkBehaviour
 
         float Damage = (1 - unitStat.PhysicalDefence / 100) * projectile.damage[0] + (1 - unitStat.MagicDefence / 100) * projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
 
+        if (gameObject.GetInstanceID() == projectile.player.GetInstanceID())
+            return;
 
         if (other.tag == "Spell")
         {

@@ -132,12 +132,12 @@ public class Unit : NetworkBehaviour
     }
 
 
-    private void PassiveIncome() {
-        if (roundManager.CurrentState == RoundManager.RoundState.RoundStart)
-        {
-            Money += 1;
-        }
-    }
+    //private void PassiveIncome() {
+    //    if (roundManager.CurrentState == RoundManager.RoundState.RoundStart)
+    //    {
+    //        Money += 1;
+    //    }
+    //}
 
     [Server]
     private void SetHealth(float value)
