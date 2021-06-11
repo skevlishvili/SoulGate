@@ -33,6 +33,8 @@ public class PlayerMove : NetworkBehaviour
 
     private Unit _unitStat;
 
+    private RoundManager roundManager;
+
 
     //private ServerMoveState _serverMoveState;
     //private ClientMoveState _clientMoveState;
@@ -56,12 +58,17 @@ public class PlayerMove : NetworkBehaviour
     {
         var cameras = GameObject.FindGameObjectsWithTag("MainCamera");
 
+        var roundMangerObjs = GameObject.FindGameObjectsWithTag("RoundManager");
+        if (roundMangerObjs.Length > 0 && roundMangerObjs[0] != null) {
+            roundManager = roundMangerObjs[0].GetComponent<RoundManager>();
+        }
+
         cam = cameras[0].GetComponent<Camera>();
         _unitStat = GetComponent<Unit>();
     }
 
     private bool CanMove() {
-        return !_unitStat.IsDead && _unitStat.IsReady;
+        return !_unitStat.IsDead && _unitStat.IsReady && roundManager.CurrentState == RoundManager.RoundState.RoundStart;
     }
 
     // Update is called once per frame
@@ -107,8 +114,12 @@ public class PlayerMove : NetworkBehaviour
 
         // ROTATION
         Quaternion rotationToLook = Quaternion.LookRotation(moveState.Destination - transform.position);
-        float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationToLook.eulerAngles.y, ref rotateVelocity, rotateSpeedMovement * (Time.deltaTime * 5));
-        transform.eulerAngles = new Vector3(0, rotationY, 0);
+        //float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationToLook.eulerAngles.y, ref rotateVelocity, rotateSpeedMovement * (Time.deltaTime * 5));
+
+        if (isClient)
+        {
+            //transform.eulerAngles = new Vector3(0, rotationToLook.eulerAngles.y, 0);
+        }
     }
 
 

@@ -16,7 +16,7 @@ public class PlayerScore : NetworkBehaviour
     private int score = 0;
 
 
-    public delegate void ScoreChangeDelegate();
+    public delegate void ScoreChangeDelegate(int score);
     public event ScoreChangeDelegate EventScoreChange;
 
 
@@ -62,7 +62,7 @@ public class PlayerScore : NetworkBehaviour
     [Server]
     public void IncrementKill() {
         kills++;
-        EventScoreChange?.Invoke();
+        EventScoreChange?.Invoke(0);
         //ScoreChangedRpc();
     }
 
@@ -70,7 +70,7 @@ public class PlayerScore : NetworkBehaviour
     public void IncrementDeath()
     {
         deaths++;
-        EventScoreChange?.Invoke();
+        EventScoreChange?.Invoke(0);
         //ScoreChangedRpc();
     }
 
@@ -78,8 +78,8 @@ public class PlayerScore : NetworkBehaviour
     public void AddScore(int addedScore)
     {
         score += addedScore;
-        EventScoreChange?.Invoke();
-        //ScoreChangedRpc();
+        EventScoreChange?.Invoke(addedScore);
+        ScoreChangedRpc(addedScore);
     }
 
     [Server]
@@ -92,8 +92,9 @@ public class PlayerScore : NetworkBehaviour
         playerScore.IncrementKill();
     }
 
-    //[ClientRpc]
-    //private void ScoreChangedRpc() {
-    //    EventScoreChange?.Invoke();
-    //}
+    [ClientRpc]
+    private void ScoreChangedRpc(int addedScore)
+    {
+        EventScoreChange?.Invoke(addedScore);
+    }
 }

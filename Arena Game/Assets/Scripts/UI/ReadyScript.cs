@@ -13,9 +13,10 @@ public class ReadyScript : MonoBehaviour
     {
     }
 
+
+
     public void ToggleReady() {
         var PlayerUnits = ClientScene.localPlayer.gameObject.GetComponent<Unit>();
-        Debug.Log(PlayerUnits.IsReady);
 
         if (PlayerUnits.IsReady)
         {

@@ -93,7 +93,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5600095401699329782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e179eb5b94884684c8ac942ede29830b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c4d0d933fd61ff4da4a76f185400370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
@@ -111,10 +111,8 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 7250282779211670797, guid: 4fe2c667c1af88c4aa117e6e1d1e8b41,
-    type: 3}
+  playerPrefab: {fileID: 0}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 1608602578714541306, guid: b42480976c03f244695a828cde2e401f, type: 3}
-  Players: []
+  spawnPrefabs: []
+  players: {fileID: 0}

@@ -19,6 +19,7 @@ public class Abillities : NetworkBehaviour
 
     private int CurrentAbillity;
 
+    private RoundManager roundManager;
     #region Referances
     RaycastHit hit;
     Vector3 position;
@@ -75,6 +76,12 @@ public class Abillities : NetworkBehaviour
     {
         // SkillLibrary.Skills[playerActionScript.PlayerSkills[0]];
 
+        var roundMangerObjs = GameObject.FindGameObjectsWithTag("RoundManager");
+        if (roundMangerObjs.Length > 0 && roundMangerObjs[0] != null)
+        {
+            roundManager = roundMangerObjs[0].GetComponent<RoundManager>();
+        }
+
         for (int i = 0; i < SkillImageUIVFX.Length; i++)
         {
             SkillImageUIVFX[i].fillAmount = 0;
@@ -92,7 +99,7 @@ public class Abillities : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLocalPlayer || unitStat.IsDead || !unitStat.IsReady || chat.IsTyping)
+        if (!isLocalPlayer || unitStat.IsDead || !unitStat.IsReady || chat.IsTyping || roundManager.CurrentState != RoundManager.RoundState.RoundStart)
             return;
 
 

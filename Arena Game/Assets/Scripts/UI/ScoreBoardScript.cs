@@ -13,6 +13,8 @@ public class ScoreBoardScript : NetworkBehaviour
     public Text[] Scores;
     public Text[] KD;
 
+    [SerializeField]
+    private RoundManager roundManager;
     private int currentPlayers = 0;
 
     // Start is called before the first frame update
@@ -28,7 +30,7 @@ public class ScoreBoardScript : NetworkBehaviour
         if (Manager == null || Manager?.PlayersGameObjects == null)
             return;
 
-        if (Input.GetKey(KeyCode.Tab))
+        if (Input.GetKey(KeyCode.Tab) || roundManager.CurrentState == RoundManager.RoundState.RoundEnding)
         {
             Canvas.alpha = 1;
         }
@@ -62,7 +64,7 @@ public class ScoreBoardScript : NetworkBehaviour
 
 
     [Server]
-    void ScoreChanged()
+    void ScoreChanged(int addedScore)
     {
         for (int i = 0; i < Manager.PlayersGameObjects.Count; i++)
         {

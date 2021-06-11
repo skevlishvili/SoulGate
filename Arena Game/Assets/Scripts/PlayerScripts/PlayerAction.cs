@@ -199,6 +199,8 @@ public class PlayerAction : NetworkBehaviour
         //}
 
         //movement = transform.position - oldPosition;
+
+        Debug.Log(unitStat.Money);
     }
 
     void initStats() {

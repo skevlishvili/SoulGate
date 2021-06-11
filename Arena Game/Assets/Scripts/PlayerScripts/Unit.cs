@@ -41,15 +41,51 @@ public class Unit : NetworkBehaviour
     public float Agility = 20;
     public float Strength = 20;
     public float Intelligence = 20;
+    [SyncVar]
     public bool IsDead = false;
+    [SyncVar]
     public bool IsReady = false;
     public PlayerAnimator Animator;
     private GameObject lastDamageReceivedFrom;
+    private RoundManager roundManager;
+    private PlayerScore playerScore;
 
-    [ServerCallback]
+
+    private void Start()
+    {
+
+        var roundMangerObjs = GameObject.FindGameObjectsWithTag("RoundManager");
+        if (roundMangerObjs.Length > 0 && roundMangerObjs[0] != null)
+        {
+            roundManager = roundMangerObjs[0].GetComponent<RoundManager>();
+            if (isClient)
+            {
+                InvokeRepeating("PassiveIncome", 1.0f, 1.0f);
+
+                playerScore = gameObject.GetComponent<PlayerScore>();
+                playerScore.EventScoreChange += PlayerScore_EventScoreChange;
+            }
+        }
+    }
+
+    [Client]
+    private void PlayerScore_EventScoreChange(int score)
+    {
+        Money += score;
+    }
+
     private void Update()
     {
-        CheckDeath();
+        if(isServer)
+            CheckDeath();       
+    }
+
+
+    private void PassiveIncome() {
+        if (roundManager.CurrentState == RoundManager.RoundState.RoundStart)
+        {
+            Money += 1;
+        }
     }
 
     [Server]
@@ -71,7 +107,6 @@ public class Unit : NetworkBehaviour
     {
         lastDamageReceivedFrom = player;
         SetHealth(Mathf.Max(Health - value, 0));
-        SetHealth(0);
     }
 
     public override void OnStartClient()
@@ -124,6 +159,7 @@ public class Unit : NetworkBehaviour
         IsDead = false;
 
         ReviveRpc();
+        IsReady = false;
     }
 
     [Command]
@@ -137,7 +173,7 @@ public class Unit : NetworkBehaviour
     {
         IsReady = true;
 
-        ReadyRpc();
+        //ReadyRpc();
     }
 
 
@@ -152,7 +188,7 @@ public class Unit : NetworkBehaviour
     {
         IsReady = false;
 
-        UnreadyRpc();
+        //UnreadyRpc();
     }
 
 
@@ -193,16 +229,18 @@ public class Unit : NetworkBehaviour
         Animator.IsDead();
     }
 
-    [ClientRpc]
-    private void ReadyRpc()
-    {
-        IsReady = true;
-    }
 
-    [ClientRpc]
-    private void UnreadyRpc()
-    {
-        IsReady = false;
-    }
+
+    //[ClientRpc]
+    //private void ReadyRpc()
+    //{
+    //    IsReady = true;
+    //}
+
+    //[ClientRpc]
+    //private void UnreadyRpc()
+    //{
+    //    IsReady = false;
+    //}
 
 }
