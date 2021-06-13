@@ -63,6 +63,7 @@ public class Tower : MonoBehaviour
         CheckIfDestroyed();
     }
 
+    [Server]
     void CheckIfPlayerIsWithinRange()
     {
         if (Manager.PlayersGameObjects.Count >= 1)
@@ -72,11 +73,10 @@ public class Tower : MonoBehaviour
 
             for (int i = 0; i < readyPlayers; i++)
             {
-                if (Vector3.Distance(gameObject.transform.position, Manager.PlayersGameObjects[i].transform.position) < TowerRange)
+                var player = Manager.PlayersGameObjects[i].transform.GetChild(1).gameObject;
+                if (Vector3.Distance(gameObject.transform.position, player.transform.position) <= TowerRange)
                 {
-                    Debug.Log($"---------------------------Player Within Range of {gameObject.name} ------------------------------");
-
-                    PlayerWithinRange[i] = Manager.PlayersGameObjects[i];
+                    PlayerWithinRange[i] = player;
                 }
             }
         }

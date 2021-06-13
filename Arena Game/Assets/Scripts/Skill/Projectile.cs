@@ -87,8 +87,8 @@ public class Projectile : NetworkBehaviour
     {
         if (speed != 0)
         {
-            rb.velocity = transform.forward * speed;
-            //transform.position += transform.forward * (speed * Time.deltaTime);         
+            //rb.velocity = transform.forward * speed;
+            transform.position += transform.forward * (speed * Time.deltaTime);         
         }
     }
 

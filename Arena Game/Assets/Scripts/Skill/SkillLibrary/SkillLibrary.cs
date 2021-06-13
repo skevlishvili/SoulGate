@@ -1769,13 +1769,13 @@ public class SkillLibrary : MonoBehaviour
 
         TowerSkills[0] = new Skill
         {
-            SkillName = "Laser",
+            SkillName = "Laser Beam",
 
             PhysicalDamage = 0,
-            MagicDamage = 2,
+            MagicDamage = 5,
             SoulDamage = 0,
 
-            Duration = 1,
+            Duration = 0.1f,
             Cooldown = 0,
             ActivationTime = 0,
             ProjectileSpeed = 0,
@@ -1784,7 +1784,7 @@ public class SkillLibrary : MonoBehaviour
             AttackRadius = 0,
             Distance = 50,
 
-            Skill3DModel = "Prefabs/Skill/Unused/Lasers/Laser beam 2",
+            Skill3DModel = "Prefabs/Skill/AOE/Laser beam",
             SkillHitPrefab = null,
             SkillFlashPrefab = null,
             Sound = null,
