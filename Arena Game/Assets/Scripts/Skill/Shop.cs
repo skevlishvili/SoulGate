@@ -11,7 +11,7 @@ public class Shop : MonoBehaviour
     public GameObject Shop_Content;
     public GameObject ShopSkillUi_PrefabObj; // This is our prefab object that will be exposed in the inspector
     public GameObject hudObj;
-    GameObject Player_PrefabObj;
+    public GameObject Player_PrefabObj;
     Unit playerUnitStats;
     Abillities playerAbilities;
 
@@ -49,9 +49,8 @@ public class Shop : MonoBehaviour
 
     private void Start()
     {
-        var player = ClientScene.localPlayer.gameObject;
-        playerUnitStats = player.GetComponent<Unit>();
-        playerAbilities = player.GetComponent<Abillities>();
+        playerUnitStats = Player_PrefabObj.GetComponent<Unit>();
+        playerAbilities = Player_PrefabObj.GetComponent<Abillities>();
     }
 
 

@@ -14649,6 +14649,7 @@ GameObject:
   - component: {fileID: 135537387491394736}
   - component: {fileID: 2955667632376460780}
   - component: {fileID: 6042663223471726386}
+  - component: {fileID: 4703884696249717921}
   m_Layer: 0
   m_Name: Micro_Sun
   m_TagString: Spell
@@ -19510,10 +19511,10 @@ MonoBehaviour:
   speed: 0
   hit: {fileID: 0}
   flash: {fileID: 0}
+  player: {fileID: 0}
   AudioRepeating: 0
   AudioStartTime: 0
   AudioRepeatTime: 30
-  player: {fileID: 0}
   UseFirePointRotation: 0
   hitOffset: 0
   rotationOffset: {x: 0, y: 0, z: 0}
@@ -19535,6 +19536,24 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &4703884696249717921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531814124222292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1 &1548625300088820
 GameObject:
   m_ObjectHideFlags: 0

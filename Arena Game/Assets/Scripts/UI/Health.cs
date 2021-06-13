@@ -26,7 +26,8 @@ public class Health : MonoBehaviour
         healthSlider2D = GetComponentInChildren<Slider>();
         healthSlider3D = GetComponentInChildren<Slider>();
 
-        Healthtext.text = $"{(int)unitstat.Health}/{(int)unitstat.MaxHealth}";
+        if (Healthtext != null)
+            Healthtext.text = $"{(int)unitstat.Health}/{(int)unitstat.MaxHealth}";
 
         healthSlider2D.maxValue = unitstat.MaxHealth;
         healthSlider3D.maxValue = unitstat.MaxHealth;
@@ -71,8 +72,8 @@ public class Health : MonoBehaviour
     //// Update is called once per frame
     void Update()
     {
-        
-        Healthtext.text = $"{(int)unitstat.Health}/{(int)unitstat.MaxHealth}";
+        if (Healthtext != null)
+            Healthtext.text = $"{(int)unitstat.Health}/{(int)unitstat.MaxHealth}";
 
         healthSlider2D.maxValue = unitstat.MaxHealth;
         healthSlider3D.maxValue = unitstat.MaxHealth; 

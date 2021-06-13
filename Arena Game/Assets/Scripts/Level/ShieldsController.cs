@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ public class ShieldsController : MonoBehaviour
     bool IsShieldActive;
 
 
-    // Start is called before the first frame update
+    [Server]
     void Start()
     {
         Shield_Duration = 30;
@@ -36,7 +37,7 @@ public class ShieldsController : MonoBehaviour
         //StartCoroutine(ShieldsDeactivation());
     }
 
-    // Update is called once per frame
+    [Server]
     void FixedUpdate()
     {
         if (!IsShieldActive)
@@ -51,6 +52,7 @@ public class ShieldsController : MonoBehaviour
         CheckActiveShields();
     }
 
+    [Server]
     public void CheckActiveShields()
     {
         foreach (var item in Active_Shields)
@@ -63,6 +65,7 @@ public class ShieldsController : MonoBehaviour
         }
     }
 
+    [Server]
     public void CheckAvaliableShields()
     {
         Avaliable_Shields.Clear();
@@ -76,6 +79,7 @@ public class ShieldsController : MonoBehaviour
         }
     }
 
+    [Server]
     public void CheckAvaliableCrystals()
     {
         ActiveCrystal = 0;
@@ -89,6 +93,7 @@ public class ShieldsController : MonoBehaviour
         }
     }
 
+    [Server]
     public IEnumerator ShieldsActivation(int Quantity)
     {
 
@@ -116,6 +121,7 @@ public class ShieldsController : MonoBehaviour
         yield return new WaitForSeconds(Shield_Duration);
     }
 
+    [Server]
     public IEnumerator ShieldsDeactivation()
     {
         yield return new WaitForSeconds(Shield_Duration);

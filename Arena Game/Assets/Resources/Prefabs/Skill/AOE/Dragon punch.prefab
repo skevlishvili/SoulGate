@@ -43323,6 +43323,7 @@ GameObject:
   - component: {fileID: 199569954839013096}
   - component: {fileID: 3615566935994519305}
   - component: {fileID: 3990818245817738625}
+  - component: {fileID: -1965666071226943387}
   m_Layer: 0
   m_Name: Dragon punch
   m_TagString: Spell
@@ -43363,7 +43364,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873886433987638}
   serializedVersion: 6
-  lengthInSec: 2
+  lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
@@ -43988,7 +43989,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: 1, z: 0}
     m_Rotation: {x: -2, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
@@ -44357,13 +44358,13 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 1
       scalar: 1
-      minScalar: 1
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.32057953
+          value: 0.48812103
           inSlope: 1.4652642
           outSlope: 1.4652642
           tangentMode: 0
@@ -45507,7 +45508,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   ForceModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 1
@@ -45948,7 +45949,7 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 0
     multiplyDragByParticleVelocity: 0
-    dampen: 0.15
+    dampen: 0.1
     drag:
       serializedVersion: 2
       minMaxState: 0
@@ -48202,14 +48203,35 @@ MonoBehaviour:
   speed: 0
   hit: {fileID: 0}
   flash: {fileID: 0}
+  player: {fileID: 0}
   AudioRepeating: 0
   AudioStartTime: 0
   AudioRepeatTime: 30
-  player: {fileID: 0}
   UseFirePointRotation: 0
   hitOffset: 0
   rotationOffset: {x: 0, y: 0, z: 0}
   Detached: []
+--- !u!114 &-1965666071226943387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873886433987638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a959a1b0b8414d4fb8a68bdc12d69ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EffectsOnCollision:
+  - {fileID: 1651363388222792, guid: 9ed32632e519c244e8813d54b2ab434e, type: 3}
+  DestroyTimeDelay: 0
+  UseWorldSpacePosition: 1
+  Offset: 0.01
+  rotationOffset: {x: 0, y: 0, z: 0}
+  useOnlyRotationOffset: 1
+  UseFirePointRotation: 0
+  DestoyMainEffect: 1
 --- !u!1 &1931102524043194
 GameObject:
   m_ObjectHideFlags: 0

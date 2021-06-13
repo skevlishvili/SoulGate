@@ -11,43 +11,36 @@ public class SpellFire : MonoBehaviour
     public GameObject[] SkillSpawnPoint;
 
     private int CurrentAbillity;
+    float angle;
 
 
-    // Start is called before the first frame update
-    void Update()
+    void FixedUpdate()
     {
-        if (true)//!towerScript.PlayerWithinRange[0]
+        if (towerScript.PlayerWithinRange.Length == 0)
             return;
 
-        bool skillIsActivating = towerScript.TowerSpells.Any(x => x.IsActivating);
-        bool skillIsFiring = towerScript.TowerSpells.Any(x => x.IsFiring);
+        Debug.Log(towerScript.PlayerWithinRange.Length);
+        //bool skillIsActivating = towerScript.TowerSpells.Any(x => x.IsActivating);
+        //bool skillIsFiring = towerScript.TowerSpells.Any(x => x.IsFiring);
 
 
-        if (!skillIsActivating && !skillIsFiring)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                if (Input.GetKey(towerScript.TowerSpells[i].KeyCode))
-                {
-                    AbilityActivation(i);
-                    break;
-                }
-            }
-        }
-        else if (skillIsActivating && !skillIsFiring)
-        {
-            if (Input.GetKeyUp((towerScript.TowerSpells[CurrentAbillity].KeyCode)))
-            {
-                AbilityFire();
-            }
-        }
+        //if (!skillIsActivating && !skillIsFiring)
+        //{
+        //    for (int i = 0; i < towerScript.PlayerWithinRange.Length; i++)
+        //    {
+                AbilityActivation(0);
+        //        break;
+        //    }
+        //}
+        //else if (skillIsActivating && !skillIsFiring)
+        //{
+            AbilityFire();
+        //}
     }
 
 
     void AbilityActivation(int index)
     {
-        CurrentAbillity = index;
-
         if (!towerScript.TowerSpells[index].ActiveCoolDown)
         {
             towerScript.TowerSpells[index].IsActivating = true;
@@ -62,7 +55,7 @@ public class SpellFire : MonoBehaviour
 
     IEnumerator corSkillShot(int index)
     {
-        if (towerScript.TowerSpells[index].IsActivating && SkillConsumption(index))
+        if (towerScript.TowerSpells[index].IsActivating)
         {
             towerScript.TowerSpells[index].IsActivating = false;
             towerScript.TowerSpells[index].IsFiring = true;
@@ -82,12 +75,23 @@ public class SpellFire : MonoBehaviour
 
         var prefabSrc = towerScript.TowerSpells[CurrentAbillity].Skill.Skill3DModel;
 
-        var spellType = towerScript.TowerSpells[CurrentAbillity].Skill.IsBuff ? 1 :
-                        towerScript.TowerSpells[CurrentAbillity].Skill.HasIndicator ? 0 :
-                        towerScript.TowerSpells[CurrentAbillity].Skill.HasTargetVFX ? 2 : 1;
+        var position = SkillSpawnPoint[0].transform.position;
+        position.y = 16;
 
-        var position = SkillSpawnPoint[spellType].transform.position;
-        var rotation = SkillSpawnPoint[spellType].transform.rotation;
+        var playerPosition = PlayerCoodinates(towerScript.PlayerWithinRange[0]);
+
+        var player = playerPosition.transform.GetChild(1).gameObject;
+
+        //Vector3 relative = transform.InverseTransformPoint(playerPosition.position);
+        //angle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+
+        //var rotation = Quaternion.identity;
+
+        var direction = player.transform.position - transform.position;
+
+        var rotation = Quaternion.LookRotation(direction);
+
+
 
         CmdSpawnSkill(prefabSrc, position, rotation);
     }
@@ -95,25 +99,13 @@ public class SpellFire : MonoBehaviour
 
     private void CmdSpawnSkill(string prefabSrc, Vector3 position, Quaternion rotation)
     {
-        NetworkServer.Spawn((GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation));
+        var Spell = (GameObject)Instantiate(Resources.Load(prefabSrc), position, rotation);
+        var Line = Spell.GetComponent<LineRenderer>();
+        NetworkServer.Spawn(Spell, gameObject);
     }
 
-    bool CanCast(int index)
+    public Transform PlayerCoodinates(GameObject Player)
     {
-        return towerScript.TowerSpells[index].ActiveCoolDown && !towerScript.IsDestroyed;
-    }
-
-    bool SkillConsumption(int index)
-    {
-        bool value = false;
-
-        //if (SkillIsAvailable[index])
-        //{
-        //unitStat.Mana -= towerScript.TowerSpells[CurrentAbillity].Skill.ManaConsumption;
-        //unitStat.Health -= towerScript.TowerSpells[CurrentAbillity].Skill.HealthConsumption;
-        value = true;
-        //}
-
-        return value;
+        return Player.transform;
     }
 }

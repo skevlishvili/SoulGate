@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class ManaCrystal : MonoBehaviour
     public float Moving_Speed;
     public float StartPosition;
 
+    [Server]
     void Start()
     {
         CrystalHealth = 1000;
@@ -27,7 +29,7 @@ public class ManaCrystal : MonoBehaviour
     }
 
 
-    // Update is called once per frame
+    [Server]
     void Update()
     {
         float y = Mathf.PingPong(Time.time * Moving_Speed, 1);
@@ -39,6 +41,7 @@ public class ManaCrystal : MonoBehaviour
         CheckIfDestroyed();
     }
 
+    [Server]
     void CheckIfDestroyed()
     {
         if (CrystalHealth <= 0)
@@ -50,6 +53,7 @@ public class ManaCrystal : MonoBehaviour
         }
     }
 
+    [Server]
     void takeDamage(float damage)
     {
         CrystalHealth -= damage;
@@ -57,7 +61,7 @@ public class ManaCrystal : MonoBehaviour
     }
 
 
-
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Spell")
@@ -90,6 +94,7 @@ public class ManaCrystal : MonoBehaviour
         }
     }
 
+    [Server]
     private void OnParticleCollision(GameObject other)
     {
         Projectile projectile = other.GetComponent<Projectile>();

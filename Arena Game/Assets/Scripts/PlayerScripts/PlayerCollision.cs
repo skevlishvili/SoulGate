@@ -27,7 +27,6 @@ public class PlayerCollision : NetworkBehaviour
     [Server]
     private void OnTriggerEnter(Collider other)
     {
-
         //if (!PV.IsMine)
         //{
         //    return;
@@ -41,7 +40,7 @@ public class PlayerCollision : NetworkBehaviour
 
         //ProjPV = other.GetComponent<PhotonView>();
 
-        float damage = (1 - unitStat.PhysicalDefence / 100) * projectile.damage[0] + (1 - unitStat.MagicDefence / 100) * projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
+        float damage = (1 - unitStat.PhysicalDefence / 100) * projectile.damage[0] + (1 - unitStat.MagicDefence / 100) * projectile.damage[1] + projectile.damage[2];
 
 
 
@@ -75,10 +74,10 @@ public class PlayerCollision : NetworkBehaviour
         if (projectile == null)
             return;
 
-        float Damage = (1 - unitStat.PhysicalDefence / 100) * projectile.damage[0] + (1 - unitStat.MagicDefence / 100) * projectile.damage[1] + projectile.damage[2];//----------------------------gasasworebelia---------------
-
         if (gameObject.GetInstanceID() == projectile.player.GetInstanceID())
             return;
+
+        float Damage = (1 - unitStat.PhysicalDefence / 100) * projectile.damage[0] + (1 - unitStat.MagicDefence / 100) * projectile.damage[1] + projectile.damage[2];
 
         if (other.tag == "Spell")
         {

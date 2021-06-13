@@ -22,27 +22,30 @@ public class ParticleCollisionInstance : MonoBehaviour
         part = GetComponent<ParticleSystem>();
     }
     void OnParticleCollision(GameObject other)
-    {      
-        int numCollisionEvents = part.GetCollisionEvents(other, collisionEvents);     
-        for (int i = 0; i < numCollisionEvents; i++)
+    {
+        if (other.tag == "Enemy" || other.tag == "Player")
         {
-            foreach (var effect in EffectsOnCollision)
+            int numCollisionEvents = part.GetCollisionEvents(other, collisionEvents);
+            for (int i = 0; i < numCollisionEvents; i++)
             {
-                var instance = Instantiate(effect, collisionEvents[i].intersection + collisionEvents[i].normal * Offset, new Quaternion()) as GameObject;
-                if (!UseWorldSpacePosition) instance.transform.parent = transform;
-                if (UseFirePointRotation) { instance.transform.LookAt(transform.position); }
-                else if (rotationOffset != Vector3.zero && useOnlyRotationOffset) { instance.transform.rotation = Quaternion.Euler(rotationOffset); }
-                else
+                foreach (var effect in EffectsOnCollision)
                 {
-                    instance.transform.LookAt(collisionEvents[i].intersection + collisionEvents[i].normal);
-                    instance.transform.rotation *= Quaternion.Euler(rotationOffset);
+                    var instance = Instantiate(effect, collisionEvents[i].intersection + collisionEvents[i].normal * Offset, new Quaternion()) as GameObject;
+                    if (!UseWorldSpacePosition) instance.transform.parent = transform;
+                    if (UseFirePointRotation) { instance.transform.LookAt(transform.position); }
+                    else if (rotationOffset != Vector3.zero && useOnlyRotationOffset) { instance.transform.rotation = Quaternion.Euler(rotationOffset); }
+                    else
+                    {
+                        instance.transform.LookAt(collisionEvents[i].intersection + collisionEvents[i].normal);
+                        instance.transform.rotation *= Quaternion.Euler(rotationOffset);
+                    }
+                    Destroy(instance, DestroyTimeDelay);
                 }
-                Destroy(instance, DestroyTimeDelay);
             }
-        }
-        if (DestoyMainEffect == true)
-        {
-            Destroy(gameObject, DestroyTimeDelay + 0.5f);
+            if (DestoyMainEffect == true)
+            {
+                Destroy(gameObject, DestroyTimeDelay);
+            }
         }
     }
 }

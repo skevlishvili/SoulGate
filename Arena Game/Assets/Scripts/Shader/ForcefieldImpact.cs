@@ -167,7 +167,6 @@ public class ForcefieldImpact : MonoBehaviour
             else
             {
                 // for debugging if we hit another object instead
-                Debug.Log("Hit " + hitXform.name);
             }
         }
     }

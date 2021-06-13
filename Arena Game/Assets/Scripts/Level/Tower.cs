@@ -16,15 +16,26 @@ public class Tower : MonoBehaviour
     public float TowerMaxHealth;
     public float TowerHealth;
 
+    public float TowerMaxXpMultiplier;
+    public float TowerMaxXp;
+    public float TowerXp;
+
     public float DamageMultiplier;
     public float HealingMultiplier;
+
 
     public bool IsDestroyed;
     #endregion
 
-    GameObject[] Players;
     public List<Abillity> TowerSpells;
-    public bool[] PlayerWithinRange;
+
+    public GameObject[] PlayerWithinRange;
+    public Players Manager;
+
+    public GameObject[] Crystals;
+    int ActiveCrystal;
+
+
 
     NetworkIdentity LastColliderdObjectid;
 
@@ -32,8 +43,6 @@ public class Tower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         //Players[0] = ClientScene.localPlayer.gameObject;//Gadasaweria mirrorze-----------------------------------------------------------
-
         Tower_Position = gameObject.transform.localPosition;
         Tower_Position.y = 0.3f;
         Tower_Rotation = gameObject.transform.localRotation;
@@ -42,81 +51,99 @@ public class Tower : MonoBehaviour
 
         initStats();
 
-        //InvokeRepeating("Regeneration",1,1);//calls funqtion every second
-        //InvokeRepeating("TowerEvolution", 1, 1);
+        InvokeRepeating("Regeneration",1,1);//calls funqtion every second
+        InvokeRepeating("TowerEvolution", 1, 1);
+        InvokeRepeating("CheckAvaliableCrystals", 1, 1);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        //CheckIfPlayerIsWithinRange(0);
-        //CheckIfPlayerIsWithinRange(1);
-        //CheckIfPlayerIsWithinRange(2);
-        //CheckIfPlayerIsWithinRange(3);
-
+        CheckIfPlayerIsWithinRange();
         CheckIfDestroyed();
     }
 
-    void CheckIfPlayerIsWithinRange(int PlayerIndex)
+    void CheckIfPlayerIsWithinRange()
     {
-        if (Vector3.Distance(gameObject.transform.position, Players[PlayerIndex].transform.position) < TowerRange)
+        if (Manager.PlayersGameObjects.Count >= 1)
         {
-            PlayerWithinRange[PlayerIndex] = true;
-            PlayerCoodinates(PlayerIndex);
+            var readyPlayers = Manager.PlayersGameObjects.Count;
+            PlayerWithinRange = new GameObject[readyPlayers];
 
-            Debug.Log("---------------------------Player Within Range ------------------------------");
+            for (int i = 0; i < readyPlayers; i++)
+            {
+                if (Vector3.Distance(gameObject.transform.position, Manager.PlayersGameObjects[i].transform.position) < TowerRange)
+                {
+                    Debug.Log($"---------------------------Player Within Range of {gameObject.name} ------------------------------");
+
+                    PlayerWithinRange[i] = Manager.PlayersGameObjects[i];
+                }
+            }
         }
-    }
-    public Vector3 PlayerCoodinates(int PlayerIndex)
-    {
-        return Players[PlayerIndex].transform.position;
+
+        
     }
 
+    [Server]
     void initStats()
     {
         TowerSpells = new List<Abillity>();
         TowerSpells.Add(new Abillity { ActiveCoolDown = false, Skill = SkillLibrary.TowerSkills[0], IsFiring = false, IsActivating = false });
 
         TowerLevel = 1;
-        TowerRange = 40;
+        TowerRange = 20;
 
         TowerMaxHealth = 1000;
         TowerHealth = TowerMaxHealth;
 
-        IsDestroyed = false;
+        TowerMaxXpMultiplier = 1;
+        TowerMaxXp = TowerMaxXpMultiplier * 1000;
+        TowerXp = 0;
 
         DamageMultiplier = 1;
         HealingMultiplier = 1;
+
+        IsDestroyed = false;
     }
 
-    //void TowerEvolution()
-    //{
-    //    if (TowerMana >= TowerMaxMana)
-    //    {
-    //        TowerLevel += 1;
+    void TowerEvolution()
+    {
+        if (TowerXp >= TowerMaxXp)
+        {
+            TowerLevel += 1;
+            TowerRange += 5;
 
-    //        TowerMaxHealth *= 2;
-    //        TowerMaxMana *= 2;
+            TowerMaxHealth *= 2;
 
-    //        DamageMultiplier *= 1.5f;
-    //        HealingMultiplier *= 1.5f;
-    //        ManaRegenMultiplalier *= 1.5f;
-    //    }
-    //}
+            TowerMaxXpMultiplier *= 2;
+            TowerXp = 0;
 
-    //void Regeneration()
-    //{
-    //    var Regen = IsDestroyed ? 0 :
-    //                   TowerHealth == TowerMaxHealth? TowerMana += ManaRegenMultiplalier * ManaRegen :
-    //                   TowerHealth + HealingMultiplier * ManaRegen > TowerMaxHealth ? TowerHealth = TowerMaxHealth :
-    //                   TowerHealth += HealingMultiplier * ManaRegen; TowerMana += ManaRegenMultiplalier * ManaRegen / 2;
-    //}
+            DamageMultiplier *= 1.5f;
+            HealingMultiplier *= 1.5f;
+
+            initStats();
+        }
+    }
+
+    void Regeneration()
+    {
+        var XpIncrease = TowerMaxXpMultiplier * ActiveCrystal + TowerMaxXpMultiplier;
+        var XpHalfIncrease = TowerMaxXpMultiplier * ActiveCrystal / 2 + TowerMaxXpMultiplier;
+
+        var HealthIncrese = HealingMultiplier * ActiveCrystal + 1;
+
+        var Regen = IsDestroyed ? 0 :
+                       TowerHealth == TowerMaxHealth ? TowerXp += XpIncrease :
+                       TowerHealth + HealthIncrese > TowerMaxHealth ? TowerHealth = TowerMaxHealth :
+                       TowerHealth += HealthIncrese; TowerXp += XpHalfIncrease;
+    }
 
     void takeDamage(float damage)
     {
         TowerHealth -= damage;
     }
 
+    [Server]
     void CheckIfDestroyed()
     {
         if (TowerHealth <= 0)
@@ -125,6 +152,20 @@ public class Tower : MonoBehaviour
             Object DestroyedTower = Resources.Load("Prefabs/Level/DestroyedTower_1");
             Instantiate(DestroyedTower, Tower_Position, Tower_Rotation);
             gameObject.SetActive(false);
+        }
+    }
+
+    [Server]
+    public void CheckAvaliableCrystals()
+    {
+        ActiveCrystal = 0;
+
+        foreach (var item in Crystals)
+        {
+            if (item.activeInHierarchy)
+            {
+                ActiveCrystal += 1;
+            }
         }
     }
 
@@ -143,17 +184,14 @@ public class Tower : MonoBehaviour
             Skill Spell = SkillLibrary.Skills[HelpMethods.GetSkillIndexByName(other.name)];
 
             // ----------------------------------------------gasasworebelia---------------------------------------------
-            //Vector3 contact = other.gameObject.GetComponent<Collider>().ClosestPoint(transform.position);
-            Vector3 contact = other.gameObject.transform.position;
-            //Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact);
-            Quaternion rot = Quaternion.FromToRotation(Vector3.zero, Vector3.zero);
-            Vector3 pos = contact + contact.normalized;
+            Vector3 contact = other.gameObject.GetComponent<Collider>().ClosestPoint(transform.position);
+            Debug.Log(contact);
+            //Vector3 contact = other.gameObject.transform.position;
 
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit))
-            {
-                contact = hit.point;
-            }
+            Quaternion rot = Quaternion.identity;
+            Vector3 pos = contact;
+            Debug.Log(rot);
+
 
             //----------------------------------------------------------------------------------------------------------
 
@@ -161,7 +199,7 @@ public class Tower : MonoBehaviour
             {
                 GameObject hitPrefab = (GameObject)Resources.Load(Spell.SkillHitPrefab);
                 var hitInstance = Instantiate(hitPrefab, pos, rot);
-                hitInstance.transform.LookAt(contact + contact.normalized);
+                //hitInstance.transform.LookAt(contact + contact.normalized);
             }
 
             takeDamage(Damage);

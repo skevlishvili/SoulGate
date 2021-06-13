@@ -254,7 +254,6 @@ public class Abillities : NetworkBehaviour
             {
                 var cooldown = PlayerAbillities[i].Skill.Cooldown - PlayerAbillities[i].Skill.Cooldown * unitStat.AbilityCooldown;
                 
-                Debug.Log(unitStat.AbilityCooldown);
                 //TODO change
                 SkillImageUIVFX[i].fillAmount -= 1 / cooldown * Time.deltaTime;
 

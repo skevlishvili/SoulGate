@@ -1775,17 +1775,17 @@ public class SkillLibrary : MonoBehaviour
             MagicDamage = 2,
             SoulDamage = 0,
 
-            Duration = 0,
+            Duration = 1,
             Cooldown = 0,
             ActivationTime = 0,
-            ProjectileSpeed = 1000,
+            ProjectileSpeed = 0,
             MaxRechargingTime = 0,
 
             AttackRadius = 0,
             Distance = 50,
 
-            Skill3DModel = "Prefabs/Skill/Projectile/Fireball_Prefab",
-            SkillHitPrefab = "Prefabs/Skill/Hit/Fireball_Hit_Prefab",
+            Skill3DModel = "Prefabs/Skill/Unused/Lasers/Laser beam 2",
+            SkillHitPrefab = null,
             SkillFlashPrefab = null,
             Sound = null,
 

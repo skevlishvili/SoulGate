@@ -11,8 +11,17 @@ public class ChatAndHudFix : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Player != ClientScene.localPlayer.gameObject) {
+        try
+        {
+            if (Player != ClientScene.localPlayer.gameObject)
+            {
+                Destroy(gameObject);
+            }
+        }
+        catch (System.Exception)
+        {
             Destroy(gameObject);
         }
+        
     }
 }
