@@ -24,14 +24,15 @@ public class PlayerCollision : NetworkBehaviour
     }
 
 
-    [Server]
     private void OnTriggerEnter(Collider other)
     {
         //if (!PV.IsMine)
         //{
         //    return;
         //}
+
         Projectile projectile = other.GetComponent<Projectile>();
+
         if (projectile == null)
             return;
 
@@ -58,14 +59,15 @@ public class PlayerCollision : NetworkBehaviour
 
         //projectile.DestroyProjectile();
         //GameObject hitVFX = PhotonNetwork.Instantiate("Prefabs/Skill/Spark/vfx_hit_v1", transform.position + Vector3.up * 2, projectile.transform.rotation);
-        
-        //CheckCollision(other.gameObject.GetComponent<SphereCollider>().radius, other.transform.position, damage, projectile);
 
+        //CheckCollision(other.gameObject.GetComponent<SphereCollider>().radius, other.transform.position, damage, projectile);
 
         projectile.DestroyProjectile(gameObject.transform.position);
 
-        unitStat.TakeDamage(damage, projectile.player);
+        if(base.isServer)
+            unitStat.TakeDamage(damage, projectile.player);
     }
+
 
     [Server]
     private void OnParticleCollision(GameObject other)

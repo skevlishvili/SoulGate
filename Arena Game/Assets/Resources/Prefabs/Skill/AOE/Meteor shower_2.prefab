@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 199798401150151838}
   - component: {fileID: 108158424509105500}
   - component: {fileID: 3124943156161753348}
-  - component: {fileID: 8690887032893182019}
   - component: {fileID: -5307993229449929005}
   m_Layer: 0
   m_Name: Meteor shower_2
@@ -4926,7 +4925,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 6.887297, y: 8.005585, z: 6.714459, w: 7.846692}
+  m_BoundingSphereOverride: {x: 4.166667, y: 4.166667, z: 4.166667, w: 4.166667}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -5041,23 +5040,6 @@ MonoBehaviour:
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
   m_AreaLightEmissiveMeshLayer: -1
---- !u!114 &8690887032893182019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1135581048890362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &-5307993229449929005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5070,21 +5052,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   SkillIndex: 10
+  TowerSkillIndex: 0
   damage: []
   speed: 0
   hit: {fileID: 0}
   flash: {fileID: 0}
+  player: {fileID: 0}
   AudioRepeating: 0
   AudioStartTime: 0
   AudioRepeatTime: 30
-  player: {fileID: 0}
   UseFirePointRotation: 0
   hitOffset: 0
   rotationOffset: {x: 0, y: 0, z: 0}
   Detached: []
+  _moveRate: 7
 --- !u!1 &1194898084312818
 GameObject:
   m_ObjectHideFlags: 0

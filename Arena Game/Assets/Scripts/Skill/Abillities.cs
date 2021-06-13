@@ -364,7 +364,8 @@ public class Abillities : NetworkBehaviour
 
         //GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
 
-        CmdSpawnSkill(prefabSrc, position, rotation);
+        SpawnProj(prefabSrc, position, rotation);
+        //CmdSpawnSkill(prefabSrc, position, rotation);
     }
 
 
@@ -411,5 +412,84 @@ public class Abillities : NetworkBehaviour
         PlayerPassives[index].Skill = skill;
         HudContentController hudConetnt = gameObject.GetComponentInChildren<HudContentController>();
         hudConetnt.LoadPassiveSkillUiImagesInHUD();
+    }
+
+    [Client]
+    private void SpawnProj(string prefabSrc, Vector3 position, Quaternion rotation)
+    {
+        if (!base.hasAuthority)
+            return;
+
+
+
+        /* Only show locally if not server.
+         * This is to prevent duplicate projectiles
+         * as client host. */
+        if (!base.isServer)
+        {
+            //var projectile = (GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
+            //Spawn the projectile locally.
+            GameObject obj = (GameObject)Instantiate(Resources.Load(prefabSrc), position, rotation);
+            Projectile p = obj.GetComponent<Projectile>();
+            if (p == null)
+                return;
+            p.player = gameObject;
+            //Initialize with a 0f catch up duration.
+            p.Initialize(0f);
+        }
+
+        /* Ask server to fire a projectile using
+         * this transforms position, and current
+         * network time. Since network time is synchronized
+         * it can be used to determine how long it took 
+         * the command to reach the server.  */
+        SpawnProjCmd(prefabSrc, transform.position, rotation, NetworkTime.time, gameObject);
+    }
+
+    /// <summary>
+    /// Fires over the network.
+    /// </summary>
+    [Command]
+    private void SpawnProjCmd(string prefabSrc, Vector3 position, Quaternion rotation, double networkTime, GameObject playerGameObject)
+    {
+        /* Determine how much time has passed between when the client
+         * called the command and when it was received. */
+        double timePassed = NetworkTime.time - networkTime;
+
+        /* Instantiate the projectile on the server so that it may
+         * register collision, and continue to act as server authoritive.
+         * It's important to instantiate at the position passed in so that 
+         * the projectile is spawned in the same position on all clients, regardless
+         * of their appeared position. Visually the result would be about the same as
+         * if spectators were the owner themself. */
+        //Initialize the projectile with a catchup value of time passed.
+        //var projectile = (GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
+        //Spawn the projectile locally.
+        GameObject obj = (GameObject)Instantiate(Resources.Load(prefabSrc), position, rotation);
+        Projectile p = obj.GetComponent<Projectile>();
+        p.player = playerGameObject;
+        p.Initialize((float)timePassed);
+
+        //Fire on other clients using the same data.
+        SpawnProjRpc(prefabSrc, position, rotation, networkTime, playerGameObject);
+    }
+
+
+    [ClientRpc]
+    private void SpawnProjRpc(string prefabSrc, Vector3 position, Quaternion rotation, double networkTime, GameObject playerGameObject)
+    {
+        //If has authority ignore this, already fired locally.
+        if (base.hasAuthority)
+            return;
+
+        //var projectile = (GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
+
+        /* Like in the command you will get the time passed and initialize
+         * the projectile with that value. */
+        double timePassed = NetworkTime.time - networkTime;
+        GameObject obj = (GameObject)Instantiate(Resources.Load(prefabSrc), position, rotation);
+        Projectile p = obj.GetComponent<Projectile>();
+        p.player = playerGameObject;
+        p.Initialize((float)timePassed);
     }
 }

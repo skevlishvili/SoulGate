@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Mirror;
 
-public class Projectile : NetworkBehaviour
+public class Projectile : MonoBehaviour
 {
     Skill Spell;
 
@@ -35,8 +35,33 @@ public class Projectile : NetworkBehaviour
 
 
 
+    #region Serialized.
+    /// <summary>
+    /// How quickly to move.
+    /// </summary>
+    [Tooltip("How quickly to move.")]
+    [SerializeField]
+    private float _moveRate = 7f;
+    #endregion
+
+    #region Private.
+    /// <summary>
+    /// Time to destroy this projectile.
+    /// </summary>
+    private float _destroyTime = -1f;
+    /// <summary>
+    /// Distance remaining to catch up.
+    /// </summary>
+    private float _catchupDistance = 0f;
+    #endregion
+
+
     void Start()
     {
+        InitSpell();
+    }
+
+    void InitSpell() {
         if (SkillIndex == 0)
         {
             Spell = SkillLibrary.TowerSkills[TowerSkillIndex];
@@ -78,35 +103,86 @@ public class Projectile : NetworkBehaviour
         AudioManagerScript audioManager = AudioManagerObj.GetComponent<AudioManagerScript>();
         audioManager.PlaySound(SkillIndex, AudioRepeating, AudioStartTime, AudioRepeatTime);
 
-        Destroy(gameObject, Spell.Duration);
+    }
+
+
+    void Update()
+    {
+        //if (speed != 0)
+        //{
+        //    //rb.velocity = transform.forward * speed;
+        //    transform.position += transform.forward * (speed * Time.deltaTime);
+        //}
+
+
+
+
+        //Not initialized.
+        if (_destroyTime < 0)
+            return;
+
+        float moveValue = speed * Time.deltaTime;
+        float catchupValue = 0f;
+
+        //Apply catchup time.
+        if (_catchupDistance > 0f)
+        {
+            float step = (_catchupDistance * Time.deltaTime);
+            //Subtract step from catchup distance to eliminate traveled distance.
+            _catchupDistance -= step;
+
+            catchupValue = step;
+
+            if (_catchupDistance < (moveValue * 0.1f))
+            {
+                catchupValue += _catchupDistance;
+                _catchupDistance = 0f;
+            }
+        }
+
+        //Move straight up.
+        transform.position += transform.forward * (moveValue + catchupValue);
+
+        if (Time.time > _destroyTime)
+            Destroy(gameObject);
 
     }
 
-    [Server]
-    void FixedUpdate()
+    public void Initialize(float duration)
     {
-        if (speed != 0)
+        if (Spell == null)
+            InitSpell();
+        _catchupDistance = (duration * speed);
+        _destroyTime = Time.time + Spell.Duration;
+    }
+
+
+    private void SendTransformRpc(Vector3 position)
+    {
+        if ((position - transform.position).magnitude > 5)
         {
-            rb.velocity = transform.forward * speed;
-            //transform.position += transform.forward * (speed * Time.deltaTime);         
+            transform.position = position;
+
         }
     }
 
-    [Server]
+    
     public void DestroyProjectile(Vector3 vfxPosition)
     {
-        DestroyProjectileRpc(vfxPosition);
-    }
-
-
-    [ClientRpc]
-    public void DestroyProjectileRpc(Vector3 vfxPosition)
-    {
+        //DestroyProjectileRpc(vfxPosition);
         StartCoroutine("CreateVFX", vfxPosition);
         Destroy(gameObject);
     }
 
-    [Client]
+
+   
+    //public void DestroyProjectileRpc(Vector3 vfxPosition)
+    //{
+    //    StartCoroutine("CreateVFX", vfxPosition);
+    //    Destroy(gameObject);
+    //}
+
+    
     IEnumerator CreateVFX(Vector3 vfxPosition)
     {
         Object onHitPref = Resources.Load(Spell.SkillHitPrefab); // note: not .prefab!
@@ -116,10 +192,10 @@ public class Projectile : NetworkBehaviour
         Destroy(onHitObj);
     }
 
-    IEnumerator DestroyObject()
-    {
-        yield return new WaitForSeconds(Spell.Duration);
+    //IEnumerator DestroyObject()
+    //{
+    //    yield return new WaitForSeconds(Spell.Duration);
 
-        Destroy(gameObject);
-    }
+    //    Destroy(gameObject);
+    //}
 }

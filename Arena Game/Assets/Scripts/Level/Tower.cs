@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class Tower : NetworkBehaviour
 {
     Vector3 Tower_Position;
     Quaternion Tower_Rotation;
@@ -59,7 +59,7 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        CheckIfPlayerIsWithinRange();
+        //CheckIfPlayerIsWithinRange();
         CheckIfDestroyed();
     }
 
@@ -169,7 +169,6 @@ public class Tower : MonoBehaviour
         }
     }
 
-    [Server]
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Spell")
@@ -202,13 +201,16 @@ public class Tower : MonoBehaviour
                 //hitInstance.transform.LookAt(contact + contact.normalized);
             }
 
-            takeDamage(Damage);
+            if(base.isServer)
+                takeDamage(Damage);
 
             projectile.DestroyProjectile(gameObject.transform.position);
 
             Debug.Log(TowerHealth);
         }
     }
+
+
 
     [Server]
     private void OnParticleCollision(GameObject other)

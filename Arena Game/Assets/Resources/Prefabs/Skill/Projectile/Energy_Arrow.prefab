@@ -15,9 +15,7 @@ GameObject:
   - component: {fileID: 54934405680233552}
   - component: {fileID: 135364644469035946}
   - component: {fileID: -6142141322442712980}
-  - component: {fileID: -878556950913122615}
   - component: {fileID: 378197287009618993}
-  - component: {fileID: -2250122057362047200}
   m_Layer: 0
   m_Name: Energy_Arrow
   m_TagString: Spell
@@ -4876,7 +4874,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 2.7695e-41, z: 0, w: 50.25}
+  m_BoundingSphereOverride: {x: -0.8, y: 8, z: 8.8, w: -9.6}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -5020,23 +5018,6 @@ MonoBehaviour:
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
   m_AreaLightEmissiveMeshLayer: -1
---- !u!114 &-878556950913122615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1249710063744722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &378197287009618993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5049,9 +5030,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   SkillIndex: 12
+  TowerSkillIndex: 0
   damage: []
   speed: 0
   hit: {fileID: 0}
@@ -5064,24 +5044,7 @@ MonoBehaviour:
   hitOffset: 0
   rotationOffset: {x: 0, y: 0, z: 0}
   Detached: []
---- !u!114 &-2250122057362047200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1249710063744722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 0
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
+  _moveRate: 7
 --- !u!1 &1655099193879956
 GameObject:
   m_ObjectHideFlags: 0

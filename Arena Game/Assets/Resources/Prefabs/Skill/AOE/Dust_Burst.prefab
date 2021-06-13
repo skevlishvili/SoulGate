@@ -24008,7 +24008,6 @@ GameObject:
   - component: {fileID: 4231334530682172}
   - component: {fileID: 198076815976795324}
   - component: {fileID: 199376571608345920}
-  - component: {fileID: 7381203128381264987}
   - component: {fileID: 4840114555622966980}
   m_Layer: 0
   m_Name: Dust_Burst
@@ -28844,23 +28843,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &7381203128381264987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535640691960112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &4840114555622966980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28873,9 +28855,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   SkillIndex: 18
+  TowerSkillIndex: 0
   damage: []
   speed: 0
   hit: {fileID: 0}
@@ -28888,6 +28869,7 @@ MonoBehaviour:
   hitOffset: 0
   rotationOffset: {x: 0, y: 0, z: 0}
   Detached: []
+  _moveRate: 7
 --- !u!1 &1598199573090778
 GameObject:
   m_ObjectHideFlags: 0

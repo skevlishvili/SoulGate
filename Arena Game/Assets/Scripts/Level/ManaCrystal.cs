@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManaCrystal : MonoBehaviour
+public class ManaCrystal : NetworkBehaviour
 {
     Vector3 Crystal_Position;
     Quaternion Crystal_Rotation;
@@ -13,7 +13,7 @@ public class ManaCrystal : MonoBehaviour
     public float Moving_Speed;
     public float StartPosition;
 
-    [Server]
+    
     void Start()
     {
         CrystalHealth = 1000;
@@ -61,7 +61,6 @@ public class ManaCrystal : MonoBehaviour
     }
 
 
-    [Server]
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Spell")
@@ -88,12 +87,15 @@ public class ManaCrystal : MonoBehaviour
                 hitInstance.transform.LookAt(contact);
             }
 
-            takeDamage(Damage);
+            if(base.isServer)
+                takeDamage(Damage);
 
             projectile.DestroyProjectile(gameObject.transform.position);
         }
     }
 
+
+ 
     [Server]
     private void OnParticleCollision(GameObject other)
     {
