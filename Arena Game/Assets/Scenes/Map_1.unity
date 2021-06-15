@@ -10916,7 +10916,7 @@ PrefabInstance:
     - target: {fileID: 5600095401699329780, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
       propertyPath: Port
-      value: 7777
+      value: 25565
       objectReference: {fileID: 0}
     - target: {fileID: 5600095401699329780, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
