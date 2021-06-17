@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 
@@ -25,7 +26,6 @@ public class Abillities : NetworkBehaviour
     Vector3 position;
 
     PlayerAnimator anim;
-    public PlayerAction playerActionScript;
 
     public Canvas abilityOneCanvas;
     public Image[] SkillImageUIVFX;
@@ -46,6 +46,8 @@ public class Abillities : NetworkBehaviour
     public Transform player;
     public Unit unitStat;
     private ChatBehaviour chat;
+    [SerializeField]
+    private NavMeshAgent _agent;
     #endregion
 
     void Awake()
@@ -90,7 +92,6 @@ public class Abillities : NetworkBehaviour
         SkillVFXDeActivation();
 
 
-        playerActionScript = GetComponent<PlayerAction>();
         unitStat = gameObject.GetComponent<Unit>();
         anim = GetComponentInChildren<PlayerAnimator>();
         chat = GetComponent<ChatBehaviour>();
@@ -237,10 +238,11 @@ public class Abillities : NetworkBehaviour
     void RotatePlayer()
     {
         Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
-        float rotationY = Mathf.SmoothDamp(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y, ref playerActionScript.rotateVelocity, 0);
+        float rotateVelocity = 0;
+        float rotationY = Mathf.SmoothDamp(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y, ref rotateVelocity, 0);
         transform.eulerAngles = new Vector3(0, rotationY, 0);
-        playerActionScript.agent.SetDestination(transform.position);
-        playerActionScript.agent.stoppingDistance = 0;
+        _agent.SetDestination(transform.position);
+        _agent.stoppingDistance = 0;
     }
 
 
@@ -329,7 +331,7 @@ public class Abillities : NetworkBehaviour
             SkillVFXDeActivation();
             PlayerAbillities[index].IsActivating = false;
             PlayerAbillities[index].IsFiring = true;
-            playerActionScript.agent.isStopped = true;
+            _agent.isStopped = true;
             anim.Attack(PlayerAbillities[CurrentAbillity].Skill.AnimatorProperty);
 
             yield return new WaitForSeconds(PlayerAbillities[CurrentAbillity].Skill.ActivationTime);

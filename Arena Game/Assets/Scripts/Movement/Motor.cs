@@ -2,6 +2,7 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -33,6 +34,10 @@ public class Motor : NetworkBehaviour
 
     [SerializeField]
     private NavMeshAgent _agent;
+    [SerializeField]
+    private Abillities _abilities;
+    [SerializeField]
+    private float _spanBackDistanceSqr;
     #endregion
 
     #region Private.
@@ -110,7 +115,7 @@ public class Motor : NetworkBehaviour
 
     private bool CanMove()
     {
-        return !_unitStat.IsDead && _unitStat.IsReady && _roundManager.CurrentState == RoundManager.RoundState.RoundStart;
+        return !_unitStat.IsDead && _unitStat.IsReady && _roundManager.CurrentState == RoundManager.RoundState.RoundStart && !_abilities.PlayerAbillities.All(x => x.IsFiring);
     }
 
     /// <summary>
@@ -164,7 +169,10 @@ public class Motor : NetworkBehaviour
         SpectatorRollbackManager.StartRollback();
 
         //Snap motor to server values.
-        transform.position = serverState.Position;
+
+        if((transform.position - serverState.Position).sqrMagnitude > _spanBackDistanceSqr)
+            transform.position = serverState.Position;
+
         transform.rotation = serverState.Rotation;
         if(_agent.destination != serverState.Destination)
             _agent.SetDestination(serverState.Destination);
@@ -251,7 +259,6 @@ public class Motor : NetworkBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float forward = Input.GetAxisRaw("Vertical");
 
-        Debug.Log(CanMove());
         if (!Input.GetKeyDown(KeyCodeController.Moving) || !CanMove())
             return;
         

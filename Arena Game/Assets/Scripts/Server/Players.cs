@@ -29,6 +29,5 @@ public class Players : NetworkBehaviour
         PlayersGameObjects.Clear();
         PlayersGameObjects.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         EventPlayerAdd?.Invoke(player);
-
     }
 }
