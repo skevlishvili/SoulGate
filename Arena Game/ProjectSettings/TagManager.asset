@@ -9,6 +9,8 @@ TagManager:
   - Arena_Shield
   - RoundManager
   - Audio
+  - Tower
+  - Crystal
   layers:
   - Default
   - TransparentFX
