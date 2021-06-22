@@ -20,7 +20,7 @@ public class ScoreBoardScript : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Manager.EventPlayerAdd += PlayerAdded;
+        Manager.EventPlayerAdd += PlayerAdded;
 
     }
 
