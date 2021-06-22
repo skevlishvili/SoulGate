@@ -16,6 +16,7 @@ public class RoundManager : NetworkBehaviour
 
     //public GameObject LocalPlayerGameObject;
     //public PlayerAction LocalPlayerAction;
+    public GameObject RoundEndUi;
     public UnityEngine.UI.Text RoundTextObj;
     [SyncVar]
     public string RoundText;
@@ -199,12 +200,14 @@ public class RoundManager : NetworkBehaviour
 
     [Server]
     void PostRoundCheck() {
+        if (CurrentRound == MaxRounds)
+            EndRoundUi();
 
         if (CurrentRound < MaxRounds) {
             StartPreRound();
 
             return;
-        } 
+        }
     }
 
     [Server]
@@ -254,6 +257,12 @@ public class RoundManager : NetworkBehaviour
     {
         RoundText = text;
         RoundTextObj.text = RoundText;
+    }
+
+    [ClientRpc]
+    void EndRoundUi()
+    {
+        RoundEndUi.SetActive(true);
     }
     #endregion
 

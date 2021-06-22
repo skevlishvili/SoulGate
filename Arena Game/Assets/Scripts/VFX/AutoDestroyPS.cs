@@ -14,22 +14,4 @@ public class AutoDestroyPS : MonoBehaviour
         timeLeft = main.startLifetimeMultiplier + main.duration;
         Destroy(gameObject, timeLeft);
     }
-
-    /*--------------------------bad variant------------------------
-    public void Awake()
-    {
-        ParticleSystem system = GetComponent<ParticleSystem>();
-        var main = system.main;
-        timeLeft = main.startLifetimeMultiplier + main.duration;
-        //Destroy(gameObject, main.startLifetimeMultiplier + main.duration);
-    }
-    public void Update()
-    {
-        timeLeft -= Time.deltaTime;
-        if (timeLeft <= 0)
-        {
-            GameObject.Destroy(gameObject);
-        }
-    }
-    -----------------------------------------------------------*/
 }

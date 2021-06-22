@@ -33,6 +33,8 @@ public class Tower : NetworkBehaviour
     public Players Manager;
 
     public GameObject[] Crystals;
+
+    public GameObject Laser;
     int ActiveCrystal;
 
 
@@ -59,7 +61,7 @@ public class Tower : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //CheckIfPlayerIsWithinRange();
+        CheckIfPlayerIsWithinRange();
         CheckIfDestroyed();
     }
 
@@ -74,9 +76,8 @@ public class Tower : NetworkBehaviour
             {
                 if (Vector3.Distance(gameObject.transform.position, Manager.PlayersGameObjects[i].transform.position) < TowerRange)
                 {
-                    Debug.Log($"---------------------------Player Within Range of {gameObject.name} ------------------------------");
-
                     PlayerWithinRange[i] = Manager.PlayersGameObjects[i];
+                    Laser.SetActive(true);
                 }
             }
         }

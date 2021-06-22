@@ -9,7 +9,7 @@ public class ButtonHover : MonoBehaviour
 
     public void MouseLeave()
     {
-        ButtonImage.color = new Color { r = ButtonImage.color.r, g = ButtonImage.color.g, b = ButtonImage.color.b, a = 0.5f };
+        ButtonImage.color = new Color { r = ButtonImage.color.r, g = ButtonImage.color.g, b = ButtonImage.color.b, a = 0.97f };
     }
 
     public void MouseEnter()

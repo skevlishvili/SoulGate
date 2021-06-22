@@ -4769,7 +4769,7 @@ GameObject:
   - component: {fileID: 199409457479697650}
   m_Layer: 0
   m_Name: Hit
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9591,11 +9591,10 @@ GameObject:
   - component: {fileID: 114117845178483124}
   - component: {fileID: 120411782446683384}
   - component: {fileID: 8366537987387287992}
-  - component: {fileID: 5344071939208484839}
   - component: {fileID: -1403443992885755115}
   m_Layer: 0
   m_Name: Laser beam 2
-  m_TagString: Untagged
+  m_TagString: Tower_Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9630,7 +9629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitEffect: {fileID: 1348276961250486}
   HitOffset: 0.01
-  useLaserRotation: 0
+  useLaserRotation: 1
   MaxLength: 50
   MainTextureLength: 0.2
   NoiseTextureLength: 0.2
@@ -9766,34 +9765,6 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &5344071939208484839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395565506770744}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  SkillIndex: 0
-  TowerSkillIndex: 0
-  damage: []
-  speed: 0
-  hit: {fileID: 0}
-  flash: {fileID: 0}
-  player: {fileID: 0}
-  AudioRepeating: 0
-  AudioStartTime: 0
-  AudioRepeatTime: 1
-  UseFirePointRotation: 0
-  hitOffset: 0
-  rotationOffset: {x: 0, y: 0, z: 0}
-  Detached: []
 --- !u!54 &-1403443992885755115
 Rigidbody:
   m_ObjectHideFlags: 0
