@@ -2,6 +2,7 @@
 using Mirror;
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public struct UnitStruct
 {
@@ -48,6 +49,7 @@ public class Unit : NetworkBehaviour
 
     [SyncVar]
     [SerializeField] private float _health = 100;
+    [SerializeField] private NavMeshAgent _agent;
 
     public float Health
     {
@@ -55,7 +57,7 @@ public class Unit : NetworkBehaviour
         private set { _health = value; }
     }
 
-
+    public Vector3 SpawnPoint;
 
     public delegate void HealthChangedDelegate(float Health, float MaxHealth);
     public event HealthChangedDelegate EventHealthChanged;
@@ -71,6 +73,7 @@ public class Unit : NetworkBehaviour
 
     private void Start()
     {
+        SpawnPoint = gameObject.transform.position;
         MaxHealth = baseMaxHealth;
         HealthRegen = baseHealthRegen;
         PhysicalDefence = basePhysicalDefence;
@@ -205,6 +208,8 @@ public class Unit : NetworkBehaviour
         _health = MaxHealth;
         IsDead = false;
 
+        _agent.SetDestination(SpawnPoint);
+        gameObject.transform.position = SpawnPoint;
         ReviveRpc();
         IsReady = false;
     }
@@ -264,7 +269,10 @@ public class Unit : NetworkBehaviour
     {
         _health = MaxHealth;
         IsDead = false;
+        _agent.isStopped = true;
         Animator.IsAlive();
+        _agent.SetDestination(SpawnPoint);
+        gameObject.transform.position = SpawnPoint;
     }
 
     [ClientRpc]

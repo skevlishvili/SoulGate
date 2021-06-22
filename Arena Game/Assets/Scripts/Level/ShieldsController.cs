@@ -5,47 +5,54 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ShieldsController : MonoBehaviour
+public class ShieldsController : NetworkBehaviour
 {
     public GameObject[] Crystals;
-
     public Arena_Shield[] Shields;
-    public List<Arena_Shield> Avaliable_Shields;
-    public List<Arena_Shield> Active_Shields;
+    [SyncVar]
+    public float ShieldDuration;
 
-    public float Shield_Duration;
-    int ActiveCrystal;
-    bool IsShieldActive;
+    [SyncVar]
+    List<int> _avaliableShields;
+    [SyncVar]
+    List<int> _activeShields;
+
+    [SyncVar]
+    int _activeCrystal;
+    [SyncVar]
+    bool _isShieldActive;
 
 
-    [Server]
     void Start()
     {
-        Shield_Duration = 30;
+        ShieldDuration = 30;
 
         foreach (var item in Shields)
         {
             item.Render.material.SetFloat("DiffuseTransition", 0);
         }
-
+        _avaliableShields = new List<int>();
+        _activeShields = new List<int>();
 
         //needs to move where Round starts
-        IsShieldActive = false;//Set true After you move your code where round starts
+        _isShieldActive = false;//Set true After you move your code where round starts
 
         //CheckAvaliableShields();
         //StartCoroutine(ShieldsActivation(16));
         //StartCoroutine(ShieldsDeactivation());
     }
 
+
+
     [Server]
     void FixedUpdate()
     {
-        if (!IsShieldActive)
+        if (!_isShieldActive)
         {
             CheckAvaliableShields();
             CheckAvaliableCrystals();
-            StartCoroutine(ShieldsActivation(ActiveCrystal+2));
-            IsShieldActive = true;
+            StartCoroutine(ShieldsActivation(_activeCrystal+2));
+            _isShieldActive = true;
             StartCoroutine(ShieldsDeactivation());
         }
 
@@ -55,26 +62,53 @@ public class ShieldsController : MonoBehaviour
     [Server]
     public void CheckActiveShields()
     {
-        foreach (var item in Active_Shields)
+        for (int i = 0; i < _activeShields.Count; i++)
         {
+            var item = Shields[_activeShields[i]];
             if (!item.Towers[0].activeInHierarchy || !item.Towers[1].activeInHierarchy)
             {
                 item.Shield.SetActive(false);
                 item.DiffuseTransitionOn = false;
+
+                DeActivateShieldRpc(_activeShields[i]);
             }
         }
+    }
+
+    [ClientRpc]
+    private void DeActivateShieldRpc(int index)
+    {     
+        var item = Shields[index];
+        item.Shield.SetActive(false);
+        item.DiffuseTransitionOn = false;        
+    }
+
+   
+
+    [ClientRpc]
+    private void ActivateShieldRpc(int index)
+    {
+        var item = Shields[index];
+        item.Shield.SetActive(true);
+        item.Shield_Duration = ShieldDuration;
+        item.ShieldActivatinTime = DateTime.Now;
+
+        item.DiffuseTransitionOn = true;
+        item.TextureDiffusion = 0;
+        item.TextureDiffusionMaximum = 1f;
+        item.TextureDiffusionmMinimum = 0.15f;
     }
 
     [Server]
     public void CheckAvaliableShields()
     {
-        Avaliable_Shields.Clear();
+        _avaliableShields.Clear();
 
-        foreach (var item in Shields)
+        for (int i = 0; i < Shields.Length; i++)
         {
-            if (item.Towers[0].activeInHierarchy && item.Towers[1].activeInHierarchy)
+            if (Shields[i].Towers[0].activeInHierarchy && Shields[i].Towers[1].activeInHierarchy)
             {
-                Avaliable_Shields.Add(item);
+                _avaliableShields.Add(i);
             }
         }
     }
@@ -82,56 +116,59 @@ public class ShieldsController : MonoBehaviour
     [Server]
     public void CheckAvaliableCrystals()
     {
-        ActiveCrystal = 0;
+        _activeCrystal = 0;
 
         foreach (var item in Crystals)
         {
             if (item.activeInHierarchy)
             {
-                ActiveCrystal += 1;
+                _activeCrystal += 1;
             }
         }
     }
 
     [Server]
     public IEnumerator ShieldsActivation(int Quantity)
-    {
+    {       
+        _activeShields = _avaliableShields.AsEnumerable().OrderBy(n => Guid.NewGuid()).Take(Mathf.Min(Quantity, _avaliableShields.Count)).ToList();
 
-        if (Quantity <= Avaliable_Shields.Count)
-        {
-            Active_Shields = Avaliable_Shields.AsEnumerable().OrderBy(n => Guid.NewGuid()).Take(Quantity).ToList();
-        }
-        else
-        {
-            Active_Shields = Avaliable_Shields.AsEnumerable().OrderBy(n => Guid.NewGuid()).Take(Avaliable_Shields.Count).ToList();
-        }
 
-        foreach (var item in Active_Shields)
+        for (int i = 0; i < _activeShields.Count; i++)
         {
+            var item = Shields[_activeShields[i]];
             item.Shield.SetActive(true);
-            item.Shield_Duration = Shield_Duration;
+            item.Shield_Duration = ShieldDuration;
             item.ShieldActivatinTime = DateTime.Now;
 
             item.DiffuseTransitionOn = true;
             item.TextureDiffusion = 0;
             item.TextureDiffusionMaximum = 1f;
             item.TextureDiffusionmMinimum = 0.15f;
+
+            ActivateShieldRpc(_activeShields[i]);
         }
 
-        yield return new WaitForSeconds(Shield_Duration);
+        yield return new WaitForSeconds(ShieldDuration);
     }
+
+
+   
 
     [Server]
     public IEnumerator ShieldsDeactivation()
     {
-        yield return new WaitForSeconds(Shield_Duration);
+        yield return new WaitForSeconds(ShieldDuration);
 
-        foreach (var item in Active_Shields)
+        for (int i = 0; i < _activeShields.Count; i++)
         {
+            var item = Shields[_activeShields[i]];
+
             item.Shield.SetActive(false);
+
             item.DiffuseTransitionOn = false;
+            DeActivateShieldRpc(_activeShields[i]);
         }
 
-        IsShieldActive = false;
+        _isShieldActive = false;
     }
 }
