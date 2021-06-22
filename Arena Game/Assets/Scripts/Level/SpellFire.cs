@@ -11,15 +11,13 @@ public class SpellFire : MonoBehaviour
     public GameObject[] SkillSpawnPoint;
 
     private int CurrentAbillity;
-    float angle;
-
-
+    
+    [Server]
     void FixedUpdate()
     {
         if (towerScript.PlayerWithinRange.Length == 0)
             return;
 
-        Debug.Log(towerScript.PlayerWithinRange.Length);
         //bool skillIsActivating = towerScript.TowerSpells.Any(x => x.IsActivating);
         //bool skillIsFiring = towerScript.TowerSpells.Any(x => x.IsFiring);
 
@@ -38,7 +36,7 @@ public class SpellFire : MonoBehaviour
         //}
     }
 
-
+    [Server]
     void AbilityActivation(int index)
     {
         if (!towerScript.TowerSpells[index].ActiveCoolDown)
@@ -47,12 +45,14 @@ public class SpellFire : MonoBehaviour
         }
     }
 
+    [Server]
     void AbilityFire()
     {
         towerScript.TowerSpells[CurrentAbillity].ActiveCoolDown = true;
         StartCoroutine(corSkillShot(CurrentAbillity));
     }
 
+    [Server]
     IEnumerator corSkillShot(int index)
     {
         if (towerScript.TowerSpells[index].IsActivating)
@@ -68,6 +68,7 @@ public class SpellFire : MonoBehaviour
         }
     }
 
+    [Server]
     public void SpawnSkill()
     {
         if (towerScript.TowerSpells[CurrentAbillity].Skill.Skill3DModel == null)
@@ -85,10 +86,7 @@ public class SpellFire : MonoBehaviour
         //Vector3 relative = transform.InverseTransformPoint(playerPosition.position);
         //angle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 
-        //var rotation = Quaternion.identity;
-
         var direction = player.transform.position - transform.position;
-
         var rotation = Quaternion.LookRotation(direction);
 
 
@@ -97,13 +95,14 @@ public class SpellFire : MonoBehaviour
     }
 
 
+    [Server]
     private void CmdSpawnSkill(string prefabSrc, Vector3 position, Quaternion rotation)
     {
         var Spell = (GameObject)Instantiate(Resources.Load(prefabSrc), position, rotation);
-        var Line = Spell.GetComponent<LineRenderer>();
         NetworkServer.Spawn(Spell, gameObject);
     }
 
+    [Server]
     public Transform PlayerCoodinates(GameObject Player)
     {
         return Player.transform;

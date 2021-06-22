@@ -1775,7 +1775,7 @@ public class SkillLibrary : MonoBehaviour
             MagicDamage = 2,
             SoulDamage = 0,
 
-            Duration = 1,
+            Duration = 0,
             Cooldown = 0,
             ActivationTime = 0,
             ProjectileSpeed = 0,

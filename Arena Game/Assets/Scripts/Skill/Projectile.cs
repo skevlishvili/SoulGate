@@ -18,7 +18,6 @@ public class Projectile : MonoBehaviour
     private Rigidbody rb;
     public GameObject player;
 
-
     //-----Audio------------------
     GameObject AudioManagerObj;
     public bool AudioRepeating = false;

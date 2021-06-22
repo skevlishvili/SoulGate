@@ -251,7 +251,6 @@ public class Motor : NetworkBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float forward = Input.GetAxisRaw("Vertical");
 
-        Debug.Log(CanMove());
         if (!Input.GetKeyDown(KeyCodeController.Moving) || !CanMove())
             return;
         

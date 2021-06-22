@@ -1587,6 +1587,16 @@ PrefabInstance:
       propertyPath: Player_PrefabObj
       value: 
       objectReference: {fileID: 7250282779211670797}
+    - target: {fileID: 1456351999479880778, guid: 5a1d726c76949464c9f3dd94b1376c41,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456351999479880778, guid: 5a1d726c76949464c9f3dd94b1376c41,
+        type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2552038605710205761, guid: 5a1d726c76949464c9f3dd94b1376c41,
         type: 3}
       propertyPath: m_IsActive
@@ -1726,6 +1736,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 1025
+      objectReference: {fileID: 0}
+    - target: {fileID: 6695641859893254787, guid: 5a1d726c76949464c9f3dd94b1376c41,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7237336997265590096, guid: 5a1d726c76949464c9f3dd94b1376c41,
         type: 3}

@@ -8,11 +8,16 @@ public class EscapeMenuScript : MonoBehaviour
 
     //public GameObject shopobj;
     CanvasGroup canvasGroup;
-    public bool ShopOpen = false;
+    bool EscapeOpen = false;
+    public GameObject SettingsPanel;
+    public bool SettingsOpen = false;
 
     void Start()
     {
         canvasGroup = GameObject.Find("EscapeMenu").GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0f;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
     }
 
     // Update is called once per frame
@@ -20,10 +25,17 @@ public class EscapeMenuScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCodeController.Menu))
         {
-            
-            canvasGroup.alpha = 1f;
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
+            if (!EscapeOpen)
+            {
+                canvasGroup.alpha = 1f;
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
+                EscapeOpen = !EscapeOpen;
+            }
+            else
+            {
+                Resume();
+            }
         }
     }
 
@@ -32,16 +44,16 @@ public class EscapeMenuScript : MonoBehaviour
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
+        EscapeOpen = !EscapeOpen;
+    }
+
+    public void Settings()
+    {
+        SettingsOpen = !SettingsOpen;
+        SettingsPanel.SetActive(SettingsOpen);
     }
 
     public void Disconnect() {
         Destroy(player);
-        //PhotonNetwork.LeaveRoom();
-        //PhotonNetwork.LoadLevel(0);
     }
-
-    public void Exit() {
-        Application.Quit();
-    }
-
 }

@@ -3,46 +3,37 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
 using System;
 using UnityEngine;
+using Mirror;
 
-public class Hovl_Laser : MonoBehaviour
+public class LaserController : MonoBehaviour
 {
+    public Tower towerScript;
+
     public GameObject HitEffect;
     public float HitOffset = 0;
     public bool useLaserRotation = false;
-
     public float MaxLength;
     private LineRenderer Laser;
-
     public float MainTextureLength = 1f;
     public float NoiseTextureLength = 1f;
     private Vector4 Length = new Vector4(1,1,1,1);
-    //private Vector4 LaserSpeed = new Vector4(0, 0, 0, 0); {DISABLED AFTER UPDATE}
-    //private Vector4 LaserStartSpeed; {DISABLED AFTER UPDATE}
-    //One activation per shoot
     private bool LaserSaver = false;
     private bool UpdateSaver = false;
-
     private ParticleSystem[] Effects;
     private ParticleSystem[] Hit;
 
     void Start ()
     {
-        //Get LineRender and ParticleSystem components from current prefab;  
         Laser = GetComponent<LineRenderer>();
         Effects = GetComponentsInChildren<ParticleSystem>();
         Hit = HitEffect.GetComponentsInChildren<ParticleSystem>();
-        //if (Laser.material.HasProperty("_SpeedMainTexUVNoiseZW")) LaserStartSpeed = Laser.material.GetVector("_SpeedMainTexUVNoiseZW");
-        //Save [1] and [3] textures speed
-        //{ DISABLED AFTER UPDATE}
-        //LaserSpeed = LaserStartSpeed;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        //if (Laser.material.HasProperty("_SpeedMainTexUVNoiseZW")) Laser.material.SetVector("_SpeedMainTexUVNoiseZW", LaserSpeed);
-        //SetVector("_TilingMainTexUVNoiseZW", Length); - old code, _TilingMainTexUVNoiseZW no more exist
         Laser.material.SetTextureScale("_MainTex", new Vector2(Length[0], Length[1]));                    
         Laser.material.SetTextureScale("_Noise", new Vector2(Length[2], Length[3]));
+
         //To set LineRender position
         if (Laser != null && UpdateSaver == false)
         {
@@ -93,7 +84,19 @@ public class Hovl_Laser : MonoBehaviour
                 LaserSaver = true;
                 Laser.enabled = true;
             }
-        }  
+        }
+
+        //---------------------------------------------------------------------------------------------
+
+        if (towerScript.PlayerWithinRange.Length == 0 || towerScript.PlayerWithinRange == null)
+            gameObject.SetActive(false);
+
+        Debug.Log($"-------------------------------------------{towerScript.gameObject.name}-------------{towerScript.PlayerWithinRange.Length}---------------------------------------");
+        var player = towerScript.PlayerWithinRange[0].transform.GetChild(1).gameObject;
+        var playerposition = new Vector3(player.transform.position.x, 1.5f, player.transform.position.z);
+        var direction = playerposition - transform.position;
+
+        gameObject.transform.rotation = Quaternion.LookRotation(direction);
     }
 
     public void DisablePrepare()
@@ -111,5 +114,12 @@ public class Hovl_Laser : MonoBehaviour
                 if (AllPs.isPlaying) AllPs.Stop();
             }
         }
+    }
+
+
+    [Server]
+    public Transform PlayerCoodinates(GameObject Player)
+    {
+        return Player.transform;
     }
 }
