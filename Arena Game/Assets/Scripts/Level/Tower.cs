@@ -39,7 +39,7 @@ public class Tower : NetworkBehaviour
 
 
 
-    NetworkIdentity LastColliderdObjectid;
+    int LastColliderdObjectid;
 
 
     // Start is called before the first frame update
@@ -61,7 +61,7 @@ public class Tower : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //CheckIfPlayerIsWithinRange();
+        CheckIfPlayerIsWithinRange();
         CheckIfDestroyed();
     }
 
@@ -76,8 +76,9 @@ public class Tower : NetworkBehaviour
             {
                 if (Vector3.Distance(gameObject.transform.position, Manager.PlayersGameObjects[i].transform.position) < TowerRange)
                 {
+                    //Debug.Log($"-------------------------------------------{gameObject.name}-------------{Vector3.Distance(gameObject.transform.position, Manager.PlayersGameObjects[i].transform.position)}---------------------------------------");
                     PlayerWithinRange[i] = Manager.PlayersGameObjects[i];
-                    //Laser.SetActive(true);
+                    Laser.SetActive(true);
                 }
             }
         }
@@ -119,7 +120,7 @@ public class Tower : NetworkBehaviour
             TowerMaxXpMultiplier *= 2;
             TowerXp = 0;
 
-            DamageMultiplier *= 1.5f;
+            DamageMultiplier *= 2f;
             HealingMultiplier *= 1.5f;
 
             initStats();
@@ -185,12 +186,10 @@ public class Tower : NetworkBehaviour
 
             // ----------------------------------------------gasasworebelia---------------------------------------------
             Vector3 contact = other.gameObject.GetComponent<Collider>().ClosestPoint(transform.position);
-            Debug.Log(contact);
             //Vector3 contact = other.gameObject.transform.position;
 
             Quaternion rot = Quaternion.identity;
             Vector3 pos = contact;
-            Debug.Log(rot);
 
 
             //----------------------------------------------------------------------------------------------------------
@@ -225,12 +224,12 @@ public class Tower : NetworkBehaviour
 
         if (other.tag == "Spell")
         {
-            if (LastColliderdObjectid == other.gameObject.GetComponent<NetworkIdentity>())
+            if (LastColliderdObjectid == other.gameObject.GetInstanceID())
             {
                 return;
             }
 
-            LastColliderdObjectid = other.gameObject.GetComponent<NetworkIdentity>();
+            LastColliderdObjectid = other.gameObject.GetInstanceID();
 
             takeDamage(Damage);
             Debug.Log(TowerHealth);

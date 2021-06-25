@@ -7,7 +7,8 @@ using Mirror;
 
 public class LaserController : MonoBehaviour
 {
-    public Tower towerScript;
+    public GameObject towerGameObject;
+    Tower towerScript;
 
     public GameObject HitEffect;
     public float HitOffset = 0;
@@ -27,6 +28,8 @@ public class LaserController : MonoBehaviour
         Laser = GetComponent<LineRenderer>();
         Effects = GetComponentsInChildren<ParticleSystem>();
         Hit = HitEffect.GetComponentsInChildren<ParticleSystem>();
+
+        towerScript = towerGameObject.GetComponent<Tower>();
     }
 
     void FixedUpdate()
@@ -87,16 +90,23 @@ public class LaserController : MonoBehaviour
         }
 
         //---------------------------------------------------------------------------------------------
-
-        if (towerScript.PlayerWithinRange.Length == 0 || towerScript.PlayerWithinRange == null)
-            gameObject.SetActive(false);
-
+      
         Debug.Log($"-------------------------------------------{towerScript.gameObject.name}-------------{towerScript.PlayerWithinRange.Length}---------------------------------------");
-        var player = towerScript.PlayerWithinRange[0].transform.GetChild(1).gameObject;
-        var playerposition = new Vector3(player.transform.position.x, 1.5f, player.transform.position.z);
-        var direction = playerposition - transform.position;
 
-        gameObject.transform.rotation = Quaternion.LookRotation(direction);
+        if (towerScript.PlayerWithinRange.Length != 0)
+        {
+            var player = towerScript.PlayerWithinRange[0].transform.GetChild(1).gameObject;
+
+            var playerposition = new Vector3(player.transform.position.x, 1.5f, player.transform.position.z);
+
+            var direction = playerposition - transform.position;
+
+            gameObject.transform.rotation = Quaternion.LookRotation(direction);
+        }
+        else
+        {
+            gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     public void DisablePrepare()

@@ -1772,7 +1772,7 @@ public class SkillLibrary : MonoBehaviour
             SkillName = "Laser",
 
             PhysicalDamage = 0,
-            MagicDamage = 2,
+            MagicDamage = 0.1f,
             SoulDamage = 0,
 
             Duration = 0,
