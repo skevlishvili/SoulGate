@@ -40,7 +40,6 @@ public class PlayerCollision : NetworkBehaviour
         if (other.tag == "Tower_Spell")
         {
             var towerScript = other.GetComponentInParent<Tower>();
-            Debug.Log("Laser Hit");
             float damage = (1 - unitStat.PhysicalDefence / 100) * towerScript.DamageMultiplier * SkillLibrary.TowerSkills[0].PhysicalDamage + (1 - unitStat.MagicDefence / 100) * towerScript.DamageMultiplier * SkillLibrary.TowerSkills[0].MagicDamage + towerScript.DamageMultiplier * SkillLibrary.TowerSkills[0].SoulDamage;
 
             if (base.isServer)

@@ -53,7 +53,6 @@ public class MinimapScript : NetworkBehaviour
     private void initializePlayers()
     {
         var _mapRect = _map.GetComponent<RectTransform>();
-        Debug.Log($"{players.Count} {_playerManager.PlayersGameObjects.Count}");
         for (int i = players.Count; i < _playerManager.PlayersGameObjects.Count; i++)
         {
             var prefabSrc = "Prefabs/UI/" + (_playerManager.PlayersGameObjects[i].GetInstanceID() == ClientScene.localPlayer?.gameObject.GetInstanceID() ? "PlayerImage" : "EnemyImage");

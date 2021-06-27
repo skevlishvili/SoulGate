@@ -17,6 +17,8 @@ public class Health : MonoBehaviour
 
     public GameObject DamageVisual;
 
+    public bool ScriptForHud = false;
+
     [Header("References")]
     [SerializeField] private Unit unitstat = null;
 
@@ -32,17 +34,20 @@ public class Health : MonoBehaviour
         HealthSlider3D = GetComponentInChildren<Slider>();
         HealthSlider2D = GetComponentInChildren<Slider>();
 
-        PastHealthSlider3D = PastHealthObj.GetComponentInChildren<Slider>();
-        PastHealthSlider2D = PastHealthObj.GetComponentInChildren<Slider>();
+        HealthSlider3D.maxValue = unitstat.MaxHealth;
+        HealthSlider2D.maxValue = unitstat.MaxHealth;
 
         if (Healthtext != null)
             Healthtext.text = $"{(int)unitstat.Health}/{(int)unitstat.MaxHealth}";
 
-        HealthSlider3D.maxValue = unitstat.MaxHealth;
-        HealthSlider2D.maxValue = unitstat.MaxHealth;
+        if (ScriptForHud)
+        {
+            PastHealthSlider3D = PastHealthObj.GetComponentInChildren<Slider>();
+            PastHealthSlider2D = PastHealthObj.GetComponentInChildren<Slider>();
 
-        PastHealthSlider3D.maxValue = unitstat.MaxHealth;
-        PastHealthSlider2D.maxValue = unitstat.MaxHealth;
+            PastHealthSlider3D.maxValue = unitstat.MaxHealth;
+            PastHealthSlider2D.maxValue = unitstat.MaxHealth;
+        }
     }
 
     //// Update is called once per frame
@@ -60,14 +65,17 @@ public class Health : MonoBehaviour
 
     public void PastHealthSliderValue(float Health)
     {
-        PastHealthSlider3D.maxValue = unitstat.MaxHealth;
-        PastHealthSlider2D.maxValue = unitstat.MaxHealth;
-        PastHealthSlider3D.value = Health;
-        PastHealthSlider2D.value = Health;
+        if (ScriptForHud)
+        {
+            PastHealthSlider3D.maxValue = unitstat.MaxHealth;
+            PastHealthSlider2D.maxValue = unitstat.MaxHealth;
+            PastHealthSlider3D.value = Health;
+            PastHealthSlider2D.value = Health;
 
-        DamageVisual.SetActive(true);
-        Debug.Log("--------------------------------------It Works------------------------------------");
-        StartCoroutine(PastHealthSliderSetAvtive());
+            DamageVisual.SetActive(true);
+            Debug.Log("--------------------------------------It Works------------------------------------");
+            StartCoroutine(PastHealthSliderSetAvtive());
+        }
     }
 
     IEnumerator PastHealthSliderSetAvtive()

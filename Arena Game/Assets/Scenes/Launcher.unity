@@ -235,6 +235,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &721222387 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7558103032178714499, guid: 6481be4021625104bb2e062a834a8e26,
+    type: 3}
+  m_PrefabInstance: {fileID: 3063166087745743259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!328 &721222391
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721222387}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 469a6db8049b34a4f8c27280a7f9f9be, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: a76a72b7393892942bdf88842c218924, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: _MainTex
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 1
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
 --- !u!114 &1064932848 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6841526368475953353, guid: 6481be4021625104bb2e062a834a8e26,
@@ -398,6 +438,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 985809974053904478, guid: 6481be4021625104bb2e062a834a8e26,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 1758168517108551674, guid: 6481be4021625104bb2e062a834a8e26,
         type: 3}
@@ -709,6 +754,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6857499575796072688, guid: 6481be4021625104bb2e062a834a8e26,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6857499575796072689, guid: 6481be4021625104bb2e062a834a8e26,
         type: 3}
       propertyPath: m_Pivot.x
@@ -823,6 +873,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6857499575796072695, guid: 6481be4021625104bb2e062a834a8e26,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6857499575816902874, guid: 6481be4021625104bb2e062a834a8e26,
         type: 3}
@@ -1090,17 +1145,17 @@ PrefabInstance:
     - target: {fileID: 5254576229550811218, guid: e159a54bfc34bfb408836acf85492b33,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 383.54428
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5254576229550811218, guid: e159a54bfc34bfb408836acf85492b33,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 280.22513
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5254576229550811218, guid: e159a54bfc34bfb408836acf85492b33,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.51064
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5254576229550811218, guid: e159a54bfc34bfb408836acf85492b33,
         type: 3}
@@ -1137,6 +1192,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5254576229550811219, guid: e159a54bfc34bfb408836acf85492b33,
+        type: 3}
+      propertyPath: m_AspectRatio
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e159a54bfc34bfb408836acf85492b33, type: 3}
 --- !u!1001 &5415911080159468024
@@ -1146,10 +1206,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5415911079430364328, guid: 29958e41dd1bcb34591d23c4102bfb93,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5415911079430364342, guid: 29958e41dd1bcb34591d23c4102bfb93,
         type: 3}
       propertyPath: m_Name
       value: RawImage
+      objectReference: {fileID: 0}
+    - target: {fileID: 5415911079430364342, guid: 29958e41dd1bcb34591d23c4102bfb93,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5415911079430364343, guid: 29958e41dd1bcb34591d23c4102bfb93,
         type: 3}

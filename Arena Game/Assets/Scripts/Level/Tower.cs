@@ -87,7 +87,6 @@ public class Tower : NetworkBehaviour
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.gameObject.tag.Contains("Player")) {
-                Debug.Log("In range");
                 Target = hitCollider.gameObject;
                 return;
             }

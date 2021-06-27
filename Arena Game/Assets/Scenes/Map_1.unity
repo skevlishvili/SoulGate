@@ -13074,8 +13074,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8492074324388752263, guid: 4f0aeef466bbe19498ee8db620c21e92,
         type: 3}
+      propertyPath: m_PixelPerfect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492074324388752263, guid: 4f0aeef466bbe19498ee8db620c21e92,
+        type: 3}
       propertyPath: m_SortingOrder
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8492074324388752263, guid: 4f0aeef466bbe19498ee8db620c21e92,
         type: 3}
