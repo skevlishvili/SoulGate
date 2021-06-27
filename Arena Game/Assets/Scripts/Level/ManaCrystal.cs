@@ -13,7 +13,7 @@ public class ManaCrystal : NetworkBehaviour
     public float Moving_Speed;
     public float StartPosition;
 
-    
+
     void Start()
     {
         CrystalHealth = 1000;
@@ -71,7 +71,7 @@ public class ManaCrystal : NetworkBehaviour
 
             float Damage = projectile.damage[0] + projectile.damage[1] + projectile.damage[2];
 
-            
+
             Skill Spell = SkillLibrary.Skills[HelpMethods.GetSkillIndexByName(other.name)];
 
             // ----------------------------------------------gasasworebelia---------------------------------------------
@@ -87,7 +87,7 @@ public class ManaCrystal : NetworkBehaviour
                 hitInstance.transform.LookAt(contact);
             }
 
-            if(base.isServer)
+            if (base.isServer)
                 takeDamage(Damage);
 
             projectile.DestroyProjectile(gameObject.transform.position);
@@ -95,8 +95,6 @@ public class ManaCrystal : NetworkBehaviour
     }
 
 
- 
-    [Server]
     private void OnParticleCollision(GameObject other)
     {
         Projectile projectile = other.GetComponent<Projectile>();

@@ -29,7 +29,7 @@ public class Tower : NetworkBehaviour
 
     public List<Abillity> TowerSpells;
 
-    public GameObject[] PlayerWithinRange;
+    public GameObject Target;
     public Players Manager;
 
     public GameObject[] Crystals;
@@ -38,7 +38,7 @@ public class Tower : NetworkBehaviour
     int ActiveCrystal;
 
 
-
+    GameObject lastDamageReceivedFrom;
     int LastColliderdObjectid;
 
 
@@ -61,32 +61,41 @@ public class Tower : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //CheckIfPlayerIsWithinRange();
-        CheckIfDestroyed();
+        CheckIfPlayerIsWithinRange();
     }
 
     void CheckIfPlayerIsWithinRange()
     {
-        if (Manager.PlayersGameObjects.Count >= 1)
-        {
-            var readyPlayers = Manager.PlayersGameObjects.Count;
-            PlayerWithinRange = new GameObject[readyPlayers];
+        //if (Manager.PlayersGameObjects.Count >= 1)
+        //{
+        //    var readyPlayers = Manager.PlayersGameObjects.Count;
+        //    PlayerWithinRange = new GameObject[readyPlayers];
 
-            for (int i = 0; i < readyPlayers; i++)
-            {
-                if (Vector3.Distance(gameObject.transform.position, Manager.PlayersGameObjects[i].transform.position) < TowerRange)
-                {
-                    //Debug.Log($"-------------------------------------------{gameObject.name}-------------{Vector3.Distance(gameObject.transform.position, Manager.PlayersGameObjects[i].transform.position)}---------------------------------------");
-                    PlayerWithinRange[i] = Manager.PlayersGameObjects[i];
-                    Laser.SetActive(true);
-                }
+        //    for (int i = 0; i < readyPlayers; i++)
+        //    {
+        //        if (Vector3.Distance(gameObject.transform.position, Manager.PlayersGameObjects[i].transform.position) < TowerRange)
+        //        {
+        //            //Debug.Log($"-------------------------------------------{gameObject.name}-------------{Vector3.Distance(gameObject.transform.position, Manager.PlayersGameObjects[i].transform.position)}---------------------------------------");
+        //            PlayerWithinRange[i] = Manager.PlayersGameObjects[i];
+        //            Laser.SetActive(true);
+        //        }
+        //    }
+        //}
+
+        var center = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+        Collider[] hitColliders = Physics.OverlapSphere(center, TowerRange);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject.tag.Contains("Player")) {
+                Debug.Log("In range");
+                Target = hitCollider.gameObject;
+                return;
             }
         }
 
-        
+        Target = null;
     }
 
-    [Server]
     void initStats()
     {
         TowerSpells = new List<Abillity>();
@@ -143,6 +152,7 @@ public class Tower : NetworkBehaviour
     void takeDamage(float damage)
     {
         TowerHealth -= damage;
+        CheckIfDestroyed();
     }
 
     [Server]
@@ -154,7 +164,13 @@ public class Tower : NetworkBehaviour
             Object DestroyedTower = Resources.Load("Prefabs/Level/DestroyedTower_1");
             Instantiate(DestroyedTower, Tower_Position, Tower_Rotation);
             gameObject.SetActive(false);
+            TowerDestroyRpc(lastDamageReceivedFrom);
         }
+    }
+
+    [ClientRpc]
+    private void TowerDestroyRpc(GameObject killer) {
+        killer.GetComponent<Unit>().PlayerScoreEventScoreChange(500);
     }
 
     [Server]
@@ -184,7 +200,7 @@ public class Tower : NetworkBehaviour
             
             Skill Spell = SkillLibrary.Skills[HelpMethods.GetSkillIndexByName(other.name)];
 
-            // ----------------------------------------------gasasworebelia---------------------------------------------
+            //----------------------------------------------gasasworebelia---------------------------------------------
             Vector3 contact = other.gameObject.GetComponent<Collider>().ClosestPoint(transform.position);
             //Vector3 contact = other.gameObject.transform.position;
 
@@ -201,18 +217,15 @@ public class Tower : NetworkBehaviour
                 //hitInstance.transform.LookAt(contact + contact.normalized);
             }
 
-            if(base.isServer)
-                takeDamage(Damage);
+            lastDamageReceivedFrom = projectile.player;
+            takeDamage(Damage);
 
             projectile.DestroyProjectile(gameObject.transform.position);
-
-            Debug.Log(TowerHealth);
         }
     }
 
 
 
-    [Server]
     private void OnParticleCollision(GameObject other)
     {
         Projectile projectile = other.GetComponent<Projectile>();
@@ -231,8 +244,8 @@ public class Tower : NetworkBehaviour
 
             LastColliderdObjectid = other.gameObject.GetInstanceID();
 
+            lastDamageReceivedFrom = projectile.player;
             takeDamage(Damage);
-            Debug.Log(TowerHealth);
         }
     }
 }

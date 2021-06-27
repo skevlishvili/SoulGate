@@ -31,7 +31,7 @@ public class RoundManager : NetworkBehaviour
     [SyncVar]
     private RoundState _currentState;
 
-    
+
     public RoundState CurrentState
     {
         get { return _currentState; }
@@ -77,7 +77,7 @@ public class RoundManager : NetworkBehaviour
 
 
     // Update is called once per frame
-    
+
     void Update()
     {
 
@@ -99,13 +99,15 @@ public class RoundManager : NetworkBehaviour
             }
         }
 
-        if (isClient) {
+        if (isClient)
+        {
             RoundTextObj.text = RoundText;
         }
     }
 
     [Server]
-    void PreRoundCheck() {
+    void PreRoundCheck()
+    {
 
         if (Manager.PlayersGameObjects.Count >= 1)
         {
@@ -124,6 +126,7 @@ public class RoundManager : NetworkBehaviour
             if (readyPlayers == Manager.PlayersGameObjects.Count)
             {
                 StartCoroutine(StartRoundTimer());
+                HideReadyButton();
             }
         }
     }
@@ -135,12 +138,11 @@ public class RoundManager : NetworkBehaviour
         CurrentState = RoundState.RoundStart;
 
         Skull_Shader_Script.Skull_Texture_Diffusion(true);
-
-        HideReadyButton();
     }
 
     [Server]
-    IEnumerator StartRoundTimer() {
+    IEnumerator StartRoundTimer()
+    {
         CurrentState = RoundState.RoundStarting;
 
         for (int i = 5; i >= 0; i--)
@@ -155,7 +157,8 @@ public class RoundManager : NetworkBehaviour
 
 
     [Server]
-    void RoundCheck() {
+    void RoundCheck()
+    {
         if (Manager.PlayersGameObjects.Count > 1)
         {
             var alivePlayers = Manager.PlayersGameObjects.Count;
@@ -199,11 +202,13 @@ public class RoundManager : NetworkBehaviour
     }
 
     [Server]
-    void PostRoundCheck() {
+    void PostRoundCheck()
+    {
         if (CurrentRound == MaxRounds)
             EndRoundUi();
 
-        if (CurrentRound < MaxRounds) {
+        if (CurrentRound < MaxRounds)
+        {
             StartPreRound();
 
             return;
@@ -234,20 +239,22 @@ public class RoundManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void ShowReadyButton() {
+    private void ShowReadyButton()
+    {
         Ready.Show();
     }
 
     [ClientRpc]
     private void HideReadyButton()
     {
-           Ready.Hide();
+        Ready.Hide();
     }
 
 
     #region RPC calls
     [ClientRpc]
-    void ChangeRoundCounter(int currentRound) {
+    void ChangeRoundCounter(int currentRound)
+    {
         CurrentRound = currentRound;
         RoundText = $"Round\n{ToRoman(CurrentRound)}";
     }
