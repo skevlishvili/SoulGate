@@ -63,6 +63,6 @@ public class HudContentController : NetworkBehaviour
         UnitStatTexts[0].text = UnitStats.Damage.ToString();
         UnitStatTexts[1].text = UnitStats.PhysicalDefence.ToString();
         UnitStatTexts[2].text = UnitStats.MagicDefence.ToString();
-        UnitStatTexts[3].text = UnitStats.Money.ToString();
+        UnitStatTexts[3].text = Mathf.FloorToInt(UnitStats.Money).ToString();
     }
 }

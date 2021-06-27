@@ -66,6 +66,12 @@ public class Unit : NetworkBehaviour
     public delegate void PlayerDeathDelegate(GameObject currentPlayer, GameObject killerPlayer);
     public event PlayerDeathDelegate EventPlayerDeath;
 
+    public delegate void PlayerDamageDelegate(float damage);
+    public event PlayerDamageDelegate EventPlayerDamage;
+
+    public delegate void PlayerMoneyDelegate(float money);
+    public event PlayerMoneyDelegate EventPlayerMoney;
+
     public PlayerAnimator Animator;
     private GameObject lastDamageReceivedFrom;
     private RoundManager roundManager;
@@ -100,8 +106,9 @@ public class Unit : NetworkBehaviour
     }
 
     [Client]
-    private void PlayerScore_EventScoreChange(int score)
+    public void PlayerScoreEventScoreChange(int score)
     {
+        EventPlayerMoney?.Invoke(score);
         Money += score;
     }
     
@@ -160,7 +167,14 @@ public class Unit : NetworkBehaviour
     public void TakeDamage(float value, GameObject player)
     {
         lastDamageReceivedFrom = player;
+        TakeDamageRpc(value);
         SetHealth(Mathf.Max(Health - value, 0));
+    }
+
+    [ClientRpc]
+    private void TakeDamageRpc(float damage)
+    {
+        EventPlayerDamage?.Invoke(damage);
     }
 
     public override void OnStartClient()
@@ -261,7 +275,7 @@ public class Unit : NetworkBehaviour
         IsDead = true;
         IsReady = false;
         EventPlayerDeath?.Invoke(gameObject, lastDamageReceivedFrom);
-        DeathRpc();
+        DeathRpc(lastDamageReceivedFrom);
     }
 
     [ClientRpc]
@@ -276,8 +290,9 @@ public class Unit : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void DeathRpc()
+    private void DeathRpc(GameObject killer)
     {
+        lastDamageReceivedFrom.GetComponent<Unit>().PlayerScoreEventScoreChange(1000);
         IsReady = false;
         IsDead = true;
         Animator.IsDead();

@@ -26,9 +26,6 @@ public class MinimapScript : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (base.isServer)
-            return;
-
         
 
         if (_towers.Length == 0 || _crystals.Length == 0)
