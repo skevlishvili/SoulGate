@@ -91,7 +91,7 @@ public class LaserController : MonoBehaviour
 
         //---------------------------------------------------------------------------------------------
       
-        Debug.Log($"-------------------------------------------{towerScript.gameObject.name}-------------{towerScript.PlayerWithinRange.Length}---------------------------------------");
+        //Debug.Log($"-------------------------------------------{towerScript.gameObject.name}-------------{towerScript.PlayerWithinRange.Length}---------------------------------------");
 
         if (towerScript.PlayerWithinRange.Length != 0)
         {

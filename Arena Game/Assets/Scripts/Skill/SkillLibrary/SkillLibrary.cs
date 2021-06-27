@@ -1164,7 +1164,7 @@ public class SkillLibrary : MonoBehaviour
 
 
 
-        //Passives
+        //-----------------Passives-----------------------------------------------------------------------------------------------------------
         Skills[20] = new Skill
         {
             SkillName = "Warrior Heath",
@@ -1197,7 +1197,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Warriorskill_22"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,
@@ -1257,7 +1257,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Paladinskill_44"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,
@@ -1317,7 +1317,7 @@ public class SkillLibrary : MonoBehaviour
             Distance = 0,
 
 
-            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Engineerskill_43"),
+            SkillImageUIVFX = Resources.Load<Sprite>("Design/Skill/Skill UI Image/Used Skill Ui Image/Paladinskill_13"),
             PlayergroundVFX = null,
             MaxRangeVFX = null,
             IndicatorVFX = null,

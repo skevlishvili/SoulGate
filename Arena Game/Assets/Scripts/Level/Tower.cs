@@ -61,7 +61,7 @@ public class Tower : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        CheckIfPlayerIsWithinRange();
+        //CheckIfPlayerIsWithinRange();
         CheckIfDestroyed();
     }
 
