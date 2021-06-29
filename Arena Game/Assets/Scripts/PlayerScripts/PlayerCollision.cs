@@ -25,11 +25,28 @@ public class PlayerCollision : NetworkBehaviour
         float damage = (1 - unitStat.PhysicalDefence / 100) * projectile.damage[0] + (1 - unitStat.MagicDefence / 100) * projectile.damage[1] + projectile.damage[2];
 
         projectile.DestroyProjectile(gameObject.transform.position);
-
+        DestroyNearbyProjRpc();
 
         //HealthScript.PastHealthObj.SetActive(true);
         //HealthScript.PastHealthSliderValue(unitStat.Health);
         unitStat.TakeDamage(damage, projectile.player);
+    }
+
+    [ClientRpc]
+    private void DestroyNearbyProjRpc() {
+        var center = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+
+        Collider[] hitColliders = Physics.OverlapSphere(center, 10);
+        foreach (var hitCollider in hitColliders)
+        {
+            var projectile = hitCollider.gameObject.GetComponent<Projectile>();
+            if (projectile != null)
+            {
+                projectile.DestroyProjectile(gameObject.transform.position);
+
+                return;
+            }
+        }
     }
 
     [Server]

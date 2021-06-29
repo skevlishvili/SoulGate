@@ -472,7 +472,7 @@ public class Abillities : NetworkBehaviour
         p.Initialize((float)timePassed);
 
         if (p.Spell.SkillName == "HealthRegen") {
-            unitStat.Regen(30);
+            unitStat.Regen(50);
         }
 
         //Fire on other clients using the same data.

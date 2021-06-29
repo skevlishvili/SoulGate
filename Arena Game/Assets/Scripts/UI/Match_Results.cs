@@ -85,7 +85,7 @@ public class Match_Results : MonoBehaviour
 
     public void ReturnLauncher()
     {
-        GameObject.FindGameObjectsWithTag("PlayerManager")[0].GetComponent<Players>().RemovePlayerCmd(ClientScene.localPlayer.gameObject);
+        Manager.RemovePlayerCmd(ClientScene.localPlayer.gameObject);
         NetworkManager.singleton.StopClient(); 
         Destroy(GameObject.FindGameObjectsWithTag("NetworkManager")[0]);
         SceneManager.LoadScene("Launcher");

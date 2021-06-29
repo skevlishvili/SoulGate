@@ -88,8 +88,8 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "FireStorm",
 
-            PhysicalDamage =20,
-            MagicDamage = 100,
+            PhysicalDamage = 20,
+            MagicDamage = 5,
             SoulDamage = 0,
 
             HealthBuff = 0,
@@ -207,9 +207,9 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "FireMeteor",
 
-            PhysicalDamage = 50,
-            MagicDamage = 100,
-            SoulDamage = 20,
+            PhysicalDamage = 10,
+            MagicDamage = 10,
+            SoulDamage = 10,
 
             HealthBuff = 0,
             HealthRegenBuff = 0,
@@ -388,8 +388,8 @@ public class SkillLibrary : MonoBehaviour
             SkillName = "LightningStrike",
 
             PhysicalDamage = 10,
-            MagicDamage = 100,
-            SoulDamage = 20,
+            MagicDamage = 10,
+            SoulDamage = 5,
 
             HealthBuff = 0,
             HealthRegenBuff = 0,
@@ -448,8 +448,8 @@ public class SkillLibrary : MonoBehaviour
             SkillName = "Ice Burst",
 
             PhysicalDamage = 20,
-            MagicDamage = 100,
-            SoulDamage = 10,
+            MagicDamage = 20,
+            SoulDamage = 5,
 
             HealthBuff = 0,
             HealthRegenBuff = 0,
@@ -507,9 +507,9 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Knives Rain",
 
-            PhysicalDamage = 50,
-            MagicDamage = 100,
-            SoulDamage = 10,
+            PhysicalDamage = 15,
+            MagicDamage = 0,
+            SoulDamage = 0,
 
             HealthBuff = 0,
             HealthRegenBuff = 0,
@@ -567,9 +567,9 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Meteor shower 2",
 
-            PhysicalDamage = 20,
-            MagicDamage = 50,
-            SoulDamage = 30,
+            PhysicalDamage = 0,
+            MagicDamage = 20,
+            SoulDamage = 0,
 
             HealthBuff = 0,
             HealthRegenBuff = 0,
@@ -627,8 +627,8 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Wind Arrow",
 
-            PhysicalDamage = 10,
-            MagicDamage = 50,
+            PhysicalDamage = 40,
+            MagicDamage = 10,
             SoulDamage = 0,
 
             HealthBuff = 0,
@@ -687,9 +687,9 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Energy Arrow",
 
-            PhysicalDamage = 10,
-            MagicDamage = 50,
-            SoulDamage = 0,
+            PhysicalDamage = 40,
+            MagicDamage = 5,
+            SoulDamage = 10,
 
             HealthBuff = 0,
             HealthRegenBuff = 0,
@@ -746,8 +746,8 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Ice Bullet",
 
-            PhysicalDamage = 10,
-            MagicDamage = 50,
+            PhysicalDamage = 5,
+            MagicDamage = 30,
             SoulDamage = 0,
 
             HealthBuff = 0,
@@ -806,9 +806,9 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Micro Sun",
 
-            PhysicalDamage = 50,
-            MagicDamage = 100,
-            SoulDamage = 50,
+            PhysicalDamage = 0,
+            MagicDamage = 20,
+            SoulDamage = 0,
 
             HealthBuff = 0,
             HealthRegenBuff = 0,
@@ -866,8 +866,8 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Ice Spikes",
 
-            PhysicalDamage = 50,
-            MagicDamage = 100,
+            PhysicalDamage = 0,
+            MagicDamage = 30,
             SoulDamage = 0,
 
             HealthBuff = 0,
@@ -926,9 +926,9 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Magic Bullets",
 
-            PhysicalDamage = 10,
-            MagicDamage = 200,
-            SoulDamage = 20,
+            PhysicalDamage = 30,
+            MagicDamage = 10,
+            SoulDamage = 5,
 
             HealthBuff = 0,
             HealthRegenBuff = 0,
@@ -986,9 +986,9 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Dragon Punch",
 
-            PhysicalDamage = 100,
-            MagicDamage = 100,
-            SoulDamage = 50,
+            PhysicalDamage = 5,
+            MagicDamage = 5,
+            SoulDamage = 5,
 
             HealthBuff = 0,
             HealthRegenBuff = 0,
@@ -1046,9 +1046,9 @@ public class SkillLibrary : MonoBehaviour
         {
             SkillName = "Dust Burst",
 
-            PhysicalDamage = 10,
-            MagicDamage = 100,
-            SoulDamage = 20,
+            PhysicalDamage = 5,
+            MagicDamage = 40,
+            SoulDamage = 5,
 
             HealthBuff = 0,
             HealthRegenBuff = 0,

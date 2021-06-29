@@ -223,6 +223,7 @@ public class Unit : NetworkBehaviour
         IsDead = false;
 
         _agent.SetDestination(SpawnPoint);
+        _agent.Warp(SpawnPoint);
         gameObject.transform.position = SpawnPoint;
         ReviveRpc();
         IsReady = false;
@@ -283,9 +284,10 @@ public class Unit : NetworkBehaviour
     {
         _health = MaxHealth;
         IsDead = false;
-        _agent.isStopped = true;
+        //_agent.isStopped = true;
         Animator.IsAlive();
         _agent.SetDestination(SpawnPoint);
+        _agent.Warp(SpawnPoint);
         gameObject.transform.position = SpawnPoint;
     }
 
