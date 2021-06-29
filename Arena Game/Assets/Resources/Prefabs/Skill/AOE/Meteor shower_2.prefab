@@ -762,7 +762,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 10
+      value: 5
       mode: 0
       spread: 0
       speed:
@@ -4925,7 +4925,8 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.166667, y: 4.166667, z: 4.166667, w: 4.166667}
+  m_BoundingSphereOverride: {x: 7.440852e+28, y: 4.5448218e+30, z: 6.6016866e+31,
+    w: 1.4553457e+22}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

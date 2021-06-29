@@ -591,7 +591,7 @@ public class SkillLibrary : MonoBehaviour
             ProjectileSpeed = 0,
             MaxRechargingTime = 0,
 
-            AttackRadius = 8,
+            AttackRadius = 5,
             Distance = 30,
             
 
