@@ -345,31 +345,6 @@ public class Abillities : NetworkBehaviour
         }
     }
 
-    [Client]
-    public void SpawnSkill()
-    {
-        if (PlayerAbillities[CurrentAbillity].Skill.Skill3DModel == null)
-            return;
-
-        var prefabSrc = PlayerAbillities[CurrentAbillity].Skill.Skill3DModel;
-        var position = new Vector3();
-        var rotation = new Quaternion();
-
-
-        var spellType = PlayerAbillities[CurrentAbillity].Skill.IsBuff ? 1 :
-                        PlayerAbillities[CurrentAbillity].Skill.HasIndicator ? 0 :
-                        PlayerAbillities[CurrentAbillity].Skill.HasTargetVFX ? 2 : 1;
-
-        position = SkillSpawnPoint[spellType].transform.position;
-        rotation = SkillSpawnPoint[spellType].transform.rotation;
-
-
-        //GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
-
-        SpawnProj(prefabSrc, position, rotation);
-        //CmdSpawnSkill(prefabSrc, position, rotation);
-    }
-
 
     [Command]//sachiroa projectile Scriptshi HIt da Flash instiatingis dros ----------------------- 
     private void CmdSpawnSkill(string prefabSrc, Vector3 position, Quaternion rotation)
@@ -417,6 +392,31 @@ public class Abillities : NetworkBehaviour
     }
 
     [Client]
+    public void SpawnSkill()
+    {
+        if (PlayerAbillities[CurrentAbillity].Skill.Skill3DModel == null)
+            return;
+
+        var prefabSrc = PlayerAbillities[CurrentAbillity].Skill.Skill3DModel;
+        var position = new Vector3();
+        var rotation = new Quaternion();
+
+
+        var spellType = PlayerAbillities[CurrentAbillity].Skill.IsBuff ? 1 :
+                        PlayerAbillities[CurrentAbillity].Skill.HasIndicator ? 0 :
+                        PlayerAbillities[CurrentAbillity].Skill.HasTargetVFX ? 2 : 1;
+
+        position = SkillSpawnPoint[spellType].transform.position;
+        rotation = SkillSpawnPoint[spellType].transform.rotation;
+
+
+        //GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
+
+        SpawnProj(prefabSrc, position, rotation);
+        //CmdSpawnSkill(prefabSrc, position, rotation);
+    }
+
+    [Client]
     private void SpawnProj(string prefabSrc, Vector3 position, Quaternion rotation)
     {
         if (!base.hasAuthority)
@@ -427,25 +427,24 @@ public class Abillities : NetworkBehaviour
         /* Only show locally if not server.
          * This is to prevent duplicate projectiles
          * as client host. */
-        if (!base.isServer)
-        {
-            //var projectile = (GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
-            //Spawn the projectile locally.
-            GameObject obj = (GameObject)Instantiate(Resources.Load(prefabSrc), position, rotation);
-            Projectile p = obj.GetComponent<Projectile>();
-            if (p == null)
-                return;
-            p.player = gameObject;
-            //Initialize with a 0f catch up duration.
-            p.Initialize(0f);
-        }
+
+        //var projectile = (GameObject)GameObject.Instantiate(Resources.Load(prefabSrc), position, rotation);
+        //Spawn the projectile locally.
+        GameObject obj = (GameObject)Instantiate(Resources.Load(prefabSrc), position, rotation);
+        Projectile p = obj.GetComponent<Projectile>();
+        if (p == null)
+            return;
+        p.player = gameObject;
+        //Initialize with a 0f catch up duration.
+        p.Initialize(0f);
 
         /* Ask server to fire a projectile using
          * this transforms position, and current
          * network time. Since network time is synchronized
          * it can be used to determine how long it took 
          * the command to reach the server.  */
-        SpawnProjCmd(prefabSrc, transform.position, rotation, NetworkTime.time, gameObject);
+
+        SpawnProjCmd(prefabSrc, position, rotation, NetworkTime.time, gameObject);
     }
 
     /// <summary>
@@ -471,6 +470,10 @@ public class Abillities : NetworkBehaviour
         Projectile p = obj.GetComponent<Projectile>();
         p.player = playerGameObject;
         p.Initialize((float)timePassed);
+
+        if (p.Spell.SkillName == "HealthRegen") {
+            unitStat.Regen(30);
+        }
 
         //Fire on other clients using the same data.
         SpawnProjRpc(prefabSrc, position, rotation, networkTime, playerGameObject);

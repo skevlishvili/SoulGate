@@ -6,7 +6,7 @@ using Mirror;
 
 public class Projectile : MonoBehaviour
 {
-    Skill Spell;
+    public Skill Spell;
 
     public int SkillIndex;
     public int TowerSkillIndex;

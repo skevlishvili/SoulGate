@@ -28883,6 +28883,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1298608913124528628}
   - component: {fileID: 3783029433374942256}
+  - component: {fileID: 7710496915126562780}
   m_Layer: 0
   m_Name: vfx_heal
   m_TagString: Spell
@@ -28918,6 +28919,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIndex: 5
+--- !u!114 &7710496915126562780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5167232171302041955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6e963100f2ef4ebb5b2b416f656c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillIndex: 5
+  TowerSkillIndex: 0
+  damage: []
+  speed: 0
+  hit: {fileID: 0}
+  flash: {fileID: 0}
+  player: {fileID: 0}
+  AudioRepeating: 0
+  AudioStartTime: 0
+  AudioRepeatTime: 1
+  UseFirePointRotation: 0
+  hitOffset: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
+  Detached: []
+  _moveRate: 7
 --- !u!1 &7779908788048889556
 GameObject:
   m_ObjectHideFlags: 0
