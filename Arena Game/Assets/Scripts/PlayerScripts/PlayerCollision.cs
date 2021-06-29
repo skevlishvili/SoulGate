@@ -26,12 +26,10 @@ public class PlayerCollision : NetworkBehaviour
 
         projectile.DestroyProjectile(gameObject.transform.position);
 
-        if (base.isServer)
-        {
-            HealthScript.PastHealthObj.SetActive(true);
-            HealthScript.PastHealthSliderValue(unitStat.Health);
-            unitStat.TakeDamage(damage, projectile.player);
-        }
+
+        //HealthScript.PastHealthObj.SetActive(true);
+        //HealthScript.PastHealthSliderValue(unitStat.Health);
+        unitStat.TakeDamage(damage, projectile.player);
     }
 
     [Server]
@@ -42,12 +40,9 @@ public class PlayerCollision : NetworkBehaviour
             var towerScript = other.GetComponentInParent<Tower>();
             float damage = (1 - unitStat.PhysicalDefence / 100) * towerScript.DamageMultiplier * SkillLibrary.TowerSkills[0].PhysicalDamage + (1 - unitStat.MagicDefence / 100) * towerScript.DamageMultiplier * SkillLibrary.TowerSkills[0].MagicDamage + towerScript.DamageMultiplier * SkillLibrary.TowerSkills[0].SoulDamage;
 
-            if (base.isServer)
-            {
-                HealthScript.PastHealthObj.SetActive(true);
-                HealthScript.PastHealthSliderValue(unitStat.Health);
-                unitStat.TakeDamage(damage, null);
-            } 
+            //HealthScript.PastHealthObj.SetActive(true);
+            //HealthScript.PastHealthSliderValue(unitStat.Health);
+            unitStat.TakeDamage(damage, null);
         }
     }
 
@@ -73,8 +68,8 @@ public class PlayerCollision : NetworkBehaviour
 
             LastColliderdObjectid = other.gameObject.GetInstanceID();
 
-            HealthScript.PastHealthObj.SetActive(true);
-            HealthScript.PastHealthSliderValue(unitStat.Health);
+            //HealthScript.PastHealthObj.SetActive(true);
+            //HealthScript.PastHealthSliderValue(unitStat.Health);
             unitStat.TakeDamage(Damage, projectile.player);
         }
     }

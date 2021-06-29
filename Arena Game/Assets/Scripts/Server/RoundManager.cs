@@ -21,7 +21,7 @@ public class RoundManager : NetworkBehaviour
     [SyncVar]
     public string RoundText;
     public int CurrentRound = 1;
-    public int MaxRounds = 20;
+    public int MaxRounds = 3;
 
     public Players Manager;
     public ReadyScript Ready;
@@ -292,5 +292,13 @@ public class RoundManager : NetworkBehaviour
         if (number >= 4) return "IV" + ToRoman(number - 4);
         if (number >= 1) return "I" + ToRoman(number - 1);
         throw new ArgumentOutOfRangeException("something bad happened");
+    }
+
+    [Server]
+    public void Reset()
+    {
+        CurrentRound = 1;
+        CurrentState = RoundState.PreRound;
+        RoundText = $"Ready?";
     }
 }

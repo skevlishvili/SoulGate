@@ -22,32 +22,45 @@ public class ServerManager : MonoBehaviour
     void Awake()
     {
         manager = GetComponent<NetworkManager>();
+
+        //try
+        //{
+            //if (_networkType == NetworkType.Host)
+            //{
+            //    manager.StartHost();
+            //}
+            //else if (_networkType == NetworkType.Client)
+            //{
+            //    manager.StartClient();
+            //}
+            //else if (_networkType == NetworkType.Server)
+            //{
+            //    manager.StartServer();
+            //}
+        //}
+        //catch (System.Exception)
+        //{
+
+        //    manager.StartClient();
+        //}
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        try
+        if (_networkType == NetworkType.Host)
         {
-            if (_networkType == NetworkType.Host)
-            {
-                manager.StartHost();
-            }
-            else if (_networkType == NetworkType.Client)
-            {
-                manager.StartClient();
-            }
-            else if (_networkType == NetworkType.Server)
-            {
-                manager.StartServer();
-            }
+            manager.StartHost();
         }
-        catch (System.Exception)
+        else if (_networkType == NetworkType.Client)
         {
-
             manager.StartClient();
         }
-   
+        else if (_networkType == NetworkType.Server)
+        {
+            manager.StartServer();
+        }
     }
 
 }

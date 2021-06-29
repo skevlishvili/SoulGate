@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EscapeMenuScript : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class EscapeMenuScript : MonoBehaviour
     bool EscapeOpen = false;
     public GameObject SettingsPanel;
     public bool SettingsOpen = false;
+    [SerializeField]
+    Players _playersManager;
 
     void Start()
     {
@@ -54,6 +58,10 @@ public class EscapeMenuScript : MonoBehaviour
     }
 
     public void Disconnect() {
-        Destroy(player);
+        _playersManager.RemovePlayerCmd(ClientScene.localPlayer.gameObject);
+        NetworkManager.singleton.StopClient();
+        Destroy(GameObject.FindGameObjectsWithTag("NetworkManager")[0]);
+        SceneManager.LoadScene("Launcher");
+        //Destroy(player);
     }
 }

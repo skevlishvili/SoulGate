@@ -311,7 +311,7 @@ MonoBehaviour:
       - 13
       DoFResolution: 040000000200000001000000
       DoFHighQualityFiltering: 000101
-      MotionBlurSampleCount: 04000000080000000c000000
+      MotionBlurSampleCount: 000000000000000000000000
       BloomRes: 040000000200000002000000
       BloomHighQualityFiltering: 000101
       ChromaticAberrationMaxSamples: 03000000060000000c000000

@@ -11,6 +11,8 @@ TagManager:
   - Audio
   - Tower
   - Crystal
+  - Tower_Spell
+  - NetworkManager
   layers:
   - Default
   - TransparentFX

@@ -6020,6 +6020,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 62499450399089618, guid: 3dbcb05223d85b84980e6ded634c663f,
+        type: 3}
+      propertyPath: _playersManager
+      value: 
+      objectReference: {fileID: 4458642923602047741}
     - target: {fileID: 62499450399089623, guid: 3dbcb05223d85b84980e6ded634c663f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -6129,6 +6134,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EscapeMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 62499450768965405, guid: 3dbcb05223d85b84980e6ded634c663f,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 62499450768965405, guid: 3dbcb05223d85b84980e6ded634c663f,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 62499450768965405, guid: 3dbcb05223d85b84980e6ded634c663f,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.25490198
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dbcb05223d85b84980e6ded634c663f, type: 3}
@@ -12967,6 +12987,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 77345662142412373, guid: 4f0aeef466bbe19498ee8db620c21e92,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -125.89993
+      objectReference: {fileID: 0}
+    - target: {fileID: 77345662142412373, guid: 4f0aeef466bbe19498ee8db620c21e92,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 63.809937
+      objectReference: {fileID: 0}
     - target: {fileID: 6557867631945306870, guid: 4f0aeef466bbe19498ee8db620c21e92,
         type: 3}
       propertyPath: m_Pivot.x
@@ -13071,6 +13101,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891889803141528715, guid: 4f0aeef466bbe19498ee8db620c21e92,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 126.19998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891889803141528715, guid: 4f0aeef466bbe19498ee8db620c21e92,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 63.81006
       objectReference: {fileID: 0}
     - target: {fileID: 8492074324388752263, guid: 4f0aeef466bbe19498ee8db620c21e92,
         type: 3}
@@ -13283,7 +13323,7 @@ PrefabInstance:
     - target: {fileID: 5600095401699329673, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
       propertyPath: _networkType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5600095401699329674, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
@@ -13353,6 +13393,11 @@ PrefabInstance:
     - target: {fileID: 5600095401699329782, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
       propertyPath: m_Name
+      value: NetworkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5600095401699329782, guid: 38980df742fbb424992aa0187f3fd051,
+        type: 3}
+      propertyPath: m_TagString
       value: NetworkManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []

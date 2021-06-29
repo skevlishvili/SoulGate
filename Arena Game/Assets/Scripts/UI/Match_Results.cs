@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -54,11 +55,13 @@ public class Match_Results : MonoBehaviour
     {
         for (int i = 0; i < Manager.PlayersGameObjects.Count; i++)
         {
+            System.Random r = new System.Random();
+
             PlayerInScoreBoard obj = new PlayerInScoreBoard();
             obj.player = Manager.PlayersGameObjects[i];
             obj.playerNickname = Manager.PlayersGameObjects[i].GetComponent<PlayerNickname>();
             obj.playerScore = Manager.PlayersGameObjects[i].GetComponent<PlayerScore>();
-            obj.playerDamage = 0;
+            obj.playerDamage = obj.playerScore.Score*r.Next(1,4);
             SortedPlayers.Add(obj);
         }
 
@@ -82,6 +85,9 @@ public class Match_Results : MonoBehaviour
 
     public void ReturnLauncher()
     {
+        GameObject.FindGameObjectsWithTag("PlayerManager")[0].GetComponent<Players>().RemovePlayerCmd(ClientScene.localPlayer.gameObject);
+        NetworkManager.singleton.StopClient(); 
+        Destroy(GameObject.FindGameObjectsWithTag("NetworkManager")[0]);
         SceneManager.LoadScene("Launcher");
     }
 }

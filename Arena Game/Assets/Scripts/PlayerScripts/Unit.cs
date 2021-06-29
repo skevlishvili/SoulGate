@@ -292,7 +292,7 @@ public class Unit : NetworkBehaviour
     [ClientRpc]
     private void DeathRpc(GameObject killer)
     {
-        lastDamageReceivedFrom.GetComponent<Unit>().PlayerScoreEventScoreChange(1000);
+        killer.GetComponent<Unit>().PlayerScoreEventScoreChange(1000);
         IsReady = false;
         IsDead = true;
         Animator.IsDead();

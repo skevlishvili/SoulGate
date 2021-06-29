@@ -30,4 +30,19 @@ public class Players : NetworkBehaviour
         PlayersGameObjects.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         EventPlayerAdd?.Invoke(player);
     }
+
+    [Command]
+    public void RemovePlayerCmd(GameObject player) {
+        PlayersGameObjects.RemoveAll(x => x.GetInstanceID() == player.GetInstanceID());
+        RemovePlayerRpc(player);
+
+        if (PlayersGameObjects.Count == 0) {
+            GameObject.FindGameObjectsWithTag("RoundManager")[0].GetComponent<RoundManager>().Reset();
+        }
+    }
+
+    [ClientRpc]
+    public void RemovePlayerRpc(GameObject player) {
+        PlayersGameObjects.RemoveAll(x => x.GetInstanceID() == player.GetInstanceID());
+    }
 }
