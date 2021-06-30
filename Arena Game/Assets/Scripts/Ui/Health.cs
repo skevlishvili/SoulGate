@@ -1,33 +1,87 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
+    public Text Healthtext;
+    Slider HealthSlider3D;
+    Slider HealthSlider2D;
 
-    public Slider healthSlider3D;
-    Slider healthSlider2D;
+    public GameObject PastHealthObj;
+    Slider PastHealthSlider3D;
+    Slider PastHealthSlider2D;
 
-    public float MaxHealth;
-    public float health; 
+    public GameObject DamageVisual;
+
+    public bool ScriptForHud = false;
+
+    [Header("References")]
+    [SerializeField] private Unit unitstat = null;
+
+    void Awake()
+    {
+        unitstat = GetComponentInParent<Unit>();
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-        healthSlider2D = GetComponent<Slider>();
+        HealthSlider3D = GetComponentInChildren<Slider>();
+        HealthSlider2D = GetComponentInChildren<Slider>();
 
-        healthSlider2D.maxValue = MaxHealth;// maqximaluri sicocxlis shecvla sheudzlebelia, slideri unda iyos procentebze
+        HealthSlider3D.maxValue = unitstat.MaxHealth;
+        HealthSlider2D.maxValue = unitstat.MaxHealth;
 
-        healthSlider3D.maxValue = MaxHealth;// sachiroa damatebiti texturi informacia sicocxlis sanaxavad
+        if (Healthtext != null)
+            Healthtext.text = $"{(int)unitstat.Health}/{(int)unitstat.MaxHealth}";
 
-        //InvokeRepeating("ChangeMaxHealth", 10.0f, 1.0f);
+        if (ScriptForHud)
+        {
+            PastHealthSlider3D = PastHealthObj.GetComponentInChildren<Slider>();
+            PastHealthSlider2D = PastHealthObj.GetComponentInChildren<Slider>();
+
+            PastHealthSlider3D.maxValue = unitstat.MaxHealth;
+            PastHealthSlider2D.maxValue = unitstat.MaxHealth;
+        }
     }
 
-    // Update is called once per frame
+    //// Update is called once per frame
     void Update()
     {
-        healthSlider2D.value = health;
-        healthSlider3D.value = healthSlider2D.value;
+        if (Healthtext != null)
+            Healthtext.text = $"{(int)unitstat.Health}/{(int)unitstat.MaxHealth}";
+
+        HealthSlider3D.maxValue = unitstat.MaxHealth;
+        HealthSlider2D.maxValue = unitstat.MaxHealth;
+
+        HealthSlider3D.value = unitstat.Health;
+        HealthSlider2D.value = unitstat.Health;
+    }
+
+    public void PastHealthSliderValue(float Health)
+    {
+        if (ScriptForHud)
+        {
+            PastHealthSlider3D.maxValue = unitstat.MaxHealth;
+            PastHealthSlider2D.maxValue = unitstat.MaxHealth;
+            PastHealthSlider3D.value = Health;
+            PastHealthSlider2D.value = Health;
+
+            DamageVisual.SetActive(true);
+            Debug.Log("--------------------------------------It Works------------------------------------");
+            StartCoroutine(PastHealthSliderSetAvtive());
+        }
+    }
+
+    IEnumerator PastHealthSliderSetAvtive()
+    {
+        yield return new WaitForSeconds(0.5f);
+        PastHealthSlider3D.gameObject.SetActive(false);
+        DamageVisual.SetActive(false);
     }
 }
