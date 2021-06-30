@@ -57,7 +57,7 @@ public class Launcher : MonoBehaviour
     #region MonoBehaviour CallBacks
     void Awake()
     {
-        Menu.OpenMenu("Main_Panel");
+        //Menu.OpenMenu("Main_Panel");
     }
     #endregion
 

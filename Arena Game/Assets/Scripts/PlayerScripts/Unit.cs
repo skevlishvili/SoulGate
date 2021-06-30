@@ -16,14 +16,6 @@ public struct UnitStruct
     public float AbilityCooldown;
 }
 
-    public override float Height {
-        get { return Height; }
-        set { Height = value; }
-    }
-    public override float weight {
-        get { return weight; }
-        set { weight = value; }
-    }
 
 public class Unit : NetworkBehaviour
 {
@@ -119,7 +111,7 @@ public class Unit : NetworkBehaviour
         EventPlayerMoney?.Invoke(score);
         Money += score;
     }
-    
+
 
     private void Update()
     {
@@ -199,7 +191,8 @@ public class Unit : NetworkBehaviour
     }
 
     [Command]
-    private void StartRegen() {
+    private void StartRegen()
+    {
         InvokeRepeating("Regeneration", 1.0f, 1.0f);
     }
 
@@ -226,7 +219,8 @@ public class Unit : NetworkBehaviour
 
 
     [Server]
-    public void Revive() {
+    public void Revive()
+    {
         _health = MaxHealth;
         IsDead = false;
 
@@ -278,7 +272,8 @@ public class Unit : NetworkBehaviour
     }
 
     [Server]
-    public void Death() {
+    public void Death()
+    {
         if (IsDead)
             return;
         IsDead = true;
