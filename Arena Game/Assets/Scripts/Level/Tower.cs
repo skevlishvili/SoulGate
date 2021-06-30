@@ -103,7 +103,7 @@ public class Tower : NetworkBehaviour
         TowerLevel = 1;
         TowerRange = 20;
 
-        TowerMaxHealth = 1000;
+        TowerMaxHealth = 100;
         TowerHealth = TowerMaxHealth;
 
         TowerMaxXpMultiplier = 1;
@@ -154,7 +154,6 @@ public class Tower : NetworkBehaviour
         CheckIfDestroyed();
     }
 
-    [Server]
     void CheckIfDestroyed()
     {
         if (TowerHealth <= 0)
@@ -163,7 +162,8 @@ public class Tower : NetworkBehaviour
             Object DestroyedTower = Resources.Load("Prefabs/Level/DestroyedTower_1");
             Instantiate(DestroyedTower, Tower_Position, Tower_Rotation);
             gameObject.SetActive(false);
-            TowerDestroyRpc(lastDamageReceivedFrom);
+            if(base.isServer)
+                TowerDestroyRpc(lastDamageReceivedFrom);
         }
     }
 

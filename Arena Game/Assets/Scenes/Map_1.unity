@@ -253,6 +253,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b777626708b3e27458241ece0f639da8, type: 3}
+--- !u!1 &4974364 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6049803264908695214, guid: b777626708b3e27458241ece0f639da8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4974363}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4974365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df5add0cbfa53149a4b6e93b2340479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Move: 0
+  Reset: 0
+  Speed: 0
+  Index: 0
+  Distance: 0
+  Positions: []
+  Rotations: []
+  RotationSpeed: 0
 --- !u!1001 &10633725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13193,7 +13219,7 @@ PrefabInstance:
     - target: {fileID: 5600095401699329672, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
       propertyPath: networkAddress
-      value: localhost
+      value: 192.168.0.103
       objectReference: {fileID: 0}
     - target: {fileID: 5600095401699329672, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
@@ -13323,7 +13349,7 @@ PrefabInstance:
     - target: {fileID: 5600095401699329673, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
       propertyPath: _networkType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5600095401699329674, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
