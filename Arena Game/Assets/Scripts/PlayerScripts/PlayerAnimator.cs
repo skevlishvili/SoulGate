@@ -7,11 +7,43 @@ using UnityEngine.AI;
 
 public class PlayerAnimator : NetworkBehaviour
 {
+    //Variable
+    float motionSmoothTime = .1f;
 
     private NavMeshAgent agent;
     public Animator anim;
 
-    float motionSmoothTime = .1f;
+    public void Attack(KeyCode key)
+    {
+        if (key == KeyCode.Mouse0)
+        {
+            anim.SetFloat("Blend", 0);
+            anim.SetTrigger("BaseAttack");
+        }
+
+        else if (key == KeyCode.Alpha1)
+        {
+            anim.SetFloat("Blend", 0);
+            anim.SetTrigger("Skill1");
+        }
+
+        else if (key == KeyCode.Alpha2)
+        {
+            anim.SetFloat("Blend", 0);
+            anim.SetTrigger("Skill2");
+        }
+    }
+
+    public void Idle()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Move()
+    {
+        float speed = agent.velocity.magnitude / agent.speed;
+        anim.SetFloat("Blend", speed, motionSmoothTime, Time.deltaTime);
+    }
 
     private void Awake()
     {

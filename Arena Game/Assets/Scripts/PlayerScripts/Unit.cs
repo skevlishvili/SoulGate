@@ -16,6 +16,14 @@ public struct UnitStruct
     public float AbilityCooldown;
 }
 
+    public override float Height {
+        get { return Height; }
+        set { Height = value; }
+    }
+    public override float weight {
+        get { return weight; }
+        set { weight = value; }
+    }
 
 public class Unit : NetworkBehaviour
 {
