@@ -13193,7 +13193,7 @@ PrefabInstance:
     - target: {fileID: 5600095401699329672, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
       propertyPath: networkAddress
-      value: 95.104.67.12
+      value: localhost
       objectReference: {fileID: 0}
     - target: {fileID: 5600095401699329672, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
@@ -13323,7 +13323,7 @@ PrefabInstance:
     - target: {fileID: 5600095401699329673, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
       propertyPath: _networkType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5600095401699329674, guid: 38980df742fbb424992aa0187f3fd051,
         type: 3}
